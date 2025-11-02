@@ -2,11 +2,88 @@ import fs from 'fs'
 import fetch from 'node-fetch'
 import { WAMessageStubType } from '@whiskeysockets/baileys'
 
+const prefijosPais = {
+  '1': '🇺🇸 Estados Unidos / 🇨🇦 Canadá',
+  '7': '🇷🇺 Rusia / 🇰🇿 Kazajistán',
+  '20': '🇪🇬 Egipto',
+  '27': '🇿🇦 Sudáfrica',
+  '30': '🇬🇷 Grecia',
+  '31': '🇳🇱 Países Bajos',
+  '32': '🇧🇪 Bélgica',
+  '33': '🇫🇷 Francia',
+  '34': '🇪🇸 España',
+  '39': '🇮🇹 Italia',
+  '40': '🇷🇴 Rumania',
+  '41': '🇨🇭 Suiza',
+  '43': '🇦🇹 Austria',
+  '44': '🇬🇧 Reino Unido',
+  '45': '🇩🇰 Dinamarca',
+  '46': '🇸🇪 Suecia',
+  '47': '🇳🇴 Noruega',
+  '48': '🇵🇱 Polonia',
+  '49': '🇩🇪 Alemania',
+  '51': '🇵🇪 Perú',
+  '52': '🇲🇽 México',
+  '54': '🇦🇷 Argentina',
+  '55': '🇧🇷 Brasil',
+  '56': '🇨🇱 Chile',
+  '57': '🇨🇴 Colombia',
+  '58': '🇻🇪 Venezuela',
+  '60': '🇲🇾 Malasia',
+  '62': '🇮🇩 Indonesia',
+  '63': '🇵🇭 Filipinas',
+  '64': '🇳🇿 Nueva Zelanda',
+  '65': '🇸🇬 Singapur',
+  '66': '🇹🇭 Tailandia',
+  '81': '🇯🇵 Japón',
+  '82': '🇰🇷 Corea del Sur',
+  '84': '🇻🇳 Vietnam',
+  '86': '🇨🇳 China',
+  '90': '🇹🇷 Turquía',
+  '91': '🇮🇳 India',
+  '92': '🇵🇰 Pakistán',
+  '94': '🇱🇰 Sri Lanka',
+  '98': '🇮🇷 Irán',
+  '212': '🇲🇦 Marruecos',
+  '213': '🇩🇿 Argelia',
+  '216': '🇹🇳 Túnez',
+  '218': '🇱🇾 Libia',
+  '220': '🇬🇲 Gambia',
+  '221': '🇸🇳 Senegal',
+  '222': '🇲🇷 Mauritania',
+  '223': '🇲🇱 Mali',
+  '225': '🇨🇮 Costa de Marfil',
+  '226': '🇧🇫 Burkina Faso',
+  '227': '🇳🇪 Níger',
+  '228': '🇹🇬 Togo',
+  '229': '🇧🇯 Benín',
+  '230': '🇲🇺 Mauricio',
+  '231': '🇱🇷 Liberia',
+  '233': '🇬🇭 Ghana',
+  '234': '🇳🇬 Nigeria',
+  '255': '🇹🇿 Tanzania',
+  '256': '🇺🇬 Uganda',
+  '260': '🇿🇲 Zambia',
+  '263': '🇿🇼 Zimbabue'
+}
+
+function detectarPais(jid) {
+  const num = jid.split('@')[0]
+  for (const [prefijo, pais] of Object.entries(prefijosPais)) {
+    if (num.startsWith(prefijo)) return pais
+  }
+  return '🌍 Desconocido'
+}
+
 async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   const username = `@${userId.split('@')[0]}`
   const pp = await conn.profilePictureUrl(userId, 'image').catch(() => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
-  const fecha = new Date().toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
-  const hora = fecha.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })
+
+  const fecha = new Date()
+  const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
+  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Mexico_City", hour: '2-digit', minute: '2-digit' })
+
+  const pais = detectarPais(userId)
   const groupSize = groupMetadata.participants.length + 1
   const desc = groupMetadata.desc?.toString() || 'Sin descripción'
   const mensaje = (chat.sWelcome || 'Edita con el comando "setwelcome"')
@@ -17,21 +94,27 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   const caption = `👋 ¡Hola, ${username}!
 Bienvenid@ al grupo *_${groupMetadata.subject}_*
 
-
 🍃 *_Esperamos que disfrutes tu estadía._*
 
 🌿 \`𝐈𝐧𝐟𝐨 - 𝐆𝐫𝐨𝐮𝐩:\`
  • ᴍɪᴇᴍʙʀᴏs: ${groupSize}
+ • ᴘᴀíꜱ: ${pais}
  • ʜᴏʀᴀ: ${hora}
- • ғᴇᴄʜᴀ: ${fecha}
+ • ғᴇᴄʜᴀ: ${fechaTexto}
  • ᴅᴇsᴄʀɪᴘᴄɪᴏɴ: ${mensaje}`
+
   return { pp, caption, username }
 }
 
 async function generarDespedida({ conn, userId, groupMetadata, chat }) {
   const username = `@${userId.split('@')[0]}`
   const pp = await conn.profilePictureUrl(userId, 'image').catch(() => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
-  const fecha = new Date().toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
+
+  const fecha = new Date()
+  const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
+  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Mexico_City", hour: '2-digit', minute: '2-digit' })
+
+  const pais = detectarPais(userId)
   const groupSize = groupMetadata.participants.length - 1
   const desc = groupMetadata.desc?.toString() || 'Sin descripción'
   const mensaje = (chat.sBye || 'Edita con el comando "setbye"')
@@ -45,8 +128,10 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
 
 📉 \`𝐄𝐬𝐭𝐚𝐝𝐨 𝐀𝐜𝐭𝐮𝐚𝐥:\`
  • ᴍɪᴇᴍʙʀᴏs: ${groupSize}
+ • ᴘᴀíꜱ: ${pais}
  • ʜᴏʀᴀ: ${hora}
- • ғᴇᴄʜᴀ: ${fecha}`
+ • ғᴇᴄʜᴀ: ${fechaTexto}`
+
   return { pp, caption, username }
 }
 
@@ -76,8 +161,10 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
     participant: '0@s.whatsapp.net'
   }
 
+  // BIENVENIDA
   if (chat.welcome && m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_ADD) {
     const { pp, caption, username } = await generarBienvenida({ conn, userId, groupMetadata, chat })
+    const pais = detectarPais(userId)
 
     const productMessage = {
       product: {
@@ -93,7 +180,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       },
       businessOwnerJid: who,
       caption: caption,
-      footer: `👥 Miembros: ${totalMembers} 📆 ${date}`,
+      footer: `👥 Miembros: ${totalMembers} | 🌎 País: ${pais} | 📆 ${date}`,
       interactiveButtons: [
         {
           name: 'quick_reply',
@@ -109,8 +196,10 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
     await conn.sendMessage(m.chat, productMessage, { quoted: fkontak })
   }
 
+  // DESPEDIDA
   if (chat.welcome && (m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_REMOVE || m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_LEAVE)) {
     const { pp, caption, username } = await generarDespedida({ conn, userId, groupMetadata, chat })
+    const pais = detectarPais(userId)
 
     const productMessage = {
       product: {
@@ -126,7 +215,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       },
       businessOwnerJid: who,
       caption: caption,
-      footer: `👥 Miembros: ${totalMembers} 📆 ${date}`,
+      footer: `👥 Miembros: ${totalMembers} | 🌎 País: ${pais} | 📆 ${date}`,
       interactiveButtons: [
         {
           name: 'quick_reply',

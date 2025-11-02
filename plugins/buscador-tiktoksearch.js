@@ -44,20 +44,23 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     let cards = [];
 
     for (let v of results) {
-      let info = `🎬 *Título:* ${v.title || "Sin título"}
-👤 *Creador:* ${v.creator || "Desconocido"}
-🌎 *Región:* ${v.region || "N/A"}
-🕒 *Duración:* ${v.duration || 0} segundos
-📅 *Publicado:* ${v.create_time || "N/A"}
+      let info = `🌙💫 *Información del Video* 💫🌙  
+💖 *Título:* ${v.title || "Sin título"}  
+🌹 *Creador:* ${v.creator || "Desconocido"}  
+🍃 *Región:* ${v.region || "N/A"}  
+⚡ *Duración:* ${v.duration || 0} segundos  
+🌸 *Publicado:* ${v.create_time || "N/A"}  
 
-📈 *Vistas:* ${v.views?.toLocaleString() || 0}
-❤️ *Likes:* ${v.likes?.toLocaleString() || 0}
-💬 *Comentarios:* ${v.comments?.toLocaleString() || 0}
-🔁 *Compartidos:* ${v.share?.toLocaleString() || 0}
-⬇️ *Descargas:* ${v.download?.toLocaleString() || 0}
+🔥💀 *Estadísticas del Video* 💀🔥  
+🌟 *Vistas:* ${v.views?.toLocaleString() || 0}  
+💖 *Likes:* ${v.likes?.toLocaleString() || 0}  
+🌿 *Comentarios:* ${v.comments?.toLocaleString() || 0}  
+🌾 *Compartidos:* ${v.share?.toLocaleString() || 0}  
+🌈 *Descargas:* ${v.download?.toLocaleString() || 0}  
 
-🎵 *Audio:* ${v.music ? v.music.split("/").pop() : "Sin información"}
-🔗 *Enlace:* ${v.url || "No disponible"}`;
+🌹🦋 *Audio y Enlace* 🦋🌹  
+💫 *Audio:* ${v.music ? v.music.split("/").pop() : "Sin información"}  
+🌙 *Enlace:* ${v.url || "No disponible"}  `;
 
       let videoMsg = await createVideoMessage(v.nowm);
       if (!videoMsg) continue;

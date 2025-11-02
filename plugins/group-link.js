@@ -62,7 +62,7 @@ ${desc}
             name: 'cta_url',
             buttonParamsJson: JSON.stringify({
               display_text: "🩵 Canal Oficial",
-              url: "https://whatsapp.com/channel/0029VbAtbPA84OmJSLiHis2U"
+              url: channel
             })
           }
         ]
