@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
 import baileys from '@whiskeysockets/baileys'
-const { generateWAMessageFromContent, proto } = baileys
+
+const { generateWAMessageFromContent, generateWAMessageContent, proto } = baileys
 
 let handler = async (m, { conn }) => {
   try {
@@ -9,7 +10,12 @@ let handler = async (m, { conn }) => {
     const group = m.chat
     const metadata = await conn.groupMetadata(group)
     const ppUrl = await conn.profilePictureUrl(group, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
-    const pp = await (await fetch(ppUrl)).arrayBuffer()
+
+    const { imageMessage } = await generateWAMessageContent(
+      { image: { url: ppUrl } },
+      { upload: conn.waUploadToServer }
+    )
+
     const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(group)
     const owner = metadata.owner ? '@' + metadata.owner.split('@')[0] : 'No disponible'
     const desc = metadata.desc ? `\n📝 *Descripción:*\n${metadata.desc}\n` : ''
@@ -32,11 +38,9 @@ ${desc}
         text: info
       }),
       header: proto.Message.InteractiveMessage.Header.fromObject({
-        title: metadata.subject,
+        title: '',
         hasMediaAttachment: true,
-        imageMessage: {
-          jpegThumbnail: Buffer.from(pp)
-        }
+        imageMessage: imageMessage
       }),
       nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
         buttons: [
@@ -55,11 +59,10 @@ ${desc}
             })
           },
           {
-            name: 'cta_reply',
+            name: 'cta_url',
             buttonParamsJson: JSON.stringify({
-              display_text: "📤 Reenviar Link",
-              id: "reenviar_link",
-              reply_text: `🔗 ${invite}`
+              display_text: "🩵 Canal Oficial",
+              url: "https://whatsapp.com/channel/0029VbAtbPA84OmJSLiHis2U"
             })
           }
         ]
@@ -78,7 +81,7 @@ ${desc}
               text: `✨ Información del grupo`
             }),
             footer: proto.Message.InteractiveMessage.Footer.create({
-              text: '🌸 Rin Itoshi'
+              text: dev
             }),
             header: proto.Message.InteractiveMessage.Header.create({
               hasMediaAttachment: false
