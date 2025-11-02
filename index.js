@@ -32,13 +32,13 @@ const { chain } = lodash
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 
 let { say } = cfonts
-console.log(chalk.magentaBright('\n❀ Iniciando...'))
-say('KANEKI - BOT AI', {
+console.log(chalk.magentaBright('\n🚀 Iniciando...'))
+say('KANEKI - BOT AI\n\n-漫·舞', {
 font: 'block',
 align: 'center',
 gradient: ['green', 'white']
 })
-say('Made with love by Shadow_xyz', {
+say('˙˚ʚ₍ ᐢ. ̫ .ᐢ ₎ɞ˚ ᴍᴀᴅᴇ ᴡɪᴛʜ ʟᴏᴠᴇ ʙʏ sʜᴀᴅᴏᴡ.xʏᴢ', {
 font: 'console',
 align: 'center',
 colors: ['cyan', 'magenta', 'yellow']

@@ -6,6 +6,6 @@ Este proyecto **no está afiliado de ninguna manera** con `WhatsApp`, `Inc. What
 
 <div align="center">
 
-put* mdre 😓
+put* mdre 😓 dejen su ⭐ es gratis :c
 
 </div>

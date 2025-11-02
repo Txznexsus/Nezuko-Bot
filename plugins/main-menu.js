@@ -47,7 +47,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
         },
         externalAdReply: {
           title: '꒰͡•*゜🩸 Kaneki Bot AI 🌿꒰͡•*゜・。 ͡꒱ֽ ׄ',
-          body: '💮 Dev: Shadow_xyz ☁️',
+          body: '· · • • • 💮 Dev: Shadow_xyz ☁️ • • • · ·',
           mediaUrl: null,
           description: null,
           previewType: "PHOTO",
@@ -93,7 +93,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     for (let tag in tags) {
       let comandos = commands
         .filter(cmd => cmd.tags.includes(tag))
-        .map(cmd => cmd.help.map(e => `> ര ׄ 🍃 ׅ  ${usedPrefix}${e}`).join('\n'))
+        .map(cmd => cmd.help.map(e => `ര ׄ 🍃 ׅ  ${usedPrefix}${e}`).join('\n'))
         .join('\n')
       if (comandos) {
         menuTexto += `\n\n*${tags[tag]}*\n\`\`\`${comandos}\`\`\``
@@ -101,24 +101,25 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     }
 
     const infoUser = `
-ര ׄ ☃️ ׅ  Bienvenid@ soy | Kaneki Bot AI  
+°•°•°•°•°•°•°•°∞°•°•°•°•°•°•°•°
+ര ׄ 🚀 ׅ  Bienvenid@ soy | Kaneki Bot AI ┊͙ ˘͈ᵕ˘͈
 ─────────────────────
-🌿 *Usuario:* @${userId}
-🍉 *Premium:* ${premium}
-🌍 *País:* ${pais}
-🎲 *Límite:* ${limit}
-🎋 *Usuarios totales:* ${totalreg}
-☁️ *Grupos activos:* ${groupsCount}
-🚀 *Tiempo activo:* ${uptime}
+::=> 🍃 *Usuario:* @${userId}
+::=> 🍬 *Premium:* ${premium}
+::=> 🍟 *País:* ${pais}
+::=> 🪀 *Límite:* ${limit}
+::=> 🎋 *Usuarios totales:* ${totalreg}
+::=> 🪺 *Grupos activos:* ${groupsCount}
+::=> 🏮 *Tiempo activo:* ${uptime}
 ─────────────────────
-🌾 *Bot:* ${(conn.user.jid == global.conn.user.jid ? '𝙋𝙧𝙞𝙣𝙘𝙞𝙥𝙖𝙡 🌱' : '𝙆𝙖𝙣𝙚𝙠𝙞 𝙎𝙪𝙗-𝘽𝙤𝙩 💮')}
-🕸️ *Comandos:* ${totalCommands}
-📡 *Versión:* ${vs}
-🛠️ *Librería:* ${libreria}
-💐 *Fecha:* \`${hora}, ${dia}, ${fechaTxt}\`
-─────────────────────\n\n`.trim()
+::=> 💫 *Bot:* ${(conn.user.jid == global.conn.user.jid ? '𝙋𝙧𝙞𝙣𝙘𝙞𝙥𝙖𝙡 🌱' : '𝙆𝙖𝙣𝙚𝙠𝙞 𝙎𝙪𝙗-𝘽𝙤𝙩 💮')}
+::=> 🕸️ *Comandos:* ${totalCommands}
+::=> 🪸 *Versión:* ${vs}
+::=> 🪵 *Librería:* ${libreria}
+::=> 💐 *Fecha:* \`${hora}, ${dia}, ${fechaTxt}\`
+─────────────────────`.trim()
 
-    const cuerpo = infoUser + `*🍡 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ:*${menuTexto}`.trim()
+    const cuerpo = infoUser + `\n\n*🍡 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ:*${menuTexto}`.trim()
 
     const imgs = [
       'https://i.pinimg.com/originals/b3/67/d5/b367d513d861de468305c32c6cd22756.jpg',

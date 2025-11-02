@@ -31,7 +31,7 @@ const handler = async (m, { conn, args, command }) => {
 
     await conn.reply(
       m.chat,
-      `✅ *Acceso temporal concedido a:* ${userName}\n⏳ *Duración:* 5 segundos.`, //😏
+      `✅ *Acceso temporal concedido a:* ${userName}\n⏳ *Duración:* 5 segundos.`, // 😏
       m
     );
 

@@ -5,23 +5,23 @@ const chat = global.db.data.chats[m.chat]
 let type = command.toLowerCase()
 let isEnable = chat[type] !== undefined ? chat[type] : false
 if (args[0] === 'on' || args[0] === 'enable') {
-if (isEnable) return conn.reply(m.chat, `🌾 *${type}* ya estaba *activado*.`, m, rcanal)
+if (isEnable) return conn.reply(m.chat, `🪺 *${type}* ya estaba *activado*.`, m, rcanal)
 isEnable = true
 } else if (args[0] === 'off' || args[0] === 'disable') {
-if (!isEnable) return conn.reply(m.chat, `🍊 *${type}* ya estaba *desactivado*.`, m, rcanal)
+if (!isEnable) return conn.reply(m.chat, `🪵 *${type}* ya estaba *desactivado*.`, m, rcanal)
 isEnable = false
 } else {
-return conn.reply(m.chat, `╭━━━〔 ⚙️ ᴘᴀɴᴇʟ ᴅᴇ ᴄᴏɴᴛʀᴏʟ 〕━━⬣  
-┃ 🍃 *Un administrador puede gestionar el comando:*  
-┃ ╰➤ *${command}*  
-┃  
-┃ 🪄 Opciones disponibles: 🌾
-┃ 𖥔 _Activar_ » *${usedPrefix}${command} enable*  
-┃ 𖥔 _Desactivar_ » *${usedPrefix}${command} disable*  
-┃  
-┃ 🌿 Estado actual:  
-┃ ╰➤ *${isEnable ? '✓ Activado' : '✗ Desactivado'}*  
-╰━━━━━━━━━━━━━━━━━━━━━━⬣`, m, rcanal)
+return conn.reply(m.chat, `*_╭━━━⊜ ⌊• \`ᴘᴀɴᴇʟ ᴅᴇ ᴄᴏɴᴛʀᴏʟ\` •⌉_*
+*_┃🍃❏ Un administrador puede gestionar el comando:_*
+*_┃_* ╰➤ *${command}*
+*_┃_*
+*_┃_* \`🪄 Opciones disponibles: 🌾\`
+*_┃_* 𖥔 _Activar_ » *${usedPrefix}${command} enable*  
+*_┃_* 𖥔 _Desactivar_ » *${usedPrefix}${command} disable*  
+*_┃_*  
+*_┃_* \`🌿 Estado actual:\`
+*_┃_* ╰➤ *${isEnable ? '✓ Activado' : '✗ Desactivado'}*
+*_╰━━━━━━━━━━━━━━━━⊜_*`, m, rcanal)
 }
 switch (type) {
 case 'welcome': case 'bienvenida': {
@@ -109,12 +109,28 @@ chat.gacha = isEnable
 break
 }}
 chat[type] = isEnable
-conn.reply(m.chat, `🕸️ Has *${isEnable ? 'activado' : 'desactivado'}* el *${type}* para este grupo.`, m, rcanal)
+conn.reply(m.chat, `*_🕸️ Has \`${isEnable ? 'activado' : 'desactivado'}\` el \`${type}\` para este grupo._*`, m, rcanal)
 }
 
-handler.help = ['welcome', 'bienvenida', 'modoadmin', 'onlyadmin', 'nsfw', 'modohorny', 'economy', 'economia', 'rpg', 'gacha', 'detect', 'alertas', 'antilink', 'antienlace', 'antilinks', 'antienlaces']
+handler.help = [
+  'welcome', 'bienvenida',
+  'modoadmin', 'onlyadmin',
+  'nsfw', 'modohorny',
+  'economy', 'economia',
+  'rpg', 'gacha', 
+  'detect', 'alertas',
+  'antilink', 'antienlace',
+  'antilinks', 'antienlaces']
 handler.tags = ['nable']
-handler.command = ['welcome', 'bienvenida', 'modoadmin', 'onlyadmin', 'nsfw', 'modohorny', 'economy', 'economia', 'rpg', 'gacha', 'detect', 'alertas', 'antilink', 'antienlace']
+handler.command = [
+  'welcome', 'bienvenida',
+  'modoadmin', 'onlyadmin',
+  'nsfw', 'modohorny',
+  'economy', 'economia',
+  'rpg', 'gacha', 
+  'detect', 'alertas',
+  'antilink', 'antienlace',
+  'antilinks', 'antienlaces']
 handler.group = true
 
 export default handler
