@@ -180,7 +180,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       },
       businessOwnerJid: who,
       caption: caption,
-      footer: `👥 Miembros: ${totalMembers} | 🌎 País: ${pais} | 📆 ${date}`,
+      footer: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
       interactiveButtons: [
         {
           name: 'quick_reply',
@@ -215,7 +215,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       },
       businessOwnerJid: who,
       caption: caption,
-      footer: `👥 Miembros: ${totalMembers} | 🌎 País: ${pais} | 📆 ${date}`,
+      footer: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
       interactiveButtons: [
         {
           name: 'quick_reply',
