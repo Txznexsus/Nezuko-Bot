@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+/*import fetch from 'node-fetch'
 import Jimp from 'jimp'
 import filesize from 'filesize'
 import savetube from '../lib/ytdl.js'
@@ -95,4 +95,4 @@ handler.help = ['ytdl']
 handler.tags = ['download']
 handler.command = ['ytdl']
 
-export default handler
+export default handler*/
