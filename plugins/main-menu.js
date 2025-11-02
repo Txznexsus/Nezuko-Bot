@@ -144,7 +144,7 @@ await conn.sendMessage(
   {
     video: { url: 'https://files.catbox.moe/p1tf7r.mp4' },
     caption: cuerpo,
-    gifPlayback: false,
+    gifPlayback: true,
     gifAttribution: 0,
     contextInfo: {
       mentionedJid: [m.sender],
