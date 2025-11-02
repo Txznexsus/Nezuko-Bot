@@ -3,16 +3,10 @@ import fs from 'fs'
 let handler = async (m, { conn, command }) => {
 try {
   
-/*
-await conn.sendMessage(m.chat, {
-  video: { url: 'https://vt.tiktok.com/ZSyMm8YQ6/' },
-  caption: '👁️‍🗨️ *KANΕKI MODE ACTIVATED...* 🍷'
-}, { quoted: m })
-*/
 let text = `
 ╭━━━〔 🍷 𝐌𝐄𝐍𝐔 𝐊𝐀𝐍𝐄𝐊𝐈 𝐕𝟏𝟖 🍷 〕━━⬣
 │
-│ 🩸 *» 𝘽𝙊𝙏:* ʀɪɴ ɪᴛᴏꜱʜɪ
+│ 🩸 *» 𝘽𝙊𝙏:* ${botname}
 │ 👁 *» 𝙀𝙎𝙏𝘼𝘿𝙊:* 𝙀𝙉 𝙊𝙋𝙀𝙍𝘼𝘾𝙄𝙊́𝙉
 │ ⚙️ *» 𝙑𝙀𝙍𝙎𝙄𝙊́𝙉:* ${vs}
 │ 🕶 *» 𝙏𝙀𝙈𝘼:* 𝐊𝐀𝐍𝐄𝐊𝐈 𝐌𝐎𝐃𝐄
@@ -56,9 +50,8 @@ await conn.sendMessage(m.chat, {
       ]
     }
   }
-}, { quoted: m })
+}, { quoted: fkontak })
 
-// Reacción final
 m.react('🍒')
 
 } catch (e) {
@@ -67,5 +60,5 @@ m.reply('⚠️ Error al enviar el menú Kaneki 18.')
 }
 }
 
-handler.command = /^(menu18|kaneki18|kanekimenu)$/i
+handler.command = ['menu18']
 export default handler
