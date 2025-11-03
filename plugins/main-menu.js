@@ -27,7 +27,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     const phone = PhoneNumber('+' + userId)
     const pais = phone.getRegionCode() || 'Desconocido 🌐'
     
-    const perfil = await conn.profilePictureUrl(conn.user.jid, 'image')
+    //const perfil = await conn.profilePictureUrl(conn.user.jid, 'image')
       .catch(() => 'https://i.pinimg.com/originals/b3/67/d5/b367d513d861de468305c32c6cd22756.jpg')
 
     const channelRD = { 
@@ -158,7 +158,7 @@ await conn.sendMessage(
       externalAdReply: {
         title: '꒰͡•*゜🩸 Kaneki Bot AI 🌿꒰͡•*゜・。 ͡꒱ֽ ׄ',
         body: '· · • • • 💮 Dev: Shadow_xyz ☁️ • • • · ·',
-        thumbnailUrl: perfil,
+        thumbnailUrl: banner,
         mediaType: 1,
         renderLargerThumbnail: true
       }
