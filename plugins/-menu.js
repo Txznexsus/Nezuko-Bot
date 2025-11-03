@@ -61,4 +61,6 @@ m.reply('⚠️ Error al enviar el menú Kaneki 18.')
 }
 
 handler.command = ['menu18']
+handler.register = true;
+
 export default handler
