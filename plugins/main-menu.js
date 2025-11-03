@@ -142,7 +142,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
 await conn.sendMessage(
   m.chat,
   {
-    video: { url: 'https://files.catbox.moe/p1tf7r.mp4' },
+    video: { url: 'https://qu.ax/WQnwi.mp4' },
     caption: cuerpo,
     gifPlayback: true,
     gifAttribution: 0,
@@ -160,7 +160,7 @@ await conn.sendMessage(
         body: '· · • • • 💮 Dev: Shadow_xyz ☁️ • • • · ·',
         thumbnailUrl: perfil,
         mediaType: 1,
-        renderLargerThumbnail: false
+        renderLargerThumbnail: true
       }
     }
   },
