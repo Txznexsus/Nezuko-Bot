@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 import Jimp from 'jimp'
 import baileys from '@whiskeysockets/baileys'
-const { proto, generateWAMessageFromContent } = baileys
+const { proto } = baileys
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!text)
@@ -14,7 +14,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   try {
     let spotifyUrl = text.includes('spotify.com/track') ? text : null
 
-    // 🔍 Buscar si el usuario escribió solo el nombre
+    // 🔍 Buscar por nombre si no es URL
     if (!spotifyUrl) {
       const search = await fetch(`https://api.yupra.my.id/api/search/spotify?q=${encodeURIComponent(text)}`)
       if (!search.ok) throw 'Error al buscar en Yupra.'
@@ -61,45 +61,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 🔗 [Spotify](${song.spotify})
 `
 
-    // 🪄 Crear mensaje interactivo con el documento y botón
-    const msg = generateWAMessageFromContent(
-      m.chat,
-      {
-        viewOnceMessage: {
-          message: {
-            messageContextInfo: { deviceListMetadataVersion: 2 },
-            interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-              header: proto.Message.InteractiveMessage.Header.create({
-                title: song.title,
-                subtitle: song.artist,
-                hasMediaAttachment: true,
-                ...(thumb ? { jpegThumbnail: thumb } : {}),
-              }),
-              body: proto.Message.InteractiveMessage.Body.create({
-                text: caption,
-              }),
-              footer: proto.Message.InteractiveMessage.Footer.create({
-                text: '🌿 ᴋᴀɴᴇᴋɪ ʙᴏᴛ ᴠ3 - sᴘᴏᴛɪғʏ ᴍᴜsɪᴄ 🎧',
-              }),
-              nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
-                buttons: [
-                  {
-                    name: 'cta_url',
-                    buttonParamsJson: JSON.stringify({
-                      display_text: '🎵 ᴇsᴄᴜᴄʜᴀʀ ᴇɴ sᴘᴏᴛɪғʏ',
-                      url: song.spotify,
-                    }),
-                  },
-                ],
-              }),
-            }),
-          },
-        },
-      },
-      { quoted: m }
-    )
-
-    // 💾 Enviar primero el documento (MP3) con botón y caption
+    // 📄 Enviar documento con botón
     await conn.sendMessage(
       m.chat,
       {
@@ -116,15 +78,23 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
             renderLargerThumbnail: true,
             sourceUrl: song.spotify,
           },
+          // 🔘 Botón "Escuchar en Spotify"
+          mentionedJid: [m.sender],
+          forwardingScore: 999,
+          isForwarded: true,
+          businessMessageForwardInfo: {},
+          messageAd: true,
+          externalReply: true,
+          buttonParamsJson: JSON.stringify({
+            display_text: '🎵 ᴇsᴄᴜᴄʜᴀʀ ᴇɴ sᴘᴏᴛɪғʏ',
+            url: song.spotify,
+          }),
         },
       },
       { quoted: m }
     )
 
-    // 💬 Luego enviar el mensaje con el botón separado
-    await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
-
-    // 🎧 Finalmente enviar el audio simple (preview player)
+    // 🎧 Enviar audio reproducible
     await conn.sendMessage(
       m.chat,
       {
@@ -142,7 +112,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
           },
         },
       },
-      { quoted: fkontak }
+      { quoted: m }
     )
 
     await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key } })
