@@ -12,17 +12,16 @@ let bank = user.bank || 0
 let total = (user.coin || 0) + (user.bank || 0)
 let level = user.level || 0
 let exp = user.exp || 0
-const texto = `╭━━━〔 ⚔️ ʀᴘɢ ꜱʏꜱᴛᴇᴍ - ɪɴꜰᴏʀᴍᴀᴄɪᴏ́ɴ ❖ 〕━━⬣
-│ ᥫ᭡ 𝐄𝐬𝐭𝐚𝐝𝐨 𝐝𝐞𝐥 𝐀𝐝𝐯𝐞𝐧𝐭𝐮𝐫𝐨
-│
-│ 🧙‍♂️ Nombre » *${name}*
-│ 💰 Cartera » *¥${coin.toLocaleString()} ${currency}*
-│ 🏦 Banco » *¥${bank.toLocaleString()} ${currency}*
-│ 💎 Total » *¥${total.toLocaleString()} ${currency}*
-│ ⚔️ Nivel » *${level}*
-│ 📖 Experiencia » *${exp} XP*
-╰━━━━━━━━━━━━━━━━━━━━━━━⬣
-> *Para proteger tu dinero, ¡depósitalo en el banco usando #deposit!*`
+const texto = `ᥫ᭡ 𝐄𝐬𝐭𝐚𝐝𝐨 𝐝𝐞𝐥 𝐀𝐝𝐯𝐞𝐧𝐭𝐮𝐫𝐨 🎄
+
+ *🪸 ᥒ᥆mᑲrᥱ* » ${name}
+ *💐 ᥴᥲr𝗍ᥱrᥲ* » ¥${coin.toLocaleString()} ${currency}
+ *💫 ᑲᥲᥒᥴ᥆* » ¥${bank.toLocaleString()} ${currency}
+ *🪀 𝗍᥆𝗍ᥲᥣ* » ¥${total.toLocaleString()} ${currency}
+ *🪵 ᥒі᥎ᥱᥣ* » ${level}
+ *🕸️ ᥱ᥊⍴ᥱrіᥱᥒᥴіᥲ* » ${exp} ᥊⍴
+ 
+> 🍃 *⍴ᥲrᥲ ⍴r᥆𝗍ᥱgᥱr 𝗍ᥙ ძіᥒᥱr᥆, ¡ძᥱ⍴ósі𝗍ᥲᥣ᥆ ᥱᥒ ᥱᥣ ᑲᥲᥒᥴ᥆ ᥙsᥲᥒძ᥆ #ძᥱ⍴᥆sі𝗍!*`
   await conn.sendMessage(m.chat, {
       image: { url: 'https://files.catbox.moe/8xasa6.jpg' },
       caption: texto,

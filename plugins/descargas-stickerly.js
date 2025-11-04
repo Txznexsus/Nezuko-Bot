@@ -1,25 +1,29 @@
 import fetch from "node-fetch"
-import { sticker } from "../lib/sticker.js"
 import fs from "fs"
 import path from "path"
+import { sticker } from "../lib/sticker.js"
 
 const API_STICKERLY = "https://delirius-apiofc.vercel.app/download/stickerly"
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-  if (!args[0]) {
-    return m.reply(`🍧 Ingresa la URL de un pack de *Stickerly*.\n\n🌱 Ejemplo:\n> ${usedPrefix + command} https://sticker.ly/s/4I2FC0`)
-  }
+  if (!args[0])
+    return m.reply(
+      `🍧 Ingresa la URL de un pack de *Stickerly*.\n\n🌱 Ejemplo:\n> ${usedPrefix + command} https://sticker.ly/s/4I2FC0`
+    )
+
+  await m.react("🕓")
 
   try {
-    let url = `${API_STICKERLY}?url=${encodeURIComponent(args[0])}`
-    let res = await fetch(url)
+    const res = await fetch(`${API_STICKERLY}?url=${encodeURIComponent(args[0])}`)
     if (!res.ok) throw new Error(`❌ Error al conectar con la API (${res.status})`)
-    let json = await res.json()
-    if (!json.status || !json.data || !json.data.stickers) throw "⚠️ No se pudo obtener el pack. Verifica el enlace."
+    const json = await res.json()
 
-    let data = json.data
+    if (!json.status || !json.data || !json.data.stickers?.length)
+      throw new Error("⚠️ No se pudo obtener el pack. Verifica el enlace.")
 
-    let info = `
+    const data = json.data
+
+    const info = `
 ╭━━━〔 🌸 *STICKERLY PACK* 🌸 〕━━⬣
 ┃ ✨ *Nombre:* ${data.name}
 ┃ 👤 *Autor:* ${data.author}
@@ -27,55 +31,62 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 ┃ 👀 *Vistas:* ${data.viewCount}
 ┃ 📤 *Exportados:* ${data.exportCount}
 ┃ 🎭 *Animado:* ${data.isAnimated ? "Sí" : "No"}
-┃ 🔗 *Pack:* ${data.url}
+┃ 🔗 *Enlace:* ${data.url}
 ╰━━━━━━━━━━━━━━━━━━⬣
 👥 *Usuario:* ${data.username}
 👤 *Followers:* ${data.followers}
     `.trim()
 
-    await conn.sendMessage(m.chat, {
-      text: info,
-      contextInfo: {
-        externalAdReply: {
-          title: `${data.name}`,
-          body: `🍃 Autor: ${data.author || "Desconocido"} • ${data.total} stickers`,
-          thumbnailUrl: data.preview,
-          sourceUrl: data.url,
-          mediaType: 1,
-          renderLargerThumbnail: true
-        }
-      }
-    }, { quoted: m })
+    await conn.sendMessage(
+      m.chat,
+      {
+        text: info,
+        contextInfo: {
+          externalAdReply: {
+            title: `${data.name}`,
+            body: `🍃 Autor: ${data.author || "Desconocido"} • ${data.total} stickers`,
+            thumbnailUrl: data.preview,
+            sourceUrl: data.url,
+            mediaType: 1,
+            renderLargerThumbnail: true,
+          },
+        },
+      },
+      { quoted: m }
+    )
 
-    const tempDir = path.join("./tmp", `stickers_${Date.now()}`)
+    const tempDir = path.join("./tmp", `stickerly_${Date.now()}`)
     fs.mkdirSync(tempDir, { recursive: true })
 
-    let stickerBuffers = []
+    let success = 0
+    let failed = 0
 
-    for (let i = 0; i < data.stickers.length; i++) {
+    for (const stick of data.stickers) {
       try {
-        let stick = data.stickers[i]
-        let img = await fetch(stick)
-        let buffer = await img.arrayBuffer()
-        let stickerBuf = await sticker(Buffer.from(buffer), false, data.name, data.author)
-        stickerBuffers.push(stickerBuf)
-      } catch (e) {
-        console.log("⚠️ Error con un sticker:", e)
+        const imgRes = await fetch(stick)
+        if (!imgRes.ok) throw new Error("No se pudo descargar el sticker")
+
+        const imgBuffer = Buffer.from(await imgRes.arrayBuffer())
+        const stickerBuf = await sticker(imgBuffer, false, data.name, data.author)
+
+        await conn.sendMessage(m.chat, { sticker: stickerBuf }, { quoted: m })
+        success++
+        await new Promise((resolve) => setTimeout(resolve, 600)) // previene flood
+      } catch (err) {
+        failed++
+        console.log("⚠️ Error con un sticker:", err.message)
       }
     }
-
-    await conn.sendMessage(m.chat, {
-      sticker: stickerBuffers,
-      packname: data.name,
-      author: data.author || "Stickerly",
-    }, { quoted: m })
 
     fs.rmSync(tempDir, { recursive: true, force: true })
     await m.react("✅")
 
+    m.reply(`✅ *Descarga completada*\n📦 *Stickers enviados:* ${success}\n❌ *Fallidos:* ${failed}`)
+
   } catch (e) {
-    console.error(e)
-    m.reply("❌ Error al descargar los stickers del pack.")
+    console.error("❌ Error general:", e)
+    m.reply("⚠️ Error al descargar los stickers del pack. Intenta con otro enlace.")
+    await m.react("❌")
   }
 }
 

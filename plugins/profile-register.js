@@ -148,7 +148,7 @@ Tu registro ha sido completado exitosamente por *${botname}* 🕷️
       retailerId: 2025,
       productImageCount: 1,
     },
-    footer: `2025 ${botname}`,
+    footer: `✨ ${botname}`,
     headerType: 1,
     viewOnce: true,
     document: fs.readFileSync('./package.json'),
