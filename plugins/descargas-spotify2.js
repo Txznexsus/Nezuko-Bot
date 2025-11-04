@@ -12,62 +12,56 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   await conn.sendMessage(m.chat, { react: { text: '🕓', key: m.key } })
 
   try {
-    let spotifyUrl = text.includes('spotify.com/track')
-      ? text
-      : null
+    let spotifyUrl = text.includes('spotify.com/track') ? text : null
 
-    // 🔍 Si el usuario puso nombre, buscamos el primer resultado
+    // 🔍 Buscar si el usuario escribió solo el nombre
     if (!spotifyUrl) {
-      const searchUrl = `https://api.yupra.my.id/api/search/spotify?q=${encodeURIComponent(text)}`
-      const searchRes = await fetch(searchUrl)
-      if (!searchRes.ok) throw 'Error en la búsqueda de Yupra.'
-      const searchData = await searchRes.json()
-      const first = searchData.result?.[0]
+      const search = await fetch(`https://api.yupra.my.id/api/search/spotify?q=${encodeURIComponent(text)}`)
+      if (!search.ok) throw 'Error al buscar en Yupra.'
+      const sdata = await search.json()
+      const first = sdata.result?.[0]
       if (!first) throw '❌ No se encontraron resultados en Spotify.'
       spotifyUrl = first.spotify_preview || first.url
     }
 
-    // 🎧 Descargar audio desde la API de Stellar
-    const apiUrl = `https://api.stellarwa.xyz/dl/spotifyv2?url=${encodeURIComponent(spotifyUrl)}&key=stellar-3j2706f1`
-    const res = await fetch(apiUrl)
+    // 🎧 Descargar audio desde Stellar
+    const res = await fetch(`https://api.stellarwa.xyz/dl/spotifyv2?url=${encodeURIComponent(spotifyUrl)}&key=stellar-3j2706f1`)
     if (!res.ok) throw 'Error al conectar con la API de Stellar.'
     const data = await res.json()
     if (!data.status || !data.data?.dl) throw '❌ No pude obtener la descarga del audio.'
 
     const d = data.data
     const song = {
-      title: d.title || 'Desconocido',
-      artist: d.artist || 'Desconocido',
-      album: d.album || 'N/A',
-      release: d.release_date || 'N/A',
-      duration: d.duration || 'N/A',
+      title: d.title,
+      artist: d.artist,
+      album: d.album,
+      release: d.release_date,
+      duration: d.duration,
       image: d.image,
       card: d.card,
       download: d.dl,
-      spotify: spotifyUrl
+      spotify: spotifyUrl,
     }
 
-    // 🖼️ Miniatura optimizada
+    // 🖼️ Miniatura
     let thumb = null
     try {
       const img = await Jimp.read(song.image)
       img.resize(300, Jimp.AUTO)
       thumb = await img.getBufferAsync(Jimp.MIME_JPEG)
-    } catch (err) {
-      console.log('⚠️ Error al procesar miniatura:', err)
-    }
+    } catch {}
 
-    // 📄 Descripción del mensaje
+    // 📝 Texto informativo
     const caption = `
-\`\`\`🎧 Título: ${song.title}
-👤 Artista: ${song.artist}
-💽 Álbum: ${song.album}
-📆 Lanzamiento: ${song.release}
-⏱️ Duración: ${song.duration}
-🔗 Spotify: ${song.spotify}\`\`\`
+🎧 *${song.title}*
+👤 *${song.artist}*
+💽 ${song.album}
+📆 ${song.release}
+⏱️ ${song.duration}
+🔗 [Spotify](${song.spotify})
 `
 
-    // 🎀 Mensaje interactivo con botón y preview
+    // 🪄 Crear mensaje interactivo con el documento y botón
     const msg = generateWAMessageFromContent(
       m.chat,
       {
@@ -75,17 +69,17 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
           message: {
             messageContextInfo: { deviceListMetadataVersion: 2 },
             interactiveMessage: proto.Message.InteractiveMessage.fromObject({
+              header: proto.Message.InteractiveMessage.Header.create({
+                title: song.title,
+                subtitle: song.artist,
+                hasMediaAttachment: true,
+                ...(thumb ? { jpegThumbnail: thumb } : {}),
+              }),
               body: proto.Message.InteractiveMessage.Body.create({
                 text: caption,
               }),
               footer: proto.Message.InteractiveMessage.Footer.create({
                 text: '🌿 ᴋᴀɴᴇᴋɪ ʙᴏᴛ ᴠ3 - sᴘᴏᴛɪғʏ ᴍᴜsɪᴄ 🎧',
-              }),
-              header: proto.Message.InteractiveMessage.Header.create({
-                hasMediaAttachment: true,
-                ...(thumb
-                  ? { jpegThumbnail: thumb }
-                  : {}),
               }),
               nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
                 buttons: [
@@ -105,9 +99,32 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       { quoted: m }
     )
 
+    // 💾 Enviar primero el documento (MP3) con botón y caption
+    await conn.sendMessage(
+      m.chat,
+      {
+        document: { url: song.download },
+        mimetype: 'audio/mpeg',
+        fileName: `${song.title}.mp3`,
+        caption,
+        contextInfo: {
+          externalAdReply: {
+            title: song.title,
+            body: song.artist,
+            thumbnailUrl: song.card || song.image,
+            mediaType: 2,
+            renderLargerThumbnail: true,
+            sourceUrl: song.spotify,
+          },
+        },
+      },
+      { quoted: m }
+    )
+
+    // 💬 Luego enviar el mensaje con el botón separado
     await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
 
-    // 🎧 Enviar el audio final
+    // 🎧 Finalmente enviar el audio simple (preview player)
     await conn.sendMessage(
       m.chat,
       {
@@ -125,14 +142,14 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
           },
         },
       },
-      { quoted: m }
+      { quoted: fkontak }
     )
 
     await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key } })
-  } catch (e) {
-    console.error(e)
+  } catch (err) {
+    console.error(err)
     await conn.sendMessage(m.chat, { react: { text: '❌', key: m.key } })
-    m.reply(`❌ *Error al procesar la descarga de Spotify.*\n\n${e}`)
+    m.reply('❌ Error al procesar la descarga de Spotify.')
   }
 }
 

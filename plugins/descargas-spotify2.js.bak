@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
 import Jimp from 'jimp'
-const { proto, generateWAMessageFromContent } = (await import('@whiskeysockets/baileys')).default
+import baileys from '@whiskeysockets/baileys'
+const { proto, generateWAMessageFromContent } = baileys
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!text)
@@ -8,53 +9,65 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       `🍂 *Uso correcto:*\n\n✦ \`${usedPrefix + command}\` <url o nombre de canción>\n\n🍬 Ejemplo:\n${usedPrefix + command} https://open.spotify.com/track/2ROQe6QkIXODJRx0y8UjzV`
     )
 
-  try {
-    await conn.sendMessage(m.chat, { react: { text: '🕓', key: m.key } })
+  await conn.sendMessage(m.chat, { react: { text: '🕓', key: m.key } })
 
-    const apiUrl = `https://api.stellarwa.xyz/dl/spotify?url=${encodeURIComponent(text)}&key=stellar-3j2706f1`
+  try {
+    let spotifyUrl = text.includes('spotify.com/track')
+      ? text
+      : null
+
+    // 🔍 Si el usuario puso nombre, buscamos el primer resultado
+    if (!spotifyUrl) {
+      const searchUrl = `https://api.yupra.my.id/api/search/spotify?q=${encodeURIComponent(text)}`
+      const searchRes = await fetch(searchUrl)
+      if (!searchRes.ok) throw 'Error en la búsqueda de Yupra.'
+      const searchData = await searchRes.json()
+      const first = searchData.result?.[0]
+      if (!first) throw '❌ No se encontraron resultados en Spotify.'
+      spotifyUrl = first.spotify_preview || first.url
+    }
+
+    // 🎧 Descargar audio desde la API de Stellar
+    const apiUrl = `https://api.stellarwa.xyz/dl/spotifyv2?url=${encodeURIComponent(spotifyUrl)}&key=stellar-3j2706f1`
     const res = await fetch(apiUrl)
-    if (!res.ok) throw await res.text()
+    if (!res.ok) throw 'Error al conectar con la API de Stellar.'
     const data = await res.json()
-    if (!data.status || !data.data?.download) throw '❌ No pude obtener la descarga del audio.'
+    if (!data.status || !data.data?.dl) throw '❌ No pude obtener la descarga del audio.'
 
     const d = data.data
-    const json = {
+    const song = {
       title: d.title || 'Desconocido',
-      author: 'Spotify Music',
-      image: d.thumbnail || null,
-      url: d.download
+      artist: d.artist || 'Desconocido',
+      album: d.album || 'N/A',
+      release: d.release_date || 'N/A',
+      duration: d.duration || 'N/A',
+      image: d.image,
+      card: d.card,
+      download: d.dl,
+      spotify: spotifyUrl
     }
 
-    let info = null
-    try {
-      const query = encodeURIComponent(json.title)
-      const infoRes = await fetch(`https://api.yupra.my.id/api/search/spotify?q=${query}`)
-      if (infoRes.ok) {
-        const infoData = await infoRes.json()
-        info = infoData.result?.[0] || null
-      }
-    } catch (err) {
-      console.log('⚠️ Error al obtener info de Yupra:', err)
-    }
-
-    const caption = `
-\`\`\`🎧 Título: ${json.title}
-👤 Artista: ${info?.artist || json.author}
-💽 Álbum: ${info?.album || 'Desconocido'}
-📆 Lanzamiento: ${info?.release_date || 'N/A'}
-⏱️ Duración: ${info?.duration || 'N/A'}
-🔗 Spotify: ${info?.spotify_preview || text}\`\`\``
-
+    // 🖼️ Miniatura optimizada
     let thumb = null
-    if (json.image) {
-      try {
-        const img = await Jimp.read(json.image)
-        img.resize(300, Jimp.AUTO)
-        thumb = await img.getBufferAsync(Jimp.MIME_JPEG)
-      } catch (err) {
-        console.log('⚠️ Error al procesar miniatura:', err)
-      }
+    try {
+      const img = await Jimp.read(song.image)
+      img.resize(300, Jimp.AUTO)
+      thumb = await img.getBufferAsync(Jimp.MIME_JPEG)
+    } catch (err) {
+      console.log('⚠️ Error al procesar miniatura:', err)
     }
+
+    // 📄 Descripción del mensaje
+    const caption = `
+\`\`\`🎧 Título: ${song.title}
+👤 Artista: ${song.artist}
+💽 Álbum: ${song.album}
+📆 Lanzamiento: ${song.release}
+⏱️ Duración: ${song.duration}
+🔗 Spotify: ${song.spotify}\`\`\`
+`
+
+    // 🎀 Mensaje interactivo con botón y preview
     const msg = generateWAMessageFromContent(
       m.chat,
       {
@@ -70,27 +83,17 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
               }),
               header: proto.Message.InteractiveMessage.Header.create({
                 hasMediaAttachment: true,
-                documentMessage: {
-                  url: json.url,
-                  mimetype: 'audio/mpeg',
-                  fileName: `${json.title}.mp3`,
-                },
-                ...(thumb ? { jpegThumbnail: thumb } : {}),
+                ...(thumb
+                  ? { jpegThumbnail: thumb }
+                  : {}),
               }),
               nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
                 buttons: [
                   {
                     name: 'cta_url',
                     buttonParamsJson: JSON.stringify({
-                      display_text: '🍬 ᴇsᴄᴜᴄʜᴀʀ ᴇɴ sᴘᴏᴛɪғʏ',
-                      url: info?.spotify_preview || text,
-                    }),
-                  },
-                  {
-                    name: 'cta_url',
-                    buttonParamsJson: JSON.stringify({
-                      display_text: '🕸️ Canal oficial',
-                      url: 'https://whatsapp.com/channel/0029VbBPa8EFsn0aLfyZl23j',
+                      display_text: '🎵 ᴇsᴄᴜᴄʜᴀʀ ᴇɴ sᴘᴏᴛɪғʏ',
+                      url: song.spotify,
                     }),
                   },
                 ],
@@ -104,35 +107,37 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
 
+    // 🎧 Enviar el audio final
     await conn.sendMessage(
       m.chat,
       {
-        audio: { url: json.url },
+        audio: { url: song.download },
         mimetype: 'audio/mpeg',
-        fileName: `${json.title}.mp3`,
+        fileName: `${song.title}.mp3`,
         contextInfo: {
           externalAdReply: {
-            title: json.title,
-            body: info?.artist || json.author,
+            title: song.title,
+            body: song.artist,
+            thumbnailUrl: song.card || song.image,
             mediaType: 2,
-            thumbnailUrl: json.image,
             renderLargerThumbnail: true,
-            sourceUrl: info?.spotify_preview || text,
+            sourceUrl: song.spotify,
           },
         },
       },
       { quoted: m }
     )
 
-    m.react('✅')
+    await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key } })
   } catch (e) {
     console.error(e)
-    m.reply('❌ Error al procesar la descarga de Spotify.')
+    await conn.sendMessage(m.chat, { react: { text: '❌', key: m.key } })
+    m.reply(`❌ *Error al procesar la descarga de Spotify.*\n\n${e}`)
   }
 }
 
 handler.help = ['music <url|nombre>']
 handler.tags = ['download']
-handler.command = ['music']
+handler.command = ['music', 'spotifydl']
 
 export default handler
