@@ -8,7 +8,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
   try {
 
-    let res = await fetch(`https://api.stellarwa.xyz/search/mediafire?query=${encodeURIComponent(text)}&apikey=Shadow-nex`)
+    let res = await fetch(`https://api.stellarwa.xyz/search/mediafire?query=${encodeURIComponent(text)}&apikey=stellar-3j2706f1`)
     let json = await res.json()
 
     if (!json.status || !json.results || json.results.length === 0) {
@@ -17,7 +17,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     let txt = `╭━━━━━━━╮
 ┋ ʀᴇsᴜʟᴛᴀᴅᴏs
-┋    ᴅᴇ 🧙‍♂️
+┋    ᴅᴇ 🚀
 ┋ ᴍᴇᴅɪᴀғɪʀᴇ
 ┋ ʙᴜsǫᴜᴇᴅᴀ: ${text}
 ╰━━━━━━━╯`

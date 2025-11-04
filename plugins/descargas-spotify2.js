@@ -11,7 +11,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   try {
     await conn.sendMessage(m.chat, { react: { text: '🕓', key: m.key } })
 
-    const apiUrl = `https://api.stellarwa.xyz/dl/spotify?url=${encodeURIComponent(text)}&key=Shadow_Core`
+    const apiUrl = `https://api.stellarwa.xyz/dl/spotify?url=${encodeURIComponent(text)}&key=stellar-3j2706f1`
     const res = await fetch(apiUrl)
     if (!res.ok) throw await res.text()
     const data = await res.json()
