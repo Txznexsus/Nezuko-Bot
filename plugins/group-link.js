@@ -69,8 +69,7 @@ let handler = async (m, { conn }) => {
 
   } catch (e) {
     console.error(e)
-    await m.react('❌')
-    await m.reply('❌ Error al obtener la información del grupo.')
+    await m.reply('Error al obtener la información del grupo.')
   }
 }
 
