@@ -18,33 +18,33 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
     txt += `≡ 🍃 *Update* : ${data5.lastup}\n`
     txt += `≡ 🚀 *Peso* : ${data5.size}`
 
-    // 🔹 Mensaje con los datos del APK
+    // 🔹 Enviar datos del APK con imagen
     await conn.sendFile(m.chat, data5.icon, 'thumbnail.jpg', txt, m, null, rcanal)
 
     if (data5.size.includes('GB') || data5.size.replace(' MB', '') > 999) {
       return await conn.reply(m.chat, `⚠️ El archivo es demasiado pesado para enviarlo.`, m)
     }
 
-    // 🔹 Descarga el ícono con fetch (por si Jimp falla, ya lo tienes como respaldo)
+    // 🔹 Crear miniatura PEQUEÑA con Jimp
     let thumb = null
     try {
       const buffer = await (await fetch(data5.icon)).buffer()
       const img = await Jimp.read(buffer)
-      img.resize(300, Jimp.AUTO).quality(80)
+      img.resize(64, 64).quality(80) // 👈 miniatura pequeña estilo ícono
       thumb = await img.getBufferAsync(Jimp.MIME_JPEG)
     } catch (err) {
       console.log('⚠️ Error al procesar miniatura:', err)
     }
 
-    // 🔹 Enviar APK con miniatura personalizada
+    // 🔹 Enviar APK con miniatura tipo ícono
     await conn.sendMessage(
       m.chat,
       {
         document: { url: data5.dllink },
         mimetype: 'application/vnd.android.package-archive',
         fileName: `${data5.name}.apk`,
-        caption: `© powered by SHADOW°Core`,
-        jpegThumbnail: thumb // ✅ Miniatura del archivo APK
+        caption: `© powered by SHADOW°Core 🌿`,
+        jpegThumbnail: thumb // 👈 miniatura pequeña
       },
       { quoted: m }
     )
