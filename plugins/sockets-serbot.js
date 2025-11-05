@@ -1,9 +1,4 @@
-import baileys from '@whiskeysockets/baileys'
-
-const { useMultiFileAuthState, DisconnectReason, makeCacheableSignalKeyStore, fetchLatestBaileysVersion } = (await baileys)
-
-const { generateWAMessageFromContent, generateWAMessageContent, proto } = baileys
-
+const { useMultiFileAuthState, DisconnectReason, makeCacheableSignalKeyStore, fetchLatestBaileysVersion } = (await import("@whiskeysockets/baileys"))
 import qrcode from "qrcode"
 import NodeCache from "node-cache"
 import fs from "fs"
@@ -22,8 +17,8 @@ let crm3 = "SBpbmZvLWRvbmFyLmpz"
 let crm4 = "IF9hdXRvcmVzcG9uZGVyLmpzIGluZm8tYm90Lmpz"
 let drm1 = ""
 let drm2 = ""
-let rtx = "*❀ SER BOT • MODE QR*\n\n✰ Con otro celular o en la PC escanea este QR para convertirte en un *Sub-Bot* Temporal.\n\n`1` » Haga clic en los tres puntos en la esquina superior derecha\n\n`2` » Toque dispositivos vinculados\n\n`3` » Escanee este codigo QR para iniciar sesion con el bot\n\n✧ ¡Este código QR expira en 45 segundos!."
-let rtx2 = "envíando código 🌳"
+let rtx = "*❀ SER BOT • MODE QR*\n\n✰ Con otro celular o en la PC escanea este QR para convertirte en un *Sub-Bot* Temporal.\n\n\`1\` » Haga clic en los tres puntos en la esquina superior derecha\n\n\`2\` » Toque dispositivos vinculados\n\n\`3\` » Escanee este codigo QR para iniciar sesion con el bot\n\n✧ ¡Este código QR expira en 45 segundos!."
+let rtx2 = "*❀ SER BOT • MODE CODE*\n\n✰ Usa este Código para convertirte en un *Sub-Bot* Temporal.\n\n\`1\` » Haga clic en los tres puntos en la esquina superior derecha\n\n\`2\` » Toque dispositivos vinculados\n\n\`3\` » Selecciona Vincular con el número de teléfono\n\n\`4\` » Escriba el Código para iniciar sesion con el bot\n\n✧ No es recomendable usar tu cuenta principal."
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const kanekiAIJBOptions = {}
@@ -35,7 +30,7 @@ if (!globalThis.db.data.settings[conn.user.jid].jadibotmd) return m.reply(`ꕥ E
 let time = global.db.data.users[m.sender].Subs + 120000
 if (new Date - global.db.data.users[m.sender].Subs < 120000) return conn.reply(m.chat, `ꕥ Debes esperar ${msToTime(time - new Date())} para volver a vincular un *Sub-Bot.*`, m)
 let socklimit = global.conns.filter(sock => sock?.user).length
-if (socklimit >= 30) {
+if (socklimit >= 50) {
 return m.reply(`ꕥ No se han encontrado espacios para *Sub-Bots* disponibles.`)
 }
 let mentionedJid = await m.mentionedJid
@@ -120,20 +115,13 @@ txtQR = await conn.sendMessage(m.chat, { image: await qrcode.toBuffer(qr, { scal
 } else {
 return 
 }
-if (txtQR && txtQR.key) {
-setTimeout(() => { conn.sendMessage(m.sender, { delete: txtQR.key })}, 30000)
-}
-return
-} 
 if (qr && mcode) {
-let secret = await sock.requestPairingCode((m.sender.split`@`[0]))
-secret = secret.match(/.{1,4}/g)?.join("-")
+    let secret = await sock.requestPairingCode((m.sender.split`@`[0]))
+    secret = secret.match(/.{1,4}/g)?.join("-")
 
+    txtCode = await conn.sendMessage(m.chat, {text : rtx2 }, { quoted: m })
 
-txtCode = await conn.sendMessage(m.chat, {text : rtx2 }, { quoted: m })
-    let botInfo = `👻 *Sub-Bot:* ${botName}\n Usa este código para vincularlo: *${secret}*`
-
-
+    let botInfo = `👻 *Sub-Bot:* \n\n🔑 Código de vinculación:\n*${secret}*\n\n⌛ *Expira en pocos minutos.*`
 
     const { imageMessage } = await generateWAMessageContent(
         { image: { url: banner } },
@@ -144,25 +132,24 @@ txtCode = await conn.sendMessage(m.chat, {text : rtx2 }, { quoted: m })
         viewOnceMessage: {
             message: {
                 interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-                    header: proto.Message.InteractiveMessage.Header.fromObject({
+                    header: {
+                        title: "📌 SER BOT • MODE CODE",
                         hasMediaAttachment: true,
-                        imageMessage: imageMessage
-                    }),
-                    body: proto.Message.InteractiveMessage.Body.fromObject({
-                        text: `📌 SER BOT • MODE CODE`
-                    }),
-                    footer: proto.Message.InteractiveMessage.Footer.fromObject({
-                        text: botInfo
-                    }),
-                    nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
+                        imageMessage
+                    },
+                    body: { text: botInfo },
+                    footer: { text: "Presiona el botón para copiar el código." },
+                    nativeFlowMessage: {
                         buttons: [
                             {
-                                type: 1,
-                                displayText: "𝙲𝙾𝙿𝙸𝙰𝚁 𝙲𝙾𝙳𝙸𝙶𝙾",
-                                id: "copy_code_" + secret
+                                name: "cta_copy",
+                                buttonParamsJson: JSON.stringify({
+                                    display_text: "📋 Copiar Código",
+                                    copy_code: secret
+                                })
                             }
                         ]
-                    })
+                    }
                 })
             }
         }
@@ -170,7 +157,7 @@ txtCode = await conn.sendMessage(m.chat, {text : rtx2 }, { quoted: m })
 
     await conn.relayMessage(m.chat, codeBot.message, { messageId: codeBot.key.id })
 
-console.log(secret)
+    console.log(secret)
 }
 if (txtCode && txtCode.key) {
 setTimeout(() => { conn.sendMessage(m.sender, { delete: txtCode.key })}, 30000)
@@ -178,7 +165,6 @@ setTimeout(() => { conn.sendMessage(m.sender, { delete: txtCode.key })}, 30000)
 if (codeBot && codeBot.key) {
 setTimeout(() => { conn.sendMessage(m.sender, { delete: codeBot.key })}, 30000)
 }
-
 const endSesion = async (loaded) => {
 if (!loaded) {
 try {
@@ -302,3 +288,89 @@ for (const value of Object.values(global.ch)) {
 if (typeof value === 'string' && value.endsWith('@newsletter')) {
 await sock.newsletterFollow(value).catch(() => {})
 }}}
+
+aver agrega el botón de nuevo 
+import fetch from 'node-fetch'
+import baileys from '@whiskeysockets/baileys'
+
+const { generateWAMessageFromContent, generateWAMessageContent, proto } = baileys
+
+let handler = async (m, { conn }) => {
+  try {
+    await m.react('🕓')
+
+    const group = m.chat
+    const metadata = await conn.groupMetadata(group)
+    const ppUrl = await conn.profilePictureUrl(group, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
+    const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(group)
+    const owner = metadata.owner ? '@' + metadata.owner.split('@')[0] : 'No disponible'
+
+    const info1 = `🌿 𝙂𝙍𝙐𝙋𝙊 - 𝙄𝙉𝙁𝙊 ✨`
+    const info = `
+📛 *Nombre:* ${metadata.subject}
+🧩 *ID:* ${metadata.id}
+👑 *Creador:* ${owner}
+👥 *Miembros:* ${metadata.participants.length}
+🔗 *Link:* ${invite}
+`.trim()
+
+    const { imageMessage } = await generateWAMessageContent(
+      { image: { url: ppUrl } },
+      { upload: conn.waUploadToServer }
+    )
+
+    const msg = generateWAMessageFromContent(m.chat, {
+      viewOnceMessage: {
+        message: {
+          interactiveMessage: proto.Message.InteractiveMessage.fromObject({
+            header: proto.Message.InteractiveMessage.Header.fromObject({
+              hasMediaAttachment: true,
+              imageMessage: imageMessage
+            }),
+            body: proto.Message.InteractiveMessage.Body.fromObject({
+              text: info1
+            }),
+            footer: proto.Message.InteractiveMessage.Footer.fromObject({
+              text: info
+            }),
+            nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
+              buttons: [
+                {
+                  name: 'cta_copy',
+                  buttonParamsJson: JSON.stringify({
+                    display_text: "📋 Copiar Link",
+                    copy_code: invite
+                  })
+                },
+                {
+                  name: 'cta_url',
+                  buttonParamsJson: JSON.stringify({
+                    display_text: "🩵 Canal Oficial",
+                    url: channel
+                  })
+                }
+              ]
+            })
+          })
+        }
+      }
+    }, { quoted: m })
+
+    await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
+    await m.react('✅')
+
+  } catch (e) {
+    console.error(e)
+    await m.reply('Error al obtener la información del grupo.')
+  }
+}
+
+handler.help = ['link', 'enlace']
+handler.tags = ['group']
+handler.command = ['link', 'enlace']
+handler.group = true
+handler.botAdmin = true
+
+export default handler
+
+de eso xd arriba xd y sin mover nada del codigo ni borra nada domas aslo q funcione si error 
