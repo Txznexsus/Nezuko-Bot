@@ -38,8 +38,7 @@ ${menciones}
   await conn.sendMessage(m.chat, {
     image: { url: groupImg },
     caption: texto,
-    mentions: participants.map(a => a.id),
-    ...fake
+    mentions: participants.map(a => a.id)
   })
 }
 
