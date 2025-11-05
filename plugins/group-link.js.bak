@@ -1,20 +1,17 @@
-import fetch from 'node-fetch'
 import baileys from '@whiskeysockets/baileys'
-
-const { generateWAMessageFromContent, proto } = baileys
 
 let handler = async (m, { conn }) => {
   try {
     await m.react('🕓')
 
-    const group = m.chat
-    const metadata = await conn.groupMetadata(group)
-    const ppUrl = await conn.profilePictureUrl(group, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
-    const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(group)
+    const metadata = await conn.groupMetadata(m.chat)
+    const ppUrl = await conn.profilePictureUrl(m.chat, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
+    const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(m.chat)
     const owner = metadata.owner ? '@' + metadata.owner.split('@')[0] : 'No disponible'
 
-    const info1 = `🌿 𝙂𝙍𝙐𝙋𝙊 - 𝙄𝙉𝙁𝙊 ✨`
     const info = `
+🌿 𝙂𝙍𝙐𝙋𝙊 - 𝙄𝙉𝙁𝙊 ✨
+
 📛 *Nombre:* ${metadata.subject}
 🧩 *ID:* ${metadata.id}
 👑 *Creador:* ${owner}
@@ -22,47 +19,18 @@ let handler = async (m, { conn }) => {
 🔗 *Link:* ${invite}
 `.trim()
 
-    // Genera el mensaje interactivo
-    const { imageMessage } = await generateWAMessageFromContent(
-      m.chat,
-      { image: { url: ppUrl } },
-      { upload: conn.waUploadToServer }
-    )
+    const template = {
+      image: { url: ppUrl },
+      caption: info,
+      footer: '✨ Información del grupo',
+      templateButtons: [
+        { urlButton: { displayText: '🌍 Abrir Grupo', url: invite } },
+        { quickReplyButton: { displayText: '📋 Copiar Link', id: 'copy_link' } },
+        { urlButton: { displayText: '🩵 Canal Oficial', url: channel } }
+      ]
+    }
 
-    const interactiveMsg = generateWAMessageFromContent(m.chat, {
-      interactive: proto.Message.InteractiveMessage.fromObject({
-        header: proto.Message.InteractiveMessage.Header.fromObject({
-          hasMediaAttachment: true,
-          imageMessage: imageMessage
-        }),
-        body: proto.Message.InteractiveMessage.Body.fromObject({
-          text: info1
-        }),
-        footer: proto.Message.InteractiveMessage.Footer.fromObject({
-          text: info
-        }),
-        nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
-          buttons: [
-            {
-              name: 'cta_copy',
-              buttonParamsJson: JSON.stringify({
-                display_text: "📋 Copiar Link",
-                copy_code: invite
-              })
-            },
-            {
-              name: 'cta_url',
-              buttonParamsJson: JSON.stringify({
-                display_text: "🩵 Canal Oficial",
-                url: channel
-              })
-            }
-          ]
-        })
-      })
-    }, { quoted: m })
-
-    await conn.relayMessage(m.chat, interactiveMsg.message, { messageId: interactiveMsg.key.id })
+    await conn.sendMessage(m.chat, template, { quoted: m })
     await m.react('✅')
 
   } catch (e) {
