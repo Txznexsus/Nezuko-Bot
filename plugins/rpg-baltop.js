@@ -1,4 +1,5 @@
 import fetch from 'node-fetch'
+import moment from 'moment-timezone'
 
 let handler = async (m, { conn, args, participants, usedPrefix }) => {
   const chat = global.db.data.chats[m.chat] || {}
@@ -14,7 +15,6 @@ let handler = async (m, { conn, args, participants, usedPrefix }) => {
   if (!users.length) return m.reply('🌿 No hay usuarios con datos económicos en este grupo.')
 
   const sorted = users.sort((a, b) => ((b.coin || 0) + (b.bank || 0)) - ((a.coin || 0) + (a.bank || 0)))
-
   const totalPages = Math.ceil(sorted.length / 10)
   const page = Math.max(1, Math.min(parseInt(args[0]) || 1, totalPages))
   const startIndex = (page - 1) * 10
@@ -22,31 +22,45 @@ let handler = async (m, { conn, args, participants, usedPrefix }) => {
   const slice = sorted.slice(startIndex, endIndex)
 
   const richest = (sorted[0].coin || 0) + (sorted[0].bank || 0)
+  const currency = '💎'
 
   let text = `
 ╔═══《 💰 ᴛᴏᴘ ᴇᴄᴏɴᴏᴍɪ́ᴀ 💰 》═══╗
 ║  🌍 *Grupo:* ${await conn.getName(m.chat)}
 ║  📄 *Página:* ${page}/${totalPages}
-║───────────────────────║
+║──────────────────────────────║
 `
 
   for (let i = 0; i < slice.length; i++) {
-    const { jid, coin = 0, bank = 0 } = slice[i]
+    const { jid, coin = 0, bank = 0, lastplay } = slice[i]
     const total = coin + bank
-    const name = await conn.getName(jid).catch(() => jid.split('@')[0])
+    const name = (await conn.getName(jid).catch(() => jid.split('@')[0])) || 'Usuario'
     const percent = Math.min(100, Math.floor((total / richest) * 100))
     const bar = '█'.repeat(Math.floor(percent / 10)) + '░'.repeat(10 - Math.floor(percent / 10))
+
+    // 🕒 Tiempo desde su último juego
+    let lastPlayed = 'Nunca'
+    if (lastplay) {
+      const diff = Date.now() - lastplay
+      const mins = Math.floor(diff / 60000)
+      const hrs = Math.floor(mins / 60)
+      const days = Math.floor(hrs / 24)
+      if (days > 0) lastPlayed = `${days}d ${hrs % 24}h`
+      else if (hrs > 0) lastPlayed = `${hrs}h ${mins % 60}m`
+      else lastPlayed = `${mins}m`
+    }
 
     text += `║ ${i + 1 + startIndex}. *${name}*
 ║    💴 Total: ${currency}${total.toLocaleString()}
 ║    📊 Progreso: [${bar}] ${percent}%
-║───────────────────────║
+║    ⏰ Último juego: ${lastPlayed} atrás
+║──────────────────────────────║
 `
   }
 
   text += `╚═══════════════════════════╝`
 
-  await conn.reply(m.chat, text.trim(), m, rcanal)
+  await conn.reply(m.chat, text.trim(), m)
 }
 
 handler.help = ['baltop']
