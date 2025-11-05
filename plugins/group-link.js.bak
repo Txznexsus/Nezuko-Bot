@@ -12,6 +12,7 @@ let handler = async (m, { conn }) => {
     const ppUrl = await conn.profilePictureUrl(group, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
     const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(group)
     const owner = metadata.owner ? '@' + metadata.owner.split('@')[0] : 'No disponible'
+    const desc = metadata.desc ? `\n📝 *Descripción:*\n${metadata.desc}\n` : ''
 
     const info1 = `🌿 𝙂𝙍𝙐𝙋𝙊 - 𝙄𝙉𝙁𝙊 ✨`
     const info = `
@@ -19,10 +20,10 @@ let handler = async (m, { conn }) => {
 🧩 *ID:* ${metadata.id}
 👑 *Creador:* ${owner}
 👥 *Miembros:* ${metadata.participants.length}
+${desc}
 🔗 *Link:* ${invite}
 `.trim()
 
-    // Genera el mensaje interactivo
     const { imageMessage } = await generateWAMessageFromContent(
       m.chat,
       { image: { url: ppUrl } },
