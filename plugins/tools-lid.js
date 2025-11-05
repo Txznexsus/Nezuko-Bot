@@ -6,15 +6,13 @@ let handler = async (m, { conn, text, participants, groupMetadata }) => {
   const participantList = groupMetadata?.participants || []
   let targets = []
 
-  // 🔹 Menciones
   if (m.mentionedJid?.length) {
     targets.push(...m.mentionedJid)
   }
-  // 🔹 Respuesta a mensaje
   if (m.quoted) {
     targets.push(m.quoted.sender)
   }
-  // 🔹 Números escritos manualmente
+
   if (text) {
     const numbers = text
       .split(/\s+/)
@@ -23,7 +21,6 @@ let handler = async (m, { conn, text, participants, groupMetadata }) => {
     targets.push(...numbers)
   }
 
-  // 🔹 Si no hay nada, usar el propio usuario
   targets = [...new Set(targets.length ? targets : [m.sender])]
 
   let info = `╭━━━〔 👥 *INFORMACIÓN DE USUARIOS DETECTADOS* 〕━━⬣\n`
