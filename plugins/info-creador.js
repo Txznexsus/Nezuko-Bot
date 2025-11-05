@@ -1,8 +1,10 @@
-// 💫 by dv.shadow - https://github.com/Yuji-XDev
-import { proto } from '@whiskeysockets/baileys'
-import PhoneNumber from 'awesome-phonenumber'
 
-let handler = async (m, { conn }) => {
+// by dv.shadow - https://github.com/Yuji-XDev
+
+import { proto } from '@whiskeysockets/baileys';
+import PhoneNumber from 'awesome-phonenumber';
+
+const handler = async (m, { conn }) => {
   const name = 'sһᥲძ᥆ᥕ-᥊ᥡz | ᥆𝖿𝖿іᥴіᥲᥩ'
   const numCreador = '51919199620'
   const empresa = 'ᴋᴀɴᴇᴋɪ ʙᴏᴛ ɪɴɪᴄ.'
@@ -12,39 +14,48 @@ let handler = async (m, { conn }) => {
   const direccion = 'Tokyo, Japón 🇯🇵'
   const fotoPerfil = 'https://qu.ax/tAWKZ.jpg'
 
-  await m.react('🌿')
+  const vcard = `
+BEGIN:VCARD
+VERSION:3.0
+N:;${name};;;
+FN:${name}
+ORG:${empresa}
+TITLE:CEO & Fundador
+TEL;waid=${numCreador}:${new PhoneNumber('+' + numCreador).getNumber('international')}
+EMAIL:${correo}
+URL:${web}
+NOTE:${about}
+ADR:;;${direccion};;;;
+X-ABADR:ES
+X-WA-BIZ-NAME:${name}
+X-WA-BIZ-DESCRIPTION:${about}
+END:VCARD`.trim();
 
-  const product = {
-    productImage: {
-      mimetype: 'image/jpeg',
-      jpegThumbnail: await (await conn.getFile(fotoPerfil)).data
+  const contactMessage = {
+    displayName: name,
+    vcard
+  };
+  m.react('🌿');
+  await conn.sendMessage(m.chat, {
+    contacts: {
+      displayName: name,
+      contacts: [contactMessage]
     },
-    title: name,
-    description: `${about}\n\n📞 +${numCreador}\n🌐 ${web}\n✉️ ${correo}\n📍 ${direccion}`,
-    currencyCode: 'USD',
-    priceAmount1000: 1000000,
-    retailerId: 'shadow-xyz',
-    productImageCount: 1
-  }
-
-  const message = {
-    key: {
-      fromMe: false,
-      participant: '0@s.whatsapp.net',
-      ...(m.chat ? { remoteJid: m.chat } : {})
-    },
-    message: {
-      productMessage: {
-        product,
-        businessOwnerJid: `${numCreador}@s.whatsapp.net`
+    contextInfo: {
+    mentionedJid: [m.sender],
+      externalAdReply: {
+        title: '🍃 ᴄᴏɴᴛᴀᴄᴛᴏ ᴅᴇ ᴍɪ ᴄʀᴇᴀᴅᴏʀ ᴜᴡᴜ 🍉',
+        body: '',
+        mediaType: 1,
+        thumbnailUrl: fotoPerfil,
+        renderLargerThumbnail: true,
+        sourceUrl: web
       }
     }
-  }
+  }, { quoted: fkontak });
+};
 
-  await conn.relayMessage(m.chat, message.message, { quoted: m })
-}
-
-handler.help = ['creador']
-handler.tags = ['info']
-handler.command = ['creador', 'creator', 'owner']
-export default handler
+handler.help = ['creador'];
+handler.tags = ['info'];
+handler.command = ['creador', 'creator', 'owner'];
+export default handler;
