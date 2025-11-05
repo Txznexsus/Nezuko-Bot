@@ -178,14 +178,14 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 > ☁️ ᴋᴀɴᴇᴋɪ ʙᴏᴛ ɪᴀ | 𝙿𝙾𝚆𝙴𝚁𝙴𝙳 𝙱𝚈 𝚂𝙷𝙰𝙳𝙾𝚆-𝚇𝚈𝚉`.trim()
 
     let thumb = null
-    try {
-       const img = await Jimp.read(result.thumbnail)
-       img.resize(300, Jimp.AUTO).quality(70)
-       thumb = await img.getBufferAsync(Jimp.MIME_JPEG)
-    } catch (err) {
-       console.log("⚠️ Error al procesar miniatura:", err.message)
-       thumb = Buffer.alloc(0)
-    }
+try {
+  const img = await Jimp.read(result.thumbnail)
+  img.resize(300, Jimp.AUTO).quality(70)
+  thumb = await img.getBufferAsync(Jimp.MIME_JPEG)
+} catch (err) {
+  console.log("⚠️ Error al procesar miniatura:", err.message)
+  thumb = Buffer.alloc(0)
+}
 
     const Shadow_url = await (await fetch("https://files.catbox.moe/qm569c.jpg")).buffer()
     const fkontak = {

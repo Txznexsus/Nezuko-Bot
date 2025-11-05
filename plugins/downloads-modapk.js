@@ -40,10 +40,10 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
         document: { url: data5.dllink },
         mimetype: 'application/vnd.android.package-archive',
         fileName: `${data5.name}.apk`,
-        caption: dev, ...fake
+        caption: dev,
         jpegThumbnail: thumb
       },
-      { quoted: m }
+      { quoted: fkontak }
     )
 
     await m.react('✔️')
