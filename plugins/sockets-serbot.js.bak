@@ -136,7 +136,7 @@ txtCode = await conn.sendMessage(m.chat, {text : rtx2 }, { quoted: m })
 
 
     const { imageMessage } = await generateWAMessageContent(
-        { image: { url: ppUrl } },
+        { image: { url: bannerl } },
         { upload: conn.waUploadToServer }
     )
 
