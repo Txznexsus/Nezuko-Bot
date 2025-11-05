@@ -12,7 +12,7 @@ let handler = async (m, { conn, text, usedPrefix, command, args }) => {
     }
 
     m.react('🕒');
-    await conn.sendMessage(m.chat, { text: "⏳ *⍴rᥱ⍴ᥲrᥲᥒძ᥆ 𝗍ᥙ ᥎іძᥱ᥆ ᥆ᥒіᥴһᥲᥒ...*\n> 🍃 ⍴᥆r 𝖿ᥲ᥎᥆r ᥱs⍴ᥱrᥲ ᥙᥒ᥆s sᥱgᥙᥒძ᥆s 🐢" }, { quoted: m });
+    //await conn.sendMessage(m.chat, { text: "⏳ *⍴rᥱ⍴ᥲrᥲᥒძ᥆ 𝗍ᥙ ᥎іძᥱ᥆ ᥆ᥒіᥴһᥲᥒ...*\n> 🍃 ⍴᥆r 𝖿ᥲ᥎᥆r ᥱs⍴ᥱrᥲ ᥙᥒ᥆s sᥱgᥙᥒძ᥆s 🐢" }, { quoted: m });
 
     let json = await ytdl(args[0]);
     let size = await getSize(json.url);
