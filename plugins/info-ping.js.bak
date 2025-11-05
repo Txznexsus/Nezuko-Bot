@@ -145,7 +145,7 @@ let handler = async (m, { conn, usedPrefix }) => {
       }
     }
 
-    await conn.sendMessage(m.chat, msgOpts, { quoted: fkontak })
+    await conn.sendMessage(m.chat, msgOpts, { quoted: m })
   })
 }
 
