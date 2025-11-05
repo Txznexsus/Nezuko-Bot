@@ -4,23 +4,21 @@ import moment from 'moment-timezone'
 import os from 'os'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn }) => {
- 
+let handler = async (m, { conn, usedPrefix }) => {
   const totalSteps = 10
-  let loadingMsg = await conn.sendMessage(m.chat, { text: `[Cargando] 0% ░░░░░░░░░░` }, { quoted: fkontak })
+  let loadingMsg = await conn.sendMessage(m.chat, { text: `Cargando........ xD` }, { quoted: fkontak })
 
   for (let i = 1; i <= totalSteps; i++) {
-    await new Promise(r => setTimeout(r, 300))
+    await new Promise(r => setTimeout(r, 250))
     const percent = i * 10
     const bars = '▓'.repeat(i) + '░'.repeat(totalSteps - i)
     await conn.sendMessage(m.chat, { text: `[Cargando] ${percent}% ${bars}` }, { quoted: loadingMsg })
   }
 
   const start = Date.now()
-  const ping = Date.now() - start
-
-  const t0 = speed()
   await new Promise(resolve => setImmediate(resolve))
+  const ping = Date.now() - start
+  const t0 = speed()
   const latency = speed() - t0
 
   const uptime = process.uptime()
@@ -29,9 +27,9 @@ let handler = async (m, { conn }) => {
   const seconds = Math.floor(uptime % 60)
   const uptimeFormatted = `${hours}h ${minutes}m ${seconds}s`
 
-  const usedRAM = (process.memoryUsage().heapUsed / 1024 / 1024 / 1024).toFixed(2)
-  const totalRAM = (os.totalmem() / 1024 / 1024 / 1024).toFixed(2)
-  const freeRAM = (os.freemem() / 1024 / 1024 / 1024).toFixed(2)
+  const usedRAM = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)
+  const totalRAM = (os.totalmem() / 1024 / 1024).toFixed(2)
+  const freeRAM = (os.freemem() / 1024 / 1024).toFixed(2)
   const cores = os.cpus().length
   const cpu = os.cpus()[0] || { model: 'unknown', speed: 0 }
   const cpuModel = cpu.model.split('@')[0].trim()
@@ -41,6 +39,7 @@ let handler = async (m, { conn }) => {
   const nodeVer = process.version
   const hostname = os.hostname()
   const loadAvg = os.loadavg().map(n => n.toFixed(2)).join(', ')
+  const cpuUsage = (os.loadavg()[0] / Math.max(1, cores) * 100).toFixed(1)
 
   let netPing = 'N/A'
   try {
@@ -60,7 +59,6 @@ let handler = async (m, { conn }) => {
     hostLocation = 'No detectado'
   }
 
-  const cpuUsage = (os.loadavg()[0] / Math.max(1, cores) * 100)
   let totalDisk = 'N/A', usedDisk = 'N/A', freeDisk = 'N/A'
   try {
     const dfRaw = execSync('df -h /').toString()
@@ -79,9 +77,16 @@ let handler = async (m, { conn }) => {
     thumb = Buffer.from(await r.arrayBuffer())
   } catch {}
 
+  const totalChats = Object.keys(conn.chats).length
+  const groupChats = Object.values(conn.chats).filter(c => c.isGroup).length
+  const privateChats = totalChats - groupChats
+  const registeredUsers = Object.values(global.db.data.users || {}).filter(u => u.registered).length
+  const unregisteredUsers = Object.values(global.db.data.users || {}).filter(u => !u.registered).length
+
+
   exec('neofetch --stdout', async (error, stdout) => {
     const sysInfo = !error && stdout
-      ? stdout.toString('utf-8').replace(/Memory:/i, 'Ram:')
+      ? stdout.toString('utf-8').replace(/Memory:/i, 'RAM:')
       : `Platform: ${platform}\nArch: ${arch}\nHost: ${hostname}`
 
     const response = `\`╔═══ 🌐 STATUS DEL SISTEMA 🌐 ═══╗\`
@@ -90,22 +95,33 @@ let handler = async (m, { conn }) => {
 \`║\` │💫 Latencia: ${latency.toFixed(2)} ms
 \`║\` │🌐 Ping de red: ${netPing}
 \`║\` │🌿 Uptime: ${uptimeFormatted}
-\`║\` │⚡ CPU: ${cpuUsage.toFixed(1)}%
-\`║\` │💾 RAM: ${usedRAM}/${totalRAM} GB
+\`║\` │⚡ CPU: ${cpuUsage}%
+\`║\` │💾 RAM usada: ${usedRAM} MB
 \`║\` └───────────────
 \`║\`
 \`║\` ┌─ 𝗥𝗘𝗖𝗨𝗥𝗦𝗢𝗦
-\`║\` │ 🍉 RAM usada: ${usedRAM} GB
-\`║\` │ 💮 RAM libre: ${freeRAM} GB
-\`║\` │ 💾 RAM total: ${totalRAM} GB
+\`║\` │ 💮 RAM libre: ${freeRAM} MB
+\`║\` │ 💾 RAM total: ${totalRAM} MB
 \`║\` │ 🌾 Carga promedio: ${loadAvg}
-\`║\` │ ⚡ Uso CPU: ${cpuUsage.toFixed(1)}%
+\`║\` │ ⚡ Uso CPU: ${cpuUsage}%
+\`║\` │ 💿 Disco total: ${totalDisk}
+\`║\` │ 📦 Disco usado: ${usedDisk}
+\`║\` │ 📭 Disco libre: ${freeDisk}
 \`║\` └───────────────
 \`║\`
 \`║\` ┌─ 𝗖𝗣𝗨
 \`║\` │ ⚙️ Modelo: ${cpuModel}
 \`║\` │ 🔧 Velocidad: ${cpuSpeed} GHz
 \`║\` │ 📡 Núcleos: ${cores}
+\`║\` └───────────────
+\`║\`
+\`║\` ┌─ 𝗕𝗢𝗧
+\`║\` │ 🤖 Prefix: ${usedPrefix}
+\`║\` │ 🏠 Total chats: ${totalChats}
+\`║\` │ 👥 Grupos: ${groupChats}
+\`║\` │ 💌 Privados: ${privateChats}
+\`║\` │ ✅ Registrados: ${registeredUsers}
+\`║\` │ ❌ No registrados: ${unregisteredUsers}
 \`║\` └───────────────
 \`║\`
 \`║\` ┌─ 𝗦𝗜𝗦𝗧𝗘𝗠𝗔
@@ -118,13 +134,7 @@ let handler = async (m, { conn }) => {
 \`║\` │ 🌎 Ubicación Host: ${hostLocation}
 \`║\` └───────────────
 \`║\`
-\`║\` ┌─ 𝗗𝗜𝗦𝗖𝗢
-\`║\` │ 💿 Total: ${totalDisk}
-\`║\` │ 📦 Usado: ${usedDisk}
-\`║\` │ 📭 Libre: ${freeDisk}
-\`║\` └───────────────
-\`║\`
-\`║\`  📚 process.versions:
+\`║\` 📚 process.versions:
 \`║\` \`\`\`${JSON.stringify(process.versions, null, 2)}\`\`\`
 \`║\`
 \`║\` \`\`\`${sysInfo.trim()}\`\`\`
@@ -137,7 +147,7 @@ let handler = async (m, { conn }) => {
       mentions: [m.sender],
       contextInfo: {
         externalAdReply: {
-          title: ' ˚  ᕱ⑅ᕱ ♡  ‧₊˚ ✩👑 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐕3 💫',
+          title: '˚ ᕱ⑅ᕱ ♡  ‧₊˚ ✩👑 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐕3 💫',
           body: '',
           thumbnail: thumb,
           mediaType: 1,
