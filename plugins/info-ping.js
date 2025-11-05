@@ -4,26 +4,8 @@ import os from 'os'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, usedPrefix }) => {
-  const loadingFrames = [
-    '《░░░░░░░░░░》 0%',
-    '《▓░░░░░░░░░》 10%',
-    '《▓▓░░░░░░░░》 20%',
-    '《▓▓▓░░░░░░░》 30%',
-    '《▓▓▓▓░░░░░░》 40%',
-    '《▓▓▓▓▓░░░░░》 50%',
-    '《▓▓▓▓▓▓░░░░》 60%',
-    '《▓▓▓▓▓▓▓░░░》 70%',
-    '《▓▓▓▓▓▓▓▓░░》 80%',
-    '《▓▓▓▓▓▓▓▓▓░》 90%',
-    '《▓▓▓▓▓▓▓▓▓▓》 100%',
-    '✨ *Carga completa!* ✨'
-  ]
-
-  let loadingMsg = await conn.sendMessage(m.chat, { text: 'Iniciando ping...' }, { quoted: m })
-  for (let frame of loadingFrames) {
-    await new Promise(r => setTimeout(r, 250))
-    await conn.sendMessage(m.chat, { text: frame }, { quoted: loadingMsg })
-  }
+  await m.react('🍄').catch(() => {})
+  let loadingMsg = await conn.sendMessage(m.chat, { text: '*🌳 Calculando ping y recursos...*' }, { quoted: m })
 
   const t0 = speed()
   await new Promise(r => setImmediate(r))
@@ -62,7 +44,6 @@ let handler = async (m, { conn, usedPrefix }) => {
     netPing = 'falló (timeout)'
   }
 
-
   let totalDisk = 'N/A', usedDisk = 'N/A', freeDisk = 'N/A'
   try {
     const dfRaw = execSync('df -h /').toString()
@@ -93,42 +74,41 @@ let handler = async (m, { conn, usedPrefix }) => {
       : `Platform: ${platform}\nArch: ${arch}\nHost: ${hostname}`
 
     const response = `
-✨🌾 *🍃 ESTADO DEL SISTEMA 🍃* 🌾✨
+🌿✨ *🍄 ESTADO DEL SISTEMA 🍄* ✨🌿
 
-🍄 *Ping Interno:* ${ping} ms
-🌼 *Latencia medida:* ${latency.toFixed(2)} ms
+🌱 *Ping Interno:* ${ping} ms
+🌸 *Latencia medida:* ${latency.toFixed(2)} ms
 🌻 *Ping de red:* ${netPing}
-🌷 *Uptime:* ${uptimeFormatted}
+🍃 *Uptime:* ${uptimeFormatted}
 
-🍉 *CPU:* ${cpuModel} @ ${cpuSpeed}GHz (${cores} núcleos)
-🍒 *Uso CPU:* ${cpuUsage}%
-🥭 *RAM usada:* ${usedRAM} MB
-🥝 *RAM libre:* ${freeRAM} MB
-🍇 *RAM total:* ${totalRAM} MB
-🌹 *Disco Total:* ${totalDisk}
-🌿 *Disco Usado:* ${usedDisk}
-🍁 *Disco Libre:* ${freeDisk}
+🌷 *CPU:* ${cpuModel} @ ${cpuSpeed}GHz (${cores} núcleos)
+🌼 *Uso CPU:* ${cpuUsage}%
+🍁 *RAM usada:* ${usedRAM} MB
+🍀 *RAM libre:* ${freeRAM} MB
+🌹 *RAM total:* ${totalRAM} MB
+🌺 *Disco Total:* ${totalDisk}
+🍂 *Disco Usado:* ${usedDisk}
+🌾 *Disco Libre:* ${freeDisk}
 
-🍂 *Info del Bot:*
+🌸 *Info del Bot:*
 ✨ Prefix: ${usedPrefix}
-🌾 Total chats: ${totalChats}
-🌸 Grupos: ${groupChats}
-🌷 Privados: ${privateChats}
+🌷 Total chats: ${totalChats}
+🌹 Grupos: ${groupChats}
+🌼 Privados: ${privateChats}
 🌺 Registrados: ${registeredUsers}
-🌼 No registrados: ${unregisteredUsers}
+🍀 No registrados: ${unregisteredUsers}
 
-🥀 *Sistema:*
-🌿 Plataforma: ${platform} (${arch})
-🍀 Host: ${hostname}
-🍒 NodeJS: ${nodeVer}
-🍇 V8: ${process.versions.v8}
-🥝 OpenSSL: ${process.versions.openssl}
-
+🌿 *Sistema:*
+🌱 Plataforma: ${platform} (${arch})
+🍄 Host: ${hostname}
+🍁 NodeJS: ${nodeVer}
+🌸 V8: ${process.versions.v8}
+🌼 OpenSSL: ${process.versions.openssl}
 
 🌷 *Info del Sistema:*
 \`\`\`${sysInfo.trim()}\`\`\`
 
-✨🌸 *Sistema estable y funcionando correctamente!* 🌼🍄
+🌸✨ *Sistema estable y funcionando correctamente!* 🌿🍀
 `
 
     const msgOpts = {
@@ -136,7 +116,7 @@ let handler = async (m, { conn, usedPrefix }) => {
       mentions: [m.sender],
       contextInfo: {
         externalAdReply: {
-          title: '˚ ᕱ⑅ᕱ ♡  ‧₊˚ ✩👑 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐕3 💫',
+          title: '˚ ᕱ⑅ᕱ ♡ ‧₊˚ ✩👑 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐕3 💫',
           body: '',
           thumbnail: thumb,
           mediaType: 1,
@@ -145,7 +125,7 @@ let handler = async (m, { conn, usedPrefix }) => {
       }
     }
 
-    await conn.sendMessage(m.chat, msgOpts, { quoted: fkontak })
+    await conn.sendMessage(m.chat, msgOpts, { quoted: m })
   })
 }
 
