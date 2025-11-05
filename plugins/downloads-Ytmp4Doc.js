@@ -161,7 +161,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
     let caption = `
 > ┌── 「 🎬 𝚈𝙾𝚄𝚃𝚄𝙱𝙴 𝙼𝙿4 𝙳𝙾𝙲 」──
-> │ ° 🎧 *Título:* ${result.title}
+> │ ° 🌿 *Título:* ${result.title}
 > │ ° ⏱️ *Duración:* ${vid.duration}
 > │ ° 👤 *Canal:* ${vid.author?.name || "Desconocido"}
 > │ ° 💾 *Calidad:* ${result.quality}P
@@ -173,7 +173,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     let thumb = null
     try {
       const img = await Jimp.read(result.thumbnail)
-      img.resize(300, Jimp.AUTO)
+      img.resize(500, Jimp.AUTO)
       thumb = await img.getBufferAsync(Jimp.MIME_JPEG)
     } catch (err) {
       console.log("Error al procesar miniatura:", err)
