@@ -158,7 +158,7 @@ txtCode = await conn.sendMessage(m.chat, {text : rtx2 }, { quoted: m })
                         buttons: [
                             {
                                 type: 1,
-                                displayText: "📋 Copiar Código",
+                                displayText: "𝙲𝙾𝙿𝙸𝙰𝚁 𝙲𝙾𝙳𝙸𝙶𝙾",
                                 id: "copy_code_" + secret
                             }
                         ]
