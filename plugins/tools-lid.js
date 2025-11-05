@@ -23,11 +23,11 @@ let handler = async (m, { conn, text, participants, groupMetadata }) => {
     targets.push(...numbers)
   }
 
-  // 🔹 Evita duplicados
+  // 🔹 Si no hay nada, usar el propio usuario
   targets = [...new Set(targets.length ? targets : [m.sender])]
 
-  let resumen = `╭━━━〔 👥 *INFORME DE USUARIOS DETECTADOS* 〕━━⬣\n`
-  let i = 1
+  let info = `╭━━━〔 👥 *INFORMACIÓN DE USUARIOS DETECTADOS* 〕━━⬣\n`
+  let count = 1
 
   for (const userId of targets) {
     const participant = participantList.find(p => p.id === userId)
@@ -36,45 +36,31 @@ let handler = async (m, { conn, text, participants, groupMetadata }) => {
     const isAdmin = participant?.admin ? '✅ Sí' : '❌ No'
     const lid = participant?.lid || 'No disponible'
     const isInGroup = participant ? '✅ Sí' : '❌ No'
-    const joinDate = participant?.since
-      ? new Date(participant.since * 1000).toLocaleString('es-PE', { timeZone: 'America/Lima' })
-      : 'Desconocida'
 
-    let pp
+    // 🧩 Detectar si es Business o normal
+    let isBusiness = '❌ Desconocido'
     try {
-      pp = await conn.profilePictureUrl(userId, 'image')
+      const waInfo = await conn.onWhatsApp(userId)
+      if (waInfo?.length > 0) {
+        isBusiness = waInfo[0]?.biz ? '💼 Business' : '📱 Oficial'
+      }
     } catch {
-      pp = 'https://telegra.ph/file/3e48f8f1e1df9f6122e98.jpg'
+      isBusiness = '❌ No detectado'
     }
 
-    // 🔸 Enviar imagen + info individual
-    await conn.sendMessage(m.chat, {
-      image: { url: pp },
-      caption: `╭━━━〔 👤 *Usuario ${i}* 〕━━⬣
-┃ 🧩 *Nombre:* ${userName}
-┃ ☎️ *Número:* ${number}
-┃ 💠 *LID:* ${lid}
-┃ 🧭 *ID:* ${userId}
-┃ 👑 *Admin:* ${isAdmin}
-┃ 👥 *En grupo:* ${isInGroup}
-┃ 🕒 *Se unió:* ${joinDate}
-╰━━━━━━━━━━━━━━⬣`,
-      mentions: [userId]
-    }, { quoted: m })
-
-    resumen += `│ 🧩 *${i}.* @${number}\n`
-    resumen += `│ ┣ 💠 LID: ${lid}\n`
-    resumen += `│ ┣ 👑 Admin: ${isAdmin}\n`
-    resumen += `│ ┣ 👥 En grupo: ${isInGroup}\n`
-    resumen += `│ ┗ 🕒 Ingreso: ${joinDate}\n`
-    i++
+    info += `│ 🧩 *${count}.* @${number}\n`
+    info += `│ ┣ 👤 *Nombre:* ${userName}\n`
+    info += `│ ┣ 💠 *LID:* ${lid}\n`
+    info += `│ ┣ 👑 *Admin:* ${isAdmin}\n`
+    info += `│ ┣ 👥 *En grupo:* ${isInGroup}\n`
+    info += `│ ┗ 🔹 *Tipo de cuenta:* ${isBusiness}\n`
+    count++
   }
 
-  resumen += '╰━━━━━━━━━━━━━━━━━━━━━━⬣'
+  info += '╰━━━━━━━━━━━━━━━━━━━━━━⬣'
 
-  // 🔸 Enviar resumen general decorado
   await conn.sendMessage(m.chat, { 
-    text: resumen,
+    text: info,
     mentions: targets
   }, { quoted: m })
 
