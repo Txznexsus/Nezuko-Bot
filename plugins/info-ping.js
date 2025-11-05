@@ -1,12 +1,11 @@
 import speed from 'performance-now'
-import { exec, execSync } from 'child_process'
+import { execSync } from 'child_process'
 import os from 'os'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, usedPrefix }) => {
   await m.react('🍄').catch(() => {})
-  let loadingMsg = await conn.sendMessage(m.chat, { text: '*🌳 Calculando ping y recursos...*' }, { quoted: m })
-
+  await conn.sendMessage(m.chat, { text: '*🌳 Calculando ping y recursos...*' }, { quoted: m })
   const t0 = speed()
   await new Promise(r => setImmediate(r))
   const latency = (speed() - t0).toFixed(2)
@@ -24,6 +23,7 @@ let handler = async (m, { conn, usedPrefix }) => {
   const usedRAM = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)
   const totalRAM = (os.totalmem() / 1024 / 1024).toFixed(2)
   const freeRAM = (os.freemem() / 1024 / 1024).toFixed(2)
+
   const cores = os.cpus().length
   const cpu = os.cpus()[0] || { model: 'unknown', speed: 0 }
   const cpuModel = cpu.model.split('@')[0].trim()
@@ -68,16 +68,18 @@ let handler = async (m, { conn, usedPrefix }) => {
   const registeredUsers = Object.values(global.db.data.users || {}).filter(u => u.registered).length
   const unregisteredUsers = Object.values(global.db.data.users || {}).filter(u => !u.registered).length
 
-  exec('neofetch --stdout', async (error, stdout) => {
-    const sysInfo = !error && stdout
-      ? stdout.toString('utf-8').replace(/Memory:/i, 'RAM:')
-      : `Platform: ${platform}\nArch: ${arch}\nHost: ${hostname}`
+  let sysInfo = ''
+  try {
+    sysInfo = execSync('neofetch --stdout').toString('utf-8').replace(/Memory:/i, 'RAM:')
+  } catch {
+    sysInfo = `Platform: ${platform}\nArch: ${arch}\nHost: ${hostname}`
+  }
 
-    const response = `
+  const response = `
 🌿✨ *🍄 ESTADO DEL SISTEMA 🍄* ✨🌿
 
 🌱 *Ping Interno:* ${ping} ms
-🌸 *Latencia medida:* ${latency.toFixed(2)} ms
+🌸 *Latencia medida:* ${latency} ms
 🌻 *Ping de red:* ${netPing}
 🍃 *Uptime:* ${uptimeFormatted}
 
@@ -110,23 +112,21 @@ let handler = async (m, { conn, usedPrefix }) => {
 
 🌸✨ *Sistema estable y funcionando correctamente!* 🌿🍀
 `
-
-    const msgOpts = {
-      text: response,
-      mentions: [m.sender],
-      contextInfo: {
-        externalAdReply: {
-          title: '˚ ᕱ⑅ᕱ ♡ ‧₊˚ ✩👑 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐕3 💫',
-          body: '',
-          thumbnail: thumb,
-          mediaType: 1,
-          renderLargerThumbnail: true
-        }
+  const msgOpts = {
+    text: response,
+    mentions: [m.sender],
+    contextInfo: {
+      externalAdReply: {
+        title: '˚ ᕱ⑅ᕱ ♡ ‧₊˚ ✩👑 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐕3 💫',
+        body: '',
+        thumbnail: thumb,
+        mediaType: 1,
+        renderLargerThumbnail: true
       }
     }
+  }
 
-    await conn.sendMessage(m.chat, msgOpts, { quoted: m })
-  })
+  await conn.sendMessage(m.chat, msgOpts, { quoted: fkontak })
 }
 
 handler.help = ['ping']
