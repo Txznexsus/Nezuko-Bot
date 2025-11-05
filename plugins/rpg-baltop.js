@@ -63,9 +63,9 @@ let handler = async (m, { conn, args, participants, usedPrefix }) => {
 `
   }
 
-  text += `╚═════════════════════════╝`
+  text += `╚═══════════════════════╝`
 
-  await conn.reply(m.chat, text.trim(), m)
+  await conn.reply(m.chat, text.trim(), m, rcanal)
 }
 
 handler.help = ['baltop']
