@@ -27,7 +27,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     const phone = PhoneNumber('+' + userId)
     const pais = phone.getRegionCode() || 'Desconocido 🌐'
     
-    //const perfil = await conn.profilePictureUrl(conn.user.jid, 'image')
+    const perfil = await conn.profilePictureUrl(conn.user.jid, 'image')
       .catch(() => 'https://i.pinimg.com/originals/b3/67/d5/b367d513d861de468305c32c6cd22756.jpg')
 
     const channelRD = { 
@@ -35,7 +35,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
       name: '𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐀𝐈 : 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 𝐎𝐟𝐢𝐜𝐢𝐚𝐥 ꒰͡•*゜・。 ͡꒱ֽ ׄ< '
     }
 
-/*    const metaMsg = {
+    const metaMsg = {
       quoted: global.fakeMetaMsg,
       contextInfo: {
         mentionedJid: [m.sender],
@@ -57,7 +57,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
         }
       }
     }
-*/
+
     let tags = {
       'info': '𓂂𓏸 𐅹੭੭  `ᴍᴇɴᴜ ɪɴғᴏ` 🍂 ᦡᦡ',
       'main': '𓂂𓏸 𐅹੭੭  `ᴍᴇɴᴜ ᴍᴀɪɴ` 🍓 ᦡᦡ',
@@ -120,7 +120,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
 ─────────────────────`.trim()
 
     const cuerpo = infoUser + `\n\n*🍡 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ:*${menuTexto}`.trim()
-/*
+
     const imgs = [
       'https://i.pinimg.com/originals/b3/67/d5/b367d513d861de468305c32c6cd22756.jpg',
       'https://i.pinimg.com/originals/90/c8/58/90c858c65f0b3b2fca9a226fa369aa2b.png'
@@ -131,14 +131,14 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
       image: { url: imageUrl },
       /*document: fs.readFileSync('./README.md'),
       fileName: '🚀 ᴋᴀɴᴇᴋɪ ʙᴏᴛ ᴀɪ | Mᴇɴᴜ 🌸',
-      mimetype: 'application/pdf',
+      mimetype: 'application/pdf',*/
       caption: cuerpo,
       fileName: '🩸 Kaneki Bot AI | Menu ☯',
       mimetype: 'image/jpeg',
       mentions: [m.sender],
       ...metaMsg
-    })*/
-    
+    })
+    /*
 await conn.sendMessage(
   m.chat,
   {
@@ -166,7 +166,7 @@ await conn.sendMessage(
   },
   { quoted: fkontak }
 )
-
+*/
   } catch (e) {
     console.error(e)
     await conn.sendMessage(m.chat, { 
