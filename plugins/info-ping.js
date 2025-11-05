@@ -5,9 +5,18 @@ import os from 'os'
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn }) => {
+ 
+  const totalSteps = 10
+  let loadingMsg = await conn.sendMessage(m.chat, { text: `[Cargando] 0% ░░░░░░░░░░` }, { quoted: fkontak })
+
+  for (let i = 1; i <= totalSteps; i++) {
+    await new Promise(r => setTimeout(r, 300))
+    const percent = i * 10
+    const bars = '▓'.repeat(i) + '░'.repeat(totalSteps - i)
+    await conn.sendMessage(m.chat, { text: `[Cargando] ${percent}% ${bars}` }, { quoted: loadingMsg })
+  }
+
   const start = Date.now()
-  await m.react('📡').catch(() => {})
-  await conn.sendMessage(m.chat, { text: `🍃 *Calculando el ping...*` }, { quoted: m })
   const ping = Date.now() - start
 
   const t0 = speed()
@@ -19,9 +28,6 @@ let handler = async (m, { conn }) => {
   const minutes = Math.floor((uptime % 3600) / 60)
   const seconds = Math.floor(uptime % 60)
   const uptimeFormatted = `${hours}h ${minutes}m ${seconds}s`
-  
-  const startTime = new Date(Date.now() - uptime * 1000)
-  const startAt = moment(startTime).tz('America/Lima').format('YYYY/MM/DD HH:mm:ss')
 
   const usedRAM = (process.memoryUsage().heapUsed / 1024 / 1024 / 1024).toFixed(2)
   const totalRAM = (os.totalmem() / 1024 / 1024 / 1024).toFixed(2)
@@ -35,8 +41,6 @@ let handler = async (m, { conn }) => {
   const nodeVer = process.version
   const hostname = os.hostname()
   const loadAvg = os.loadavg().map(n => n.toFixed(2)).join(', ')
-  const fechaHora = moment().tz('America/Lima').format('YYYY/MM/DD, h:mm:ss A')
-  const region = moment.tz.guess() || Intl.DateTimeFormat().resolvedOptions().timeZone
 
   let netPing = 'N/A'
   try {
@@ -56,7 +60,6 @@ let handler = async (m, { conn }) => {
     hostLocation = 'No detectado'
   }
 
-  // 🔹 CPU y Disco
   const cpuUsage = (os.loadavg()[0] / Math.max(1, cores) * 100)
   let totalDisk = 'N/A', usedDisk = 'N/A', freeDisk = 'N/A'
   try {
@@ -81,31 +84,31 @@ let handler = async (m, { conn }) => {
       ? stdout.toString('utf-8').replace(/Memory:/i, 'Ram:')
       : `Platform: ${platform}\nArch: ${arch}\nHost: ${hostname}`
 
-    const response = `\`╔═══ STATUS DEL SISTEMA ═══╗\`
-\`║\` ╭─  𝙸𝙵 / 𝙿𝙸𝙽𝙶
+    const response = `\`╔═══ 🌐 STATUS DEL SISTEMA 🌐 ═══╗\`
+\`║\` ┌─ 𝗜𝗙 / 𝗣𝗜𝗡𝗚
 \`║\` │🚀 Ping: ${ping} ms
 \`║\` │💫 Latencia: ${latency.toFixed(2)} ms
 \`║\` │🌐 Ping de red: ${netPing}
 \`║\` │🌿 Uptime: ${uptimeFormatted}
 \`║\` │⚡ CPU: ${cpuUsage.toFixed(1)}%
 \`║\` │💾 RAM: ${usedRAM}/${totalRAM} GB
-\`║\` ╰───────────────
+\`║\` └───────────────
 \`║\`
-\`║\` ╭─ 𝚁𝙴𝙲𝚄𝚁𝚂𝙾𝚂 
+\`║\` ┌─ 𝗥𝗘𝗖𝗨𝗥𝗦𝗢𝗦
 \`║\` │ 🍉 RAM usada: ${usedRAM} GB
 \`║\` │ 💮 RAM libre: ${freeRAM} GB
 \`║\` │ 💾 RAM total: ${totalRAM} GB
 \`║\` │ 🌾 Carga promedio: ${loadAvg}
 \`║\` │ ⚡ Uso CPU: ${cpuUsage.toFixed(1)}%
-\`║\` ╰───────────────
-\`║\` 
-\`║\` ╭─ 𝙲𝙿𝚄
+\`║\` └───────────────
+\`║\`
+\`║\` ┌─ 𝗖𝗣𝗨
 \`║\` │ ⚙️ Modelo: ${cpuModel}
 \`║\` │ 🔧 Velocidad: ${cpuSpeed} GHz
-\`║\` │ 📡 Núcleos: (${cores})
-\`║\` ╰───────────────
-\`║\` 
-\`║\` ╭─ 𝚂𝙸𝚂𝚃𝙴𝙼𝙰
+\`║\` │ 📡 Núcleos: ${cores}
+\`║\` └───────────────
+\`║\`
+\`║\` ┌─ 𝗦𝗜𝗦𝗧𝗘𝗠𝗔
 \`║\` │ 🖥️ Arquitectura: ${arch}
 \`║\` │ 🌲 Plataforma: ${platform}
 \`║\` │ 🧠 NodeJS: ${nodeVer}
@@ -113,21 +116,21 @@ let handler = async (m, { conn }) => {
 \`║\` │ 🔒 OpenSSL: ${process.versions.openssl}
 \`║\` │ 🟢 Host: ${hostname}
 \`║\` │ 🌎 Ubicación Host: ${hostLocation}
-\`║\` ╰───────────────
-\`║\` 
-\`║\` ╭─ 𝙳𝙸𝚂𝙲𝙾
+\`║\` └───────────────
+\`║\`
+\`║\` ┌─ 𝗗𝗜𝗦𝗖𝗢
 \`║\` │ 💿 Total: ${totalDisk}
 \`║\` │ 📦 Usado: ${usedDisk}
 \`║\` │ 📭 Libre: ${freeDisk}
-\`║\` ╰───────────────
-\`║\` 
+\`║\` └───────────────
+\`║\`
 \`║\`  📚 process.versions:
 \`║\` \`\`\`${JSON.stringify(process.versions, null, 2)}\`\`\`
 \`║\`
 \`║\` \`\`\`${sysInfo.trim()}\`\`\`
 \`╚═══════\`
 
-> ✨ *Estado del sistema estable y funcionando correctamente!* ⚙️🔥`
+> ✨ *Sistema estable y funcionando correctamente!* ⚙️🔥`
 
     const msgOpts = {
       text: response,
@@ -143,7 +146,7 @@ let handler = async (m, { conn }) => {
       }
     }
 
-    await conn.sendMessage(m.chat, msgOpts, { quoted: fkontak })
+    await conn.sendMessage(m.chat, msgOpts, { quoted: m })
   })
 }
 
