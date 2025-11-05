@@ -56,7 +56,7 @@ let handler = async (m, { conn, args, participants, usedPrefix }) => {
     }
 
     text += `║ ${i + 1 + startIndex}. *${name}*
-║    💴 Total: ${currency}${total.toLocaleString()}
+║    💴 Total: ${total.toLocaleString()} ${currency}
 ║    📊 Progreso: [${bar}] ${percent}%
 ║    ⏰ Último juego: ${lastPlayed}
 ║──────────────────────║
