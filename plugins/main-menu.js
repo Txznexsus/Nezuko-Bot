@@ -151,9 +151,9 @@ await conn.sendMessage(
       isForwarded: true,
       forwardingScore: 999,
       forwardedNewsletterMessageInfo: {
-        newsletterJid: '120363422142340004@newsletter',
+        newsletterJid: channelRD.id,
         serverMessageId: 100,
-        newsletterName: '𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐀𝐈 : 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 𝐎𝐟𝐢𝐜𝐢𝐚𝐥 ꒰͡•*゜・。 ͡꒱ֽ ׄ< '
+        newsletterName: channelRD.name
       },
       externalAdReply: {
         title: '꒰͡•*゜🩸 Kaneki Bot AI 🌿꒰͡•*゜・。 ͡꒱ֽ ׄ',
