@@ -1,20 +1,19 @@
+// 💫 by dv.shadow - https://github.com/Yuji-XDev
+import { proto } from '@whiskeysockets/baileys'
+import PhoneNumber from 'awesome-phonenumber'
 
-// by dv.shadow - https://github.com/Yuji-XDev
+let handler = async (m, { conn }) => {
+  try {
+    const name = 'sһᥲძ᥆ᥕ-᥊ᥡz | ᥆𝖿𝖿іᥴіᥲᥩ'
+    const numCreador = '51919199620'
+    const empresa = 'ᴋᴀɴᴇᴋɪ ʙᴏᴛ ɪɴɪᴄ.'
+    const about = '🍃 𝑫𝒆𝒔𝒂𝒓𝒓𝒐𝒍𝒍𝒂𝒅𝒐𝒓 𝒐𝒇𝒇𝒊𝒄𝒊𝒂𝒍 𝒅𝒆 𝑲𝒂𝒏𝒆𝒌𝒊-𝑩𝒐𝒕 𝑽3'
+    const correo = 'shadowcore.xyz@gmail.com'
+    const web = 'https://shadow-xyz.vercel.app/'
+    const direccion = 'Tokyo, Japón 🇯🇵'
+    const fotoPerfil = 'https://qu.ax/tAWKZ.jpg'
 
-import { proto } from '@whiskeysockets/baileys';
-import PhoneNumber from 'awesome-phonenumber';
-
-const handler = async (m, { conn }) => {
-  const name = 'sһᥲძ᥆ᥕ-᥊ᥡz | ᥆𝖿𝖿іᥴіᥲᥩ'
-  const numCreador = '51919199620'
-  const empresa = 'ᴋᴀɴᴇᴋɪ ʙᴏᴛ ɪɴɪᴄ.'
-  const about = '🍃 𝑫𝒆𝒔𝒂𝒓𝒓𝒐𝒍𝒍𝒂𝒅𝒐𝒓 𝒐𝒇𝒇𝒊𝒄𝒊𝒂𝒍 𝒅𝒆 𝑲𝒂𝒏𝒆𝒌𝒊-𝑩𝒐𝒕 𝑽3'
-  const correo = 'shadowcore.xyz@gmail.com'
-  const web = 'https://shadow-xyz.vercel.app/'
-  const direccion = 'Tokyo, Japón 🇯🇵'
-  const fotoPerfil = 'https://qu.ax/tAWKZ.jpg'
-
-  const vcard = `
+    const vcard = `
 BEGIN:VCARD
 VERSION:3.0
 N:;${name};;;
@@ -29,42 +28,50 @@ ADR:;;${direccion};;;;
 X-ABADR:ES
 X-WA-BIZ-NAME:${name}
 X-WA-BIZ-DESCRIPTION:${about}
-END:VCARD`.trim();
+END:VCARD`.trim()
 
-  const contactMessage = {
-    displayName: name,
-    vcard
-  };
-  m.react('🌿');
-  await conn.sendMessage(m.chat, {
-    contacts: {
+    const contact = {
       displayName: name,
-      contacts: [contactMessage]
-    },
-    contextInfo: {
-    mentionedJid: [m.sender],
-          product: {
-      productImage: { url: pp },
-      productId: '7777777777',
-      title: '𝙍𝙚𝙜𝙞𝙨𝙩𝙧𝙤 𝙀𝙡𝙞𝙢𝙞𝙣𝙖𝙙𝙤 𝙘𝙤𝙧𝙧𝙚𝙘𝙩𝙖𝙢𝙚𝙣𝙩𝙚',
-      description: `🌿 Nombre: ${nombre} • Edad: ${edad} años`,
-      currencyCode: 'USD',
-      priceAmount1000: '100000',
-      retailerId: 666,
-      url: 'https://wa.me/0',
-      productImageCount: 1,
-    },
-    businessOwnerJid: m.sender,
+      vcard
+    }
+
+    // 👇 Reacción y envío del contacto
+    await m.react('🌿')
+
+    await conn.sendMessage(m.chat, {
+      contacts: {
+        displayName: name,
+        contacts: [contact]
+      },
+      contextInfo: {
+        mentionedJid: [m.sender],
+        businessOwnerJid: numCreador + '@s.whatsapp.net',
         mediaType: 1,
         thumbnailUrl: fotoPerfil,
         renderLargerThumbnail: true,
-        sourceUrl: web
+        sourceUrl: web,
+        product: {
+          productImage: { url: fotoPerfil },
+          productId: '7777777777',
+          title: `${name}`,
+          description: `🌿 ${about}`,
+          currencyCode: 'USD',
+          priceAmount1000: '100000',
+          retailerId: 666,
+          url: `https://wa.me/${numCreador}`,
+          productImageCount: 1,
+        }
       }
-    }
-  }, { quoted: fkontak });
-};
+    }, { quoted: m })
 
-handler.help = ['creador'];
-handler.tags = ['info'];
-handler.command = ['creador', 'creator', 'owner'];
-export default handler;
+  } catch (e) {
+    console.error(e)
+    await m.reply('⚠️ Ocurrió un error al enviar el contacto del creador.')
+  }
+}
+
+handler.help = ['creador']
+handler.tags = ['info']
+handler.command = ['creador', 'creator', 'owner']
+
+export default handler
