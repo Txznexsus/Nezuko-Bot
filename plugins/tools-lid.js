@@ -34,7 +34,6 @@ let handler = async (m, { conn, text, participants, groupMetadata }) => {
     const lid = participant?.lid || 'No disponible'
     const isInGroup = participant ? '✅ Sí' : '❌ No'
 
-    // 🧩 Detectar si es Business o normal
     let isBusiness = '❌ Desconocido'
     try {
       const waInfo = await conn.onWhatsApp(userId)

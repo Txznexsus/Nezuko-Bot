@@ -7,7 +7,6 @@ let handler = async (m, { conn, args, participants, usedPrefix }) => {
     return m.reply(`🍃 *Los comandos de economía están desactivados en este grupo.*\n\nUn administrador puede activarlos con:\n> ${usedPrefix}economy on`)
   }
 
-  // 📋 Usuarios del grupo actual
   const groupUsers = participants.map(p => p.id)
   const users = groupUsers
     .map(jid => ({ jid, ...(global.db.data.users[jid] || {}) }))
@@ -15,7 +14,6 @@ let handler = async (m, { conn, args, participants, usedPrefix }) => {
 
   if (!users.length) return m.reply('🌿 No hay usuarios con datos económicos en este grupo.')
 
-  // 📊 Ordenar por riqueza
   const sorted = users.sort((a, b) => ((b.coin || 0) + (b.bank || 0)) - ((a.coin || 0) + (a.bank || 0)))
   const totalPages = Math.ceil(sorted.length / 10)
   const page = Math.max(1, Math.min(parseInt(args[0]) || 1, totalPages))
@@ -24,17 +22,14 @@ let handler = async (m, { conn, args, participants, usedPrefix }) => {
   const slice = sorted.slice(startIndex, endIndex)
 
   const richest = (sorted[0].coin || 0) + (sorted[0].bank || 0)
-  const currency = '💎'
-
-  // 📜 Cabecera decorada
+ 
   let text = `
-╔═══《 💰 ᴛᴏᴘ ᴇᴄᴏɴᴏᴍɪ́ᴀ 💰 》═══╗
+╔══《 💰 ᴛᴏᴘ ᴇᴄᴏɴᴏᴍɪ́ᴀ 💰 》══╗
 ║  🌍 *Grupo:* ${m.isGroup ? (await conn.groupMetadata(m.chat)).subject : 'Privado'}
 ║  📄 *Página:* ${page}/${totalPages}
-║──────────────────────────────║
+║──────────────────────║
 `
 
-  // 🧾 Lista de usuarios
   for (let i = 0; i < slice.length; i++) {
     const { jid, coin = 0, bank = 0, lastplay } = slice[i]
     const total = coin + bank
@@ -49,8 +44,7 @@ let handler = async (m, { conn, args, participants, usedPrefix }) => {
     const percent = Math.min(100, Math.floor((total / richest) * 100))
     const bar = '█'.repeat(Math.floor(percent / 10)) + '░'.repeat(10 - Math.floor(percent / 10))
 
-    // 🕒 Tiempo desde su último juego
-    let lastPlayed = 'Nunca'
+    let lastPlayed = ':v'
     if (lastplay) {
       const diff = Date.now() - lastplay
       const mins = Math.floor(diff / 60000)
@@ -64,12 +58,12 @@ let handler = async (m, { conn, args, participants, usedPrefix }) => {
     text += `║ ${i + 1 + startIndex}. *${name}*
 ║    💴 Total: ${currency}${total.toLocaleString()}
 ║    📊 Progreso: [${bar}] ${percent}%
-║    ⏰ Último juego: ${lastPlayed} atrás
-║──────────────────────────────║
+║    ⏰ Último juego: ${lastPlayed}
+║──────────────────────║
 `
   }
 
-  text += `╚═══════════════════════════╝`
+  text += `╚═════════════════════════╝`
 
   await conn.reply(m.chat, text.trim(), m)
 }
