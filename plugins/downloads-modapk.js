@@ -1,5 +1,6 @@
 import { search, download } from 'aptoide-scraper'
 import fetch from 'node-fetch'
+import Jimp from 'jimp'
 
 var handler = async (m, { conn, usedPrefix, command, text }) => {
   if (!text) return conn.reply(m.chat, `🍃 Por favor, ingrese el nombre de la APK que desea descargar.`, m, rcanal)
@@ -17,17 +18,25 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
     txt += `≡ 🍃 *Update* : ${data5.lastup}\n`
     txt += `≡ 🚀 *Peso* : ${data5.size}`
 
-    // Enviamos el mensaje con los datos y la imagen del ícono
+    // 🔹 Mensaje con los datos del APK
     await conn.sendFile(m.chat, data5.icon, 'thumbnail.jpg', txt, m, null, rcanal)
 
     if (data5.size.includes('GB') || data5.size.replace(' MB', '') > 999) {
       return await conn.reply(m.chat, `⚠️ El archivo es demasiado pesado para enviarlo.`, m)
     }
 
-    // Descargamos el ícono como buffer para usarlo como miniatura
-    let thumb = await (await fetch(data5.icon)).buffer()
+    // 🔹 Descarga el ícono con fetch (por si Jimp falla, ya lo tienes como respaldo)
+    let thumb = null
+    try {
+      const buffer = await (await fetch(data5.icon)).buffer()
+      const img = await Jimp.read(buffer)
+      img.resize(300, Jimp.AUTO).quality(80)
+      thumb = await img.getBufferAsync(Jimp.MIME_JPEG)
+    } catch (err) {
+      console.log('⚠️ Error al procesar miniatura:', err)
+    }
 
-    // Envío del archivo APK con miniatura personalizada
+    // 🔹 Enviar APK con miniatura personalizada
     await conn.sendMessage(
       m.chat,
       {
@@ -35,7 +44,7 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
         mimetype: 'application/vnd.android.package-archive',
         fileName: `${data5.name}.apk`,
         caption: `© powered by SHADOW°Core`,
-        jpegThumbnail: thumb // ← 🔹 Miniatura del archivo
+        jpegThumbnail: thumb // ✅ Miniatura del archivo APK
       },
       { quoted: m }
     )
