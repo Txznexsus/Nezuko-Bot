@@ -14,7 +14,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   try {
     let spotifyUrl = text.includes('spotify.com/track') ? text : null
 
-    // 🔍 Buscar por nombre si no es URL
     if (!spotifyUrl) {
       const search = await fetch(`https://api.yupra.my.id/api/search/spotify?q=${encodeURIComponent(text)}`)
       if (!search.ok) throw 'Error al buscar en Yupra.'
@@ -24,7 +23,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       spotifyUrl = first.spotify_preview || first.url
     }
 
-    // 🎧 Descargar audio desde Stellar
     const res = await fetch(`https://api.stellarwa.xyz/dl/spotifyv2?url=${encodeURIComponent(spotifyUrl)}&key=stellar-3j2706f1`)
     if (!res.ok) throw 'Error al conectar con la API de Stellar.'
     const data = await res.json()
@@ -43,7 +41,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       spotify: spotifyUrl,
     }
 
-    // 🖼️ Miniatura
     let thumb = null
     try {
       const img = await Jimp.read(song.image)
@@ -51,7 +48,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       thumb = await img.getBufferAsync(Jimp.MIME_JPEG)
     } catch {}
 
-    // 📝 Texto informativo
     const caption = `
 🎧 *${song.title}*
 👤 *${song.artist}*
@@ -61,7 +57,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 🔗 [Spotify](${song.spotify})
 `
 
-    // 📄 Enviar documento con botón
     await conn.sendMessage(
       m.chat,
       {
@@ -78,7 +73,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
             renderLargerThumbnail: true,
             sourceUrl: song.spotify,
           },
-          // 🔘 Botón "Escuchar en Spotify"
+
           mentionedJid: [m.sender],
           forwardingScore: 999,
           isForwarded: true,
@@ -94,7 +89,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       { quoted: m }
     )
 
-    // 🎧 Enviar audio reproducible
     await conn.sendMessage(
       m.chat,
       {

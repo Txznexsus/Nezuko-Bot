@@ -84,7 +84,7 @@ async function ytdl(url) {
   return {
     url: convert.downloadURL,
     title: info.title || "video",
-    quality: info.quality || "380p"
+    quality: info.quality || "720p"
   };
 }
 
