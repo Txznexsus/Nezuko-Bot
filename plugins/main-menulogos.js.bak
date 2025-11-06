@@ -19,7 +19,7 @@ const menuStyle = {
 
 %readmore`.trim(),
   header: `┏━━━━━━━━━━━━━━━━\n┃%category\n┣━━━━━━━━━━━━━━━━`,
-  body: `\n┃ ☃️ %cmd %isPremium %islimit`,
+  body: `┃ ☃️ %cmd %isPremium %islimit`,
   footer: `┗━━━━━━━━━━━━━━━━`,
   after: `\n🍷 〘 2025 © ${botname} 🎄〙`
 }
