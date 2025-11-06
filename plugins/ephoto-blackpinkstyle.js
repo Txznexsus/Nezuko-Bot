@@ -24,7 +24,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     };
 
     try {
-        const url = `${global.APIs.vreden.url}/api/v1/maker/ephoto/glitchtext?text=${encodeURIComponent(text)}`;
+        const url = `${global.APIs.vreden.url}/api/v1/maker/ephoto/blackpinkstyle?text=${encodeURIComponent(text)}`;
         const response = await fetch(url);
         const data = await response.json();
 
@@ -44,9 +44,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 };
 
-handler.help = ['glitch <texto>'];
+handler.help = ['blackpinkstyle <texto>'];
 handler.tags = ['maker'];
-handler.command = ['glitch'];
+handler.command = ['blackpinkstyle'];
 handler.group = true;
 handler.register = true;
 

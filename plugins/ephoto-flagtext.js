@@ -24,7 +24,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     };
 
     try {
-        const url = `https://api.vreden.my.id/api/v1/maker/ephoto/flagtext?text=${encodeURIComponent(text)}`;
+        const url = `${global.APIs.vreden.url}/api/v1/maker/ephoto/flagtext?text=${encodeURIComponent(text)}`;
         const response = await fetch(url);
         const data = await response.json();
 
