@@ -39,7 +39,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 🕒 *Duración:* ${meta.duration?.timestamp || "Desconocida"}
 👁 *Vistas:* ${meta.views?.toLocaleString() || "?"}
 📅 *Publicado:* ${meta.ago}
-🌾 *Calidad:* ${down.quality}p
+🌾 *Calidad:* ${down.quality}
 💾 *Tamaño:* ${formatSize(size)}
 ────────────────────
 ✨ *Descarga Completa...*`
