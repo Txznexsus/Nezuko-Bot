@@ -131,15 +131,15 @@ const msg = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
   viewOnceMessage: {
     message: {
       interactiveMessage: {
-        body: { text: '✨ *CÓDIGO DE VINCULACIÓN* 🌱' },
-        footer: { text: `𝚁𝙸𝙽 𝙸𝚃𝙾𝚂𝙷𝙸 | \`𝚂𝙷𝙰𝙳𝙾𝚆.𝚇𝚈𝚉\`` },
+        body: { text: '☃️ *CÓDIGO DE VINCULACIÓN* 🎄' },
+        footer: { text: dev },
         header: { hasMediaAttachment: false },
         nativeFlowMessage: {
           buttons: [
             {
               name: "cta_copy",
               buttonParamsJson: JSON.stringify({
-                display_text: "☆📋 ᴄᴏᴘɪᴀʀ ᴄᴏᴅɪɢᴏ 🌹☆",
+                display_text: "ᴄᴏᴘɪᴀʀ ᴄᴏᴅɪɢᴏ",
                 id: "copy_code",
                 copy_code: `*${secret}*`
               })
