@@ -17,9 +17,13 @@ const menuStyle = {
 👥 Usuarios Totales: %totalreg
 ⏱ Uptime: %muptime
 
+🎅 Fecha: %fecha
+🌸 Hora: %hora
+🦌 País: %pais
+
 %readmore`.trim(),
   header: `┏━━━━━━━━━━━━━━━━\n┃%category\n┣━━━━━━━━━━━━━━━━`,
-  body: `\n┃ ☃️ %cmd %isPremium %islimit`,
+  body: `\n┃ ☃️ %cmd`,
   footer: `┗━━━━━━━━━━━━━━━━`,
   after: `\n🍷 〘 2025 © ${botname} 🎄〙`
 }
@@ -33,11 +37,15 @@ let handler = async (m, { conn, usedPrefix }) => {
     let muptime = clockString(await getMuptime())
     let totalreg = Object.keys(global.db.data.users).length
 
+    let fecha = new Date()
+    let opciones = { timeZone: 'America/Lima', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+    let fechaFormat = fecha.toLocaleDateString('es-PE', opciones)
+    let hora = fecha.toLocaleTimeString('es-PE', { timeZone: 'America/Lima' })
+    let pais = '🇵🇪 Perú'
+
     let help = Object.values(global.plugins).filter(p => !p.disabled).map(plugin => ({
       help: Array.isArray(plugin.help) ? plugin.help : [plugin.help],
       tags: Array.isArray(plugin.tags) ? plugin.tags : [plugin.tags],
-      limit: plugin.limit,
-      premium: plugin.premium
     }))
 
     let text = [
@@ -48,8 +56,6 @@ let handler = async (m, { conn, usedPrefix }) => {
           .map(p => p.help.map(cmd =>
             menuStyle.body
               .replace('%cmd', usedPrefix + cmd)
-              .replace('%islimit', p.limit ? '(🌙)' : '')
-              .replace('%isPremium', p.premium ? '(💠)' : '')
           ).join('\n'))
           + '\n' + menuStyle.footer
       }),
@@ -63,6 +69,9 @@ let handler = async (m, { conn, usedPrefix }) => {
       .replace(/%totalreg/g, totalreg)
       .replace(/%mode/g, mode)
       .replace(/%muptime/g, muptime)
+      .replace(/%fecha/g, fechaFormat)
+      .replace(/%hora/g, hora)
+      .replace(/%pais/g, pais)
       .replace(/%readmore/g, readMore)
 
     await conn.sendMessage(m.chat, { 
