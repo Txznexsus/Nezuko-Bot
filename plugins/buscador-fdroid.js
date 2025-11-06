@@ -39,7 +39,7 @@ conn.reply(m.chat, `⚠︎ Ocurrió un error inesperado.\n> Usa *${usedPrefix}re
 }
 
 handler.help = ['fdroidsearch', 'fdroid']
-handler.tags = ['info', 'tools']
+handler.tags = ['search']
 handler.command = ['fdroidsearch', 'fdroid', 'searchfdroid']
 handler.group = true
 handler.register = true
