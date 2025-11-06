@@ -10,7 +10,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     const user = global.db.data.users[m.sender] || {}
     const name = await conn.getName(m.sender)
     const premium = user.premium ? '✔️ Sí' : '❌ No'
-    const limit = user.limit || 0
+    const limit = user.limit || 10
     const totalreg = Object.keys(global.db.data.users).length
     const groupUserCount = m.isGroup ? participants.length : '-'
     const groupsCount = Object.values(conn.chats).filter(v => v.id.endsWith('@g.us')).length
@@ -102,22 +102,22 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     }
 
     const infoUser = `
-°•°•°•°•°•°•°•°∞°•°•°•°•°•°•°•°
+°•°•°•°•°•°•°•°•°•°•°•°•°∞°•°•°•°•°•°•°•°•°•°•°•°•°
 ര ׄ 🎁 ׅ  Bienvenid@ soy | Kaneki Bot AI ┊͙ ˘͈ᵕ˘͈
 ─────────────────────
-::=> 🍃 *Usuario:* @${userId}
-::=> 🍬 *Premium:* ${premium}
-::=> 🍟 *País:* ${pais}
-::=> 🪀 *Límite:* ${limit}
-::=> 🎋 *Usuarios totales:* ${totalreg}
-::=> 🪺 *Grupos activos:* ${groupsCount}
-::=> 🏮 *Tiempo activo:* ${uptime}
+ 🍃 *Usuario:* @${userId}
+ 🍬 *Premium:* ${premium}
+ 🍟 *País:* ${pais}
+ 🪀 *Límite:* ${limit}
+ 🎋 *Usuarios totales:* ${totalreg}
+ 🪺 *Grupos activos:* ${groupsCount}
+ 🏮 *Tiempo activo:* ${uptime}
 ─────────────────────
-::=> 💫 *Bot:* ${(conn.user.jid == global.conn.user.jid ? '𝙋𝙧𝙞𝙣𝙘𝙞𝙥𝙖𝙡 🌱' : '𝙆𝙖𝙣𝙚𝙠𝙞 𝙎𝙪𝙗-𝘽𝙤𝙩 💮')}
-::=> 🕸️ *Comandos:* ${totalCommands}
-::=> 🪸 *Versión:* ${vs}
-::=> 🪵 *Librería:* ${libreria}
-::=> 💐 *Fecha:* \`${hora}, ${dia}, ${fechaTxt}\`
+ 💫 *Bot:* ${(conn.user.jid == global.conn.user.jid ? '𝙋𝙧𝙞𝙣𝙘𝙞𝙥𝙖𝙡 🌱' : '𝙆𝙖𝙣𝙚𝙠𝙞 𝙎𝙪𝙗-𝘽𝙤𝙩 💮')}
+ 🕸️ *Comandos:* ${totalCommands}
+ 🪸 *Versión:* ${vs}
+ 🪵 *Librería:* ${libreria}
+ 💐 *Fecha:* \`${hora}, ${dia}, ${fechaTxt}\`
 ─────────────────────`.trim()
 
     const cuerpo = infoUser + `\n\n*🍡 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ: な*${menuTexto}`.trim()
