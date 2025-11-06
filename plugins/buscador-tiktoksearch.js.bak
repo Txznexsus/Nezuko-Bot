@@ -45,26 +45,32 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     for (let v of results) {
       let info = `
+
+
+
+
+
 ╔═══❖•ೋ° °ೋ•❖═══╗
-║ 
-║ \`${v.title || "Sin título"}\`
-║  
-║  
-║ 
-║ 
-║ 
-║ 
-║ 
-║ 
-║ 
-║ 
-║ 
-║ 
-║ 
+║
+║
+║
+║
+║
+║
+║
+║
+║
+║
+║
+║
+║
+║
+║
 ╚═══❖•ೋ° °ೋ•❖═══╝
 
 
-🌙
+🌙💫 *Información del Video* 💫🌙  
+💖 *Título:* ${v.title || "Sin título"}  
 🌹 *Creador:* ${v.creator || "Desconocido"}  
 🍃 *Región:* ${v.region || "N/A"}  
 ⚡ *Duración:* ${v.duration || 0} segundos  
