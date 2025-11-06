@@ -20,7 +20,7 @@ const menuStyle = {
 ╰─╼|━━━━━━━━⬣
 
 🦌 Usuario: %name
-🌙 Nivel: %level
+🎄 Nivel: %level
 ❄️ Exp: %exp / %maxexp
 🍄 Modo: %mode
 🍃 Usuarios Totales: %totalreg
@@ -32,7 +32,7 @@ const menuStyle = {
 
 %readmore`.trim(),
 
-  header: `╔══════════════════❄️\n║ %category\n╚══════════════════❄️`,
+  header: `╔══════════════════❄️\n║ %category\n╚══════════════════⛈️`,
   body: `║ 🧊 %cmd`,
   footer: `╚══════════════════🍃`,
   after: `\n🌙 〘 2025 © ${botname} ❄️〙`
@@ -91,6 +91,12 @@ let handler = async (m, { conn, usedPrefix }) => {
       mimetype: 'application/vnd.ms-excel',
       caption: text.trim(),
       contextInfo: {
+      isForwarded: true,
+         forwardedNewsletterMessageInfo: {
+           newsletterJid: channelRD.id,
+           serverMessageId: '',
+           newsletterName: channelRD.name
+         },
         externalAdReply: { 
           title: `『 🎄 𝐊𝐀𝐍𝐄𝐊𝐈 .𝐒𝐂𝐘𝐓𝐇𝐄 🩸 』`,
           body: `𝘓𝘰𝘴 𝘭𝘰𝘨𝘰𝘴 𝘥𝘦𝘮𝘰𝘯𝘪𝘢𝘤𝘰𝘴 𝘦𝘴𝘵𝘢𝘯 𝘭𝘪𝘴𝘵𝘰𝘴...`,
