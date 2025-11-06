@@ -5,27 +5,37 @@ let tags = {
   'maker': '`🎨 ᴍᴇɴᴜ ʟᴏɢᴏᴛɪᴘᴏs ☃️`',
 }
 
+function toFancyText(text) {
+  const normal = 'abcdefghijklmnopqrstuvwxyz1234567890'
+  const fancy = ['ᥲ','ᑲ','ᥴ','ძ','ᥱ','𝖿','g','һ','і','ȷ','k','ᥣ','m','ᥒ','᥆','⍴','𝗊','r','s','𝗍','ᥙ','᥎','ᥕ','᥊','ᥡ','z','1','2','3','4','5','6','7','8','9','0']
+  return text.split('').map(c => {
+    let index = normal.indexOf(c.toLowerCase())
+    return index !== -1 ? fancy[index] : c
+  }).join('')
+}
+
 const menuStyle = {
-  before: `╭─╼| 🎄 𝐊𝐀𝐍𝐄𝐊𝐈 .𝐒𝐂𝐘𝐓𝐇𝐄 🩸
-│ 𝙼𝙴𝙽𝚄 𝙳𝙴 𝙻𝙾𝙶𝙾𝚂 🎨
+  before: `╭─╼| ❄️ 𝐊𝐀𝐍𝐄𝐊𝐈 .𝐒𝐂𝐘𝐓𝐇𝐄 🌙
+│ 𝙈𝙀𝙉𝙐 𝘿𝙀 𝙇𝙊𝙂𝙾𝙎 🧊
 ╰─╼|━━━━━━━━⬣
 
-🩸 Usuario: %name
-🎄 Nivel: %level
+🦌 Usuario: %name
+🌙 Nivel: %level
 ❄️ Exp: %exp / %maxexp
-🌙 Modo: %mode
-👥 Usuarios Totales: %totalreg
+🍄 Modo: %mode
+🍃 Usuarios Totales: %totalreg
 ⏱ Uptime: %muptime
 
-🎅 Fecha: %fecha
+🌳 Fecha: %fecha
 🌸 Hora: %hora
-🦌 País: %pais
+🌱 País: %pais
 
 %readmore`.trim(),
-  header: `┏━━━━━━━━━━━━━━━━\n┃%category\n┣━━━━━━━━━━━━━━━━`,
-  body: `\n┃ ☃️ %cmd`,
-  footer: `┗━━━━━━━━━━━━━━━━`,
-  after: `\n🍷 〘 2025 © ${botname} 🎄〙`
+
+  header: `╔══════════════════❄️\n║ %category\n╚══════════════════❄️`,
+  body: `║ 🧊 %cmd`,
+  footer: `╚══════════════════🍃`,
+  after: `\n🌙 〘 2025 © ${botname} ❄️〙`
 }
 
 let handler = async (m, { conn, usedPrefix }) => {
@@ -51,13 +61,14 @@ let handler = async (m, { conn, usedPrefix }) => {
     let text = [
       menuStyle.before,
       ...Object.keys(tags).map(cat => {
-        return menuStyle.header.replace('%category', tags[cat]) + '\n' + help
+        return menuStyle.header.replace('%category', tags[cat]) + '\n' +
+        help
           .filter(p => p.tags && p.tags.includes(cat))
           .map(p => p.help.map(cmd =>
-            menuStyle.body
-              .replace('%cmd', usedPrefix + cmd)
+            menuStyle.body.replace('%cmd', toFancyText(usedPrefix + cmd))
           ).join('\n'))
-          + '\n' + menuStyle.footer
+          .join('\n')
+        + '\n' + menuStyle.footer
       }),
       menuStyle.after
     ].join('\n')
@@ -76,16 +87,10 @@ let handler = async (m, { conn, usedPrefix }) => {
 
     await conn.sendMessage(m.chat, { 
       document: fs.readFileSync("./package.json"),
-      fileName: `「 🎨 𝐌𝐄𝐍𝐔 𝐋𝐎𝐆𝐎𝐒 🎄 」`,
+      fileName: `「 🦌 𝐌𝐄𝐍𝐔 𝐋𝐎𝐆𝐎𝐒 ❄️ 」`,
       mimetype: 'application/vnd.ms-excel',
       caption: text.trim(),
       contextInfo: {
-        isForwarded: true,
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: channelRD.id,
-          serverMessageId: '',
-          newsletterName: channelRD.name
-        },
         externalAdReply: { 
           title: `『 🎄 𝐊𝐀𝐍𝐄𝐊𝐈 .𝐒𝐂𝐘𝐓𝐇𝐄 🩸 』`,
           body: `𝘓𝘰𝘴 𝘭𝘰𝘨𝘰𝘴 𝘥𝘦𝘮𝘰𝘯𝘪𝘢𝘤𝘰𝘴 𝘦𝘴𝘵𝘢𝘯 𝘭𝘪𝘴𝘵𝘰𝘴...`,
@@ -97,10 +102,10 @@ let handler = async (m, { conn, usedPrefix }) => {
       }
     }, { quoted: fkontak })
 
-    m.react('🍃')
+    m.react('❄️')
 
   } catch {
-    m.reply('🌿 Error mostrando menú de logos.')
+    m.reply('❄️ Error mostrando menú.')
   }
 }
 
