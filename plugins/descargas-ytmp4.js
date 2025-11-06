@@ -19,41 +19,22 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 
     await m.react('🕒')
-    await conn.reply(m.chat, '*_🍃 Descargando video uwu_*', m, rcanal)
+    await conn.reply(m.chat, '*_🍃 Descargando tu video onichan_*', m, rcanal)
 
-    let down, meta
-    try {
-      const apiUrl = `https://api.vreden.my.id/api/v1/download/youtube/video?url=${encodeURIComponent(text)}&quality=360`
-      const response = await fetch(apiUrl)
-      if (!response.ok) throw "Error en la API principal."
-      const data = await response.json()
+    const apiUrl = `https://api.vreden.my.id/api/v1/download/youtube/video?url=${encodeURIComponent(text)}&quality=360`
+    const response = await fetch(apiUrl)
+    if (!response.ok) throw `No se pudo obtener información del video.`
 
-      meta = data?.result?.metadata
-      down = data?.result?.download
-      if (!down?.url) throw "No se pudo obtener el enlace de descarga desde la API principal."
-
-    } catch (err) {
-      const yupraUrl = `https://api.yupra.com/api/downloader/ytmp4?url=${encodeURIComponent(text)}`
-      const response = await fetch(yupraUrl)
-      if (!response.ok) throw "Error en la API Yupra."
-      const data = await response.json()
-
-      down = {
-        url: data.resultado?.formatos?.[0]?.url,
-        filename: `${data.resultado?.titulo || "video"}.mp4`,
-        quality: data.resultado?.formatos?.[0]?.calidad || "360"
-      }
-      if (!down.url) throw "No se pudo obtener el enlace de descarga desde Yupra."
-
-      meta = { title: down.filename }
-    }
+    const data = await response.json()
+    const meta = data?.result?.metadata
+    const down = data?.result?.download
+    if (!down?.url) throw `No se pudo obtener el enlace de descarga.`
 
     const head = await fetch(down.url, { method: "HEAD" })
-    const size = head.headers.get("content-length")
+    const size = Number(head.headers.get("content-length") || 0)
+    const sizeMB = size / 1024 / 1024
 
-    let caption
-    if (meta?.author) {l
-      caption = `🍃 *Título:* ${meta.title}
+    let caption = `🍃 *Título:* ${meta.title}
 🍟 *Canal:* ${meta.author?.name}
 🕒 *Duración:* ${meta.duration?.timestamp || "Desconocida"}
 👁 *Vistas:* ${meta.views?.toLocaleString() || "?"}
@@ -62,15 +43,13 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 💾 *Tamaño:* ${formatSize(size)}
 ────────────────────
 ✨ *Descarga Completa...*`
-    } else {
 
-      caption = `✨ *Descarga Completa...*`
-    }
+    let sendType = sizeMB > 100 ? "document" : "video"
 
     await conn.sendMessage(m.chat, {
-      video: { url: down.url },
+      [sendType]: { url: down.url },
       mimetype: "video/mp4",
-      fileName: down.filename || `${meta.title}.mp4`,
+      fileName: `${meta.title}.mp4`,
       caption,
       thumbnail: meta?.thumbnail ? await (await fetch(meta.thumbnail)).buffer() : null
     }, { quoted: m })
