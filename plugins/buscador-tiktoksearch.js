@@ -48,36 +48,20 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 ╔═══❖•ೋ° °ೋ•❖═══╗
 ║ 
 ║ \`${v.title || "Sin título"}\`
-║  
-║  
+║ ᴄʀᴇᴀᴅᴏʀ: ${v.creator || "Desconocido"}
+║ ʀᴇɢɪᴏɴ: ${v.region || "N/A"}
+║ ᴅᴜʀᴀᴄɪᴏɴ: ${v.duration || 0} seg
+║ ᴘᴜʙʟɪᴄᴀᴅᴏ: ${v.create_time || "N/A"}
 ║ 
+║ ᴠɪsᴛᴀs: ${v.views?.toLocaleString() || 0}
+║ ʟɪᴋᴇs: ${v.likes?.toLocaleString() || 0}
+║ ᴄᴏᴍᴇɴᴛᴀʀɪᴏs: ${v.comments?.toLocaleString() || 0}
+║ ᴄᴏᴍᴘᴀʀᴛɪᴅᴏs: ${v.share?.toLocaleString() || 0}
+║ ᴅᴇsᴄᴀʀɢᴀs: ${v.download?.toLocaleString() || 0}
 ║ 
+║ ʟɪɴᴋ: ${v.url || "No disponible"}
 ║ 
-║ 
-║ 
-║ 
-║ 
-║ 
-║ 
-║ 
-║ 
-╚═══❖•ೋ° °ೋ•❖═══╝
-
-
-🌙
-🌹 *Creador:* ${v.creator || "Desconocido"}  
-🍃 *Región:* ${v.region || "N/A"}  
-⚡ *Duración:* ${v.duration || 0} segundos  
-🌸 *Publicado:* ${v.create_time || "N/A"}  
-
-🔥💀 *Estadísticas del Video* 💀🔥  
-🌟 *Vistas:* ${v.views?.toLocaleString() || 0}  
-💖 *Likes:* ${v.likes?.toLocaleString() || 0}  
-🌿 *Comentarios:* ${v.comments?.toLocaleString() || 0}  
-🌾 *Compartidos:* ${v.share?.toLocaleString() || 0}  
-🌈 *Descargas:* ${v.download?.toLocaleString() || 0}  
-
-🌙 *Enlace:* ${v.url || "No disponible"}  `;
+╚═══❖•ೋ° °ೋ•❖═══╝`;
 
       let videoMsg = await createVideoMessage(v.nowm);
       if (!videoMsg) continue;
