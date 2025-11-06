@@ -31,22 +31,22 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     const duracion = `${Math.floor(duracionSeg / 60)}:${(duracionSeg % 60).toString().padStart(2, '0')}`
 
     const infoFields = [
-      ['Título', trackInfo.title],
-      ['Artista', trackInfo.artist],
-      ['Álbum', trackInfo.album],
-      ['Género', trackInfo.genre],
-      ['Label', trackInfo.label_name || trackInfo.label],
-      ['Licencia', trackInfo.license],
-      ['Likes', trackInfo.likes],
-      ['Reproducciones', trackInfo.play],
-      ['Comentarios', trackInfo.comments],
-      ['Duración', duracion],
-      ['Enlace', trackInfo.source_url]
+      ['☃️ Título', trackInfo.title],
+      ['🌱 Artista', trackInfo.artist],
+      ['🌸 Álbum', trackInfo.album],
+      ['🦌 Género', trackInfo.genre],
+      ['✨ Label', trackInfo.label_name || trackInfo.label],
+      ['🎅 Licencia', trackInfo.license],
+      ['🎇 Likes', trackInfo.likes],
+      ['🍟 Reproducciones', trackInfo.play],
+      ['💐 Comentarios', trackInfo.comments],
+      ['🚀 Duración', duracion],
+      ['🍀 Enlace', trackInfo.source_url]
     ]
 
     const caption = [
       '╭━━━⬣ *SoundCloud Music* 🍃',
-      ...infoFields.map(([k, v]) => `┃ 🌿 ${k}: ${v ?? '-'}`),
+      ...infoFields.map(([k, v]) => `┃ ${k}: ${v ?? '-'}`),
       '╰━━━⬣'
     ].join('\n')
 

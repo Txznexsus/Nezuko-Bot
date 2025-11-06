@@ -1,5 +1,5 @@
 const linkRegex = /(chat\.whatsapp\.com\/[0-9A-Za-z]{20,24})|(z?https:\/\/whatsapp\.com\/channel\/[0-9A-Za-z]{20,24})/i
-const allowedLinks = ['https://whatsapp.com/channel/0029Vb64nWqLo4hb8cuxe23n']
+const allowedLinks = ['https://whatsapp.com/channel/0029VbC34Nt42DchIWA0q11f']
 
 export async function before(m, { conn, isAdmin, isBotAdmin, isROwner, participants }) {
 if (!m.isGroup) return
@@ -16,6 +16,6 @@ if (isGroupLink && m.text.includes(linkThisGroup)) return !0
 }
 if (chat.antilink && isGroupLink && !isAdmin && !isROwner && isBotAdmin && m.key.participant !== conn.user.jid) {
 await conn.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: m.key.id, participant: m.key.participant }})
-await conn.reply(m.chat, `> ꕥ Se ha eliminado a *${global.db.data.users[m.key.participant].name || 'Usuario'}* del grupo por \`Anti-Link\`, no permitimos enlaces de *${isChannelLink ? 'canales' : 'otros grupos'}*.`, null)
+await conn.reply(m.chat, `> 🎄 Se ha eliminado a *${global.db.data.users[m.key.participant].name || 'Usuario'}* del grupo por \`Anti-Link\`, no permitimos enlaces de *${isChannelLink ? 'canales' : 'otros grupos'}*.`, null)
 await conn.groupParticipantsUpdate(m.chat, [m.key.participant], 'remove')
 }}}
