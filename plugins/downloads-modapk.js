@@ -41,7 +41,8 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
         mimetype: 'application/vnd.android.package-archive',
         fileName: `${data5.name}.apk`,
         caption: dev,
-        jpegThumbnail: thumb
+        jpegThumbnail: thumb,
+        ...rcanalw
       },
       { quoted: fkontak }
     )
