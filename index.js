@@ -38,7 +38,7 @@ font: 'block',
 align: 'center',
 gradient: ['green', 'white']
 })
-say('˙˚ʚ₍ ᐢ. ̫ .ᐢ ₎ɞ˚ ᴍᴀᴅᴇ ᴡɪᴛʜ ʟᴏᴠᴇ ʙʏ sʜᴀᴅᴏᴡ.xʏᴢ', {
+say('˙˚ʚ₍ ᐢ. ̫ .ᐢ ₎ɞ˚ ᴍᴀᴅᴇ ᴡɪᴛʜ ʟᴏᴠᴇ ʙʏ sʜᴀᴅᴏᴡ.xʏᴢ 🌿', {
 font: 'console',
 align: 'center',
 colors: ['cyan', 'magenta', 'yellow']
