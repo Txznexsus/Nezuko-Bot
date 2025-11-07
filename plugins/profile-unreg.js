@@ -30,7 +30,7 @@ let handler = async (m, { conn }) => {
 ✨ Puedes volver a registrarte cuando desees:
 > *#reg ${nombre}.18*
 
-🌟 *Rin Itoshi Bot* siempre estará contigo.`
+🌟 *Kaneki Bot* siempre estará contigo.`
 
   const productMessage = {
     product: {

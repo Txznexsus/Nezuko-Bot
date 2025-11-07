@@ -32,7 +32,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       message: {
         documentMessage: {
           title: "𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗡𝗗𝗢.... ..",
-          fileName: global.botname || "Bot",
+          fileName: "🎄 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗡𝗗𝗢.... .. 🍃",
           jpegThumbnail: thumb3
         }
       }
@@ -65,8 +65,6 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 
 
     if (['play', 'mp3'].includes(command)) {
-      await m.react('🎧');
-
       const audio = await savetube.download(url, "audio");
       if (!audio?.status) throw `Error al obtener el audio: ${audio?.error || 'Desconocido'}`;
 
@@ -84,7 +82,6 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 
     else if (['play2', 'mp4'].includes(command)) {
-      await m.react('🎬');
 
       const video = await getVid(url);
       if (!video?.url) throw 'No se pudo obtener el video.';
@@ -108,7 +105,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     console.error(e);
     const msg = typeof e === 'string'
       ? e
-      : `⚠️ Ocurrió un error inesperado.\n> Usa *${usedPrefix}report* para informarlo.\n\n${e?.message || JSON.stringify(e)}`;
+      : `🎄 Ocurrió un error inesperado.\n> Usa *${usedPrefix}report* para informarlo.\n\n${e?.message || JSON.stringify(e)}`;
     return conn.reply(m.chat, msg, m);
   }
 };

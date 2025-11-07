@@ -1,7 +1,7 @@
 let handler = async (m, { text, usedPrefix, command }) => {
 global.db.data.sticker = global.db.data.sticker || {}
 if (!m.quoted) return conn.reply(m.chat, `🍃 Responda a un sticker para agregar un comando.`, m)
-if (!m.quoted.fileSha256) return conn.reply(m.chat, `${emoji} Responda a un sticker para agregar un comando.`, m)
+if (!m.quoted.fileSha256) return conn.reply(m.chat, `❄️ Responda a un sticker para agregar un comando.`, m)
 if (!text) return conn.reply(m.chat, `🌲 Ingresa el nombre del comamdo.`, m)
 try {
 let sticker = global.db.data.sticker

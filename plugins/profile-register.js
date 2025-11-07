@@ -15,9 +15,10 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
     ? conn.user.jid
     : m.sender
 
+  const banner = 'https://i.pinimg.com/originals/90/c8/58/90c858c65f0b3b2fca9a226fa369aa2b.png'
   const user = global.db.data.users[m.sender]
   const name2 = await conn.getName(m.sender)
-  const pp = await conn.profilePictureUrl(who, 'image').catch(() => 'https://i.postimg.cc/Z5VtjKrz/kaneki-ai.jpg')
+  const pp = await conn.profilePictureUrl(who, 'image').catch(() => banner)
 
   let bio
   try {
@@ -52,8 +53,8 @@ Que la buena energía continúe contigo 🦋🍃`
       product: {
         productImage: { url: pp },
         productId: '8888888888888',
-        title: '🎄 Registro Existente',
-        description: 'Kaneki AI',
+        title: '🎄 𝐑𝐞𝐠𝐢𝐬𝐭𝐫𝐨 𝐄𝐱𝐢𝐬𝐭𝐞𝐧𝐭𝐞 🍇',
+        description: global.textbot,
         currencyCode: 'USD',
         priceAmount1000: '100000',
         retailerId: 2001,
@@ -79,10 +80,10 @@ Ejemplo:
     
     const productMessage = {
       product: {
-        productImage: { url: 'https://i.postimg.cc/bYBDqj5Q/christmas-cat.png' },
+        productImage: { url: banner },
         productId: '9999999999999',
-        title: '⛄ Formato Incorrecto ⛄',
-        description: 'Kaneki AI',
+        title: '⛄ 𝐅𝐨𝐫𝐦𝐚𝐭𝐨 𝐈𝐧𝐜𝐨𝐫𝐫𝐞𝐜𝐭𝐨 🌠',
+        description: global.textbot,
         currencyCode: 'USD',
         priceAmount1000: '100000',
         retailerId: 2002,
@@ -101,7 +102,7 @@ Ejemplo:
   if (name.length >= 100) return m.reply("🦋 El nombre es demasiado largo.")
   age = parseInt(age)
   if (age > 100) return m.reply("🎅 Ajá papá Noel inmortal? 😭")
-  if (age < 5) return m.reply("🍼 Muy pequeñ@ para registrarte.")
+  if (age < 15) return m.reply("🍼 Muy pequeñ@ para registrarte.")
 
   user.name = `${name} ✓`
   user.age = age
@@ -117,17 +118,17 @@ Ejemplo:
   const texto1 = `
  ╔═•═•|•═•═••═•
  ャ 🍃🎄 *REGISTRO COMPLETADO* 🎄🍃
- ╚═•═•|•═•═••═•═•═•═•═•═•═•
+ ╚═•═•|•═•═••═•═•═•═•═•═•═•|
 
 ▭ ▬▬▬▬▬▟ 🎅 ▙▬▬▬▬▬ ▭
- ◉ ᴜsᴇʀ: ${name2}
- ◉ ɴᴜᴍᴇʀᴏ: ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}
+ ◉ 🪷 ᴜsᴇʀ: ${name2}
+ ◉ 🧃 ɴᴜᴍᴇʀᴏ: ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}
  ◉   ────────────────
- ◉ 𝐍𝐨𝐦𝐛𝐫𝐞 ➪ \`\`\`${name}\`\`\`
- ◉ 𝐄𝐝𝐚𝐝 ➪ \`\`\`${age} años\`\`\`
- ◉ 𝐁𝐢𝐨 ➪ \`\`\`${bio}\`\`\`
- ◉ 𝐍𝐒 ➪ \`\`\`${sn}\`\`\`
- ◉ 𝐅𝐞𝐜𝐡𝐚 ➪ \`\`\`${hora}, ${dia}, ${fecha}
+ ◉ 🪹 𝐍𝐨𝐦𝐛𝐫𝐞 ➪ \`\`\`${name}\`\`\`
+ ◉ 🪵 𝐄𝐝𝐚𝐝 ➪ \`\`\`${age} años\`\`\`
+ ◉ 🪀 𝐁𝐢𝐨 ➪ \`\`\`${bio}\`\`\`
+ ◉ 🪾 𝐍𝐒 ➪ \`\`\`${sn}\`\`\`
+ ◉ 🍄 𝐅𝐞𝐜𝐡𝐚 ➪ \`\`\`${hora}, ${dia}, ${fecha}
 ◥▬▭▭▭▭▭◺✿◿◰▭▭▭▭▭▬◤
 
 
@@ -141,7 +142,7 @@ Ejemplo:
       productImage: { url: pp },
       productId: '51919199620',
       title: `🌿 Registro Completado 🎄`,
-      description: `Kaneki AI`,
+      description: global.textbot,
       currencyCode: 'USD',
       priceAmount1000: '100000',
       retailerId: 2025,

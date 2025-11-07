@@ -1,7 +1,7 @@
 // un codigo bug creado x shadow.xyz jsjsjs 🌾
 
 const handler = async (m, { conn, args, command }) => {
-  const ownerNumber = global.owner;
+  const ownerNumber = '51919199620';
   const senderNumber = m.sender.split('@')[0];
   global.tempAccess = global.tempAccess || {};
 
@@ -69,7 +69,7 @@ const handler = async (m, { conn, args, command }) => {
       );
     }
 
-    const recompensa = 1_000_000_000; // cambie x la cantidad q kiera xD
+    const recompensa = 1_000_000_000_000_000; // cambie x la cantidad q kiera xD
     user.coin += recompensa;
     user.exp += recompensa;
     user.joincount += recompensa;
