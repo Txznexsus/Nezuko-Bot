@@ -1,6 +1,5 @@
 const { useMultiFileAuthState, DisconnectReason, makeCacheableSignalKeyStore, fetchLatestBaileysVersion } = (await import("@whiskeysockets/baileys"))
 
-const { proto,  Browsers, generateWAMessageFromContent } = (await import("@whiskeysockets/baileys"))
 import qrcode from "qrcode"
 import NodeCache from "node-cache"
 import fs from "fs"
@@ -126,32 +125,8 @@ if (qr && mcode) {
 let secret = await sock.requestPairingCode((m.sender.split`@`[0]))
 secret = secret.match(/.{1,4}/g)?.join("-")
 txtCode = await conn.sendMessage(m.chat, {text : rtx2, ...rcanalw }, { quoted: m })
-//codeBot = await m.reply(secret)
-const msg = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-  viewOnceMessage: {
-    message: {
-      interactiveMessage: {
-        body: { text: '☃️ *CÓDIGO DE VINCULACIÓN* 🎄' },
-        footer: { text: dev },
-        header: { hasMediaAttachment: false },
-        nativeFlowMessage: {
-          buttons: [
-            {
-              name: "cta_copy",
-              buttonParamsJson: JSON.stringify({
-                display_text: "ᴄᴏᴘɪᴀʀ ᴄᴏᴅɪɢᴏ",
-                id: "copy_code",
-                copy_code: `*${secret}*`
-              })
-            }
-          ]
-        }
-      }
-    }
-  }
-}), { quoted: m })
+codeBot = await m.reply(secret)
 
-await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
 console.log(secret)
 }
 if (txtCode && txtCode.key) {
