@@ -2,7 +2,7 @@ import fs from 'fs'
 import { xpRange } from '../lib/levelling.js'
 
 let tags = {
-  'maker': '`🎨 ᴍᴇɴᴜ ʟᴏɢᴏᴛɪᴘᴏs ☃️`',
+  'maker': '`🍎 ᴍᴇɴᴜ ʟᴏɢᴏᴛɪᴘᴏs ☃️`',
 }
 
 function toFancyText(text) {
