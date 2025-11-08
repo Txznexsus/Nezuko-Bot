@@ -6,8 +6,6 @@ let handler = async (m, { conn }) => {
   try {
     await m.react('🕓')
 
-    const channel = 'https://whatsapp.com/channel/0029Va2R5TRG7f0fMlMZQ32M' // tu canal
-
     const group = m.chat
     const metadata = await conn.groupMetadata(group)
     const ppUrl = await conn.profilePictureUrl(group, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
@@ -28,19 +26,6 @@ let handler = async (m, { conn }) => {
     const msg = generateWAMessageFromContent(m.chat, {
       viewOnceMessage: {
         message: {
-          productMessage: {
-            product: {
-              productImage: { url: ppUrl },
-              productId: '999999',
-              title: metadata.subject,
-              description: `☃️ 𝐆𝐫𝐨𝐮𝐩 -- 𝐢𝐧𝐟𝐨 🍃`,
-              currencyCode: 'PEN',
-              priceAmount1000: '100000',
-              retailerId: '0',
-              productImageCount: 1
-            },
-            businessOwnerJid: m.chat
-          },
           interactiveMessage: proto.Message.InteractiveMessage.fromObject({
             header: proto.Message.InteractiveMessage.Header.fromObject({
               hasMediaAttachment: true,
