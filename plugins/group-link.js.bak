@@ -12,6 +12,9 @@ let handler = async (m, { conn }) => {
     const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(group)
     const owner = metadata.owner ? '@' + metadata.owner.split('@')[0] : 'No disponible'
 
+    // AQUI ESTABA EL ERROR ↓↓↓
+    const channel = 'https://whatsapp.com/channel/0029Va2R5TRG7f0fMlMZQ32M' // tu canal oficial
+
     const info = `🍃 *Nombre:* ${metadata.subject}
 🌱 *ID:* ${metadata.id}
 👑 *Creador:* ${owner}
