@@ -33,7 +33,7 @@ const handler = async (m, { conn, text, participants, command }) => {
 🍃 𝙈𝙀𝙉𝘾𝙄𝙊𝙉𝘼𝘿𝙊𝙎 💮
 ${menciones}
 
->  \`${hora}, ${dia}, ${fechaTxt}\``
+> \`${hora}, ${dia}, ${fechaTxt}\``
 
   await conn.sendMessage(m.chat, {
     image: { url: groupImg },
