@@ -6,15 +6,19 @@ let handler = async (m, { conn }) => {
   try {
     await m.react('🕓')
 
-    const metadata = await conn.groupMetadata(m.chat)
-    const ppUrl = await conn.profilePictureUrl(m.chat, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
-    const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(m.chat)
+    const channel = 'https://whatsapp.com/channel/0029Va2R5TRG7f0fMlMZQ32M' // tu canal
 
-    const info = `📛 *Nombre:* ${metadata.subject}
-🧩 *ID:* ${metadata.id}
-👥 *Miembros:* ${metadata.participants.length}
-🔗 *Link:* ${invite}
-`
+    const group = m.chat
+    const metadata = await conn.groupMetadata(group)
+    const ppUrl = await conn.profilePictureUrl(group, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
+    const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(group)
+    const owner = metadata.owner ? '@' + metadata.owner.split('@')[0] : 'No disponible'
+
+    const info = `🍃 *Nombre:* ${metadata.subject}
+🌱 *ID:* ${metadata.id}
+👑 *Creador:* ${owner}
+☃️ *Miembros:* ${metadata.participants.length}
+🌿 *Link:* ${invite}`.trim()
 
     const { imageMessage } = await generateWAMessageContent(
       { image: { url: ppUrl } },
@@ -27,9 +31,9 @@ let handler = async (m, { conn }) => {
           productMessage: {
             product: {
               productImage: { url: ppUrl },
-              productId: '12345',
+              productId: '999999',
               title: metadata.subject,
-              description: `🍃 Información del Grupo`,
+              description: `☃️ 𝐆𝐫𝐨𝐮𝐩 -- 𝐢𝐧𝐟𝐨 🍃`,
               currencyCode: 'PEN',
               priceAmount1000: '100000',
               retailerId: '0',
@@ -50,8 +54,15 @@ let handler = async (m, { conn }) => {
                 {
                   name: 'cta_copy',
                   buttonParamsJson: JSON.stringify({
-                    display_text: '📋 Copiar Link',
+                    display_text: "📋 Copiar Link",
                     copy_code: invite
+                  })
+                },
+                {
+                  name: 'cta_url',
+                  buttonParamsJson: JSON.stringify({
+                    display_text: "🩵 Canal Oficial",
+                    url: channel
                   })
                 }
               ]
@@ -65,12 +76,15 @@ let handler = async (m, { conn }) => {
     await m.react('✅')
 
   } catch (e) {
-    console.log(e)
-    await m.reply('⚠️ No pude enviar el mensaje interactivo.')
+    console.error(e)
+    await m.reply('⚠️ Error al mostrar el grupo.')
   }
 }
 
-handler.command = ['link', 'enlace', 'infogp', 'infogrupo']
+handler.help = ['link', 'enlace']
+handler.tags = ['group']
+handler.command = ['link', 'enlace']
 handler.group = true
-handler.botAdmin = false
+handler.botAdmin = true
+
 export default handler
