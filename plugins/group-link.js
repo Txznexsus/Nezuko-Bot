@@ -6,48 +6,37 @@ let handler = async (m, { conn }) => {
   try {
     await m.react('🕓')
 
-    const channel = 'https://whatsapp.com/channel/0029Va2R5TRG7f0fMlMZQ32M' // tu canal
+    const metadata = await conn.groupMetadata(m.chat)
+    const ppUrl = await conn.profilePictureUrl(m.chat, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
+    const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(m.chat)
 
-    const group = m.chat
-    const metadata = await conn.groupMetadata(group)
-    const ppUrl = await conn.profilePictureUrl(group, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
-    const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(group)
-    const owner = metadata.owner ? '@' + metadata.owner.split('@')[0] : 'No disponible'
+    const info = `📛 *Nombre:* ${metadata.subject}
+🧩 *ID:* ${metadata.id}
+👥 *Miembros:* ${metadata.participants.length}
+🔗 *Link:* ${invite}
+`
 
-    const info = `🍃 *Nombre:* ${metadata.subject}
-🌱 *ID:* ${metadata.id}
-👑 *Creador:* ${owner}
-☃️ *Miembros:* ${metadata.participants.length}
-🌿 *Link:* ${invite}`.trim()
-
-    // 1) Enviamos el PRODUCTO primero
-    const product = {
-      productMessage: {
-        product: {
-          productImage: { url: ppUrl },
-          productId: '999999',
-          title: `${metadata.subject}`,
-          description: `☃️ 𝐆𝐫𝐨𝐮𝐩 -- 𝐢𝐧𝐟𝐨 🍃`,
-          currencyCode: 'PEN',
-          priceAmount1000: '100000',
-          retailerId: '0',
-          productImageCount: 1
-        },
-        businessOwnerJid: m.chat
-      }
-    }
-
-    let sent = await conn.sendMessage(m.chat, product, { quoted: m })
-
-    // 2) Luego enviamos el PANEL con botones, citando el producto
     const { imageMessage } = await generateWAMessageContent(
       { image: { url: ppUrl } },
       { upload: conn.waUploadToServer }
     )
 
-    const panel = generateWAMessageFromContent(m.chat, {
+    const msg = generateWAMessageFromContent(m.chat, {
       viewOnceMessage: {
         message: {
+          productMessage: {
+            product: {
+              productImage: { url: ppUrl },
+              productId: '12345',
+              title: metadata.subject,
+              description: `🍃 Información del Grupo`,
+              currencyCode: 'PEN',
+              priceAmount1000: '100000',
+              retailerId: '0',
+              productImageCount: 1
+            },
+            businessOwnerJid: m.chat
+          },
           interactiveMessage: proto.Message.InteractiveMessage.fromObject({
             header: proto.Message.InteractiveMessage.Header.fromObject({
               hasMediaAttachment: true,
@@ -61,15 +50,8 @@ let handler = async (m, { conn }) => {
                 {
                   name: 'cta_copy',
                   buttonParamsJson: JSON.stringify({
-                    display_text: "📋 Copiar Link",
+                    display_text: '📋 Copiar Link',
                     copy_code: invite
-                  })
-                },
-                {
-                  name: 'cta_url',
-                  buttonParamsJson: JSON.stringify({
-                    display_text: "🩵 Canal Oficial",
-                    url: channel
                   })
                 }
               ]
@@ -77,22 +59,18 @@ let handler = async (m, { conn }) => {
           })
         }
       }
-    }, { quoted: sent }) // <--- citamos el producto
+    }, { quoted: m })
 
-    await conn.relayMessage(m.chat, panel.message, { messageId: panel.key.id })
-
+    await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
     await m.react('✅')
 
   } catch (e) {
-    console.error(e)
-    await m.reply('⚠️ Error al mostrar el grupo.')
+    console.log(e)
+    await m.reply('⚠️ No pude enviar el mensaje interactivo.')
   }
 }
 
-handler.help = ['link', 'enlace']
-handler.tags = ['group']
-handler.command = ['link', 'enlace']
+handler.command = ['link', 'enlace', 'infogp', 'infogrupo']
 handler.group = true
-handler.botAdmin = true
-
+handler.botAdmin = false
 export default handler

@@ -6,23 +6,22 @@ let handler = async (m, { conn }) => {
   try {
     await m.react('🕓')
 
+    const channel = 'https://whatsapp.com/channel/0029Va2R5TRG7f0fMlMZQ32M' // tu canal
+
     const group = m.chat
     const metadata = await conn.groupMetadata(group)
     const ppUrl = await conn.profilePictureUrl(group, 'image').catch(_ => 'https://files.catbox.moe/xr2m6u.jpg')
     const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(group)
     const owner = metadata.owner ? '@' + metadata.owner.split('@')[0] : 'No disponible'
 
-    // AQUI ESTABA EL ERROR ↓↓↓
-    const channel = 'https://whatsapp.com/channel/0029Va2R5TRG7f0fMlMZQ32M' // tu canal oficial
-
     const info = `🍃 *Nombre:* ${metadata.subject}
 🌱 *ID:* ${metadata.id}
 👑 *Creador:* ${owner}
 ☃️ *Miembros:* ${metadata.participants.length}
-🌿 *Link:* ${invite}
-`.trim()
+🌿 *Link:* ${invite}`.trim()
 
-    const productMessage = {
+    // 1) Enviamos el PRODUCTO primero
+    const product = {
       productMessage: {
         product: {
           productImage: { url: ppUrl },
@@ -38,19 +37,21 @@ let handler = async (m, { conn }) => {
       }
     }
 
+    let sent = await conn.sendMessage(m.chat, product, { quoted: m })
+
+    // 2) Luego enviamos el PANEL con botones, citando el producto
     const { imageMessage } = await generateWAMessageContent(
       { image: { url: ppUrl } },
       { upload: conn.waUploadToServer }
     )
 
-    const msg = generateWAMessageFromContent(m.chat, {
+    const panel = generateWAMessageFromContent(m.chat, {
       viewOnceMessage: {
         message: {
-          ...productMessage,
           interactiveMessage: proto.Message.InteractiveMessage.fromObject({
             header: proto.Message.InteractiveMessage.Header.fromObject({
               hasMediaAttachment: true,
-              imageMessage: imageMessage
+              imageMessage
             }),
             body: proto.Message.InteractiveMessage.Body.fromObject({
               text: info
@@ -76,9 +77,10 @@ let handler = async (m, { conn }) => {
           })
         }
       }
-    }, { quoted: m })
+    }, { quoted: sent }) // <--- citamos el producto
 
-    await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
+    await conn.relayMessage(m.chat, panel.message, { messageId: panel.key.id })
+
     await m.react('✅')
 
   } catch (e) {
