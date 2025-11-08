@@ -1,6 +1,5 @@
 import fetch from 'node-fetch'
 import baileys from '@whiskeysockets/baileys'
-
 const { generateWAMessageFromContent, generateWAMessageContent, proto } = baileys
 
 let handler = async (m, { conn }) => {
@@ -13,14 +12,28 @@ let handler = async (m, { conn }) => {
     const invite = 'https://chat.whatsapp.com/' + await conn.groupInviteCode(group)
     const owner = metadata.owner ? '@' + metadata.owner.split('@')[0] : 'No disponible'
 
-    const info1 = `🌿 𝙂𝙍𝙐𝙋𝙊 - 𝙄𝙉𝙁𝙊 ✨`
-    const info = `
-📛 *Nombre:* ${metadata.subject}
-🧩 *ID:* ${metadata.id}
+    const info = `🍃 *Nombre:* ${metadata.subject}
+🌱 *ID:* ${metadata.id}
 👑 *Creador:* ${owner}
-👥 *Miembros:* ${metadata.participants.length}
-🔗 *Link:* ${invite}
+☃️ *Miembros:* ${metadata.participants.length}
+🌿 *Link:* ${invite}
 `.trim()
+
+    const productMessage = {
+      productMessage: {
+        product: {
+          productImage: { url: ppUrl },
+          productId: '999999',
+          title: `${metadata.subject}`,
+          description: `☃️ 𝐆𝐫𝐨𝐮𝐩 -- 𝐢𝐧𝐟𝐨 🍃`,
+          currencyCode: 'PEN',
+          priceAmount1000: '100000',
+          retailerId: '0',
+          productImageCount: 1
+        },
+        businessOwnerJid: m.chat
+      }
+    }
 
     const { imageMessage } = await generateWAMessageContent(
       { image: { url: ppUrl } },
@@ -30,15 +43,13 @@ let handler = async (m, { conn }) => {
     const msg = generateWAMessageFromContent(m.chat, {
       viewOnceMessage: {
         message: {
+          ...productMessage,
           interactiveMessage: proto.Message.InteractiveMessage.fromObject({
             header: proto.Message.InteractiveMessage.Header.fromObject({
               hasMediaAttachment: true,
               imageMessage: imageMessage
             }),
             body: proto.Message.InteractiveMessage.Body.fromObject({
-              text: info1
-            }),
-            footer: proto.Message.InteractiveMessage.Footer.fromObject({
               text: info
             }),
             nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
@@ -69,7 +80,7 @@ let handler = async (m, { conn }) => {
 
   } catch (e) {
     console.error(e)
-    await m.reply('Error al obtener la información del grupo.')
+    await m.reply('⚠️ Error al mostrar el grupo.')
   }
 }
 
