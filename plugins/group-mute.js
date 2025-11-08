@@ -12,7 +12,7 @@ const handler = async (m, { conn, command, text, isAdmin }) => {
     target = typeof target === 'object' ? (target[0] || '') : target;
 
     if (target && !target.includes('@')) target = target.replace(/\D/g, '') + '@s.whatsapp.net';
-    if (!target) throw '⚠️ Especifica a quién mutear/desmutear (mención, reply o número).';
+    if (!target) throw '❄️ Especifica a quién mutear/desmutear (mención, reply o número).';
 
     if (ownerId && target === ownerId) throw '🍬 *El creador del bot no puede ser mutado*';
     if (target === conn.user?.jid) throw '🍭 *No puedes mutar el bot*';
@@ -52,7 +52,7 @@ const handler = async (m, { conn, command, text, isAdmin }) => {
       };
 
       userData.mute = true;
-      await conn.reply(m.chat, '*Tus mensajes serán eliminados*', quotedMsg, null, { mentions: [target] });
+      await conn.reply(m.chat, '*🔇 Usuario muteado*\nSus mensajes serán eliminados.', quotedMsg, null, { mentions: [target] });
       return;
     }
 
@@ -84,20 +84,33 @@ const handler = async (m, { conn, command, text, isAdmin }) => {
       };
 
       userData.mute = false;
-      await conn.reply(m.chat, '*Tus mensajes no serán eliminados*', quotedMsg, null, { mentions: [target] });
+      await conn.reply(m.chat, '*🔊 Usuario desmuteado*\nAhora sus mensajes no serán eliminados.', quotedMsg, null, { mentions: [target] });
       return;
     }
 
     throw 'Comando no reconocido.';
+
   } catch (err) {
     const e = typeof err === 'string' ? err : (err?.message || String(err));
-    try { await conn.reply(m.chat, `❗️Error: ${e}`, m); } catch (__) { console.error(err); }
+    try { await conn.reply(m.chat, `🌿 Error: ${e}`, m); } catch (__) { }
   }
 };
 
 handler.command = ['mute', 'unmute'];
-handler.rowner = false;
 handler.admin = true;
 handler.botAdmin = true;
+
+
+handler.before = async (m, { conn, isAdmin, isBotAdmin }) => {
+  try {
+    if (!m.isGroup) return;
+    if (!global.db?.data?.users[m.sender]) return;
+    if (!global.db.data.users[m.sender].mute) return;
+    if (!isBotAdmin) return;
+    if (isAdmin) return;
+
+    await conn.sendMessage(m.chat, { delete: m.key });
+  } catch {}
+};
 
 export default handler;
