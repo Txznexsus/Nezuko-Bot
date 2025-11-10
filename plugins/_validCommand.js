@@ -61,10 +61,10 @@ export async function before(m, { conn }) {
     ? similares.map(s => `> 🪴 • .${s.cmd} (${s.score}%)`).join('\n')
     : '• No se encontraron coincidencias.'
 
-  const texto = ` 🌿 El comando *"${command}"* no fue encontrado.
- 🍃 Usa *${usedPrefix}menu* para ver la lista completa.
+  const texto = ` 🌿 ᴇʟ ᴄᴏᴍᴀɴᴅᴏ *"${command}"* ɴᴏ ғᴜᴇ ᴇᴄᴏɴᴛʀᴀᴅᴏ. :ᴅ
+ 🍃 ᴜsᴀ *${usedPrefix}ᴍᴇɴᴜ* ᴘᴀʀᴀ ᴠᴇʀ ʟᴀ ʟɪsᴛᴀ ᴄᴏᴍᴘʟᴇᴛᴀ.
 
- *Posibles coincidencias:*
+*𝙿𝙾𝚂𝙸𝙱𝙴𝚂 𝙲𝙾𝙸𝙽𝙲𝙸𝙳𝙴𝙽𝙲𝙸𝙰𝚂: 🍂*
 ${sugerencias}`
 
   await conn.sendMessage(m.chat, {
@@ -81,8 +81,8 @@ ${sugerencias}`
         newsletterName: channelRD.name
       },
       externalAdReply: {
-        title: '   🍉 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 - 𝐀𝐒𝐒𝐈𝐒𝐓𝐀𝐍𝐓 🍓',
-        body: 'Asistente inteligente y multifunción.',
+        title: ' °   ⿻֟🎍 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 ܀ 𝐀𝐒𝐒𝐈𝐒𝐓𝐀𝐍𝐓 ☕۪፝֯۫۫︎⃪𐇽۫۬',
+        body: '  `͝દ࠭͜✎࣭〫𝆬ᨗઢ֒͝  ᴅᴇsᴀʀʀᴏʟʟᴀᴅᴏ x sʜᴀᴅᴏᴡ.xʏᴢ 籭᮫꫶ֹּּ࣭ٜ〫۫𝆬𝆬ᨗ࠭࠭𝆬ᨗ',
         thumbnailUrl: banner,
         mediaType: 1,
         renderLargerThumbnail: true

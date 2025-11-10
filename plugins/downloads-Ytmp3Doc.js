@@ -134,16 +134,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   }
 
   await conn.sendMessage(m.chat, {
-    text: `૮₍｡˃ ᵕ ˂ ｡₎ა 🎶 *¡𝙳𝙴𝚂𝙲𝙰𝚁𝙶𝙰𝙽𝙳𝙾 𝚃𝚄 𝙰𝚄𝙳𝙸𝙾!*
-╰───────────────────❀
-
-> 🍓 *Por favor espera un momento...*
-> 🌙 *Esto puede tardar según el tamaño del archivo.*
-
-˚₊· ͟͟͞͞➳❥ 📊 *Progreso:*  
-    [▓▓▓▓▓▓▓░░░] 70%
-
-🎧 *No te desesperes uwu, tu canción está casi lista...*`
+    text: `> 🍓 \`𝗜𝗡𝗜𝗖𝗜𝗔𝗡𝗗𝗢 𝗣𝗥𝗢𝗖𝗘𝗦𝗢 𝗗𝗘 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔 :𝗗\``
   }, { quoted: fkontak })
 
   try {
@@ -173,7 +164,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 │ ° 🏔️ *Link:* ${vid.url}
 ╰───────────────⬣
 
-૮₍｡˃ ᵕ ˂ ｡₎ა 🚀 *¡Descarga Completada con exito!*
+૮₍｡˃ ᵕ ˂ ｡₎ა 🎍 *¡Descarga Completada con exito!*
 
 > ☁️ ᴋᴀɴᴇᴋɪ ʙᴏᴛ ɪᴀ | 𝙿𝙾𝚆𝙴𝚁𝙴𝙳 𝙱𝚈 𝚂𝙷𝙰𝙳𝙾𝚆-𝚇𝚈𝚉`.trim()
 

@@ -38,7 +38,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
             {
               "name": "cta_copy",
               "buttonParamsJson": JSON.stringify({
-                display_text: "🎧 ¡Descargar Audio! 🎧",
+                display_text: "🍃 ¡Descargar Audio! 🎍",
                 id: "123456789",
                 copy_code: `.music ${track.url}`
               })
@@ -46,7 +46,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
             {
               "name": "cta_url",
               "buttonParamsJson": JSON.stringify({
-                display_text: "🎵 Abrir en Spotify",
+                display_text: "🌳 Abrir en Spotify",
                 url: track.url
               })
             }
@@ -71,10 +71,10 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
           },
           interactiveMessage: proto.Message.InteractiveMessage.fromObject({
             body: proto.Message.InteractiveMessage.Body.create({
-              text: '*`🔍 Resultados de:`* ' + text
+              text: '*`🥥 Resultados de:`* ' + text
             }),
             footer: proto.Message.InteractiveMessage.Footer.create({
-              text: '_`S P - S E A R C H`_'
+              text: '_`S P O T I F Y -- S E A R C H`_'
             }),
             header: proto.Message.InteractiveMessage.Header.create({ hasMediaAttachment: false }),
             carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({

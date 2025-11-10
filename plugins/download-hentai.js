@@ -21,7 +21,7 @@ let handler = async (m, { conn, text, args, setting }) => {
       let peso = await size(videoInfo.videoUrl);
 
       let cap = `
-〔 🍃 𝗩𝗲𝗼𝗛𝗲𝗻𝘁𝗮𝗶 𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱 🍃 〕
+〔 🍃 𝗛𝗲𝗻𝘁𝗮𝗶 𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱 🍃 〕
 
 🎬 *Título:* ${videoInfo.title}
 👀 *Vistas:* ${videoInfo.views}
@@ -61,6 +61,10 @@ let handler = async (m, { conn, text, args, setting }) => {
 handler.help = ["hentai"];
 handler.command = ["hentai", "hent"];
 handler.tags = ["download"];
+handler.group = true;
+handler.register = true;
+handler.premium = true;
+
 export default handler;
 
 async function searchHentai(text) {

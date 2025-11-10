@@ -9,7 +9,7 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
         m.chat,
         `🎋 Ingresa el nombre de la canción o un enlace de YouTube.\n\n> Ejemplo: ${usedPrefix + command} DJ Malam Pagi`,
         m, fake
-      )
+      ),
     }
 
     await conn.sendMessage(m.chat, { react: { text: "⏳", key: m.key } })
@@ -48,26 +48,15 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
     const size = await getSize(downloadUrl)
     const sizeStr = size ? formatSize(size) : 'Desconocido'
 
-    const textoInfo = `🍃 *Título:* 
-> ${meta.title}
-🕒 *Duración:* 
-> ${meta.duration}
-💾 *Tamaño:* 
-> ${sizeStr}
-🎚 *Calidad:* 
-> 128kbps
-📡 *Canal:* 
-> ${meta.author}
-👁 *Vistas:*
-> ${meta.views}
-📅 *Publicado:* 
-> ${meta.ago}
-🔗 *Enlace:*
-> ${meta.url}
-🛠 *Servidor usado:* 
-> ${servidor}
-────────────────────
-🍬 *Procesando tu canción...*`
+    const textoInfo = `🍃 *ᴛɪᴛᴜʟᴏ:* ${meta.title} 
+☕ *ᴅᴜʀᴀᴄɪᴏɴ:* ${meta.duration}
+🪹 *ᴛᴀᴍᴀɴ̃ᴏ:* ${sizeStr}
+🌠 *ᴄᴀʟɪᴅᴀᴅ:* 128kbps
+🪵 *ᴄᴀɴᴀʟ:* ${meta.author}
+🧃 *ᴠɪsᴛᴀs:* ${meta.views}
+🗓️ *ᴘᴜʙʟɪᴄᴀᴅᴏ:* ${meta.ago}
+🐚 *ᴇɴʟᴀᴄᴇ:*${meta.url}
+🎍 *ᴀᴘɪ:* ${servidor}`
 
     const thumb = (await conn.getFile(meta.thumbnail)).data
     await conn.sendMessage(m.chat, { image: thumb, caption: textoInfo, ...fake }, { quoted: m })
@@ -83,13 +72,12 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
       contextInfo: {
         externalAdReply: {
           showAdAttribution: true,
-          title: '☃️ 𝐘  𝐎 𝐔 𝐓 𝐔 𝐁 𝐄 • 𝐌 𝐔 𝐒 𝐈 𝐂 🚀',
-          body: `Duración: ${meta.duration} | Tamaño: ${sizeStr} | Servidor: ${servidor}`,
+          title: '🎅🦌 𝐘  𝐎 𝐔 𝐓 𝐔 𝐁 𝐄 • 𝐌 𝐔 𝐒 𝐈 𝐂 ❄️🎄',
+          body: `☕ Duración: ${meta.duration}`,
           thumbnailUrl: meta.thumbnail,
-          mediaType: 2,
+          mediaType: 1,
+          sourceUrl: meta.url,
           renderLargerThumbnail: true,
-          mediaUrl: meta.url,
-          sourceUrl: meta.url
         }
       }
     }, { quoted: m })
@@ -106,7 +94,7 @@ handler.command = ['ytmp3', 'song']
 handler.tags = ['download']
 handler.help = ['ytmp3 <texto o link>', 'song <texto>']
 handler.group = true
-handler.register = true;
+handler.register = true
 
 export default handler
 

@@ -82,23 +82,23 @@ var handler = async (m, { text, conn }) => {
 
     ytCache[m.sender] = { results: videos, timestamp: Date.now() }
 
-    let caption = ` 🔎 𝚁𝙴𝚂𝚄𝙻𝚃𝙰𝙳𝙾𝚂 𝙳𝙴 𝙱𝚄𝚂𝚀𝚄𝙴𝙳𝙰\n`
+    let caption = ` 🎍 𝚁𝙴𝚂𝚄𝙻𝚃𝙰𝙳𝙾𝚂 𝙳𝙴 𝙱𝚄𝚂𝚀𝚄𝙴𝙳𝙰\n`
     caption += `*Término:* ${text}\n\n`
 
     for (let i = 0; i < videos.length; i++) {
       const v = videos[i]
-      caption += `💮 *${i + 1}.* ${v.title}\n`
-      caption += `> 💐 Canal: *${v.author.name}*\n`
-      caption += `> ⏰ Duración: *${v.timestamp || 'Desconocida'}*\n`
-      caption += `> 📆 Subido: *${v.ago || 'N/D'}*\n`
-      caption += `> 🚀 Vistas: *${formatNumber(v.views)}*\n`
-      caption += `> 🎋 Enlace » ${v.url}\n`
+      caption += `🍃ᭃ *${i + 1}.* ${v.title}\n`
+      caption += `> 🌠ᭃ ᴄᴀɴᴀʟ: *${v.author.name}*\n`
+      caption += `> ⏰ᭃ ᴅᴜʀᴀᴄɪᴏɴ: *${v.timestamp || 'Desconocida'}*\n`
+      caption += `> 🗓️ᭃ sᴜʙɪᴅᴏ: *${v.ago || 'N/D'}*\n`
+      caption += `> 🧃ᭃ ᴠɪsᴛᴀs: *${formatNumber(v.views)}*\n`
+      caption += `> 🪹ᭃ ʟɪɴᴋ: ${v.url}\n`
       caption += `\n${'•'.repeat(38)}\n\n`
     }
 
-    caption += `🪷 *Responde con:*  
-🎧 a1 - a15 → Descargar audio  
-🎬 v1 - v15 → Descargar video`
+    caption += `🪷 *Responde con:*
+お ☕ a1 - a15 → Descargar audio
+お 🌳 v1 - v15 → Descargar video`
 
     await conn.sendMessage(m.chat, {
       image: { url: videos[0].thumbnail },
@@ -108,7 +108,7 @@ var handler = async (m, { text, conn }) => {
     await m.react('✔️')
   } catch (e) {
     await m.react('✖️')
-    conn.reply(m.chat, `❌ Error al procesar: ${e.message}`, m)
+    conn.reply(m.chat, ` Error al procesar: ${e.message}`, m)
   }
 }
 
@@ -122,7 +122,7 @@ handler.before = async (m, { conn }) => {
 
   const userCache = ytCache[m.sender]
   if (!userCache || !userCache.results[index] || Date.now() - userCache.timestamp > CACHE_TIME)
-    return conn.reply(m.chat, '👻 La lista expiró. Usa el comando nuevamente.', m, rcanal)
+    return conn.reply(m.chat, '🎍 La lista expiró. Usa el comando nuevamente.', m, rcanal)
 
   const video = userCache.results[index]
 
@@ -133,7 +133,7 @@ handler.before = async (m, { conn }) => {
       ? await getStellar(video.url)
       : await getYupra(video.url)
 
-    if (!apiData) return conn.reply(m.chat, `⚠️ Error al obtener enlace desde la API.`, m)
+    if (!apiData) return conn.reply(m.chat, `🍃 Error al obtener enlace desde la API.`, m)
 
     const size = await getSize(apiData.link)
     const mb = size / (1024 * 1024)
@@ -148,7 +148,7 @@ handler.before = async (m, { conn }) => {
           document: { url: apiData.link },
           fileName: `${apiData.title}.${apiData.format}`,
           mimetype: type === 'audio' ? 'audio/mpeg' : 'video/mp4',
-          caption: caption + `\n\n🍉 Enviado como documento (>${MAX_FILE_SIZE_MB} MB)`
+          caption: caption + `\n\n🚀 Enviado como documento (>${MAX_FILE_SIZE_MB} MB)`
         },
         { quoted: m }
       )
@@ -180,7 +180,7 @@ handler.before = async (m, { conn }) => {
     await m.react('✔️')
   } catch (e) {
     await m.react('✖️')
-    conn.reply(m.chat, `❌ Error al descargar: ${e.message}`, m)
+    conn.reply(m.chat, `Error al descargar: ${e.message}`, m, fake)
   }
 }
 

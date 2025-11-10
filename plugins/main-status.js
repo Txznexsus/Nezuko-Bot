@@ -9,30 +9,31 @@ let totalChats = Object.keys(global.db.data.chats).length
 let totalPlugins = Object.values(global.plugins).filter((v) => v.help && v.tags).length
 let totalBots = global.conns.filter(conn => conn.user && conn.ws.socket && conn.ws.socket.readyState !== 3).length
 let totalCommands = Object.values(global.db.data.users).reduce((acc, user) => acc + (user.commands || 0), 0)
-let system = `╔══⭒⃝🌿🌸🌙❄️💫🌿🌸🌙❄️💫⭒⃝══╗
-        🌿 𝑬𝒔𝒕𝒂𝒅𝒐 𝒅𝒆𝒍 𝑩𝒐𝒕 🌿
-╚══⭒⃝🌿🌸🌙❄️💫🌿🌸🌙❄️💫⭒⃝══╝
+let xD '```'
+let system = `*「☕」Estado del Sistema 7w7 🌿*
 
-  🍃 *Actividad Viva del Sistema* 🌱
-• 🍂 Comandos ejecutados: ${toNum(totalCommands)}
-• 🌾 Usuarios en la red: ${totalUsers.toLocaleString()}
-• 🌻 Comunidades activas: ${totalChats.toLocaleString()}
-• 🍀 Plugins cargados: ${totalPlugins}
-• 🌙 Conexiones establecidas: ${totalBots}
+ৎּٜ̊🌿ꨩ໋〪̥〭*\`Comandos ejecutados:\`* ${xD}${toNum(totalCommands)}${xD}
+ৎּٜ̊❄️ꨩ〪̥〭 *\`Usuarios registrados:\`* ${xD}${totalUsers.toLocaleString()}${xD}
+ৎּٜ̊☕ꨩ໋〪̥〭*\`Grupos registrados:\`* ${xD}${totalChats.toLocaleString()}${xD}
+ৎּٜ̊🍃ꨩ໋〪̥〭*\`Plugins:\`* ${xD}${totalPlugins}${xD}
+ৎּٜ̊🍵ꨩ໋〪̥〭*\`Bots Activos:\`* ${xD}${totalBots}${xD}
 
-  ❄️ *Entorno del Servidor* 🌿
-• 🌍 Sistema: ${platform()}
-• 🌬 Núcleos CPU: ${_cpus().length}
-• 🫧 RAM Total: ${format(totalmem())}
-• 🔥 RAM en uso: ${format(totalmem() - freemem())}
-• 🧬 Arquitectura: ${process.arch}
-• 🪷 Host: ${hostname().slice(0, 8)}…
+꒰꒰ ݊ᩞ *🌳 Estado del Servidor 🍃 ᗝᗝ*
 
- ✨ *Memoria NodeJS* 🌸
-• 💾 RSS: ${format(process.memoryUsage().rss)}
-• 🌙 Heap usado: ${format(process.memoryUsage().heapUsed)}
-• 🌿 Extensiones: ${format(process.memoryUsage().external)}
-• 🫧 Buffers: ${format(process.memoryUsage().arrayBuffers)}`
+ৎּٜ̊🍄ꨩ〪̥〭*\`Sistema:\`* ${xD}${platform()}${xD}
+ৎּٜ̊✨ꨩ〭 *\`CPU:\`* ${xD}${_cpus().length} cores${xD}
+ৎּٜ̊🎍ꨩ〭 *\`RAM:\`* ${xD}${format(totalmem())}${xD}
+ৎּٜ̊🌳ꨩ〭 *\`RAM Usado:\`* ${xD}${format(totalmem() - freemem())}${xD}
+ৎּٜ̊🚀ꨩ〪̥〭*\`Arquitectura:\`* ${xD}${process.arch}${xD}
+ৎּٜ̊🥥ꨩ〪̥〭*\`Host ID:\`* ${xD}${hostname().slice(0, 8)}...${xD}
+
+꒰꒰ ݊ᩞ *❑ 🎍 Uso de Memoria NODEJS 🥥 ᗝᗝ*
+
+ৎּٜ̊💐ꨩ〪̥〭*\`Ram Utilizada:\`* ${xD}${format(process.memoryUsage().rss)}${xD}
+ৎּٜ̊⭐ꨩ〪̥〭*\`Heap Reservado:\`* ${xD}${format(process.memoryUsage().heapTotal)}${xD}
+ৎּٜ̊🌴ꨩ〪̥〭*\`Heap Usado:\`* ${xD}${format(process.memoryUsage().heapUsed)}${xD}
+ৎּٜ̊💮ꨩ〪̥〭*\`Módulos Nativos:\`* ${xD}${format(process.memoryUsage().external)}${xD}
+ৎּٜ̊🍰ꨩ〪̥〭*\`Buffers de Datos:\`* ${xD}${format(process.memoryUsage().arrayBuffers)}${xD}`
 await conn.reply(m.chat, system, m, rcanal)
 }
 

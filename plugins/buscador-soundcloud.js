@@ -12,7 +12,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
     const results = response.data;
 
     if (!results || !Array.isArray(results) || results.length === 0) {
-      return m.reply('🥺 No se encontraron resultados para esta búsqueda en SoundCloud.');
+      return m.reply('🎍 No se encontraron resultados para esta búsqueda en SoundCloud.');
     }
 
     async function createImage(url) {
@@ -56,13 +56,6 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
                 display_text: "🕸️ 𝘋𝘦𝘴𝘤𝘢𝘳𝘨𝘢𝘳",
                 id: "soundcloud2",
                 copy_code: `/soundcloud2 ${track.url}`
-              })
-            },
-            {
-              name: 'cta_url',
-              buttonParamsJson: JSON.stringify({
-                display_text: "🎧  𝘝𝘦𝘳 𝘦𝗻 𝘀𝗼𝘂𝗻𝗱𝗰𝗹𝗼𝘂𝗱",
-                url: track.url
               })
             },
             {

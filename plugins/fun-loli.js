@@ -8,7 +8,7 @@ let img = 'https://delirius-apiofc.vercel.app/anime/loli';
 m.react('✔️');
 conn.sendMessage(m.chat, { 
         image: { url: img }, 
-        caption: `> ${textbot}`, 
+        caption: '> ' + textbot, 
     }, { quoted: fkontak });
 }
 

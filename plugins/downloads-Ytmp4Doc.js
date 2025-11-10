@@ -134,12 +134,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   }
 
   await conn.sendMessage(m.chat, {
-    text: `૮₍｡˃ ᵕ ˂ ｡₎ა 🎥 *¡𝙳𝙴𝚂𝙲𝙰𝚁𝙶𝙰𝙽𝙳𝙾 𝚃𝚄 𝚅𝙸𝙳𝙴𝙾!*
-
-> 🍓 𝚃𝚎𝚗 𝚙𝚊𝚌𝚒𝚎𝚗𝚌𝚒𝚊~ 𝚎𝚜𝚝𝚘 𝚙𝚞𝚎𝚍𝚎 𝚝𝚊𝚛𝚍𝚊𝚛 𝚞𝚗 𝚙𝚘𝚌𝚘 𝚍𝚎𝚙𝚎𝚗𝚍𝚒𝚎𝚗𝚍𝚘 𝚍𝚎𝚕 𝚝𝚊𝚖𝚊ñ𝚘 𝚍𝚎𝚕 𝚟𝚒𝚍𝚎𝚘 ₍ᐢ.ˬ.ᐢ₎♡
-
-˚₊· ͟͟͞͞➳❥ 📊 *\`Progreso actual:\`*  
-[▓▓▓▓▓▓░░░░] 60%`
+    text: `> ☕ \`𝗜𝗡𝗜𝗖𝗜𝗔𝗡𝗗𝗢 𝗣𝗥𝗢𝗖𝗘𝗦𝗢 𝗗𝗘 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔 :𝗗\``
   }, { quoted: fkontak })
   
   try {
@@ -160,13 +155,13 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     let { result } = info
 
     let caption = `
-> ┌── 「 🎬 𝚈𝙾𝚄𝚃𝚄𝙱𝙴 𝙼𝙿4 𝙳𝙾𝙲 」──
-> │ ° 🌿 *Título:* ${result.title}
-> │ ° ⏱️ *Duración:* ${vid.duration}
-> │ ° 👤 *Canal:* ${vid.author?.name || "Desconocido"}
-> │ ° 💾 *Calidad:* ${result.quality}P
-> │ ° 🔗 *Link:* ${vid.url}
-> └───────────────────
+┌── 「 🎬 𝚈𝙾𝚄𝚃𝚄𝙱𝙴 𝙼𝙿4 𝙳𝙾𝙲 」──
+│ ° 🌿 *Título:* ${result.title}
+│ ° ⏱️ *Duración:* ${vid.duration}
+│ ° 👤 *Canal:* ${vid.author?.name || "Desconocido"}
+│ ° 💾 *Calidad:* ${result.quality}P
+│ ° 🔗 *Link:* ${vid.url}
+└───────────────────
 
 > ☁️ ᴋᴀɴᴇᴋɪ ʙᴏᴛ ɪᴀ | 𝙿𝙾𝚆𝙴𝚁𝙴𝙳 𝙱𝚈 𝚂𝙷𝙰𝙳𝙾𝚆-𝚇𝚈𝚉`.trim()
 

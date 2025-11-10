@@ -33,7 +33,7 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 
 let { say } = cfonts
 console.log(chalk.magentaBright('\n🚀 Iniciando...'))
-say('KANEKI - BOT AI\n\n-漫·舞', {
+say('-漫KANEKI - BOT AI·舞', {
 font: 'block',
 align: 'center',
 gradient: ['green', 'white']
@@ -193,7 +193,7 @@ if (connection === "open") {
 const userJid = jidNormalizedUser(conn.user.id)
 const userName = conn.user.name || conn.user.verifiedName || "Desconocido"
 await joinChannels(conn)
-console.log(chalk.green.bold(`╭───────────────────────────◉\n│\n│🌺◌*̥₊ 𝙲𝚘𝚗𝚎𝚌𝚝𝚊𝚍𝚘 𝙲𝚘𝚛𝚛𝚎𝚌𝚝𝚊𝚖𝚎𝚗𝚝𝚎.\n│ [ ✿ ]  Conectado a: ${userName}\n│\n╰───────────────────────────◉`))
+console.log(chalk.green.bold(`╭───────────────────────────◉\n│\n│🎍◌*̥₊ 𝙲𝚘𝚗𝚎𝚌𝚝𝚊𝚍𝚘 𝙲𝚘𝚛𝚛𝚎𝚌𝚝𝚊𝚖𝚎𝚗𝚝𝚎.\n│ [ ✿ ]  Conectado a: ${userName}\n│\n╰───────────────────────────◉`))
 }
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
 if (connection === "close") {

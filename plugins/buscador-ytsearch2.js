@@ -26,25 +26,23 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     for (let video of videos) {
       let image = await createImage(video.thumbnail);
 
-      const info1 = `囹 𝙔𝙊𝙐𝙏𝙐𝘽𝙀 - 𝙎𝙀𝘼𝙍𝘾𝙃 💐`;
-      const info = `
-🎋 *Título:* ${video.title}
-👤 *Autor:* ${video.author.name}
-⏱ *Duración:* ${video.timestamp} (${video.seconds} seg)
-👁 *Vistas:* ${video.views.toLocaleString()}
-📅 *Publicado:* ${video.ago}
+      const info = `☕ *Título:* ${video.title}
+🎍 *Autor:* ${video.author.name}
+🌳 *Duración:* ${video.timestamp} (${video.seconds} seg)
+🌿 *Vistas:* ${video.views.toLocaleString()}
+🎇 *Publicado:* ${video.ago}
 
-📝 *Descripción:* ${video.description ? video.description.slice(0, 100) + '...' : 'No disponible'}`
+🍄 *Descripción:* ${video.description ? video.description.slice(0, 100) + '...' : 'No disponible'}`
 
       cards.push({
         body: proto.Message.InteractiveMessage.Body.fromObject({
-          text: info1
-        }),
-        footer: proto.Message.InteractiveMessage.Footer.fromObject({
           text: info
         }),
+        footer: proto.Message.InteractiveMessage.Footer.fromObject({
+          text: textbot
+        }),
         header: proto.Message.InteractiveMessage.Header.fromObject({
-          title: '',
+          title: '⪩✿ 𝙔𝙊𝙐𝙏𝙐𝘽𝙀 - 𝙎𝙀𝘼𝙍𝘾𝙃 ✿⪨',
           hasMediaAttachment: true,
           imageMessage: image
         }),
@@ -53,17 +51,17 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
             {
               name: 'cta_copy',
               buttonParamsJson: JSON.stringify({
-                display_text: "🎵 𝐃𝐞𝐬𝐜𝐚𝐫𝐠𝐚𝐫 𝐀𝐮𝐝𝐢𝐨",
+                display_text: "🎍 𝐃𝐞𝐬𝐜𝐚𝐫𝐠𝐚𝐫 𝐀𝐮𝐝𝐢𝐨",
                 id: "ytmp3",
-                copy_code: `.ytmp3 ${video.url}`
+                copy_code: `/ytmp3 ${video.url}`
               })
             },
             {
               name: 'cta_copy',
               buttonParamsJson: JSON.stringify({
-                display_text: "📹 𝐃𝐞𝐬𝐜𝐚𝐫𝐠𝐚𝐫 𝐕𝐢𝐝𝐞𝐨",
+                display_text: "🍃 𝐃𝐞𝐬𝐜𝐚𝐫𝐠𝐚𝐫 𝐕𝐢𝐝𝐞𝐨",
                 id: "ytmp4",
-                copy_code: `.ytmp4 ${video.url}`
+                copy_code: `/ytmp4 ${video.url}`
               })
             }
           ]
@@ -83,7 +81,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
               text: `*🌿 𝘙𝘦𝘴𝘶𝘭𝘵𝘢𝘥𝘰𝘴 𝘥𝘦:* \`${text}\`\n> Mostrando: ${videos.length} resultados`
             }),
             footer: proto.Message.InteractiveMessage.Footer.create({
-              text: '_YouTube - Search_'
+              text: '_Y O U T U B E -- S E A R C H_'
             }),
             header: proto.Message.InteractiveMessage.Header.create({
               hasMediaAttachment: false

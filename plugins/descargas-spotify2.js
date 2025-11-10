@@ -120,5 +120,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 handler.help = ['music <url|nombre>']
 handler.tags = ['download']
 handler.command = ['music', 'spotifydl']
+handler.group = true
+handler.register = true
 
 export default handler

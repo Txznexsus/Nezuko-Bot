@@ -43,7 +43,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       message: {
         documentMessage: {
           title: `「 ${title} 」`,
-          fileName: global.botname || "Bot",
+          fileName: `☕ 𝗗𝗲𝘀𝗰𝗮𝗿𝗴𝗮 𝗰𝗼𝗺𝗽𝗹𝗲𝘁𝗮 𝗰𝗼𝗻 𝗲𝘅𝗶𝘁𝗼.\n\n\n` + `⚡` textbot,
           jpegThumbnail: thumb3
         }
       }
@@ -106,7 +106,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     const msg = typeof e === 'string'
       ? e
       : `🎄 Ocurrió un error inesperado.\n> Usa *${usedPrefix}report* para informarlo.\n\n${e?.message || JSON.stringify(e)}`;
-    return conn.reply(m.chat, msg, m);
+    return conn.reply(m.chat, msg, m, fake);
   }
 };
 

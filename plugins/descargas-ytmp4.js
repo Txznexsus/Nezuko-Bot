@@ -66,5 +66,6 @@ handler.help = ["ytmp4 <url>"]
 handler.tags = ["download"]
 handler.command = ["ytmp4", "playmp4"]
 handler.group = true
+handler.register = true
 
 export default handler
