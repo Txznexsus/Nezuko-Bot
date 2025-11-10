@@ -59,7 +59,7 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
 🎍 *ᴀᴘɪ:* ${servidor}`
 
     const thumb = (await conn.getFile(meta.thumbnail)).data
-    await conn.sendMessage(m.chat, { image: thumb, caption: textoInfo, ...rcanalx }, { quoted: m })
+    await conn.sendMessage(m.chat, { image: thumb, caption: textoInfo, ...rcanalw }, { quoted: m })
 
     const audioResponse = await axios.get(downloadUrl, { responseType: 'arraybuffer' })
     const audioBuffer = Buffer.from(audioResponse.data)
