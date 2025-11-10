@@ -104,8 +104,8 @@ global.rcanalx = {
       newsletterName: channelRD.name,
     },
     externalAdReply: {
-      title: '❒︴🍃 🄰🄲🄲🄴🅂🄾 • 🄳🄴🄽🄴🄶🄰🄳🄾 🍬✗',
-      body: `（๑•ᴗ• )づ ${dev}`,
+      title: `（๑•ᴗ• )づ ${botname}ુ᭡̵໋࡙`,
+      body: `   ✎ !ᴀᴄᴄᴇsᴏ ᴅᴇɴᴇɢᴀᴅᴏ¡ ꒢⃘ܱ࣪`,
       mediaUrl: null,
       description: null,
       previewType: "PHOTO",
