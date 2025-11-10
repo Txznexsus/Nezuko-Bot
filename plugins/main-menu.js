@@ -126,7 +126,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
 
 𐔌𐔌 *な🎅🎄 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ: 🦌🎇な* ꒱꒱ `.trim()
 
-    const menu_xyz = infoUser + `\n\n` + menuTexto.trim()
+    const menu_xyz = infoUser + `\n\n${menuTexto}`.trim()
 
     const imgs = [
       'https://i.pinimg.com/originals/b3/67/d5/b367d513d861de468305c32c6cd22756.jpg',

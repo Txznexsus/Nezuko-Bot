@@ -39,7 +39,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
           text: info
         }),
         footer: proto.Message.InteractiveMessage.Footer.fromObject({
-          text: textbot
+          text: dev
         }),
         header: proto.Message.InteractiveMessage.Header.fromObject({
           title: '⪩✿ 𝙔𝙊𝙐𝙏𝙐𝘽𝙀 - 𝙎𝙀𝘼𝙍𝘾𝙃 ✿⪨',

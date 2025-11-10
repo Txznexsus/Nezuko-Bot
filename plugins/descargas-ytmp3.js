@@ -9,7 +9,7 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
         m.chat,
         `🎋 Ingresa el nombre de la canción o un enlace de YouTube.\n\n> Ejemplo: ${usedPrefix + command} DJ Malam Pagi`,
         m, fake
-      ),
+      )
     }
 
     await conn.sendMessage(m.chat, { react: { text: "⏳", key: m.key } })
@@ -55,11 +55,11 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
 🪵 *ᴄᴀɴᴀʟ:* ${meta.author}
 🧃 *ᴠɪsᴛᴀs:* ${meta.views}
 🗓️ *ᴘᴜʙʟɪᴄᴀᴅᴏ:* ${meta.ago}
-🐚 *ᴇɴʟᴀᴄᴇ:*${meta.url}
+🐚 *ᴇɴʟᴀᴄᴇ:* ${meta.url}
 🎍 *ᴀᴘɪ:* ${servidor}`
 
     const thumb = (await conn.getFile(meta.thumbnail)).data
-    await conn.sendMessage(m.chat, { image: thumb, caption: textoInfo, ...fake }, { quoted: m })
+    await conn.sendMessage(m.chat, { image: thumb, caption: textoInfo, ...rcanalx }, { quoted: m })
 
     const audioResponse = await axios.get(downloadUrl, { responseType: 'arraybuffer' })
     const audioBuffer = Buffer.from(audioResponse.data)
@@ -68,11 +68,11 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
       audio: audioBuffer,
       fileName: `${meta.title}.mp3`,
       mimetype: "audio/mpeg",
-      ptt: false, // true pa nota de voz xD
+      ptt: false,
       contextInfo: {
         externalAdReply: {
           showAdAttribution: true,
-          title: '🎅🦌 𝐘  𝐎 𝐔 𝐓 𝐔 𝐁 𝐄 • 𝐌 𝐔 𝐒 𝐈 𝐂 ❄️🎄',
+          title: '🎅🦌 𝐘 𝐎 𝐔 𝐓 𝐔 𝐁 𝐄 • 𝐌 𝐔 𝐒 𝐈 𝐂 ❄️🎄',
           body: `☕ Duración: ${meta.duration}`,
           thumbnailUrl: meta.thumbnail,
           mediaType: 1,
