@@ -43,7 +43,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       message: {
         documentMessage: {
           title: `「 ${title} 」`,
-          fileName: `☕ 𝗗𝗲𝘀𝗰𝗮𝗿𝗴𝗮 𝗰𝗼𝗺𝗽𝗹𝗲𝘁𝗮 𝗰𝗼𝗻 𝗲𝘅𝗶𝘁𝗼.\n\n\n` + `⚡` textbot,
+          fileName: `☕ 𝗗𝗲𝘀𝗰𝗮𝗿𝗴𝗮 𝗰𝗼𝗺𝗽𝗹𝗲𝘁𝗮 𝗰𝗼𝗻 𝗲𝘅𝗶𝘁𝗼.\n\n\n⚡ ${textbot}` ,
           jpegThumbnail: thumb3
         }
       }

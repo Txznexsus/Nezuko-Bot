@@ -9,31 +9,31 @@ let totalChats = Object.keys(global.db.data.chats).length
 let totalPlugins = Object.values(global.plugins).filter((v) => v.help && v.tags).length
 let totalBots = global.conns.filter(conn => conn.user && conn.ws.socket && conn.ws.socket.readyState !== 3).length
 let totalCommands = Object.values(global.db.data.users).reduce((acc, user) => acc + (user.commands || 0), 0)
-let xD '```'
+const shadowXD '```',
 let system = `*「☕」Estado del Sistema 7w7 🌿*
 
-ৎּٜ̊🌿ꨩ໋〪̥〭*\`Comandos ejecutados:\`* ${xD}${toNum(totalCommands)}${xD}
-ৎּٜ̊❄️ꨩ〪̥〭 *\`Usuarios registrados:\`* ${xD}${totalUsers.toLocaleString()}${xD}
-ৎּٜ̊☕ꨩ໋〪̥〭*\`Grupos registrados:\`* ${xD}${totalChats.toLocaleString()}${xD}
-ৎּٜ̊🍃ꨩ໋〪̥〭*\`Plugins:\`* ${xD}${totalPlugins}${xD}
-ৎּٜ̊🍵ꨩ໋〪̥〭*\`Bots Activos:\`* ${xD}${totalBots}${xD}
+ৎּٜ̊🌿ꨩ໋〪̥〭*\`Comandos ejecutados:\`* ${shadowXD}${toNum(totalCommands)}${shadowXD}
+ৎּٜ̊❄️ꨩ〪̥〭 *\`Usuarios registrados:\`* ${shadowXD}${totalUsers.toLocaleString()}${shadowXD}
+ৎּٜ̊☕ꨩ໋〪̥〭*\`Grupos registrados:\`* ${shadowXD}${totalChats.toLocaleString()}${shadowXD}
+ৎּٜ̊🍃ꨩ໋〪̥〭*\`Plugins:\`* ${shadowXD}${totalPlugins}${shadowXD}
+ৎּٜ̊🍵ꨩ໋〪̥〭*\`Bots Activos:\`* ${shadowXD}${totalBots}${shadowXD}
 
 ꒰꒰ ݊ᩞ *🌳 Estado del Servidor 🍃 ᗝᗝ*
 
-ৎּٜ̊🍄ꨩ〪̥〭*\`Sistema:\`* ${xD}${platform()}${xD}
-ৎּٜ̊✨ꨩ〭 *\`CPU:\`* ${xD}${_cpus().length} cores${xD}
-ৎּٜ̊🎍ꨩ〭 *\`RAM:\`* ${xD}${format(totalmem())}${xD}
-ৎּٜ̊🌳ꨩ〭 *\`RAM Usado:\`* ${xD}${format(totalmem() - freemem())}${xD}
-ৎּٜ̊🚀ꨩ〪̥〭*\`Arquitectura:\`* ${xD}${process.arch}${xD}
-ৎּٜ̊🥥ꨩ〪̥〭*\`Host ID:\`* ${xD}${hostname().slice(0, 8)}...${xD}
+ৎּٜ̊🍄ꨩ〪̥〭*\`Sistema:\`* ${shadowXD}${platform()}${shadowXD}
+ৎּٜ̊✨ꨩ〭 *\`CPU:\`* ${shadowXD}${_cpus().length} cores${shadowXD}
+ৎּٜ̊🎍ꨩ〭 *\`RAM:\`* ${shadowXD}${format(totalmem())}${shadowXD}
+ৎּٜ̊🌳ꨩ〭 *\`RAM Usado:\`* ${shadowXD}${format(totalmem() - freemem())}${shadowXD}
+ৎּٜ̊🚀ꨩ〪̥〭*\`Arquitectura:\`* ${shadowXD}${process.arch}${shadowXD}
+ৎּٜ̊🥥ꨩ〪̥〭*\`Host ID:\`* ${shadowXD}${hostname().slice(0, 8)}...${shadowXD}
 
 ꒰꒰ ݊ᩞ *❑ 🎍 Uso de Memoria NODEJS 🥥 ᗝᗝ*
 
-ৎּٜ̊💐ꨩ〪̥〭*\`Ram Utilizada:\`* ${xD}${format(process.memoryUsage().rss)}${xD}
-ৎּٜ̊⭐ꨩ〪̥〭*\`Heap Reservado:\`* ${xD}${format(process.memoryUsage().heapTotal)}${xD}
-ৎּٜ̊🌴ꨩ〪̥〭*\`Heap Usado:\`* ${xD}${format(process.memoryUsage().heapUsed)}${xD}
-ৎּٜ̊💮ꨩ〪̥〭*\`Módulos Nativos:\`* ${xD}${format(process.memoryUsage().external)}${xD}
-ৎּٜ̊🍰ꨩ〪̥〭*\`Buffers de Datos:\`* ${xD}${format(process.memoryUsage().arrayBuffers)}${xD}`
+ৎּٜ̊💐ꨩ〪̥〭*\`Ram Utilizada:\`* ${shadowXD}${format(process.memoryUsage().rss)}${shadowXD}
+ৎּٜ̊⭐ꨩ〪̥〭*\`Heap Reservado:\`* ${shadowXD}${format(process.memoryUsage().heapTotal)}${shadowXD}
+ৎּٜ̊🌴ꨩ〪̥〭*\`Heap Usado:\`* ${shadowXD}${format(process.memoryUsage().heapUsed)}${shadowXD}
+ৎּٜ̊💮ꨩ〪̥〭*\`Módulos Nativos:\`* ${shadowXD}${format(process.memoryUsage().external)}${shadowXD}
+ৎּٜ̊🍰ꨩ〪̥〭*\`Buffers de Datos:\`* ${shadowXD}${format(process.memoryUsage().arrayBuffers)}${shadowXD}`
 await conn.reply(m.chat, system, m, rcanal)
 }
 
