@@ -23,7 +23,7 @@ const texto = `ᥫ᭡ 𝐄𝐬𝐭𝐚𝐝𝐨 𝐝𝐞𝐥 𝐀𝐝𝐯𝐞𝐧
  
 > 🍃 *⍴ᥲrᥲ ⍴r᥆𝗍ᥱgᥱr 𝗍ᥙ ძіᥒᥱr᥆, ¡ძᥱ⍴ósі𝗍ᥲᥣ᥆ ᥱᥒ ᥱᥣ ᑲᥲᥒᥴ᥆ ᥙsᥲᥒძ᥆ #ძᥱ⍴᥆sі𝗍!*`
   await conn.sendMessage(m.chat, {
-      image: { url: 'https://files.catbox.moe/8xasa6.jpg' },
+      image: { url: 'https://qu.ax/kcZZh.jpg' },
       caption: texto,
       mentions: [who],
       ...rcanal
