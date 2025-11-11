@@ -149,7 +149,7 @@ Finalizado el periodo, se retirará automáticamente.`,
 
     setTimeout(async () => {
       try {
-        await conn.sendMessage(groupId, { text: `🍂 El tiempo de suscripción ha finalizado. El bot se retirará del grupo.` })
+        await conn.sendMessage(groupId, { text: `*🍂 El tiempo de suscripción ha finalizado. El bot se retirará del grupo.*` })
         await conn.groupLeave(groupId)
         delete suscripciones[groupId]
       } catch (err) {
