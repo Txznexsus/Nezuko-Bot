@@ -1,43 +1,43 @@
-import fetch from 'node-fetch'
+import axios from 'axios'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (!text)
-    return m.reply(`✳️ Ejemplo de uso:\n${usedPrefix + command} Naruto`)
-
+  if (!text) return m.reply(`🪴 Por favor, ingresa lo que deseas buscar por Wallpaper.`)
   try {
-    let res = await fetch(`https://xrljosedevapi.vercel.app/search/wallpaper?query=${encodeURIComponent(text)}`)
-    let data = await res.json()
+    await m.react('🕒')
+
+    const res = await axios.get(`https://xrljosedevapi.vercel.app/search/wallpaper?query=${encodeURIComponent(text)}`)
+    const data = res.data
 
     if (!data.status || !data.data?.length)
-      return m.reply(`No se encontraron wallpapers para "${text}"`)
+      return conn.reply(m.chat, `ꕥ No se encontraron resultados para "${text}".`, m)
 
-    let result = data.data[Math.floor(Math.random() * data.data.length)]
+    const results = data.data.slice(0, 15)
 
-    let txt = `
-🎨 *Wallpaper encontrado* 🌲
-🪴 *Título:* ${result.title || "Sin título"}
+    const medias = results.map(img => ({
+      type: 'image',
+      data: { url: img.previewUrl || img.imageUrl }
+    }))
 
+    await conn.sendSylphy(m.chat, medias, {
+      caption: `🌲 Wallpaper - Search 🪺\n\n❄️ Búsqueda » "${text}"\n🌿 Resultados » ${medias.length}`,
+      quoted: m
+    })
 
-🪺 *Descargar:* 
-${result.downloadUrl}
-`
-
-    await conn.sendFile(
+    await m.react('✔️')
+  } catch (e) {
+    await m.react('✖️')
+    console.error(e)
+    conn.reply(
       m.chat,
-      result.previewUrl || result.imageUrl,
-      'wallpaper.jpg',
-      txt,
+      `⚠︎ Se ha producido un problema.\n> Usa *${usedPrefix}report* para informarlo.\n\n` + e,
       m
     )
-
-  } catch (e) {
-    console.error(e)
-    m.reply(" Ocurrió un error al buscar wallpapers.")
   }
 }
 
-handler.help = ['wallpaper <texto>']
-handler.tags = ['internet', 'img']
+handler.help = ['wallpaper']
 handler.command = ['wallpaper', 'fondos', 'wall']
+handler.tags = ['buscador']
+handler.group = true
 
 export default handler
