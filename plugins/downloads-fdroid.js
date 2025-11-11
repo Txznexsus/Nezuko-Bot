@@ -6,7 +6,7 @@ if (!text) return conn.reply(m.chat, `🌿 Ingresa el enlace del paquete de F-Dr
 try {
 await m.react('🕒')
 
-let api = await fetch(`https://api.vreden.my.id/api/v1/download/fdroid?url=${encodeURIComponent(text)}`)
+let api = await fetch(`${global.APIs.vreden.url}/api/v1/download/fdroid?url=${encodeURIComponent(text)}`)
 let res = await api.json()
 
 if (!res.result) {
