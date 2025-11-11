@@ -97,7 +97,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
         .map(cmd => cmd.help.map(e => `ര ׄ 🍃 ׅ  ${usedPrefix}${e}`).join('\n'))
         .join('\n')
       if (comandos) {
-        menuTexto += `\n\n*${tags[tag]}*\n\`\`\`${comandos}\`\`\``
+        menuTexto += `\n\n\n*${tags[tag]}*\n\`\`\`${comandos}\`\`\``
       }
     }
 
@@ -117,7 +117,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
 ─────────────────────
 
  ᨫ᤻፝᳹🥞᳕၇ \`ʙᴏᴛ:\` ${(conn.user.jid == global.conn.user.jid ? '𝙋𝙧𝙞𝙣𝙘𝙞𝙥𝙖𝙡 🌱' : '𝙆𝙖𝙣𝙚𝙠𝙞 𝙎𝙪𝙗-𝘽𝙤𝙩 💮')}
- ᨫ᤻፝᳹🎋᳕၇ \`ᴄᴏᴍᴀɴᴅᴏs: ${totalCommands}
+ ᨫ᤻፝᳹🎋᳕၇ \`ᴄᴏᴍᴀɴᴅᴏs:\` ${totalCommands}
  ᨫ᤻፝᳹🥥᳕၇ \`ᴠs:\` ${vs}
  ᨫ᤻፝᳹☕᳕၇ \`ʟɪʙʀᴇʀɪᴀ:\` ${libreria}
  ᨫ᤻፝᳹🎍᳕၇ \`ғᴇᴄʜᴀ:\` \`\`\`${hora}, ${dia}, ${fechaTxt}\`\`\`
