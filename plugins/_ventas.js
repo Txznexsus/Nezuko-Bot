@@ -9,12 +9,12 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     return m.reply(
 `🌿 *Precios de suscripción de grupo*
 
-🕐 1 hora  →  1,000 coins
-🕒 2 horas →  2,000 coins
-🌤️ 12 horas → 12,000 coins
-🌅 1 día   → 10,000 coins
-🌾 1 semana → 100,000 coins
-🌿 1 mes   → 1,000,000 coins
+*🕐 1 hora*  →  1,000 coins
+*🕒 2 horas* →  2,000 coins
+*🌤️ 12 horas* → 12,000 coins
+*🌅 1 día*   → 10,000 coins
+*🌾 1 semana* → 100,000 coins
+*🌿 1 mes*   → 1,000,000 coins
 
 Ejemplo de uso:
 ${usedPrefix}joinfor https://chat.whatsapp.com/xxxxx 3h`)
