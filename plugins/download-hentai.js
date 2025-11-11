@@ -31,7 +31,7 @@ let handler = async (m, { conn, text, args, setting }) => {
 🔗 *Link:* ${text}
 
 ⚡ _Descargando el archivo, espera un momento..._
-`;
+` 
       m.reply(cap)
 
       await conn.sendFile(m.chat, videoUrl, `${videoInfo.title}.mp4`, '', m, null, {
@@ -48,7 +48,7 @@ let handler = async (m, { conn, text, args, setting }) => {
 
       results.slice(0, 15).forEach((res, index) => {
         cap += `${index + 1}. 🎄 *Título:* ${res.titulo}
-🔗 *Link:* ${res.url}\n`;
+🔗 *Link:* ${res.url}\n\n`;
       });
       m.reply(cap)
       m.react("✔️");
