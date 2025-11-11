@@ -30,43 +30,40 @@ function formatSize(bytes) {
   return `${bytes.toFixed(2)} ${units[i]}`
 }
 
-async function getStellar(url) {
+/* ✅ SOLO LINK PARA AUDIO */
+async function getshadowa(url) {
   try {
-    const api = `https://api-shadowxyz.vercel.app/download/ytmp3V2?url${encodeURIComponent(url)}`
+    const api = `https://api-shadowxyz.vercel.app/download/ytmp3V2?url=${encodeURIComponent(url)}`
     const res = await fetch(api)
     const data = await res.json()
 
-    if (data?.status && data?.data?.download_url) {
+    if (data?.status === true && data?.result?.download_url) {
       return {
-        link: data.data.download_url,
-        title: data.data.title || 'Desconocido',
+        link: data.result.download_url,
         format: 'mp3'
       }
     }
-
-    throw new Error('No se pudo obtener el enlace de descarga')
-  } catch (e) {
-    console.error('Error en Stellar API:', e.message)
+    return null
+  } catch {
     return null
   }
 }
 
-async function getYupra(url) {
+/* ✅ SOLO LINK PARA VIDEO */
+async function getshadowv(url) {
   try {
-    const api = `https://api.yupra.my.id/api/downloader/ytmp4?url=${encodeURIComponent(url)}`
+    const api = `https://api-shadowxyz.vercel.app/download/ytmp4V2?url=${encodeURIComponent(url)}`
     const res = await fetch(api)
     const data = await res.json()
 
-    if (data?.result?.formats?.[0]?.url) {
+    if (data?.status === true && data?.result?.download_url) {
       return {
-        link: data.result.formats[0].url,
-        title: data.result.title || 'Desconocido',
+        link: data.result.download_url,
         format: 'mp4'
       }
     }
-    throw new Error('No se pudo obtener el enlace de descarga')
-  } catch (e) {
-    console.error('Error en Yupra API:', e.message)
+    return null
+  } catch {
     return null
   }
 }
@@ -130,23 +127,23 @@ handler.before = async (m, { conn }) => {
     await m.react('🕒')
 
     const apiData = type === 'audio'
-      ? await getStellar(video.url)
-      : await getYupra(video.url)
+      ? await getshadowa(video.url)
+      : await getshadowv(video.url)
 
-    if (!apiData) return conn.reply(m.chat, `🍃 Error al obtener enlace desde la API.`, m)
+    if (!apiData) return conn.reply(m.chat, `🍃 Error al obtener enlace desde la API.`, m, fake)
 
     const size = await getSize(apiData.link)
     const mb = size / (1024 * 1024)
     const sendAsDoc = mb > MAX_FILE_SIZE_MB
 
-    const caption = `📡 *${apiData.title}*\n🌾 *Duración:* ${video.timestamp || 'Desconocida'}\n💮 *Tamaño:* ${formatSize(size)}`
+    const caption = `📡 *${video.title}*\n🌾 *Duración:* ${video.timestamp || 'Desconocida'}\n💮 *Tamaño:* ${formatSize(size)}`
 
     if (sendAsDoc) {
       await conn.sendMessage(
         m.chat,
         {
           document: { url: apiData.link },
-          fileName: `${apiData.title}.${apiData.format}`,
+          fileName: `${video.title}.${apiData.format}`,
           mimetype: type === 'audio' ? 'audio/mpeg' : 'video/mp4',
           caption: caption + `\n\n🚀 Enviado como documento (>${MAX_FILE_SIZE_MB} MB)`
         },
@@ -157,7 +154,7 @@ handler.before = async (m, { conn }) => {
         m.chat,
         {
           audio: { url: apiData.link },
-          fileName: `${apiData.title}.mp3`,
+          fileName: `${video.title}.mp3`,
           mimetype: 'audio/mpeg',
           ptt: false,
           caption
@@ -169,7 +166,7 @@ handler.before = async (m, { conn }) => {
         m.chat,
         {
           video: { url: apiData.link },
-          fileName: `${apiData.title}.mp4`,
+          fileName: `${video.title}.mp4`,
           mimetype: 'video/mp4',
           caption
         },
@@ -180,7 +177,7 @@ handler.before = async (m, { conn }) => {
     await m.react('✔️')
   } catch (e) {
     await m.react('✖️')
-    conn.reply(m.chat, `Error al descargar: ${e.message}`, m, fake)
+    conn.reply(m.chat, `Error al descargar: ${e.message}`, m)
   }
 }
 
@@ -190,26 +187,3 @@ handler.command = ['ytbuscar', 'yts', 'ytssearch']
 handler.group = true
 
 export default handler
-
-
-/*
-
-https://api-shadowxyz.vercel.app/download/ytmp3V2?url=https%3A%2F%2Fyoutube%2Fwatch%3Fv%3DqBnffe5-WOE
-
-{
-   "status":  true ,
-   "creator":  "Shadow.xyz" ,
-   "status_code":  200 ,
-   "result": {
-     "title":  "Marco Mengoni - Hola (I Say) ft. Tom Walker" ,
-     "duration":  "4:53" ,
-     "youtube_url":  "https://youtube.com/watch?v=qBnffe5-WOE" ,
-     "download_url":  "https://cdn404.savetube.vip/media/qBnffe5-WOE/marco-mengoni-hola-i-say-ft-tom-walker-128-ytshorts.savetube.me.mp3" ,
-     "thumbnail":  "https://i.ytimg.com/vi/qBnffe5-WOE/maxresdefault.jpg"
-  },
-  "meta": {
-     "timestamp":  "2025-11-11T16:13:12.092Z" ,
-     "version":  "v2"
-  }
-}
-*/
