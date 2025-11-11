@@ -124,7 +124,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
 
 ─────────────────────
 
-𐔌𐔌 *な🎅🎄 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ: 🦌🎇な* ꒱꒱\n`.trim()
+𐔌𐔌 *な🎅🎄 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ: 🦌🎇な* ꒱꒱`.trim()
 
     const menu_xyz = infoUser + `\n\n${menuTexto}`.trim()
 

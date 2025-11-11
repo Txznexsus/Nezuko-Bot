@@ -12,28 +12,28 @@ let totalCommands = Object.values(global.db.data.users).reduce((acc, user) => ac
 
 let system = `*「☕」Estado del Sistema 7w7 🌿*
 
-ৎּٜ̊🌿ꨩ໋〪̥〭*\`Comandos ejecutados:\`* \`\`\`${toNum(totalCommands)}\`\`\`
-ৎּٜ̊❄️ꨩ〪̥〭 *\`Usuarios registrados:\`* \`\`\`${totalUsers.toLocaleString()}\`\`\`
-ৎּٜ̊☕ꨩ໋〪̥〭*\`Grupos registrados:\`* \`\`\`${totalChats.toLocaleString()}\`\`\`
-ৎּٜ̊🍃ꨩ໋〪̥〭*\`Plugins:\`* \`\`\`${totalPlugins}\`\`\`
-ৎּٜ̊🍵ꨩ໋〪̥〭*\`Bots Activos:\`* \`\`\`${totalBots}\`\`\`
+ৎּٜ̊🌿ꨩ໋〪̥〭\`Comandos ejecutados:\` \`\`\`${toNum(totalCommands)}\`\`\`
+ৎּٜ̊❄️ꨩ〪̥〭 \`Usuarios registrados:\` \`\`\`${totalUsers.toLocaleString()}\`\`\`
+ৎּٜ̊☕ꨩ໋〪̥〭\`Grupos registrados:\` \`\`\`${totalChats.toLocaleString()}\`\`\`
+ৎּٜ̊🍃ꨩ໋〪̥〭\`Plugins:\` \`\`\`${totalPlugins}\`\`\`
+ৎּٜ̊🍵ꨩ໋〪̥〭\`Bots Activos:\` \`\`\`${totalBots}\`\`\`
 
 ꒰꒰ ݊ᩞ *🌳 Estado del Servidor 🍃 ᗝᗝ*
 
-ৎּٜ̊🍄ꨩ〪̥〭*\`Sistema:\`* \`\`\`${platform()}\`\`\`
-ৎּٜ̊✨ꨩ〭 *\`CPU:\`* \`\`\`${_cpus().length} cores\`\`\`
-ৎּٜ̊🎍ꨩ〭 *\`RAM:\`* \`\`\`${format(totalmem())}\`\`\`
-ৎּٜ̊🌳ꨩ〭 *\`RAM Usado:\`* \`\`\`${format(totalmem() - freemem())}\`\`\`
-ৎּٜ̊🚀ꨩ〪̥〭*\`Arquitectura:\`* \`\`\`${process.arch}\`\`\`
-ৎּٜ̊🥥ꨩ〪̥〭*\`Host ID:\`* \`\`\`${hostname().slice(0, 8)}...\`\`\`
+ৎּٜ̊🍄ꨩ〪̥〭\`Sistema:\` \`\`\`${platform()}\`\`\`
+ৎּٜ̊✨ꨩ〭 \`CPU:\` \`\`\`${_cpus().length} cores\`\`\`
+ৎּٜ̊🎍ꨩ〭 \`RAM:\` \`\`\`${format(totalmem())}\`\`\`
+ৎּٜ̊🌳ꨩ〭 \`RAM Usado:\` \`\`\`${format(totalmem() - freemem())}\`\`\`
+ৎּٜ̊🚀ꨩ〪̥〭\`Arquitectura:\` \`\`\`${process.arch}\`\`\`
+ৎּٜ̊🥥ꨩ〪̥〭\`Host ID:\` \`\`\`${hostname().slice(0, 8)}...\`\`\`
 
 ꒰꒰ ݊ᩞ *❑ 🎍 Uso de Memoria NODEJS 🥥 ᗝᗝ*
 
-ৎּٜ̊💐ꨩ〪̥〭*\`Ram Utilizada:\`* \`\`\`${format(process.memoryUsage().rss)}\`\`\`
-ৎּٜ̊⭐ꨩ〪̥〭*\`Heap Reservado:\`* \`\`\`${format(process.memoryUsage().heapTotal)}\`\`\`
-ৎּٜ̊🌴ꨩ〪̥〭*\`Heap Usado:\`* \`\`\`${format(process.memoryUsage().heapUsed)}\`\`\`
-ৎּٜ̊💮ꨩ〪̥〭*\`Módulos Nativos:\`* \`\`\`${format(process.memoryUsage().external)}\`\`\`
-ৎּٜ̊🍰ꨩ〪̥〭*\`Buffers de Datos:\`* \`\`\`${format(process.memoryUsage().arrayBuffers)}\`\`\``
+ৎּٜ̊💐ꨩ〪̥〭\`Ram Utilizada:\` \`\`\`${format(process.memoryUsage().rss)}\`\`\`
+ৎּٜ̊⭐ꨩ〪̥〭\`Heap Reservado:\` \`\`\`${format(process.memoryUsage().heapTotal)}\`\`\`
+ৎּٜ̊🌴ꨩ〪̥〭\`Heap Usado:\` \`\`\`${format(process.memoryUsage().heapUsed)}\`\`\`
+ৎּٜ̊💮ꨩ〪̥〭\`Módulos Nativos:\` \`\`\`${format(process.memoryUsage().external)}\`\`\`
+ৎּٜ̊🍰ꨩ〪̥〭\`Buffers de Datos:\` \`\`\`${format(process.memoryUsage().arrayBuffers)}\`\`\``
 await conn.reply(m.chat, system, m, rcanal)
 }
 
