@@ -84,7 +84,11 @@ ${sugerencias}`;
     mentions: [m.sender],
     contextInfo: {
       isForwarded: true,
-      forwardedNewsletterMessageInfo: channelRD,
+      forwardedNewsletterMessageInfo: {
+        newsletterJid: channelRD.id,
+        serverMessageId: '',
+        newsletterName: channelRD.name
+      },
       externalAdReply: {
         title: ' °   ⿻֟🎍 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 ܀ 𝐀𝐒𝐒𝐈𝐒𝐓𝐀𝐍𝐓 ☕፝֯۫︎۫۬',
         body: '  `͝દ࠭͜✎࣭〫𝆬ᨗઢ֒͝  ᴅᴇsᴀʀʀᴏʟʟᴀᴅᴏ x sʜᴀᴅᴏᴡ.xʏᴢ 籭᮫꫶ֹ۫𝆬𝆬ᨗ',
