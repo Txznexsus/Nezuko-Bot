@@ -50,7 +50,7 @@ let handler = async (m, { command, usedPrefix, conn, text, args }) => {
 
 ${eps}
 
-> 🍰 Responde a este mensaje con el número del episodio y el idioma. Ejemplo: *1 sub*, *3 dub*
+> Responde a este mensaje con el número del episodio y el idioma. Ejemplo: *1 sub*, *3 dub*
 `.trim();
 
             let buffer = await (await fetch(cover)).arrayBuffer();
@@ -66,7 +66,7 @@ ${eps}
                 episodes,
                 key: sent.key,
                 downloading: false,
-                timeout: setTimeout(() => delete conn.anime[m.sender], 600_000)
+                timeout: setTimeout(() => delete conn.anime[m.sender], 600_000) // 10 minutos
             };
 
         } else {
@@ -80,7 +80,7 @@ ${eps}
                 cap += `\n\`${index + 1}\`\n≡ ☕ *Title :* ${res.title}\n≡ 🕸️ *Link :* ${res.link}\n`;
             });
 
-            await conn.sendMessage(m.chat, { text: cap }, { quoted: m });
+            await conn.sendMessage(m.chat, { text: cap, ...fake }, { quoted: m });
             m.react("🎋");
         }
     } catch (e) {
@@ -92,8 +92,7 @@ ${eps}
 handler.before = async (m, { conn }) => {
     conn.anime = conn.anime || {};
     const session = conn.anime[m.sender];
-
-    if (!session || !m.quoted || m.quoted.key.id !== session.key.id) return;
+    if (!session || !m.quoted || m.quoted.id !== session.key.id) return;
 
     if (session.downloading) return m.reply("⏳ Ya estás descargando un episodio. Espera a que termine.");
 
@@ -110,7 +109,9 @@ handler.before = async (m, { conn }) => {
     const availableLangs = Object.keys(inf.dl || {});
     if (!availableLangs.length) return m.reply(`❌ No hay idiomas disponibles para el episodio ${epi}.`);
 
-    if (!idioma || !availableLangs.includes(idioma)) idioma = availableLangs[0];
+    if (!idioma || !availableLangs.includes(idioma)) {
+        idioma = availableLangs[0]; // fallback
+    }
 
     const idiomaLabel = idioma === "sub" ? "sub español" : "español latino";
     await m.reply(`📥 Descargando *${session.title}* - cap ${epi} (${idiomaLabel})`);
