@@ -38,7 +38,7 @@ async function getStellar(url) {
 
     if (data?.status && data?.data?.download_url) {
       return {
-        link: data.data.download_url,
+        link: data.data.dl,
         title: data.data.title || 'Desconocido',
         format: 'mp3'
       }
