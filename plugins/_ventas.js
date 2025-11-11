@@ -4,6 +4,7 @@ let suscripciones = global.suscripciones || (global.suscripciones = {})
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
   let user = global.db.data.users[m.sender] // solo para coins
+
   if (command === 'susprecios') {
     return m.reply(
 `🌿 *Precios de suscripción de grupo*
@@ -38,13 +39,10 @@ mth = mes`)
 
   let enlace = args[0].trim()
   let tiempoStr = args[1].toLowerCase()
+  let linkRegex = /https:\/\/chat\.whatsapp\.com\/([0-9A-Za-z]{20,24})/i
+  let [, codigoGrupo] = enlace.match(linkRegex) || []
 
-  if (!enlace.startsWith('https://chat.whatsapp.com/')) {
-    return m.reply('🌿 Enlace no válido. Debe comenzar con https://chat.whatsapp.com/')
-  }
-
-  let codigoGrupo = enlace.split('https://chat.whatsapp.com/')[1]?.trim()
-  if (!codigoGrupo) return m.reply('🌱 Código de invitación no válido.')
+  if (!codigoGrupo) return m.reply('🌱 Enlace no válido. Asegúrate de copiar bien el link del grupo.')
 
   let cantidad = parseInt(tiempoStr)
   let unidad = tiempoStr.replace(cantidad, '').trim()
@@ -98,7 +96,7 @@ Un momento, uniéndome al grupo solicitado.`)
 
   try {
     let groupId = await conn.groupAcceptInvite(codigoGrupo).catch(e => null)
-    if (!groupId) throw new Error('No se pudo unir al grupo. Verifica el enlace.')
+    if (!groupId) throw new Error('No se pudo unir al grupo. Verifica el enlace o si el bot ya está dentro.')
 
     let groupMetadata = await conn.groupMetadata(groupId)
     let groupName = groupMetadata.subject
