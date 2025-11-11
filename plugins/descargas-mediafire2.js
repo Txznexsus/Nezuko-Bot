@@ -4,98 +4,56 @@ let handler = async (m, { conn, text }) => {
   const user = global.db.data.users[m.sender] || {}
   
   if (user.coin < 20) {
-    return conn.reply(m.chat, `ꕥ No tienes suficientes *${currency}*.\nNecesitas al menos 20 para usar este comando.`, m)
+    return conn.reply(m.chat, `💮 No tienes suficientes *${currency}*.\nNecesitas *20* para usar este comando.`, m)
   }
 
-  if (!text) return m.reply(`*🌿 Por favor, ingresa un link válido de Mediafire.*`)
+  if (!text) return m.reply(`✨ *Ingresa un enlace válido de Mediafire.*`)
 
-  await conn.sendMessage(m.chat, { react: { text: "🕒", key: m.key } })
+  await conn.sendMessage(m.chat, { react: { text: "⏳", key: m.key } })
 
-  await conn.sendMessage(m.chat, {
-    text: '🄸 🄽 🄸 🄲 🄸 🄰 🄽 🄳 🄾 • 🄳🄴🅂🄲🄰🅁🄶🄰\n> *Procesando descarga, por favor espere... ⏳*',
-    mentions: [m.sender],
-    contextInfo: {
-      externalAdReply: {
-        title: '📦 Kaneki AI • Mediafire Downloader',
-        body: 'Obteniendo datos del archivo...',
-        thumbnailUrl: global.logo || 'https://i.ibb.co/5v4syqS/mediafire.jpg',
-        mediaType: 1,
-        renderLargerThumbnail: true
-      }
-    }
-  }, { quoted: m })
+  m.reply(`*Descargando archivo...* 🔍\n> Esto puede tardar unos segundos.`)
 
   try {
 
-    let res1 = await fetch(`https://api.siputzx.my.id/api/d/mediafire`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: text })
-    })
+    let res1 = await fetch(`https://api.zenzxz.my.id/api/downloader/mediafire?url=${encodeURIComponent(text)}`)
     let json1 = await res1.json()
 
-    if (json1.status && json1.data?.downloadLink) {
+    if (json1.success && json1.data?.download_url) {
+
       let d = json1.data
-      let meta = d.meta || {}
 
-      let info = `╭━━━〔 *MEDIAFIRE - DESCARGA EXITOSA* 〕━━⬣
-┃ 📦 *Nombre:* ${d.fileName}
-┃ 📁 *Tamaño:* ${d.fileSize}
-┃ 🗓️ *Subido:* ${d.uploadDate || 'Desconocida'}
-┃ 🧩 *Tipo:* ${d.fileType}
-┃ 💻 *Compatibilidad:* ${d.compatibility || 'N/A'}
-┃ 📂 *Extensión:* ${d.fileExtension || 'N/A'}
-╰━━━⬣
+      let msg = `📥 *MEDIAFIRE - DESCARGA LISTA*\n\n` +
+      `📝 *Nombre:* ${d.filename}\n` +
+      `📦 *Tamaño:* ${d.filesize}\n` +
+      `📄 *Tipo:* ${d.mimetype}\n\n` +
+      `🔗 *Enlace directo:* ${d.download_url}\n\n` +
+      `➡️ Descargando y enviando archivo...`
 
-📝 *Descripción:* ${d.description || 'No disponible'}
+      await conn.sendMessage(m.chat, { text: msg }, { quoted: m })
+      await conn.sendFile(m.chat, d.download_url, d.filename, '', m)
 
-🔗 *Enlace directo:* 
-${d.downloadLink}
-
-🌐 *Meta Info:*
-• URL: ${meta.url || 'N/A'}
-• Título: ${meta.title || 'N/A'}
-• Imagen: ${meta.image || 'N/A'}
-• App ID: ${meta.app_id || 'N/A'}`
-
-      await conn.sendFile(m.chat, d.downloadLink, d.fileName, info, m)
-      await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key } })
       user.coin -= 20
-      conn.reply(m.chat, `ꕥ Has utilizado 20 *${currency}*`, m)
+      conn.reply(m.chat, `✅ Se descontaron *20 ${currency}*`, m)
+      await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key } })
       return
     }
-
-    let res2 = await fetch(`https://api.stellarwa.xyz/dow/mediafire?url=${encodeURIComponent(text)}&apikey=Shadow_Core`)
+ 
+    let res2 = await fetch(`https://api.stellarwa.xyz/dl/mediafire?url=${encodeURIComponent(text)}&key=stellar-3j2706f1`)
     let json2 = await res2.json()
 
-    if (!json2.status || !json2.data?.dl)
-      throw new Error('No se pudo obtener el archivo desde ninguna API.')
+    if (!json2.status || !json2.data?.dl) throw `No se pudo descargar desde ninguna API.`
 
-    let { title, peso, fecha, tipo, dl } = json2.data
+    let { title, mimeType, dl } = json2.data
 
-    await conn.sendFile(
-      m.chat,
-      dl,
-      title,
-      `╭━━━〔 *MEDIAFIRE - DESCARGA EXITOSA* 〕━━⬣
-┃ 📦 *Nombre:* ${title}
-┃ 📁 *Tamaño:* ${peso}
-┃ 🗓️ *Fecha:* ${fecha}
-┃ 🧩 *Tipo:* ${tipo}
-╰━━━⬣
+    await conn.sendFile(m.chat, dl, title, `📥 *Descarga completa:* ${title}`, m)
 
-✅ Archivo descargado correctamente.
-🔗 *Enlace directo:* ${dl}`,
-      m
-    )
-
-    await conn.sendMessage(m.chat, { react: { text: '✔️', key: m.key } })
     user.coin -= 20
-    conn.reply(m.chat, `ꕥ Has utilizado 20 *${currency}*`, m)
+    conn.reply(m.chat, `✅ Se descontaron *20 ${currency}*`, m)
+    await conn.sendMessage(m.chat, { react: { text: '✔️', key: m.key } })
 
   } catch (e) {
     console.error(e)
-    m.reply(`*Error al procesar la descarga:*\n> ${e.message}`)
+    m.reply(`❌ *Error al procesar la descarga.*\n> ${e.message}`)
     await conn.sendMessage(m.chat, { react: { text: '❌', key: m.key } })
   }
 }

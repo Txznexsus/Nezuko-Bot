@@ -22,11 +22,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 ╰━━━━━━━╯`
 
     json.results.forEach((file, i) => {
-      txt += `🎋 *${i + 1}.* ${file.filename || 'Archivo desconocido'}\n`
+      txt += `🎋 *${i + 1}.*\n*${file.filename || 'Archivo desconocido'}*\n`
       txt += `⚖️ *Tamaño:* ${file.filesize || 'Desconocido'}\n`
       txt += `🌾 *Link:* ${file.url || 'No disponible'}\n`
       txt += `🍃 *URL Fuente:* ${file.source_url || 'No disponible'}\n`
-      txt += `❄️ *Título Fuente:* ${file.source_title || 'Sin título'}\n\n`
+      txt += `❄️ *Título Fuente:* ${file.source_title || 'Sin título'}\n\n\n`
     })
 
     await m.react('✔️')
