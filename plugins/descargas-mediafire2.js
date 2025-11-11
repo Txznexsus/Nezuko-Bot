@@ -15,7 +15,7 @@ let handler = async (m, { conn, text }) => {
 
   try {
 
-    let res = await fetch(`https://api-nv.ultraplus.click/api/download/mediafire?url=${encodeURIComponent(text)}&key=jYSK8YrJpKRc9jSE`)
+    let res = await fetch(`https://api-nv.ultraplus.click/api/download/mediafire?url=${encodeURIComponent(text)}&key=hYSK8YrJpKRc9jSE`)
     let json = await res.json()
 
     if (!json.status || !json.result?.url) throw "API Principal falló"
