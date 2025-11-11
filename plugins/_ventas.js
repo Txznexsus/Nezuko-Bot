@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 let suscripciones = global.suscripciones || (global.suscripciones = {})
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-  let user = global.db.data.users[m.sender] // solo para coins
+  let user = global.db.data.users[m.sender]
 
   if (command === 'susprecios') {
     return m.reply(
