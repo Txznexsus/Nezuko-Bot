@@ -78,8 +78,8 @@ var handler = async (m, { text, conn }) => {
     ytCache[m.sender] = { results: videos, timestamp: Date.now() }
 
     let caption = ` 🎍 𝚁𝙴𝚂𝚄𝙻𝚃𝙰𝙳𝙾𝚂 𝙳𝙴 𝙱𝚄𝚂𝚀𝚄𝙴𝙳𝙰\n`
-    caption += `*Término:* ${text}\n\n`
-    caption += `*Mostrando:* \`15\``
+    caption += `*Término:* ${text}\n`
+    caption += `*Mostrando:* \`15\`\n\n`
 
     for (let i = 0; i < videos.length; i++) {
       const v = videos[i]
@@ -99,7 +99,7 @@ var handler = async (m, { text, conn }) => {
     await conn.sendMessage(m.chat, {
       image: { url: videos[0].thumbnail },
       caption, ...fake
-    })
+    }, { quoted: m })
 
     await m.react('✔️')
   } catch (e) {
