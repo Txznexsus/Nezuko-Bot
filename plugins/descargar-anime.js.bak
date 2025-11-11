@@ -50,7 +50,7 @@ let handler = async (m, { command, usedPrefix, conn, text, args }) => {
 
 ${eps}
 
-> 🍰 Responde a este mensaje con el número del episodio y el idioma. Ejemplo: *1 sub*, *3 dub*
+> Responde a este mensaje con el número del episodio y el idioma. Ejemplo: *1 sub*, *3 dub*
 `.trim();
 
             let buffer = await (await fetch(cover)).arrayBuffer();
