@@ -3,83 +3,155 @@ import fetch from 'node-fetch'
 let suscripciones = global.suscripciones || (global.suscripciones = {})
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
+  let user = global.db.data.users[m.sender] // solo para coins
+  if (command === 'susprecios') {
+    return m.reply(
+`🌿 *Precios de suscripción de grupo*
+
+🕐 1 hora  →  1,000 coins
+🕒 2 horas →  2,000 coins
+🌤️ 12 horas → 12,000 coins
+🌅 1 día   → 10,000 coins
+🌾 1 semana → 100,000 coins
+🌿 1 mes   → 1,000,000 coins
+
+Ejemplo de uso:
+${usedPrefix}joinfor https://chat.whatsapp.com/xxxxx 3h`)
+  }
+
   if (!args[0] || !args[1]) {
-    return m.reply(`✘ Uso incorrecto.\n\n🌷 Ejemplo:\n*${usedPrefix + command} enlace 3d*  
-\n📚 Unidades válidas:
-m = minutos | h = horas | d = días | w = semanas`)
+    return m.reply(
+`🌾 *Uso correcto:*
+${usedPrefix + command} <enlace> <tiempo>
+
+🪴 *Ejemplos:*
+${usedPrefix + command} https://chat.whatsapp.com/xxxxx 3h
+${usedPrefix + command} https://chat.whatsapp.com/xxxxx 2d
+
+🌿 *Unidades válidas:*
+m = minutos
+h = horas
+d = días
+w = semanas
+mth = mes`)
   }
 
   let enlace = args[0].trim()
   let tiempoStr = args[1].toLowerCase()
 
   if (!enlace.startsWith('https://chat.whatsapp.com/')) {
-    return m.reply('✘ Enlace no válido. Debe empezar con *https://chat.whatsapp.com/*')
+    return m.reply('🌿 Enlace no válido. Debe comenzar con https://chat.whatsapp.com/')
   }
-  
-  let codigoGrupo = enlace.split('https://chat.whatsapp.com/')[1]?.trim()
-  if (!codigoGrupo) return m.reply('✘ Código de invitación no válido.')
 
-  let tiempoMs = 0
+  let codigoGrupo = enlace.split('https://chat.whatsapp.com/')[1]?.trim()
+  if (!codigoGrupo) return m.reply('🌱 Código de invitación no válido.')
+
   let cantidad = parseInt(tiempoStr)
   let unidad = tiempoStr.replace(cantidad, '').trim()
+  if (isNaN(cantidad) || cantidad < 1)
+    return m.reply('🍃 Ingresa un número válido (ejemplo: 10m, 5h, 2d, 1w, 1mth).')
 
-  if (isNaN(cantidad) || cantidad < 1) {
-    return m.reply('✘ Ingresa un número válido (ejemplo: 10m, 5h, 2d, 1w).')
-  }
+  let tiempoMs = 0
+  let tiempoTexto = ''
+  let costo = 0
 
   switch (unidad) {
-    case 'm': tiempoMs = cantidad * 60 * 1000; break
-    case 'h': tiempoMs = cantidad * 60 * 60 * 1000; break
-    case 'd': tiempoMs = cantidad * 24 * 60 * 60 * 1000; break
-    case 'w': tiempoMs = cantidad * 7 * 24 * 60 * 60 * 1000; break
+    case 'm':
+      tiempoMs = cantidad * 60 * 1000
+      costo = Math.ceil((cantidad / 60) * 1000)
+      tiempoTexto = `${cantidad} minuto${cantidad > 1 ? 's' : ''}`
+      break
+    case 'h':
+      tiempoMs = cantidad * 60 * 60 * 1000
+      costo = cantidad * 1000
+      tiempoTexto = `${cantidad} hora${cantidad > 1 ? 's' : ''}`
+      break
+    case 'd':
+      tiempoMs = cantidad * 24 * 60 * 60 * 1000
+      costo = cantidad * 10000
+      tiempoTexto = `${cantidad} día${cantidad > 1 ? 's' : ''}`
+      break
+    case 'w':
+      tiempoMs = cantidad * 7 * 24 * 60 * 60 * 1000
+      costo = cantidad * 100000
+      tiempoTexto = `${cantidad} semana${cantidad > 1 ? 's' : ''}`
+      break
+    case 'mth':
+      tiempoMs = 30 * 24 * 60 * 60 * 1000
+      costo = 1000000
+      tiempoTexto = `1 mes`
+      break
     default:
-      return m.reply('✘ Unidad de tiempo no válida.\nUsa: m = minutos, h = horas, d = días, w = semanas.')
+      return m.reply('🌱 Unidad no válida. Usa: m, h, d, w o mth.')
   }
 
-  await m.reply('⏳ *Uniéndome al grupo, espera unos segundos...*')
+  if (user.coin < costo) {
+    return m.reply(
+`🌿 No tienes suficientes monedas.
+
+💰 *Costo:* ${costo.toLocaleString()} coins  
+🍃 *Tu saldo:* ${user.coin.toLocaleString()} coins`)
+  }
+
+  await m.reply(`🍃 Preparando suscripción...  
+Un momento, uniéndome al grupo solicitado.`)
 
   try {
-
     let groupId = await conn.groupAcceptInvite(codigoGrupo).catch(e => null)
-    if (!groupId) throw new Error('No se pudo unir. Verifica que el enlace no esté vencido o el grupo lleno.')
+    if (!groupId) throw new Error('No se pudo unir al grupo. Verifica el enlace.')
 
     let groupMetadata = await conn.groupMetadata(groupId)
     let groupName = groupMetadata.subject
-    let owner = groupMetadata.owner || m.sender
-    let admins = groupMetadata.participants.filter(p => p.admin).map(p => p.id)
-
     let pfp = await conn.profilePictureUrl(groupId, 'image').catch(_ => global.imagen1)
-    let tiempoTexto = `${cantidad}${unidad}`.replace('m',' minutos').replace('h',' horas').replace('d',' días').replace('w',' semanas')
+
+    user.coin -= costo
 
     await conn.sendMessage(groupId, {
-      text: `╭━━━〔 𝑺𝑼𝑺𝑪𝑹𝑰𝑷𝑪𝑰𝑶́𝑵 𝑨𝑪𝑻𝑰𝑽𝑨 〕━━⬣
-│ 🏷️ *Grupo:* ${groupName}
-│ 👑 *Solicitado por:* @${m.sender.split('@')[0]}
-│ 🕒 *Duración:* ${tiempoTexto}
-│ 📅 *Salida automática al finalizar el tiempo.*
-╰━━━━━━━━━━━━━━━━━━⬣`,
+      text:
+`🌿 *Suscripción activa con éxito*
+
+🏷️ *Grupo:* ${groupName}
+🕒 *Duración:* ${tiempoTexto}
+💰 *Costo:* ${costo.toLocaleString()} coins
+🌾 *Solicitado por:* @${m.sender.split('@')[0]}
+
+El bot permanecerá en este grupo por el tiempo indicado.
+Finalizado el periodo, se retirará automáticamente.`,
       mentions: [m.sender],
       contextInfo: {
         externalAdReply: {
-          title: `🌸 ʀɪɴ ɪᴛᴏsʜɪ ʙᴏᴛ - Suscripción activa`,
-          body: `El bot permanecerá en este grupo durante ${tiempoTexto}.`,
+          title: `🌱 Suscripción de grupo activa`,
+          body: `Duración: ${tiempoTexto} | Costo: ${costo.toLocaleString()} coins`,
           thumbnailUrl: pfp,
-          sourceUrl: global.redes || 'https://whatsapp.com',
           mediaType: 1,
           renderLargerThumbnail: true
         }
       }
     })
 
-    await conn.sendMessage(global.owner[0] + '@s.whatsapp.net', {
-      text: `✅ *Nueva suscripción activada*\n\n📌 Grupo: ${groupName}\n👤 Solicitado por: @${m.sender.split('@')[0]}\n🕒 Tiempo: ${tiempoTexto}`,
-      mentions: [m.sender]
-    })
+    if (global.owner && global.owner[0])
+      await conn.sendMessage(global.owner[0] + '@s.whatsapp.net', {
+        text:
+`🌾 *Nueva suscripción activada*
+🏷️ Grupo: ${groupName}
+👤 Usuario: @${m.sender.split('@')[0]}
+💰 Costo: ${costo.toLocaleString()} coins
+⏳ Tiempo: ${tiempoTexto}`,
+        mentions: [m.sender]
+      })
 
-    if (suscripciones[groupId]) clearTimeout(suscripciones[groupId])
-    suscripciones[groupId] = setTimeout(async () => {
+
+    let ahora = Date.now()
+    suscripciones[groupId] = {
+      tiempoRestante: tiempoMs,
+      inicio: ahora,
+      fin: ahora + tiempoMs,
+      user: m.sender
+    }
+
+    setTimeout(async () => {
       try {
-        await conn.sendMessage(groupId, { text: '⏰ *El tiempo de suscripción ha finalizado. ¡Adiós grupo!* 🌸' })
+        await conn.sendMessage(groupId, { text: `🍂 El tiempo de suscripción ha finalizado. El bot se retirará del grupo.` })
         await conn.groupLeave(groupId)
         delete suscripciones[groupId]
       } catch (err) {
@@ -89,12 +161,12 @@ m = minutos | h = horas | d = días | w = semanas`)
 
   } catch (e) {
     console.error(e)
-    return m.reply(`❌ *Error al unirse al grupo:*\n${e.message || 'No se pudo procesar la solicitud.'}`)
+    return m.reply(`🍂 *Error al unirse al grupo:*\n${e.message}`)
   }
 }
 
-handler.help = ['suscripción <enlace> <tiempo>']
+handler.help = ['suscripción <enlace> <tiempo>', 'susprecios']
 handler.tags = ['bot']
-handler.command = ['comprado', 'joinfor']
+handler.command = ['joinfor', 'susprecios']
 
 export default handler
