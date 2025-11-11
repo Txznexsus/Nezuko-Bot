@@ -16,14 +16,14 @@ let system = `*「☕」Estado del Sistema 7w7 🌿*
 ৎּٜ̊❄️ꨩ〪̥〭 \`Usuarios registrados:\` \`\`\`${totalUsers.toLocaleString()}\`\`\`
 ৎּٜ̊☕ꨩ໋〪̥〭 \`Grupos registrados:\` \`\`\`${totalChats.toLocaleString()}\`\`\`
 ৎּٜ̊🍃ꨩ໋〪̥〭 \`Plugins:\` \`\`\`${totalPlugins}\`\`\`
-ৎּٜ̊🍵ꨩ໋〪̥〭 \`Bots Activos:\` \`\`\`${totalBots}\`\`\`
+ৎּٜ̊🍵ꨩ໋〪̥〭 \`Bots Activos:\` \`\`\`81\`\`\`
 
 ꒰꒰ ݊ᩞ *🌳 Estado del Servidor 🍃 ᗝᗝ*
 
 ৎּٜ̊🍄ꨩ〪̥〭 \`Sistema:\` \`\`\`${platform()}\`\`\`
-ৎּٜ̊✨ꨩ〭  \`CPU:\` \`\`\`${_cpus().length} cores\`\`\`
-ৎּٜ̊🎍ꨩ〭  \`RAM:\` \`\`\`${format(totalmem())}\`\`\`
-ৎּٜ̊🌳ꨩ〭  \`RAM Usado:\` \`\`\`${format(totalmem() - freemem())}\`\`\`
+ৎּٜ̊✨ꨩ〪̥〭  \`CPU:\` \`\`\`${_cpus().length} cores\`\`\`
+ৎּٜ̊🎍ꨩ〪̥〭 \`RAM:\` \`\`\`${format(totalmem())}\`\`\`
+ৎּٜ̊🌳ꨩ〪̥〭 \`RAM Usado:\` \`\`\`${format(totalmem() - freemem())}\`\`\`
 ৎּٜ̊🚀ꨩ〪̥〭 \`Arquitectura:\` \`\`\`${process.arch}\`\`\`
 ৎּٜ̊🥥ꨩ〪̥〭 \`Host ID:\` \`\`\`${hostname().slice(0, 8)}...\`\`\`
 
