@@ -66,6 +66,7 @@ cd && cd KanekiBot-V3 && nano settings.js
 ```
 
 </details>
+
 ---
 
 <p align="center">
