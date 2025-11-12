@@ -71,7 +71,7 @@ ${sugerencias}`
       document: fs.readFileSync("./package.json"),
       fileName: `       「 ☕ 」  `,
       mimetype: 'application/vnd.ms-excel',
-      caption: texto.trim(),
+      caption: texto,
       contextInfo: {
       isForwarded: true,
          forwardedNewsletterMessageInfo: {
