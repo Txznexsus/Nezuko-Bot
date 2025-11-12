@@ -24,6 +24,8 @@ let handler = async (m, { conn, text, participants, groupMetadata }) => {
   if (!rawTargets.length) rawTargets.push(m.sender)
 
   const targets = [...new Set(rawTargets)]
+  let totalConLid = 0
+  let totalSinLid = 0
 
   let info = `╭━━━〔 ☕ *INFORMACIÓN DE USUARIOS DETECTADOS* 〕━━⬣\n`
   let count = 1
@@ -34,8 +36,20 @@ let handler = async (m, { conn, text, participants, groupMetadata }) => {
       const participant = participantList.find(p => p.id === userId)
       const userName = await conn.getName(userId).catch(() => 'Sin nombre')
       const isAdmin = participant?.admin ? '✅ Sí' : '❌ No'
-      const lid = participant?.lid || '—'
       const isInGroup = participant ? '✅ Sí' : '❌ No'
+
+      // intentar obtener el LID real si existe
+      let lid = '—'
+      if (participant?.lid) {
+        if (typeof participant.lid === 'object') lid = JSON.stringify(participant.lid)
+        else lid = participant.lid
+      } else if (participant?.id?.includes(':')) {
+        // algunos LID se devuelven en formato "jid:lid"
+        lid = participant.id.split(':')[1] || '—'
+      }
+
+      if (lid !== '—') totalConLid++
+      else totalSinLid++
 
       info += `│ 🧩 *${count}.* @${number}\n`
       info += `│ ┣ 👤 *Nombre:* ${userName}\n`
@@ -49,16 +63,12 @@ let handler = async (m, { conn, text, participants, groupMetadata }) => {
     }
   }
 
-
   info += `╰━━━━━━━━━━━━━━━━━━━━━━⬣\n`
-  info += `🧮 *Total detectados:* ${targets.length} ${targets.length === 1 ? 'usuario' : 'usuarios'}`
+  info += `🧮 *Total detectados:* ${targets.length} ${targets.length === 1 ? 'usuario' : 'usuarios'}\n`
+  info += `💠 *Con LID:* ${totalConLid}\n`
+  info += `🌀 *Sin LID:* ${totalSinLid}`
 
-  await conn.sendMessage(
-    m.chat,
-    { text: info, mentions: targets },
-    { quoted: m }
-  )
-
+  await conn.sendMessage(m.chat, { text: info, mentions: targets }, { quoted: m })
   await m.react('✔️')
 }
 
