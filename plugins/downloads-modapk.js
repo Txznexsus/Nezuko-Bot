@@ -7,6 +7,7 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
 
   try {
     await m.react('🕒')
+    conn.reply(m.chat, `*☕ ᑲᥙsᥴᥲᥒძ᥆ 𝗍ᥙ ᥲ⍴ᥣіᥴᥲᥴіóᥒ ᥱs⍴ᥱrᥱ.... 🐢*`, m)
 
     let searchA = await search(text)
     if (!searchA.length) return m.reply(`⚠️ No se encontró ninguna APK con el nombre *${text}*.`)
