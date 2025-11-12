@@ -1,4 +1,5 @@
 import fetch from "node-fetch";
+import Jimp from "jimp";
 import { download, detail, search } from "../lib/anime.js";
 
 async function getLangs(episodes) {
@@ -15,6 +16,27 @@ async function getLangs(episodes) {
         }
     }
     return list;
+}
+
+// 🖼️ Generar miniatura base con título y episodio
+async function createThumbnail(coverUrl, title, episode, idiomaLabel) {
+    try {
+        const img = await Jimp.read(coverUrl);
+        const fontTitle = await Jimp.loadFont(Jimp.FONT_SANS_32_WHITE);
+        const fontInfo = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE);
+
+        img.blur(2);
+        const overlay = new Jimp(img.bitmap.width, 80, "rgba(0,0,0,0.6)");
+        img.composite(overlay, 0, img.bitmap.height - 80);
+
+        img.print(fontTitle, 20, img.bitmap.height - 70, `${title}`);
+        img.print(fontInfo, 20, img.bitmap.height - 35, `Ep ${episode} • ${idiomaLabel}`);
+
+        return await img.getBufferAsync(Jimp.MIME_JPEG);
+    } catch (err) {
+        console.error("⚠️ Error creando thumbnail:", err);
+        return Buffer.alloc(0);
+    }
 }
 
 let handler = async (m, { command, usedPrefix, conn, text, args }) => {
@@ -64,15 +86,15 @@ ${eps}
             conn.anime[m.sender] = {
                 title,
                 episodes,
+                cover,
                 key: sent.key,
                 downloading: false,
-                timeout: setTimeout(() => delete conn.anime[m.sender], 600_000) // 10 minutos
+                timeout: setTimeout(() => delete conn.anime[m.sender], 600_000)
             };
 
         } else {
             m.react("🔍");
             const results = await search(text);
-
             if (!results.length) return m.reply("❌ No se encontraron resultados.", m);
 
             let cap = `乂 *ANIME - SEARCH*\n`;
@@ -80,7 +102,7 @@ ${eps}
                 cap += `\n\`${index + 1}\`\n≡ ☕ *Title :* ${res.title}\n≡ 🕸️ *Link :* ${res.link}\n`;
             });
 
-            await conn.sendMessage(m.chat, { text: cap, ...fake }, { quoted: m });
+            await conn.sendMessage(m.chat, { text: cap }, { quoted: m });
             m.react("🎋");
         }
     } catch (e) {
@@ -110,7 +132,7 @@ handler.before = async (m, { conn }) => {
     if (!availableLangs.length) return m.reply(`❌ No hay idiomas disponibles para el episodio ${epi}.`);
 
     if (!idioma || !availableLangs.includes(idioma)) {
-        idioma = availableLangs[0]; // fallback
+        idioma = availableLangs[0];
     }
 
     const idiomaLabel = idioma === "sub" ? "sub español" : "español latino";
@@ -120,16 +142,29 @@ handler.before = async (m, { conn }) => {
     session.downloading = true;
 
     try {
-        const videoBuffer = await (await fetch(inf.dl[idioma])).buffer();
-        await conn.sendFile(
+        const videoUrl = inf.dl[idioma];
+        let thumb = null;
+        try {
+            const img = await Jimp.read(session.cover);
+            img.resize(300, Jimp.AUTO).quality(70);
+            thumb = await img.getBufferAsync(Jimp.MIME_JPEG);
+        } catch (err) {
+            console.log("⚠️ Error al procesar miniatura:", err.message);
+            thumb = Buffer.alloc(0);
+        }
+
+        await conn.sendMessage(
             m.chat,
-            videoBuffer,
-            `${session.title} - cap ${epi} ${idiomaLabel}.mp4`,
-            "",
-            m,
-            false,
-            { mimetype: "video/mp4", asDocument: true }
+            {
+                document: { url: videoUrl },
+                fileName: `${session.title} - cap ${epi} ${idiomaLabel}.mp4`,
+                mimetype: "video/mp4",
+                caption: `🎥 *${session.title}* - cap ${epi}\n🌸 Idioma: ${idiomaLabel}`,
+                ...(thumb ? { jpegThumbnail: thumb } : {})
+            },
+            { quoted: m }
         );
+
         m.react("✅");
     } catch (err) {
         console.error("Error al descargar:", err);

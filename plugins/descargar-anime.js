@@ -18,27 +18,23 @@ async function getLangs(episodes) {
     return list;
 }
 
-// 🖼️ Función para generar miniatura con Jimp
+// 🖼️ Generar miniatura base con título y episodio
 async function createThumbnail(coverUrl, title, episode, idiomaLabel) {
     try {
         const img = await Jimp.read(coverUrl);
         const fontTitle = await Jimp.loadFont(Jimp.FONT_SANS_32_WHITE);
         const fontInfo = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE);
 
-        // Difuminar un poco para poner texto visible
         img.blur(2);
-
-        // Agregar marco oscuro transparente abajo
         const overlay = new Jimp(img.bitmap.width, 80, "rgba(0,0,0,0.6)");
         img.composite(overlay, 0, img.bitmap.height - 80);
 
-        // Escribir el título y el episodio
         img.print(fontTitle, 20, img.bitmap.height - 70, `${title}`);
         img.print(fontInfo, 20, img.bitmap.height - 35, `Ep ${episode} • ${idiomaLabel}`);
 
         return await img.getBufferAsync(Jimp.MIME_JPEG);
     } catch (err) {
-        console.error("Error creando thumbnail:", err);
+        console.error("⚠️ Error creando thumbnail:", err);
         return Buffer.alloc(0);
     }
 }
@@ -93,13 +89,12 @@ ${eps}
                 cover,
                 key: sent.key,
                 downloading: false,
-                timeout: setTimeout(() => delete conn.anime[m.sender], 600_000) // 10 minutos
+                timeout: setTimeout(() => delete conn.anime[m.sender], 600_000)
             };
 
         } else {
             m.react("🔍");
             const results = await search(text);
-
             if (!results.length) return m.reply("❌ No se encontraron resultados.", m);
 
             let cap = `乂 *ANIME - SEARCH*\n`;
@@ -137,7 +132,7 @@ handler.before = async (m, { conn }) => {
     if (!availableLangs.length) return m.reply(`❌ No hay idiomas disponibles para el episodio ${epi}.`);
 
     if (!idioma || !availableLangs.includes(idioma)) {
-        idioma = availableLangs[0]; // fallback
+        idioma = availableLangs[0];
     }
 
     const idiomaLabel = idioma === "sub" ? "sub español" : "español latino";
@@ -148,16 +143,24 @@ handler.before = async (m, { conn }) => {
 
     try {
         const videoUrl = inf.dl[idioma];
-        const thumbnail = await createThumbnail(session.cover, session.title, epi, idiomaLabel);
+        let thumb = null;
+        try {
+            const img = await Jimp.read(session.cover);
+            img.resize(300, Jimp.AUTO).quality(70);
+            thumb = await img.getBufferAsync(Jimp.MIME_JPEG);
+        } catch (err) {
+            console.log("⚠️ Error al procesar miniatura:", err.message);
+            thumb = Buffer.alloc(0);
+        }
 
         await conn.sendMessage(
             m.chat,
             {
-                video: { url: videoUrl },
+                document: { url: videoUrl },
                 fileName: `${session.title} - cap ${epi} ${idiomaLabel}.mp4`,
                 mimetype: "video/mp4",
                 caption: `🎥 *${session.title}* - cap ${epi}\n🌸 Idioma: ${idiomaLabel}`,
-                thumbnail
+                ...(thumb ? { jpegThumbnail: thumb } : {})
             },
             { quoted: m }
         );
