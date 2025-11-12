@@ -109,22 +109,33 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     ]
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
 
+
+
 const fkontak = {
   key: {
     participant: '0@s.whatsapp.net',
     ...(m.chat ? { remoteJid: m.chat } : {})
   },
   message: {
-    contactMessage: {
-      displayName: 'KANEKI-BOT V3',
-      vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;KANEKI BOT;;;\nFN:KANEKI BOT\nORG:Meta Al - Estado;\nTEL;type=CELL;type=VOICE;waid=7372804677:+1 (737) 280-4677\nEND:VCARD`,
+    extendedTextMessage: {
+      text: '🌴 KANEKI-BOT ALLMENU 🌴',
+      title: 'Meta Al • Estado',
       jpegThumbnail: await (await fetch('https://files.catbox.moe/llzuyw.jpg')).buffer(),
-      thumbnail: await (await fetch('https://files.catbox.moe/llzuyw.jpg')).buffer(),
-      sendEphemeral: true
+      contextInfo: {
+        externalAdReply: {
+          title: 'Meta Al • Estado',
+          body: '🌴 KANEKI-BOT ALLMENU 🌴',
+          thumbnailUrl: 'https://files.catbox.moe/llzuyw.jpg',
+          sourceUrl: 'https://whatsapp.com',
+          mediaType: 1,
+          renderLargerThumbnail: true,
+          showAdAttribution: true,
+          mediaUrl: 'https://whatsapp.com'
+        }
+      }
     }
   }
 }
-
     await conn.sendMessage(m.chat, {
       text: infoUser + menuTexto.trim(),
        contextInfo: {
