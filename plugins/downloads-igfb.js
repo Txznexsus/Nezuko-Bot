@@ -34,3 +34,11 @@ handler.help = ['instagram', 'ig', 'facebook', 'fb']
 handler.group = true
 
 export default handler
+
+jajaja envía vídeo y después eso 
+
+
+⚠︎ Se ha producido un problema.
+> Usa *.report* para informarlo.
+
+Result is not a buffer
