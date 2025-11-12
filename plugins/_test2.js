@@ -1,12 +1,11 @@
 import fetch from 'node-fetch';
 
-let selectionTemp = {}; // Guardará temporalmente búsquedas por usuario
+let selectionTemp = {}; // Guardará temporalmente búsquedas por chat
 
 let handler = async (m, { conn, text }) => {
   try {
-    if (!text) return conn.reply(m.chat, '🌿 Uso: /apkpure <texto o link>', m);
+    if (!text) return conn.reply(m.chat, '🌿 Uso: /apkpure <texto o link>', m, fake);
 
-    // Si el texto es un link directo
     if (text.includes('https://apkpure.com/')) {
       const apiUrl = `https://api.siputzx.my.id/api/apk/apkpure?search=${encodeURIComponent(text)}`;
       const infoRes = await fetch(apiUrl).then(res => res.json());
@@ -21,7 +20,7 @@ let handler = async (m, { conn, text }) => {
 🍁 Tamaño: ${app.fileSize || 'Desconocido'}
 🍀 Link: ${app.link}
 `;
-      await conn.reply(m.chat, cap, m);
+      const sentMsg = await conn.reply(m.chat, cap, m); // enviamos mensaje al chat
 
       if (app.downloadLink) {
         await conn.sendFile(m.chat, app.downloadLink, `${app.title}.apk`, '', m, null, {
@@ -40,12 +39,15 @@ let handler = async (m, { conn, text }) => {
     const results = res.data.slice(0, 8);
     let cap = '🌿 ApkPure - Search 🌿\n\n';
     cap += results.map((v, i) => `*${i+1}.* ${v.title}\n   🌱 Dev: ${v.developer}\n   🌸 Rating: ${v.rating?.score || 'N/A'}`).join('\n\n');
-    cap += `\n\n🍃 Responde con el número para descargar el APK.`;
+    cap += `\n\n🍃 Responde con el número (1-${results.length}) para descargar el APK.`;
 
-    await conn.reply(m.chat, cap, m);
+    const sentMsg = await conn.reply(m.chat, cap, m);
 
-    // Guardamos temporalmente los resultados por usuario
-    selectionTemp[m.sender] = { chat: m.chat, results, timestamp: Date.now() };
+    // Guardamos resultados por chatId para poder responder con número
+    selectionTemp[m.chat] = {
+      results,
+      timestamp: Date.now()
+    };
 
   } catch (err) {
     return conn.reply(m.chat, '🍂 Error interno: ' + (err.message || err), m);
@@ -55,8 +57,8 @@ let handler = async (m, { conn, text }) => {
 // Listener global para manejar la respuesta con número
 handler.listener = async (m, { conn }) => {
   try {
-    const temp = selectionTemp[m.sender];
-    if (!temp) return; // No hay búsqueda pendiente
+    const temp = selectionTemp[m.chat];
+    if (!temp) return; // No hay búsqueda pendiente en este chat
 
     const num = parseInt(m.text);
     if (isNaN(num) || num < 1 || num > temp.results.length) return; // No es un número válido
@@ -67,7 +69,7 @@ handler.listener = async (m, { conn }) => {
     // Obtener detalles de la app
     const detailRes = await fetch(`https://api.siputzx.my.id/api/apk/apkpure?search=${encodeURIComponent(app.link)}`).then(r => r.json());
     const appDetail = detailRes.data?.[0];
-    if (!appDetail) return conn.reply(temp.chat, '🍃 No pude obtener info de la app.', m);
+    if (!appDetail) return conn.reply(m.chat, '🍃 No pude obtener info de la app.', m);
 
     const cap = `
 🌱 Nombre: ${appDetail.title}
@@ -76,16 +78,16 @@ handler.listener = async (m, { conn }) => {
 🍁 Tamaño: ${appDetail.fileSize || 'Desconocido'}
 🍀 Link: ${appDetail.link}
 `;
-    await conn.reply(temp.chat, cap, m);
+    await conn.reply(m.chat, cap, m);
 
     if (appDetail.downloadLink) {
-      await conn.sendFile(temp.chat, appDetail.downloadLink, `${appDetail.title}.apk`, '', m, null, {
+      await conn.sendFile(m.chat, appDetail.downloadLink, `${appDetail.title}.apk`, '', m, null, {
         asDocument: true,
         mimetype: 'application/vnd.android.package-archive'
       });
     }
 
-    delete selectionTemp[m.sender]; // Limpiamos el registro temporal
+    delete selectionTemp[m.chat]; // Limpiamos el registro temporal
 
   } catch (err) {
     return conn.reply(m.chat, '🍂 Error interno: ' + (err.message || err), m);
