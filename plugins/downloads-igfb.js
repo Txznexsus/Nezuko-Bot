@@ -44,13 +44,13 @@ try {
                 }
             }
 
-            // Obtener tamaño del archivo
+       
             const fileRes = await fetch(media.url)
             const fileBuffer = await fileRes.arrayBuffer()
             const sizeMB = fileBuffer.byteLength / (1024 * 1024)
 
             if (sizeMB > 100) {
-                // Enviar como documento si >100MB
+                
                 await conn.sendMessage(m.chat, {
                     document: Buffer.from(fileBuffer),
                     fileName: 'video.mp4',
@@ -59,7 +59,7 @@ try {
                     ...thumb ? { jpegThumbnail: thumb } : {}
                 }, { quoted: m })
             } else {
-                // Enviar como vídeo normal
+               
                 await conn.sendMessage(m.chat, {
                     video: Buffer.from(fileBuffer),
                     caption: `🍃 Aquí tienes ฅ^•ﻌ•^ฅ.`,
@@ -83,5 +83,6 @@ handler.command = ['instagram', 'ig', 'facebook', 'fb']
 handler.tags = ['download']
 handler.help = ['instagram', 'ig', 'facebook', 'fb']
 handler.group = true
+handler.register = true
 
 export default handler
