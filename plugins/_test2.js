@@ -12,7 +12,6 @@ const tmdbSearch = async (query) => {
   return await res.json();
 };
 
-// Detalles de una película
 const tmdbDetail = async (id) => {
   const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=es-ES`;
   const res = await fetch(url, {
@@ -21,7 +20,6 @@ const tmdbDetail = async (id) => {
   return await res.json();
 };
 
-// Buscar en Internet Archive (solo películas)
 const iaSearch = async (title) => {
   const q = encodeURIComponent(`title:("${title}") AND (format:(MPEG4) OR format:(Ogg) OR mediatype:movies)`);
   const url = `https://archive.org/advancedsearch.php?q=${q}&fl[]=identifier,title,creator,mediatype,format,publicdate,rights&rows=10&page=1&output=json`;
@@ -30,7 +28,7 @@ const iaSearch = async (title) => {
   return j.response?.docs || [];
 };
 
-// Obtener archivos de un item
+// xd
 const iaFiles = async (identifier) => {
   const url = `https://archive.org/metadata/${identifier}`;
   const res = await fetch(url);
