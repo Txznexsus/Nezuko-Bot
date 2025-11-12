@@ -39,7 +39,7 @@ export async function before(m, { conn }) {
     .slice(0, 3)
 
   let sugerencias = similares.length
-    ? similares.map(s => `> 🪴 • .${s.cmd} (${s.score}%)`).join('\n')
+    ? similares.map(s => `> 🪹🌠 • .\`${s.cmd}\` (${s.score}%)`).join('\n')
     : '• No se encontraron coincidencias.'
 
   const texto = ` 🌿🦌 ɴᴏ sᴇ ʜᴀ ᴇɴᴄᴏɴᴛʀᴀᴅᴏ ᴇʟ ᴄᴏᴍᴀɴᴅᴏ: *"${command}"*
@@ -51,7 +51,7 @@ ${sugerencias}`
 
   await conn.sendMessage(m.chat, {
     document: fs.readFileSync('./package.json'),
-    fileName: `「 🌳🍧 」`,
+    fileName: ``,
     mimetype: 'application/pdf',
     caption: texto,
     contextInfo: {
