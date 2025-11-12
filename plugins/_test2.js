@@ -4,7 +4,7 @@ let selectionTemp = {}; // Gu
 
 let handler = async (m, { conn, text }) => {
   try {
-    if (!text) return conn.reply(m.chat, '🌿 Uso: /apkpure <texto o link>', m, fake);
+    if (!text) return conn.reply(m.chat, '🌿 Uso: /apkpure <texto o link>', m, rcanal);
 
     if (text.includes('https://apkpure.com/')) {
       const apiUrl = `https://api.siputzx.my.id/api/apk/apkpure?search=${encodeURIComponent(text)}`;
@@ -20,7 +20,7 @@ let handler = async (m, { conn, text }) => {
 🍁 Tamaño: ${app.fileSize || 'Desconocido'}
 🍀 Link: ${app.link}
 `;
-      const sentMsg = await conn.reply(m.chat, cap, m); // enviamos mensaje al chat
+      const sentMsg = await conn.reply(m.chat, cap, m);
 
       if (app.downloadLink) {
         await conn.sendFile(m.chat, app.downloadLink, `${app.title}.apk`, '', m, null, {
