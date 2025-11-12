@@ -67,27 +67,26 @@ export async function before(m, { conn }) {
 *𝙿𝙾𝚂𝙸𝙱𝙴𝚂 𝙲𝙾𝙸𝙽𝙲𝙸𝙳𝙴𝙽𝙲𝙸𝙰𝚂: 🍂*
 ${sugerencias}`
 
-  await conn.sendMessage(m.chat, {
-    document: { url: 'https://files.catbox.moe/6fj9u7.jpg' },
-    mimetype: 'application/pdf',
-    fileName: '🍃 🄴🅁🅁🄾🅁 🚀.pdf',
-    caption: texto.trim(),
-    mentions: [m.sender],
-    contextInfo: {
+  await conn.sendMessage(m.chat, { 
+      document: fs.readFileSync("./package.json"),
+      fileName: `       「 ☕ 」  `,
+      mimetype: 'application/vnd.ms-excel',
+      caption: texto.trim(),
+      contextInfo: {
       isForwarded: true,
-      forwardedNewsletterMessageInfo: {
-        newsletterJid: channelRD.id,
-        serverMessageId: '',
-        newsletterName: channelRD.name
-      },
-      externalAdReply: {
-        title: ' °   ⿻֟🎍 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 ܀ 𝐀𝐒𝐒𝐈𝐒𝐓𝐀𝐍𝐓 ☕፝֯۫︎۫۬',
-        body: '  `͝દ࠭͜✎࣭〫𝆬ᨗઢ֒͝  ᴅᴇsᴀʀʀᴏʟʟᴀᴅᴏ x sʜᴀᴅᴏᴡ.xʏᴢ 籭᮫꫶ֹ۫𝆬𝆬ᨗ',
-        thumbnailUrl: banner,
-        mediaType: 1,
-        renderLargerThumbnail: false
-      },
-      mentionedJid: null
-    }
+         forwardedNewsletterMessageInfo: {
+           newsletterJid: channelRD.id,
+           serverMessageId: '',
+           newsletterName: channelRD.name
+         },
+        externalAdReply: { 
+          title: `『 ⿻֟🎍 𝐊𝐀𝐍𝐄𝐊𝐈 • 𝐀𝐒𝐒𝐈𝐒𝐓𝐀𝐍𝐓 🩸⿻֟ 』`,
+          body: gt,
+          thumbnailUrl: icono2,
+          sourceUrl: redes,
+          mediaType: 1,
+          renderLargerThumbnail: true
+        }
+      }
   }, { quoted: m })
 }
