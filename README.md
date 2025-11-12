@@ -25,11 +25,13 @@
 
 <h3 align="center">🥵 Información importante</h3>
 
-<p align="center">
-> Este proyecto <strong>no está afiliado de ninguna manera</strong> con <code>WhatsApp</code>.<br>
-<code>WhatsApp Inc.</code> es una marca registrada de <code>WhatsApp LLC</code>.<br>
-Este bot es un <strong>desarrollo independiente</strong> y <strong>no tiene relación oficial con la compañía</strong>.
-</p>
+<blockquote>
+  <p>
+    Este proyecto <strong>no está afiliado de ninguna manera</strong> con <code>WhatsApp</code>.<br>
+    <code>WhatsApp Inc.</code> es una marca registrada de <code>WhatsApp LLC</code>.<br>
+    Este bot es un <strong>desarrollo independiente</strong> y <strong>no tiene relación oficial con la compañía</strong>.
+  </p>
+</blockquote>
 
 ---
 
