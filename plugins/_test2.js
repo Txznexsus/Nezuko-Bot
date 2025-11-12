@@ -56,10 +56,10 @@ let handler = async (m, { conn, text }) => {
 handler.listener = async (m, { conn }) => {
   try {
     const temp = selectionTemp[m.chat];
-    if (!temp) return; // No hay búsqueda pendiente en este chat
+    if (!temp) return;
 
     const num = parseInt(m.text);
-    if (isNaN(num) || num < 1 || num > temp.results.length) return; // No es un número válido
+    if (isNaN(num) || num < 1 || num > temp.results.length) return;
 
     const app = temp.results[num - 1];
     if (!app) return;
