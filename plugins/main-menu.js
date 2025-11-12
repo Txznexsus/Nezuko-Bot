@@ -126,9 +126,9 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
            description: null,
            previewType: "PHOTO",
            thumbnail: await (await fetch(imageUrl)).buffer(),
-           sourceUrl: 'https://github.com/El-brayan502/RoxyBot-MD/',
+           sourceUrl: 'https://chat.whatsapp.com/FvKyGFv5i1s8Dj2XAQ74WT?mode=wwt',
            mediaType: 1,
-           renderLargerThumbnail: false
+           renderLargerThumbnail: true
          }
        }
    }, { quoted: fkontak })
