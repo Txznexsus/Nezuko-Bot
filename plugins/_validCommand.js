@@ -51,7 +51,7 @@ ${sugerencias}`
 
   await conn.sendMessage(m.chat, {
     document: fs.readFileSync('./package.json'),
-    fileName: ``,
+    fileName: `.`,
     mimetype: 'application/pdf',
     caption: texto,
     contextInfo: {
