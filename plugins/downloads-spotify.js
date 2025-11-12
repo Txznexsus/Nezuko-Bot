@@ -4,16 +4,15 @@
 import axios from 'axios'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
+let handler = async (m, { conn, text }) => {
   if (!text) return conn.reply(m.chat, `🎋 *Por favor, proporciona el nombre de una canción o artista.*`, m, rcanal)
 
   try {
     let searchUrl = `${global.APIs.delirius.url}/search/spotify?q=${encodeURIComponent(text)}&limit=1`
     let search = await axios.get(searchUrl, { timeout: 15000 })
 
-    if (!search.data.status || !search.data.data || search.data.data.length === 0) {
+    if (!search.data.status || !search.data.data || search.data.data.length === 0)
       throw new Error('No se encontró resultado.')
-    }
 
     let data = search.data.data[0]
     let { title, artist, album, duration, popularity, publish, url: spotifyUrl, image } = data
@@ -54,23 +53,19 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     if (!downloadUrl || downloadUrl.includes('undefined')) {
       try {
-        let apiSylphy = `https://api.sylphy.xyz/download/spotify?url=${encodeURIComponent(spotifyUrl)}&apikey=sylphy-c519`
-        let dlSylphy = await axios.get(apiSylphy, { timeout: 20000 })
-        if (dlSylphy?.data?.status && dlSylphy?.data?.data?.dl_url) {
-          downloadUrl = dlSylphy.data.data.dl_url
-          serverUsed = 'Sylphy'
-        }
-      } catch { }
-    }
+        let base = 'https://api-nv.ultraplus.click'
+        let u = new URL('/api/download/spotify', base)
+        u.search = new URLSearchParams({
+          url: spotifyUrl,
+          key: 'IUHp9S4ExrywBB35'
+        })
 
-    if (!downloadUrl || downloadUrl.includes('undefined')) {
-      try {
-        let apiV3 = `https://api.neoxr.eu/api/spotify?url=${encodeURIComponent(spotifyUrl)}&apikey=russellxz`
-        let dl3 = await fetch(apiV3)
-        let json3 = await dl3.json()
-        if (json3?.status && json3?.data?.url) {
-          downloadUrl = json3.data.url
-          serverUsed = 'Neoxr'
+        let res = await fetch(u)
+        let json = await res.json()
+
+        if (json?.status && json?.result?.url_download) {
+          downloadUrl = json.result.url_download
+          serverUsed = 'api-nv'
         }
       } catch { }
     }
@@ -95,14 +90,13 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
           }
         }
       }, { quoted: fkontak })
-
     } else {
-      conn.reply(m.chat, `No se encontró un link de descarga válido para esta canción.`, m)
+      conn.reply(m.chat, `No se encontró un link de descarga válido para esta canción.`, m, fake)
     }
 
   } catch (e) {
     console.error(e)
-    conn.reply(m.chat, `❌ Error al buscar o descargar la canción.`, m)
+    conn.reply(m.chat, `Error al buscar o descargar la canción.`, m, fake)
   }
 }
 
@@ -110,5 +104,6 @@ handler.help = ["spotify"]
 handler.tags = ["download"]
 handler.command = ["spotify", "splay"]
 handler.group = true
+handler.register = true
 
 export default handler
