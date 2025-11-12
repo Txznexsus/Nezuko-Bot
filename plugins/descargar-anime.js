@@ -18,7 +18,6 @@ async function getLangs(episodes) {
     return list;
 }
 
-// 🖼️ Generar miniatura base con título y episodio
 async function createThumbnail(coverUrl, title, episode, idiomaLabel) {
     try {
         const img = await Jimp.read(coverUrl);
@@ -136,7 +135,7 @@ handler.before = async (m, { conn }) => {
     }
 
     const idiomaLabel = idioma === "sub" ? "sub español" : "español latino";
-    await m.reply(`📥 Descargando *${session.title}* - cap ${epi} (${idiomaLabel})`);
+    await m.reply(`🌴 Descargando *${session.title}* - cap ${epi} (${idiomaLabel})`);
     m.react("📥");
 
     session.downloading = true;
@@ -159,7 +158,7 @@ handler.before = async (m, { conn }) => {
                 document: { url: videoUrl },
                 fileName: `${session.title} - cap ${epi} ${idiomaLabel}.mp4`,
                 mimetype: "video/mp4",
-                caption: `🎥 *${session.title}* - cap ${epi}\n🌸 Idioma: ${idiomaLabel}`,
+                caption: `🌳 *${session.title}* - cap ${epi}\n🎄 Idioma: ${idiomaLabel}`,
                 ...(thumb ? { jpegThumbnail: thumb } : {})
             },
             { quoted: m }
