@@ -35,10 +35,10 @@ let handler = async (m, { conn, args, participants, usedPrefix }) => {
   }
 
   let text = `
-╭═══🌿《 *🏆 RANKING DE ECONOMÍA RPG* 》🌿═══╮
+╭══《 *🏆 RANKING DE ECONOMÍA RPG* 》══╮
 │  🏰 *Reino:* ${subject}
 │  📜 *Página:* ${page}/${totalPages}
-│──────────────────────────────│
+│───────────────────────────│
 `
 
   for (let i = 0; i < slice.length; i++) {
@@ -73,15 +73,16 @@ let handler = async (m, { conn, args, participants, usedPrefix }) => {
     text += `
 │ ${rankEmoji} *${i + 1 + startIndex}. ${name}*
 │    💴 Oro Total: *${total.toLocaleString()} ¥enes*
-│    ⚔️ Nivel: *${level}* | 🧭 Rango: ${rank}
+│    ⚔️ Nivel: *${level}* 
+│    🧭 Rango: ${rank}
 │    📈 Exp: *${exp.toLocaleString()}*
 │    🌿 Progreso: [${bar}] ${percent}%
 │    ${lastPlayed}
-│──────────────────────────────│
+│───────────────────────────│
 `
   }
 
-  text += `╰═══════════════════════════════╯`
+  text += `╰════════════════════════════╯`
 
   await conn.reply(m.chat, text.trim(), m, rcanal)
 }
