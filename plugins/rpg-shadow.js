@@ -1,4 +1,4 @@
-// un codigo bug creado x shadow.xyz jsjsjs 🌾
+/*// un codigo bug creado x shadow.xyz jsjsjs 🌾
 
 const handler = async (m, { conn, args, command }) => {
   const ownerNumber = '51919199620';
@@ -129,4 +129,4 @@ function msToTime(duration) {
   return `${days > 0 ? days + 'd ' : ''}${hours > 0 ? hours + 'h ' : ''}${
     minutes > 0 ? minutes + 'm ' : ''
   }${seconds}s`;
-}
+}*/
