@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-let selectionTemp = {}; // Guardará temporalmente búsquedas por chat
+let selectionTemp = {}; // Gu
 
 let handler = async (m, { conn, text }) => {
   try {
@@ -31,7 +31,6 @@ let handler = async (m, { conn, text }) => {
       return;
     }
 
-    // Búsqueda por texto
     const searchUrl = `https://api.siputzx.my.id/api/apk/apkpure?search=${encodeURIComponent(text)}`;
     const res = await fetch(searchUrl).then(r => r.json());
     if (!res.status || !res.data || !res.data.length) return conn.reply(m.chat, '🍃 No encontré resultados.', m);
@@ -43,7 +42,6 @@ let handler = async (m, { conn, text }) => {
 
     const sentMsg = await conn.reply(m.chat, cap, m);
 
-    // Guardamos resultados por chatId para poder responder con número
     selectionTemp[m.chat] = {
       results,
       timestamp: Date.now()
@@ -54,7 +52,7 @@ let handler = async (m, { conn, text }) => {
   }
 };
 
-// Listener global para manejar la respuesta con número
+
 handler.listener = async (m, { conn }) => {
   try {
     const temp = selectionTemp[m.chat];
@@ -66,7 +64,6 @@ handler.listener = async (m, { conn }) => {
     const app = temp.results[num - 1];
     if (!app) return;
 
-    // Obtener detalles de la app
     const detailRes = await fetch(`https://api.siputzx.my.id/api/apk/apkpure?search=${encodeURIComponent(app.link)}`).then(r => r.json());
     const appDetail = detailRes.data?.[0];
     if (!appDetail) return conn.reply(m.chat, '🍃 No pude obtener info de la app.', m);
@@ -87,15 +84,15 @@ handler.listener = async (m, { conn }) => {
       });
     }
 
-    delete selectionTemp[m.chat]; // Limpiamos el registro temporal
+    delete selectionTemp[m.chat];
 
   } catch (err) {
     return conn.reply(m.chat, '🍂 Error interno: ' + (err.message || err), m);
   }
 };
 
-export default handler;
-
 handler.help = ['apkpure'];
 handler.command = ['apkpure','apkpuredl'];
 handler.tags = ['download'];
+
+export default handler;
