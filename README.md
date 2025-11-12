@@ -21,6 +21,8 @@
   </a>
 </p>
 
+---
+
 <h3 align="center">🥵 Información importante</h3>
 
 <p align="center">
