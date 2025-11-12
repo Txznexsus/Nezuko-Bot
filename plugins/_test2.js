@@ -21,7 +21,7 @@ let handler = async (m, { conn, args, usedPrefix }) => {
     const productId = 'articulo-001' // id único para tu producto
     const retailerId = 'mi_tienda_01' // id de tienda (arbitrario)
     const externalUrl = 'https://tutienda.com/p/001' // opcional
-    const imageUrl = 'https://i.imgur.com/tuMiniatura.jpg' // miniatura pública o ruta local
+    const imageUrl = 'https://files.catbox.moe/fft2hr.jpg' // miniatura pública o ruta local
 
     // obtener thumbnail (jpeg) — WhatsApp necesita thumbnail pequeña (ej. 300x300)
     let imageBuffer
