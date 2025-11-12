@@ -23,7 +23,7 @@ let handler = async (m, { conn, text, participants, groupMetadata }) => {
 
   targets = [...new Set(targets.length ? targets : [m.sender])]
 
-  let info = `╭━━━〔 👥 *INFORMACIÓN DE USUARIOS DETECTADOS* 〕━━⬣\n`
+  let info = `╭━━━〔 ☕ *INFORMACIÓN DE USUARIOS DETECTADOS* 〕━━⬣\n`
   let count = 1
 
   for (const userId of targets) {
@@ -49,7 +49,7 @@ let handler = async (m, { conn, text, participants, groupMetadata }) => {
     info += `│ ┣ 💠 *LID:* ${lid}\n`
     info += `│ ┣ 👑 *Admin:* ${isAdmin}\n`
     info += `│ ┣ 👥 *En grupo:* ${isInGroup}\n`
-    info += `│ ┗ 🔹 *Tipo de cuenta:* ${isBusiness}\n`
+    info += `│ ┗ 🔹 *Tipo de cuenta:* ${isBusiness}\n│\n│\n`
     count++
   }
 
