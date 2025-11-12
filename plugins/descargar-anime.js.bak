@@ -1,5 +1,4 @@
 import fetch from "node-fetch";
-import Jimp from "jimp";
 import { download, detail, search } from "../lib/anime.js";
 
 async function getLangs(episodes) {
@@ -16,31 +15,6 @@ async function getLangs(episodes) {
         }
     }
     return list;
-}
-
-// 🖼️ Función para generar miniatura con Jimp
-async function createThumbnail(coverUrl, title, episode, idiomaLabel) {
-    try {
-        const img = await Jimp.read(coverUrl);
-        const fontTitle = await Jimp.loadFont(Jimp.FONT_SANS_32_WHITE);
-        const fontInfo = await Jimp.loadFont(Jimp.FONT_SANS_16_WHITE);
-
-        // Difuminar un poco para poner texto visible
-        img.blur(2);
-
-        // Agregar marco oscuro transparente abajo
-        const overlay = new Jimp(img.bitmap.width, 80, "rgba(0,0,0,0.6)");
-        img.composite(overlay, 0, img.bitmap.height - 80);
-
-        // Escribir el título y el episodio
-        img.print(fontTitle, 20, img.bitmap.height - 70, `${title}`);
-        img.print(fontInfo, 20, img.bitmap.height - 35, `Ep ${episode} • ${idiomaLabel}`);
-
-        return await img.getBufferAsync(Jimp.MIME_JPEG);
-    } catch (err) {
-        console.error("Error creando thumbnail:", err);
-        return Buffer.alloc(0);
-    }
 }
 
 let handler = async (m, { command, usedPrefix, conn, text, args }) => {
@@ -90,7 +64,6 @@ ${eps}
             conn.anime[m.sender] = {
                 title,
                 episodes,
-                cover,
                 key: sent.key,
                 downloading: false,
                 timeout: setTimeout(() => delete conn.anime[m.sender], 600_000) // 10 minutos
@@ -107,7 +80,7 @@ ${eps}
                 cap += `\n\`${index + 1}\`\n≡ ☕ *Title :* ${res.title}\n≡ 🕸️ *Link :* ${res.link}\n`;
             });
 
-            await conn.sendMessage(m.chat, { text: cap }, { quoted: m });
+            await conn.sendMessage(m.chat, { text: cap, ...fake }, { quoted: m });
             m.react("🎋");
         }
     } catch (e) {
@@ -147,21 +120,16 @@ handler.before = async (m, { conn }) => {
     session.downloading = true;
 
     try {
-        const videoUrl = inf.dl[idioma];
-        const thumbnail = await createThumbnail(session.cover, session.title, epi, idiomaLabel);
-
-        await conn.sendMessage(
+        const videoBuffer = await (await fetch(inf.dl[idioma])).buffer();
+        await conn.sendFile(
             m.chat,
-            {
-                video: { url: videoUrl },
-                fileName: `${session.title} - cap ${epi} ${idiomaLabel}.mp4`,
-                mimetype: "video/mp4",
-                caption: `🎥 *${session.title}* - cap ${epi}\n🌸 Idioma: ${idiomaLabel}`,
-                thumbnail
-            },
-            { quoted: m }
+            videoBuffer,
+            `${session.title} - cap ${epi} ${idiomaLabel}.mp4`,
+            "",
+            m,
+            false,
+            { mimetype: "video/mp4", asDocument: true }
         );
-
         m.react("✅");
     } catch (err) {
         console.error("Error al descargar:", err);
