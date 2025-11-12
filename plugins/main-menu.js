@@ -110,7 +110,6 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
 
 
-import fetch from 'node-fetch'
 
 const fkontak = {
   key: {
