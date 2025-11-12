@@ -1,32 +1,13 @@
 import fetch from 'node-fetch'
+import fs from 'fs'
 
 export async function before(m, { conn }) {
   if (!m.text || !global.prefix.test(m.text)) return
 
   const usedPrefix = global.prefix.exec(m.text)[0]
   const command = m.text.slice(usedPrefix.length).trim().split(' ')[0].toLowerCase()
-
   if (!command || command === 'bot') return
-/*
-  const thumbRes = await fetch("https://files.catbox.moe/ntt86y.jpg")
-  const thumbBuffer = await thumbRes.buffer()
 
-  const fkontak = {
-    key: {
-      participants: "0@s.whatsapp.net",
-      remoteJid: "status@broadcast",
-      fromMe: false,
-      id: "KanekiBot"
-    },
-    message: {
-      locationMessage: {
-        name: `🌿 𝐊𝐚𝐧𝐞𝐤𝐢 | 𝐁𝐨𝐭 𝐀𝐈 ⚙️`,
-        jpegThumbnail: thumbBuffer
-      }
-    },
-    participant: "0@s.whatsapp.net"
-  }
-*/
   const channelRD = { 
     id: '120363422142340004@newsletter', 
     name: '🌸 𝗞𝗮𝗻𝗲𝗸𝗶 𝗕𝗼𝘁 | 𝗢𝗳𝗶𝗰𝗶𝗮𝗹 🚀'
@@ -61,32 +42,33 @@ export async function before(m, { conn }) {
     ? similares.map(s => `> 🪴 • .${s.cmd} (${s.score}%)`).join('\n')
     : '• No se encontraron coincidencias.'
 
-  const texto = ` 🌿 ᴇʟ ᴄᴏᴍᴀɴᴅᴏ *"${command}"* ɴᴏ ғᴜᴇ ᴇᴄᴏɴᴛʀᴀᴅᴏ. :ᴅ
- 🍃 ᴜsᴀ *${usedPrefix}ᴍᴇɴᴜ* ᴘᴀʀᴀ ᴠᴇʀ ʟᴀ ʟɪsᴛᴀ ᴄᴏᴍᴘʟᴇᴛᴀ.
+  const texto = ` 🌿🦌 ɴᴏ sᴇ ʜᴀ ᴇɴᴄᴏɴᴛʀᴀᴅᴏ ᴇʟ ᴄᴏᴍᴀɴᴅᴏ: *"${command}"*
 
-*𝙿𝙾𝚂𝙸𝙱𝙴𝚂 𝙲𝙾𝙸𝙽𝙲𝙸𝙳𝙴𝙽𝙲𝙸𝙰𝚂: 🍂*
+🎄 ᴜsᴀ *${usedPrefix}ᴍᴇɴᴜ* ᴘᴀʀᴀ ᴠᴇʀ ʟᴀ ʟɪsᴛᴀ ᴄᴏᴍᴘʟᴇᴛᴀ. 🎅🎇
+
+🍂 ᴘᴏsɪʙʟᴇs ᴄᴏɪɴᴄɪᴅᴇɴᴄɪᴀs: 🧊
 ${sugerencias}`
 
-  await conn.sendMessage(m.chat, { 
-      document: fs.readFileSync("./package.json"),
-      fileName: `「 ☕ 」`,
-      mimetype: 'application/vnd.ms-excel',
-      caption: texto,
-      contextInfo: {
+  await conn.sendMessage(m.chat, {
+    document: fs.readFileSync('./package.json'),
+    fileName: `「 🌳🍧 」`,
+    mimetype: 'application/pdf',
+    caption: texto,
+    contextInfo: {
       isForwarded: true,
-         forwardedNewsletterMessageInfo: {
-           newsletterJid: channelRD.id,
-           serverMessageId: '',
-           newsletterName: channelRD.name
-         },
-        externalAdReply: { 
-          title: `『 ⿻֟🎍 𝐊𝐀𝐍𝐄𝐊𝐈 • 𝐀𝐒𝐒𝐈𝐒𝐓𝐀𝐍𝐓 🩸⿻֟ 』`,
-          body: '© ᥴrᥱᥲ𝗍ᥱძ ᑲᥡ sʜᴀᴅᴏᴡ.xʏᴢ 🍃',
-          thumbnailUrl: await (await fetch('https://i.pinimg.com/originals/26/ef/14/26ef144ac13cd18547830088e9d2cc3a.jpg')).buffer(),
-          sourceUrl: redes,
-          mediaType: 1,
-          renderLargerThumbnail: true
-        }
+      forwardedNewsletterMessageInfo: {
+        newsletterJid: channelRD.id,
+        serverMessageId: '',
+        newsletterName: channelRD.name
+      },
+      externalAdReply: { 
+        title: `『 ⿻֟🎍 𝐊𝐀𝐍𝐄𝐊𝐈 • 𝐀𝐒𝐒𝐈𝐒𝐓𝐀𝐍𝐓 🩸⿻֟ 』`,
+        body: '© ᥴrᥱᥲ𝗍ᥱძ ᑲᥡ sʜᴀᴅᴏᴡ.xʏᴢ 🍃',
+        thumbnailUrl: 'https://i.pinimg.com/originals/26/ef/14/26ef144ac13cd18547830088e9d2cc3a.jpg',
+        sourceUrl: redes,
+        mediaType: 1,
+        renderLargerThumbnail: true
       }
+    }
   }, { quoted: m })
 }
