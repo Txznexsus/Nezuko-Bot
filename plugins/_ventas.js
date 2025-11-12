@@ -5,7 +5,7 @@ let suscripciones = global.suscripciones || (global.suscripciones = {})
 let handler = async (m, { conn, args, usedPrefix, command }) => {
   let user = global.db.data.users[m.sender]
 
-  if (command === 'susprecios') {
+  if (command === 'precios') {
     return m.reply(
 `🌿 *Precios de suscripción de grupo*
 
@@ -163,8 +163,8 @@ Finalizado el periodo, se retirará automáticamente.`,
   }
 }
 
-handler.help = ['suscripción <enlace> <tiempo>', 'susprecios']
-handler.tags = ['bot']
-handler.command = ['joinfor', 'susprecios']
+handler.help = ['suscripción <enlace> <tiempo>', 'precios']
+handler.tags = ['info']
+handler.command = ['joinfor', 'precios']
 
 export default handler
