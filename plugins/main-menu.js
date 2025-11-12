@@ -35,28 +35,6 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
       name: '𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐀𝐈 : 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 𝐎𝐟𝐢𝐜𝐢𝐚𝐥 ꒰͡•*゜・。 ͡꒱ֽ ׄ< '
     }
 
-    const metaMsg = {
-      quoted: global.fakeMetaMsg,
-      contextInfo: {
-        mentionedJid: [m.sender],
-        isForwarded: true,
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: channelRD.id,
-          serverMessageId: 100,
-          newsletterName: channelRD.name
-        },
-        externalAdReply: {
-          title: '꒰͡•*゜🩸 Kaneki Bot AI 🌿꒰͡•*゜・。 ͡꒱ֽ ׄ',
-          body: '· · • • • ☕ ძᥱ᥎: sһᥲძ᥆ᥕ_᥊ᥡz ❄️ • • • · ·',
-          mediaUrl: null,
-          description: null,
-          previewType: "PHOTO",
-          thumbnailUrl: perfil,
-          mediaType: 1,
-          renderLargerThumbnail: false
-        }
-      }
-    }
 
     let tags = {
       'info': '❐*̥₊  `ᴍᴇɴᴜ ɪɴғᴏ` 🍂࿆⸼',
@@ -125,8 +103,6 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
 
 𐔌𐔌 *🎅🎄 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ: 🦌🎇* ꒱꒱`.trim()
 
-    const menu_xyz = infoUser + `\n\n${menuTexto}`.trim()
-
     const imgs = [
       'https://i.pinimg.com/originals/b3/67/d5/b367d513d861de468305c32c6cd22756.jpg',
       'https://i.pinimg.com/originals/90/c8/58/90c858c65f0b3b2fca9a226fa369aa2b.png'
@@ -134,42 +110,29 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
 
     await conn.sendMessage(m.chat, {
-      image: { url: imageUrl },
-      caption: menu_xyz,
-      fileName: '🩸 Kaneki Bot AI | Menu ☯',
-      mimetype: 'image/jpeg',
-      mentions: [m.sender],
-      ...metaMsg
-    })
-    /*
-await conn.sendMessage(
-  m.chat,
-  {
-    video: { url: 'https://qu.ax/WQnwi.mp4' },
-    caption: menu_xyz,
-    gifPlayback: true,
-    gifAttribution: 0,
-    contextInfo: {
-      mentionedJid: [m.sender],
-      isForwarded: true,
-      forwardingScore: 999,
-      forwardedNewsletterMessageInfo: {
-        newsletterJid: channelRD.id,
-        serverMessageId: 100,
-        newsletterName: channelRD.name
-      },
-      externalAdReply: {
-        title: '꒰͡•*゜🩸 Kaneki Bot AI 🌿꒰͡•*゜・。 ͡꒱ֽ ׄ',
-        body: '· · • • • 💮 Dev: Shadow_xyz ☁️ • • • · ·',
-        thumbnailUrl: banner,
-        mediaType: 1,
-        renderLargerThumbnail: true
-      }
-    }
-  },
-  { quoted: fkontak }
-)
-*/
+      text: infoUser + menuTexto.trim(),
+       contextInfo: {
+         mentionedJid: [m.sender],
+         isForwarded: true,
+         forwardedNewsletterMessageInfo: {
+           newsletterJid: channelRD.id,
+           serverMessageId: 100,
+           newsletterName: channelRD.name
+         },
+         externalAdReply: {
+           title: '꒰͡•*❄️ Kaneki Bot AI 🎄 ͡꒱ֽ   •  ძᥱ᥎: sһᥲძ᥆ᥕ_᥊ᥡz ☕ׄ',
+           body: '',
+           mediaUrl: null,
+           description: null,
+           previewType: "PHOTO",
+           thumbnail: await (await fetch(imageUrl)).buffer(),
+           sourceUrl: 'https://github.com/El-brayan502/RoxyBot-MD/',
+           mediaType: 1,
+           renderLargerThumbnail: false
+         }
+       }
+   }, { quoted: fkontak })
+
   } catch (e) {
     console.error(e)
     await conn.sendMessage(m.chat, { 
