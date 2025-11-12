@@ -110,27 +110,6 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
 
 
-
-const fkontak = {
-  key: {
-    participant: '0@s.whatsapp.net',
-    ...(m.chat ? { remoteJid: m.chat } : {})
-  },
-  message: {
-    contactMessage: {
-      displayName: 'KANEKI-BOT V3',
-      vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;KANEKI BOT;;;\nFN:KANEKI BOT\nORG:Meta Al • Estado;\nTITLE:KANEKI-BOT ALLMENU 🌴;\nTEL;type=CELL;type=VOICE;waid=7372804677:+1 (737) 280-4677\nEND:VCARD`,
-      jpegThumbnail: await (await fetch('https://files.catbox.moe/llzuyw.jpg')).buffer(),
-      thumbnail: await (await fetch('https://files.catbox.moe/llzuyw.jpg')).buffer(),
-      sendEphemeral: true
-    }
-  }
-}
-
-
-
-
-
     await conn.sendMessage(m.chat, {
       text: infoUser + menuTexto.trim(),
        contextInfo: {
