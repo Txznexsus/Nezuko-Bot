@@ -1,11 +1,9 @@
-// file: pelicula_dl.js
+
 import fetch from "node-fetch";
 
-// 🔑 Credenciales TMDB
 const API_KEY = "f82247b784042145c16a2f98200ac8cc";
 const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmODIyNDdiNzg0MDQyMTQ1YzE2YTJmOTgyMDBhYzhjYyIsIm5iZiI6MTc2MjkwNzI1MS4zMTQsInN1YiI6IjY5MTNkNDczYjFmZmYzNzhlMzNhMzkzMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.C1iMRTXgKmVCiOPocw2-pRXdo60pnOcFlEgSblK7CQI";
 
-// Buscar películas en TMDb
 const tmdbSearch = async (query) => {
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}&language=es-ES`;
   const res = await fetch(url, {
