@@ -1,54 +1,62 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const handler = async (m, { text, conn, args }) => {
-  if (!args[0]) {
-    return conn.reply(m.chat, '🚩 Por favor, ingresa un enlace de Facebook.', m, fake)
-  }
+  if (!args[0]) return conn.reply(m.chat, '🌿 Por favor, ingresa un enlace de Facebook.', m, fake)
 
-  const fbUrl = args[0];
-  let res;
+  const fbUrl = args[0]
+  let res
 
   try {
-    await m.react('💜');
-    res = await axios.get(`https://apis-starlights-team.koyeb.app/starlight/facebook?url=${fbUrl}`);
+    await m.react('🎇')
+    res = await axios.get(`https://apis-starlights-team.koyeb.app/starlight/facebook?url=${fbUrl}`)
   } catch (e) {
-    return conn.reply(m.chat, 'Error al obtener datos. Verifica el enlace.', m, fake)
+    console.error(e)
+    await m.react('❌')
+    return conn.reply(m.chat, '⚠️ Error al obtener datos. Verifica el enlace o inténtalo más tarde.', m, fake)
   }
 
-  const result = res.data;
+  const result = res.data
   if (!result || result.length === 0) {
-    return conn.reply(m.chat, 'No se encontraron resultados.', m, fake)
+    return conn.reply(m.chat, 'No se encontraron resultados del video.', m, fake)
   }
+  
+  const videoDataHD = result.find(video => video.quality?.includes('720p'))
+  const videoDataSD = result.find(video => video.quality?.includes('360p'))
+  const videoUrl = videoDataHD?.link_hd || videoDataSD?.link_sd
 
-  const videoDataHD = result.find(video => video.quality === "720p (HD)");
-  const videoDataSD = result.find(video => video.quality === "360p (SD)");
+  if (!videoUrl) return conn.reply(m.chat, 'No se encontró una resolución disponible.', m, fake)
 
-  const videoUrl = videoDataHD ? videoDataHD.link_hd : videoDataSD ? videoDataSD.link_sd : null;
+  const caption = `🍓 *Calidad:* ${videoDataHD ? '720p (HD)' : '360p (SD)'}
+🎇 *Formato:* MP4 (documento)`.trim()
 
-  if (!videoUrl) {
-    return conn.reply(m.chat, 'No se encontró una resolución adecuada.', m);
-  }
-
-  const maxRetries = 3;
-
+  const maxRetries = 3
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
-      await conn.sendMessage(m.chat, { video: { url: videoUrl }, caption: '🍓 Aquí tienes el video.', fileName: 'fb.mp4', mimetype: 'video/mp4' }, { quoted: m });
-      await m.react('✅');
-      break;
+      await conn.sendMessage(
+        m.chat,
+        {
+          document: { url: videoUrl },
+          caption,
+          fileName: 'facebook_video.mp4',
+          mimetype: 'video/mp4',
+        },
+        { quoted: m }
+      )
+      await m.react('✅')
+      break
     } catch (e) {
+      console.error(`Intento ${attempt} fallido:`, e)
       if (attempt === maxRetries) {
-        await m.react('❌');
         return conn.reply(m.chat, 'Error al enviar el video después de varios intentos.', m, fake)
       }
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 1500))
     }
   }
 }
 
-handler.help = ['fb2'];
-handler.tags = ['descargas'];
-handler.command = ['fb2'];
-handler.register = true;
+handler.help = ['fb2']
+handler.tags = ['descargas']
+handler.command = ['fb2']
+handler.register = true
 
-export default handler;
+export default handler
