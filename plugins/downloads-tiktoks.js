@@ -82,7 +82,7 @@ function createCaption(title, author, duration, created_at = '', extra = {}) {
 }
 
 function createSearchCaption(data) {
-  return `🎬 *Título ›* ${data.title || 'No disponible'}\n✨ *Autor ›* ${data.author?.nickname || 'Desconocido'} ${data.author?.unique_id ? `@${data.author.unique_id}` : ''}\n🍟 *Duración ›* ${data.duration || 'No disponible'}s\n🍓 *Música ›* ${data.music?.title || `[${data.author?.nickname || 'No disponible'}] original sound - ${data.author?.unique_id || 'unknown]'}\n\n📊 *Estadísticas*\n> 👁️ *Vistas:* ${formatNumber(data.play_count)}\n> ❤️ *Likes:* ${formatNumber(data.digg_count)}\n> 💬 *Comentarios:* ${formatNumber(data.comment_count)}\n> 🔁 *Compartidos:* ${formatNumber(data.share_count)}`
+  return `🎬 *Título ›* ${data.title || 'No disponible'}\n✨ *Autor ›* ${data.author?.nickname || 'Desconocido'} ${data.author?.unique_id ? `@${data.author.unique_id}` : ''}\n🍟 *Duración ›* ${data.duration || 'No disponible'}s\n🍓 *Música ›* ${data.music?.title || `[${data.author?.nickname || 'No disponible'}] original sound - ${data.author?.unique_id || 'unknown]'}\n\n📊 *Estadísticas*\n> 👁️ *Vistas:* ${formatNumber(data.play_count)}\n> ❤️ *Likes:* ${formatNumber(data.digg_count)}\n> 💬 *Comentarios:* ${formatNumber(data.comment_count)}\n> 🔁 *Compartidos:* ${formatNumber(data.share_count)}``
 }
 
 function formatNumber(num) {
