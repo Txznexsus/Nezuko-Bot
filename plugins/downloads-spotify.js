@@ -8,16 +8,17 @@ let handler = async (m, { conn, text }) => {
   if (!text) return conn.reply(m.chat, `🎋 *Por favor, proporciona el nombre de una canción o artista.*`, m, rcanal)
 
   try {
-    let searchUrl = `${global.APIs.delirius.url}/search/spotify?q=${encodeURIComponent(text)}&limit=1`
-    let search = await axios.get(searchUrl, { timeout: 15000 })
+ 
+    const searchUrl = `${global.APIs.delirius.url}/search/spotify?q=${encodeURIComponent(text)}&limit=1`
+    const search = await axios.get(searchUrl, { timeout: 15000 })
 
     if (!search.data.status || !search.data.data || search.data.data.length === 0)
       throw new Error('No se encontró resultado.')
 
-    let data = search.data.data[0]
-    let { title, artist, album, duration, popularity, publish, url: spotifyUrl, image } = data
+    const data = search.data.data[0]
+    const { title, artist, album, duration, popularity, publish, url: spotifyUrl, image } = data
 
-    let caption = `「✦」Descargando *<${title}>*\n\n` +
+    const caption = `「✦」Descargando *<${title}>*\n\n` +
       `> ꕥ Autor » *${artist}*\n` +
       (album ? `> ❑ Álbum » *${album}*\n` : '') +
       (duration ? `> ⴵ Duración » *${duration}*\n` : '') +
@@ -43,36 +44,36 @@ let handler = async (m, { conn, text }) => {
     let serverUsed = 'Desconocido'
 
     try {
-      let apiV1 = `https://api.nekolabs.my.id/downloader/spotify/v1?url=${encodeURIComponent(spotifyUrl)}`
-      let dl1 = await axios.get(apiV1, { timeout: 20000 })
+      const apiNeko = `https://api.nekolabs.my.id/downloader/spotify/v1?url=${encodeURIComponent(spotifyUrl)}`
+      const dl1 = await axios.get(apiNeko, { timeout: 20000 })
       if (dl1?.data?.result?.downloadUrl) {
         downloadUrl = dl1.data.result.downloadUrl
-        serverUsed = 'Nekolabs'
+        serverUsed = 'NekoLabs'
       }
-    } catch { }
+    } catch (err) { }
 
     if (!downloadUrl || downloadUrl.includes('undefined')) {
       try {
-        let base = 'https://api-nv.ultraplus.click'
-        let u = new URL('/api/download/spotify', base)
+        const base = 'https://api-nv.ultraplus.click'
+        const u = new URL('/api/download/spotify', base)
         u.search = new URLSearchParams({
           url: spotifyUrl,
           key: 'IUHp9S4ExrywBB35'
         })
 
-        let res = await fetch(u)
-        let json = await res.json()
+        const res = await fetch(u)
+        const json = await res.json()
 
         if (json?.status && json?.result?.url_download) {
           downloadUrl = json.result.url_download
-          serverUsed = 'api-nv'
+          serverUsed = '(Neveloopp)'
         }
-      } catch { }
+      } catch (err) { }
     }
 
     if (downloadUrl) {
-      let audio = await fetch(downloadUrl)
-      let buffer = await audio.buffer()
+      const audio = await fetch(downloadUrl)
+      const buffer = await audio.buffer()
 
       await conn.sendMessage(m.chat, {
         audio: buffer,
@@ -91,7 +92,7 @@ let handler = async (m, { conn, text }) => {
         }
       }, { quoted: fkontak })
     } else {
-      conn.reply(m.chat, `No se encontró un link de descarga válido para esta canción.`, m, fake)
+      conn.reply(m.chat, `☕ No se encontró un link de descarga válido para esta canción.`, m, fake)
     }
 
   } catch (e) {
