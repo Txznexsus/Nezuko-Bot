@@ -1,52 +1,44 @@
-// file: plugins/kaneki-business.js
+// file: plugins/business_contact.js
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn }) => {
-  try {
-    // Imagen miniatura del bot (la que sale al lado derecho)
-    const thumb = await (await fetch('https://files.catbox.moe/llzuyw.jpg')).buffer()
+  // imagen miniatura
+  const img = await (await fetch('https://files.catbox.moe/llzuyw.jpg')).buffer()
 
-    // 💬 Mensaje falso estilo cuenta Business (casita / maletín)
-    const fkontak = {
-      key: {
-        fromMe: false,
-        participant: '0@s.whatsapp.net',
-        ...(m.chat ? { remoteJid: m.chat } : {})
-      },
-      message: {
-        conversation: '🌴 KANEKI-BOT ALLMENU 🌴'
-      },
-      pushName: 'KANEKI-BOT V3',
+  // estructura de mensaje tipo Business
+  const businessContact = {
+    key: {
+      fromMe: false,
       participant: '0@s.whatsapp.net',
-      messageContextInfo: {
-        // 🔥 Este campo es el que hace aparecer la "casita" de empresa
-        businessMessageForwardInfo: { businessOwnerJid: '0@s.whatsapp.net' }
-      },
-      messageTimestamp: Date.now(),
-    }
-
-    // Añadimos imagen pequeña (miniatura)
-    fkontak.message.imageMessage = {
-      mimetype: 'image/jpeg',
-      jpegThumbnail: thumb,
-      caption: '🌴 KANEKI-BOT ALLMENU 🌴'
-    }
-
-    // Enviar mensaje con fkontak citado
-    await conn.sendMessage(
-      m.chat,
-      { text: '👾 Hola soy *KANEKI-BOT V3*\n🌴 Bienvenido al menú empresarial.' },
-      { quoted: fkontak }
-    )
-
-  } catch (err) {
-    console.error(err)
-    m.reply('❌ Ocurrió un error al generar el fkontak estilo empresa.')
+      ...(m.chat ? { remoteJid: m.chat } : {})
+    },
+    message: {
+      businessMessage: {
+        message: {
+          extendedTextMessage: {
+            text: '🌴 KANEKI-BOT ALLMENU 🌴',
+            matchedText: 'Meta AI • Contacto',
+            canonicalUrl: 'https://www.whatsapp.com/business/',
+            description: 'KANEKI-BOT V3 - WhatsApp Business Profile',
+            title: 'KANEKI-BOT V3',
+            jpegThumbnail: img,
+            previewType: 2
+          }
+        },
+        messageMetadata: {
+          bizOwnerJid: '0@s.whatsapp.net'
+        }
+      }
+    },
+    participant: { jid: '0@s.whatsapp.net', name: 'KANEKI-BOT V3' },
+    pushName: 'KANEKI-BOT V3'
   }
+
+  await conn.relayMessage(m.chat, businessContact.message, { messageId: m.key.id })
 }
 
-handler.help = ['kaneki']
+handler.help = ['kanekiemp']
 handler.tags = ['info']
-handler.command = /^kaneki$/i
+handler.command = /^kanekiemp$/i
 
 export default handler
