@@ -1,16 +1,12 @@
-// file: kaneki_fkontak.js
+// file: plugins/kaneki-business.js
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, args, usedPrefix }) => {
+let handler = async (m, { conn }) => {
   try {
-    // texto que quieres que aparezca en el mensaje del bot
-    const replyText = args.join(' ') || '🌴 KANEKI-BOT ALLMENU 🌴\n\n• ✦ Comando 1\n• ✦ Comando 2\n• ✦ ...'
+    // Imagen miniatura del bot (la que sale al lado derecho)
+    const thumb = await (await fetch('https://files.catbox.moe/llzuyw.jpg')).buffer()
 
-    // thumbnail (imagen de perfil a la derecha)
-    const thumbUrl = 'https://files.catbox.moe/llzuyw.jpg'
-    const thumbBuffer = await (await fetch(thumbUrl)).buffer()
-
-    // fake quoted "contact-like" message (estilo casita / business header)
+    // 💬 Mensaje falso estilo cuenta Business (casita / maletín)
     const fkontak = {
       key: {
         fromMe: false,
@@ -18,32 +14,39 @@ let handler = async (m, { conn, args, usedPrefix }) => {
         ...(m.chat ? { remoteJid: m.chat } : {})
       },
       message: {
-        // conversation sirve como el texto principal del mensaje citado
-        conversation: 'Meta Al • Estado'
+        conversation: '🌴 KANEKI-BOT ALLMENU 🌴'
       },
-      // campos extras que ayudan a que WhatsApp muestre la miniatura y nombre
+      pushName: 'KANEKI-BOT V3',
       participant: '0@s.whatsapp.net',
-      pushName: 'KANEKI-BOT V3'
+      messageContextInfo: {
+        // 🔥 Este campo es el que hace aparecer la "casita" de empresa
+        businessMessageForwardInfo: { businessOwnerJid: '0@s.whatsapp.net' }
+      },
+      messageTimestamp: Date.now(),
     }
 
-    // Agregamos la imagenMessage para forzar la miniatura a la derecha (como en la captura)
+    // Añadimos imagen pequeña (miniatura)
     fkontak.message.imageMessage = {
       mimetype: 'image/jpeg',
-      caption: 'KANEKI-BOT ALLMENU 🌴',
-      jpegThumbnail: thumbBuffer
+      jpegThumbnail: thumb,
+      caption: '🌴 KANEKI-BOT ALLMENU 🌴'
     }
 
-    // Enviamos el mensaje normal pero citado como fkontak
-    await conn.sendMessage(m.chat, { text: replyText }, { quoted: fkontak })
+    // Enviar mensaje con fkontak citado
+    await conn.sendMessage(
+      m.chat,
+      { text: '👾 Hola soy *KANEKI-BOT V3*\n🌴 Bienvenido al menú empresarial.' },
+      { quoted: fkontak }
+    )
 
   } catch (err) {
     console.error(err)
-    await conn.sendMessage(m.chat, { text: '❌ Ocurrió un error al generar el contacto falso.' }, { quoted: m })
+    m.reply('❌ Ocurrió un error al generar el fkontak estilo empresa.')
   }
 }
 
-handler.help = ['kaneki <texto opcional>']
-handler.tags = ['main', 'info']
-handler.command = /^(kaneki|kaneki-bot|kanekiv3)$/i
+handler.help = ['kaneki']
+handler.tags = ['info']
+handler.command = /^kaneki$/i
 
 export default handler
