@@ -1,11 +1,12 @@
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 
-let handler = async (m, { conn, text, args }) => {
+let handler = async (m, { conn, text }) => {
   try {
     if (!text) return conn.reply(m.chat, 'Uso: /apkpure <texto o link>', m);
     m.react('🕒');
 
+    // Si el usuario pega un link directo
     if (text.includes('https://apkpure.com/')) {
       const appUrl = text.trim();
       const info = await getAppInfoFromPage(appUrl);
@@ -37,6 +38,7 @@ let handler = async (m, { conn, text, args }) => {
       return;
     }
 
+    // Si es texto: búsqueda interactiva
     m.react('⌚');
     const results = await searchApkpure(text);
     if (!results || !results.length) return conn.reply(m.chat, 'No encontré resultados en APKPure.', m);
@@ -47,13 +49,12 @@ let handler = async (m, { conn, text, args }) => {
 
     await conn.reply(m.chat, cap, m);
 
-    // Listener para escoger número
     const filter = (response) => {
       const num = parseInt(response.text);
       return !isNaN(num) && num >= 1 && num <= results.length;
     };
 
-    const collector = conn.collect(m.chat, { filter, time: 30000 }); // 30s para responder
+    const collector = conn.collect(m.chat, { filter, time: 30000 });
     collector.on('collect', async (resp) => {
       const index = parseInt(resp.text) - 1;
       const chosen = results[index];
@@ -87,9 +88,21 @@ handler.help = ['apkpure'];
 handler.command = ['apkpure','apkpuredl'];
 handler.tags = ['download'];
 
+// --- helpers ---
+
 async function fetchHtml(url){
-  const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
-  if(!res.ok) throw new Error('HTTP ' + res.status);
+  const res = await fetch(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Referer': 'https://apkpure.com/',
+      'Origin': 'https://apkpure.com'
+    },
+    redirect: 'follow'
+  });
+
+  if(!res.ok) throw new Error(`HTTP ${res.status} al acceder a ${url}`);
   return await res.text();
 }
 
@@ -121,7 +134,7 @@ async function getAppInfoFromPage(appUrl){
 
 async function probeHead(url){
   try {
-    const res = await fetch(url, { method: 'HEAD', headers: { 'User-Agent': 'Mozilla/5.0' } });
+    const res = await fetch(url, { method: 'HEAD', headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' } });
     const sizeB = parseInt(res.headers.get('content-length') || '0', 10);
     const sizeMB = (sizeB / (1024*1024)).toFixed(2) + ' MB';
     return { sizeB, sizeMB };
