@@ -104,12 +104,13 @@ global.rcanalx = {
       newsletterName: channelRD.name,
     },
     externalAdReply: {
-      title: `（๑•ᴗ• )づ ${botname}ુ᭡̵໋࡙`,
-      body: `   ✎ !ᴀᴄᴄᴇsᴏ ᴅᴇɴᴇɢᴀᴅᴏ¡ ꒢⃘ܱ࣪`,
+      title: `🍄 ᴀᴄᴄᴇsᴏ ᴅᴇɴᴇɢᴀᴅᴏ •（๑•ᴗ• )づ ${botname}ુ᭡̵໋࡙`,
+      body: ` `,
       mediaUrl: null,
       description: null,
       previewType: "PHOTO",
       thumbnailUrl: icono,
+      sourceUrl: 'https://chat.whatsapp.com/FvKyGFv5i1s8Dj2XAQ74WT?mode=wwt',
       mediaType: 1,
       renderLargerThumbnail: true
     },
