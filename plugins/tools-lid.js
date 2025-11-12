@@ -2,63 +2,62 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, participants, groupMetadata }) => {
   await m.react('🕒')
-  
-  const participantList = groupMetadata?.participants || []
-  let targets = []
 
-  if (m.mentionedJid?.length) {
-    targets.push(...m.mentionedJid)
-  }
-  if (m.quoted) {
-    targets.push(m.quoted.sender)
-  }
+  const participantList = groupMetadata?.participants || []
+  let rawTargets = []
+
+  if (m.mentionedJid?.length) rawTargets.push(...m.mentionedJid)
+  if (m.quoted) rawTargets.push(m.quoted.sender)
 
   if (text) {
-    const numbers = text
+    const cleaned = text
       .split(/\s+/)
-      .filter(v => v.match(/\d{5,}/))
-      .map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net')
-    targets.push(...numbers)
+      .map(v => v.replace(/[^0-9@]/g, '').trim())
+      .filter(v => v.length > 5)
+
+    for (let v of cleaned) {
+      if (v.includes('@s.whatsapp.net')) rawTargets.push(v)
+      else if (/^\d+$/.test(v)) rawTargets.push(v + '@s.whatsapp.net')
+    }
   }
 
-  targets = [...new Set(targets.length ? targets : [m.sender])]
+  if (!rawTargets.length) rawTargets.push(m.sender)
+
+  const targets = [...new Set(rawTargets)]
 
   let info = `╭━━━〔 ☕ *INFORMACIÓN DE USUARIOS DETECTADOS* 〕━━⬣\n`
   let count = 1
 
   for (const userId of targets) {
-    const participant = participantList.find(p => p.id === userId)
-    const userName = await conn.getName(userId)
-    const number = userId.split('@')[0]
-    const isAdmin = participant?.admin ? '✅ Sí' : '❌ No'
-    const lid = participant?.lid || 'No disponible'
-    const isInGroup = participant ? '✅ Sí' : '❌ No'
-
-    let isBusiness = '❌ Desconocido'
     try {
-      const waInfo = await conn.onWhatsApp(userId)
-      if (waInfo?.length > 0) {
-        isBusiness = waInfo[0]?.biz ? '💼 Business' : '📱 Oficial'
-      }
-    } catch {
-      isBusiness = '❌ No detectado'
-    }
+      const number = userId.replace(/[^0-9]/g, '')
+      const participant = participantList.find(p => p.id === userId)
+      const userName = await conn.getName(userId).catch(() => 'Sin nombre')
+      const isAdmin = participant?.admin ? '✅ Sí' : '❌ No'
+      const lid = participant?.lid || '—'
+      const isInGroup = participant ? '✅ Sí' : '❌ No'
 
-    info += `│ 🧩 *${count}.* @${number}\n`
-    info += `│ ┣ 👤 *Nombre:* ${userName}\n`
-    info += `│ ┣ 💠 *LID:* ${lid}\n`
-    info += `│ ┣ 👑 *Admin:* ${isAdmin}\n`
-    info += `│ ┣ 👥 *En grupo:* ${isInGroup}\n`
-    info += `│ ┗ 🔹 *Tipo de cuenta:* ${isBusiness}\n│\n│\n`
-    count++
+      info += `│ 🧩 *${count}.* @${number}\n`
+      info += `│ ┣ 👤 *Nombre:* ${userName}\n`
+      info += `│ ┣ 💠 *LID:* ${lid}\n`
+      info += `│ ┣ 👑 *Admin:* ${isAdmin}\n`
+      info += `│ ┗ 👥 *En grupo:* ${isInGroup}\n│\n`
+      count++
+    } catch (err) {
+      info += `│ ⚠️ *${count}.* Error al procesar un usuario.\n│\n`
+      count++
+    }
   }
 
-  info += '╰━━━━━━━━━━━━━━━━━━━━━━⬣'
 
-  await conn.sendMessage(m.chat, { 
-    text: info,
-    mentions: targets
-  }, { quoted: m })
+  info += `╰━━━━━━━━━━━━━━━━━━━━━━⬣\n`
+  info += `🧮 *Total detectados:* ${targets.length} ${targets.length === 1 ? 'usuario' : 'usuarios'}`
+
+  await conn.sendMessage(
+    m.chat,
+    { text: info, mentions: targets },
+    { quoted: m }
+  )
 
   await m.react('✔️')
 }
