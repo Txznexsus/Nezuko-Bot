@@ -31,7 +31,7 @@ ${usedPrefix + command} <link> <emoji1,emoji2,emoji3,emoji4>`)
     }
 
     // 👉 Coloca tu API key obtenida en https://asitha.top
-    const apiKey = 'TU_KEY_AQUI'
+    const apiKey = '4/0Ab32j90fM8gTEVN0Kby19MRBuDDulX1-PITUZux1l7Xj3-emz9qVvLfKtSXTQ58h3UuBuA'
 
     const requestData = {
       post_link: postLink,
