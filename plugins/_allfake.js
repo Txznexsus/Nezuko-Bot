@@ -138,6 +138,21 @@ global.rcanalw = {
   },
 }
 
+global.rch = {
+  contextInfo: {
+    forwardingScore: 2025,
+    isForwarded: true,
+    externalAdReply: { 
+      title: ' ⊹🌿꙰  kᥲᥒᥱkі ᑲ᥆𝗍 ᥲі ✧🎄🦌',
+      body: '',
+      sourceUrl: redes,
+      thumbnailUrl: icono,
+      mediaType: 1,
+      renderLargerThumbnail: false
+    },
+  },
+}
+
 }
 export default handler
 
