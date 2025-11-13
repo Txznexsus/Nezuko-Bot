@@ -33,7 +33,7 @@ const menuStyle = {
   header: `🎴 %category 💮\n━━━━━━━━━━━━━━━━━`,
   body: `> 🌸 %cmd`,
   footer: `━━━━━━━━━━━━━━━━━`,
-  after: `\n💮 〘 2025-26 © ${botname} 🌙 〙`
+  after: `\n${dev}`
 }
 
 let handler = async (m, { conn, usedPrefix }) => {
