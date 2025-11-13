@@ -76,7 +76,7 @@ try {
 
 } catch (error) {
     await m.react('✖️')
-    await conn.reply(m.chat, `⚠︎ Se ha producido un problema.\n> Usa *${usedPrefix}report* para informarlo.\n\n${error.message}`, m)
+    await conn.reply(m.chat, `⚠︎ Se ha producido un problema.\n> Usa *${usedPrefix}report* para informarlo.\n\n${error.message}`, m, rch)
 }}
 
 handler.command = ['instagram', 'ig', 'facebook', 'fb']
