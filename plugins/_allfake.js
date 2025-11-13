@@ -133,7 +133,7 @@ global.rcanalw = {
       previewType: "PHOTO",
       thumbnailUrl: icono,
       mediaType: 1,
-      renderLargerThumbnail: false
+      renderLargerThumbnail: true
     },
   },
 }
