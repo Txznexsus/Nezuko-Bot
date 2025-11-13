@@ -145,7 +145,7 @@ global.rch = {
     externalAdReply: { 
       title: ' ⊹🌿꙰  kᥲᥒᥱkі ᑲ᥆𝗍 ᥲі ✧🎄🦌',
       body: '',
-      sourceUrl: redes,
+      sourceUrl: 'https://chat.whatsapp.com/BU22fjRehH1CUSsGEYMRXN?mode=wwt',
       thumbnailUrl: icono,
       mediaType: 1,
       renderLargerThumbnail: false
