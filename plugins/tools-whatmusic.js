@@ -140,7 +140,7 @@ import baileys from '@whiskeysockets/baileys'
 
 const { generateWAMessageFromContent, generateWAMessageContent, proto } = baileys
 
-// 🧩 Usa el mismo key/secret, pero puedes cambiar el host si da “no result”
+
 const acr = new ACRCloud({
   host: 'identify-us-west-2.acrcloud.com',
   access_key: 'c33c767d683f78bd17d4bd4991955d81',
