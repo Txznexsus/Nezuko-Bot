@@ -1,14 +1,14 @@
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-  if (!args[0]) {
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+  if (!text) {
     return m.reply(`👻 Uso correcto:\n\n${usedPrefix + command} <link_post> <emoji1,emoji2,emoji3,emoji4>\n\nEjemplo:\n${usedPrefix + command} https://whatsapp.com/channel/0029Vb6D6ogBVJl60Yr8YL31/473 😨,🤣,👾,😳`);
   }
 
   await m.react('⏳');
 
   try {
-    const parts = args.join(' ').split(' ');
+    const parts = text.split(' ');
     const postLink = parts[0];
     const reacts = parts.slice(1).join(' ');
 
@@ -48,10 +48,10 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
     if (response.ok && result.message) {
       await m.react('✅');
-      await m.reply(`✅ Reacciones enviadas con éxito`);
+      await m.reply(`✅ ${result.message || 'Reacciones enviadas con éxito'}\n\n👾 ${emojiArray.join(' ')}`);
     } else {
       await m.react('❌');
-      await m.reply(`❌ Error al enviar las reacciones`);
+      await m.reply(`❌ Error al enviar las reacciones\n\n${result?.error || ''}`);
     }
 
   } catch (error) {
@@ -63,6 +63,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
 handler.help = ['react', 'reaccionar', 'channelreact'];
 handler.tags = ['tools'];
-handler.command = ['react', 'reaccionar', 'channelreact', 'rch'];
+handler.command = /^(react|reaccionar|channelreact|rch)$/i;
 
 export default handler;
