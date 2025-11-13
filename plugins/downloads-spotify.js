@@ -92,12 +92,12 @@ let handler = async (m, { conn, text }) => {
         }
       }, { quoted: fkontak })
     } else {
-      conn.reply(m.chat, `☕ No se encontró un link de descarga válido para esta canción.`, m, rch)
+      conn.reply(m.chat, `☕ No se encontró un link de descarga válido para esta canción.`, m, fake)
     }
 
   } catch (e) {
     console.error(e)
-    conn.reply(m.chat, `Error al buscar o descargar la canción.`, m, rch)
+    conn.reply(m.chat, `Error al buscar o descargar la canción.`, m, fake)
   }
 }
 
