@@ -26,7 +26,6 @@ let handler = async (m, { conn }) => {
 🌿 *Nombre:* ${nombre}
 🍃 *Edad:* ${edad} años
 🕸️ *Estado:* Eliminado correctamente
-🪺 *NS:* \`\`\`${sn}\`\`\`
 
 ✨ Puedes volver a registrarte cuando desees:
 > *#reg ${nombre}.18*
