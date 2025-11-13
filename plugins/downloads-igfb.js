@@ -70,7 +70,7 @@ try {
             await m.react('✔️')
         } catch (err) {
             await m.react('✖️')
-            await conn.reply(m.chat, `⚠︎ Error al enviar el vídeo.\n> Usa *${usedPrefix}report* para informarlo.\n\n${err.message}`, m)
+            await conn.reply(m.chat, `⚠︎ Error al enviar el vídeo.\n> Usa *${usedPrefix}report* para informarlo.\n\n${err.message}`, m, rch)
         }
     }
 
