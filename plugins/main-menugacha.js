@@ -2,7 +2,7 @@ import fs from 'fs'
 import { xpRange } from '../lib/levelling.js'
 
 let tags = {
-  'gacha': '`🌿 MENU GACHA 🎄`',
+  'gacha': '`🎴 ᴍᴇɴᴜ ᴡᴀɪꜰᴜꜱ 💮`',
 }
 
 function toFancyText(text) {
@@ -15,27 +15,25 @@ function toFancyText(text) {
 }
 
 const menuStyle = {
-  before: `╭─╼| ❄️ 𝐊𝐀𝐍𝐄𝐊𝐈 .𝐒𝐂𝐘𝐓𝐇𝐄 🌙
-│ 𝙈𝙀𝙉𝙐 𝘿𝙀 𝙇𝙊𝙂𝙾𝙎 🧊
+  before: `╭─╼| 💮 𝐊𝐀𝐍𝐄𝐊𝐈 .𝐒𝐂𝐘𝐓𝐇𝐄 🎴
+│ 𝙈𝙀𝙉𝙐 𝘿𝙀 𝙒𝘼𝙄𝙁𝙐𝙎 💘
 ╰─╼|━━━━━━━━⬣
 
-🦌 Usuario: %name
-🎄 Nivel: %level
-❄️ Exp: %exp / %maxexp
-🍄 Modo: %mode
+🌸 Usuario: %name
+💫 Nivel: %level
+✨ Exp: %exp / %maxexp
+🌙 Modo: %mode
 🍃 Usuarios Totales: %totalreg
 ⏱ Uptime: %muptime
 
-🌳 Fecha: %fecha
-🌸 Hora: %hora
-🌱 País: %pais
+🌺 Fecha: %hora, %fecha
 
 %readmore`.trim(),
 
-  header: `❦ %category ♧\n━━━━━━━━━━━━━━━━━`,
-  body: `> 🧊 %cmd`,
+  header: `🎴 %category 💮\n━━━━━━━━━━━━━━━━━`,
+  body: `> 🌸 %cmd`,
   footer: `━━━━━━━━━━━━━━━━━`,
-  after: `\n🌙 〘 2025-26 XD © ${botname} ❄️〙`
+  after: `\n💮 〘 2025-26 © ${botname} 🌙 〙`
 }
 
 let handler = async (m, { conn, usedPrefix }) => {
@@ -51,7 +49,6 @@ let handler = async (m, { conn, usedPrefix }) => {
     let opciones = { timeZone: 'America/Lima', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
     let fechaFormat = fecha.toLocaleDateString('es-PE', opciones)
     let hora = fecha.toLocaleTimeString('es-PE', { timeZone: 'America/Lima' })
-    let pais = '🇵🇪 Perú'
 
     let help = Object.values(global.plugins).filter(p => !p.disabled).map(plugin => ({
       help: Array.isArray(plugin.help) ? plugin.help : [plugin.help],
@@ -82,24 +79,23 @@ let handler = async (m, { conn, usedPrefix }) => {
       .replace(/%muptime/g, muptime)
       .replace(/%fecha/g, fechaFormat)
       .replace(/%hora/g, hora)
-      .replace(/%pais/g, pais)
       .replace(/%readmore/g, readMore)
 
     await conn.sendMessage(m.chat, { 
       document: fs.readFileSync("./package.json"),
-      fileName: `「 🦌 𝐌𝐄𝐍𝐔 𝐋𝐎𝐆𝐎𝐒 ❄️ 」`,
+      fileName: `「 🎴 𝐌𝐄𝐍𝐔 𝐃𝐄 𝐖𝐀𝐈𝐅𝐔𝐒 💮 」`,
       mimetype: 'application/vnd.ms-excel',
       caption: text.trim(),
       contextInfo: {
-      isForwarded: true,
-         forwardedNewsletterMessageInfo: {
-           newsletterJid: channelRD.id,
-           serverMessageId: '',
-           newsletterName: channelRD.name
-         },
+        isForwarded: true,
+        forwardedNewsletterMessageInfo: {
+          newsletterJid: channelRD.id,
+          serverMessageId: '',
+          newsletterName: channelRD.name
+        },
         externalAdReply: { 
-          title: `『 🎄 𝐊𝐀𝐍𝐄𝐊𝐈 .𝐒𝐂𝐘𝐓𝐇𝐄 🩸 』`,
-          body: `🎍 𝘓𝘰𝘴 𝘭𝘰𝘨𝘰𝘴 𝘥𝘦𝘮𝘰𝘯𝘪𝘢𝘤𝘰𝘴 𝘦𝘴𝘵𝘢𝘯 𝘭𝘪𝘴𝘵𝘰𝘴 𝑥𝐷...`,
+          title: `『 💮 𝐆𝐀𝐂𝐇𝐀 .𝐖𝐀𝐈𝐅𝐔𝐒 ❄️ 』`,
+          body: `🌸 𝘓𝘢𝘴 𝘸𝘢𝘪𝘧𝘶𝘴 𝘭𝘭𝘦𝘨𝘢𝘯 𝘢 𝘴𝘶 𝘭𝘭𝘢𝘮𝘢𝘥𝘰... 💘`,
           thumbnailUrl: icono2,
           sourceUrl: redes,
           mediaType: 1,
@@ -108,14 +104,14 @@ let handler = async (m, { conn, usedPrefix }) => {
       }
     }, { quoted: fkontak })
 
-    m.react('❄️')
+    m.react('💮')
 
   } catch {
-    m.reply('🌿 ᴇʀʀᴏʀ ᴀʟ ᴇɴᴠɪᴀʀ ᴇʟ ᴍᴇɴᴜ xᴅ.')
+    m.reply('💔 ᴇʀʀᴏʀ ᴀʟ ᴇɴᴠɪᴀʀ ᴇʟ ᴍᴇɴᴜ ɢᴀᴄʜᴀ.')
   }
 }
 
-handler.command = ['menulogos', 'menu logos', 'logosmenu']
+handler.command = ['menugacha', 'menu gacha', 'gachamenu', 'menug']
 handler.register = true
 export default handler
 
