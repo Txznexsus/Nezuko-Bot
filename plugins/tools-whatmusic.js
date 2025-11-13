@@ -132,7 +132,6 @@ export default handler*/
 // - codigo actualizado x ShadowCore 🎋
 // - https://github.com/Yuji-XDev
 // - https://whatsapp.com/channel/0029VbAtbPA84OmJSLiHis2U
-// - usa el nuevo acrcloud_sdk_nodejs (2025)
 
 import ACRCloud from 'acrcloud_sdk_nodejs'
 import ytsearch from 'yt-search'
