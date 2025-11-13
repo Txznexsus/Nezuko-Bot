@@ -119,7 +119,7 @@ const handler = async (m, { conn, text, command }) => {
 
   } catch (err) {
     console.error(err)
-    return conn.reply(m.chat, `⚠ Ocurrió un error:\n${err}`, m)
+    return conn.reply(m.chat, `⚠ Ocurrió un error:\n${err}`, m, rch)
   }
 }
 
