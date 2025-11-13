@@ -1,9 +1,3 @@
-Código para enviar reacciones 👻
-Saca la key en 
-https://asitha.top
-
-
-
 case 'react':
 case 'reaccionar':
 case 'channelreact': {
