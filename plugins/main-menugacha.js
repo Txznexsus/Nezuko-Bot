@@ -2,7 +2,7 @@ import fs from 'fs'
 import { xpRange } from '../lib/levelling.js'
 
 let tags = {
-  'gacha': '`🍎 ᴍᴇɴᴜ ʟᴏɢᴏᴛɪᴘᴏs ☃️`',
+  'gacha': '`🌿 MENU GACHA 🎄`',
 }
 
 function toFancyText(text) {
