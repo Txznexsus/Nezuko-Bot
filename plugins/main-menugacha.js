@@ -19,14 +19,14 @@ const menuStyle = {
 │ 𝙈𝙀𝙉𝙐 • 𝙂𝘼𝘾𝙃𝘼 💘
 ╰─╼|━━━━━━━━⬣
 
-🌸 Usuario: %name
-💫 Nivel: %level
-✨ Exp: %exp / %maxexp
-🌙 Modo: %mode
-🍃 Usuarios Totales: %totalreg
-⏱ Uptime: %muptime
+🌸 \`Usuario:\` \`\`\`%name\`\`\`
+💫 \`Nivel:\` \`\`\`%level\`\`\`
+✨ \`Exp:\` \`\`\`%exp / %maxexp\`\`\`
+🌙 \`Modo:\` \`\`\`%mode\`\`\`
+🍃 \`Usuarios:\` \`\`\`Totales: %totalreg\`\`\`
+⏱ \`Uptime:\` \`\`\`%muptime\`\`\`
 
-☕ Fecha: %hora, %fecha
+☕ \`Fecha:\` \`\`\`%hora, %fecha\`\`\`
 
 %readmore`.trim(),
 
