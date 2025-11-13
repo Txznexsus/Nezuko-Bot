@@ -9,7 +9,7 @@ try {
 await m.react('🕒')
 const file = File.fromURL(text)
 await file.loadAttributes()
-let maxSize = 300 * 1024 * 1024;
+let maxSize = 500 * 1024 * 1024;
 if (file.size >= maxSize) {
 return conn.reply(m.chat, `ꕥ El archivo es demasiado pesado (Peso máximo: 300MB).`, m)
 }

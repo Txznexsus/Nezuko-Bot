@@ -2,7 +2,7 @@ import fs from 'fs'
 import { xpRange } from '../lib/levelling.js'
 
 let tags = {
-  'gacha': '`🎴 ᴍᴇɴᴜ ᴡᴀɪꜰᴜꜱ 💮`',
+  'gacha': '`𝐌𝐄𝐍𝐔 • 𝐆𝐀𝐂𝐇𝐀`',
 }
 
 function toFancyText(text) {
@@ -15,8 +15,8 @@ function toFancyText(text) {
 }
 
 const menuStyle = {
-  before: `╭─╼| 💮 𝐊𝐀𝐍𝐄𝐊𝐈 .𝐒𝐂𝐘𝐓𝐇𝐄 🎴
-│ 𝙈𝙀𝙉𝙐 𝘿𝙀 𝙒𝘼𝙄𝙁𝙐𝙎 💘
+  before: `╭─╼| 🌳 𝐊𝐀𝐍𝐄𝐊 𝐀𝐈 𝐁🌿
+│ 𝙈𝙀𝙉𝙐 • 𝙂𝘼𝘾𝙃𝘼 💘
 ╰─╼|━━━━━━━━⬣
 
 🌸 Usuario: %name
@@ -26,12 +26,12 @@ const menuStyle = {
 🍃 Usuarios Totales: %totalreg
 ⏱ Uptime: %muptime
 
-🌺 Fecha: %hora, %fecha
+☕ Fecha: %hora, %fecha
 
 %readmore`.trim(),
 
   header: `🎴 %category 💮\n━━━━━━━━━━━━━━━━━`,
-  body: `> 🌸 %cmd`,
+  body: `> 🌴 %cmd`,
   footer: `━━━━━━━━━━━━━━━━━`,
   after: `\n${dev}`
 }
@@ -83,7 +83,7 @@ let handler = async (m, { conn, usedPrefix }) => {
 
     await conn.sendMessage(m.chat, { 
       document: fs.readFileSync("./package.json"),
-      fileName: `「 🎴 𝐌𝐄𝐍𝐔 𝐃𝐄 𝐖𝐀𝐈𝐅𝐔𝐒 💮 」`,
+      fileName: `「 🎅 𝐌𝐄𝐍𝐔 𝐃𝐄 𝐖𝐀𝐈𝐅𝐔𝐒 🎄 」`,
       mimetype: 'application/vnd.ms-excel',
       caption: text.trim(),
       contextInfo: {
@@ -94,8 +94,8 @@ let handler = async (m, { conn, usedPrefix }) => {
           newsletterName: channelRD.name
         },
         externalAdReply: { 
-          title: `『 💮 𝐆𝐀𝐂𝐇𝐀 .𝐖𝐀𝐈𝐅𝐔𝐒 ❄️ 』`,
-          body: `🌸 𝘓𝘢𝘴 𝘸𝘢𝘪𝘧𝘶𝘴 𝘭𝘭𝘦𝘨𝘢𝘯 𝘢 𝘴𝘶 𝘭𝘭𝘢𝘮𝘢𝘥𝘰... 💘`,
+          title: `『 🌴 𝐆𝐀𝐂𝐇𝐀 .𝐖𝐀𝐈𝐅𝐔𝐒 ❄️ 』`,
+          body: `🌸 𝘓𝘢𝘴 𝘸𝘢𝘪𝘧𝘶𝘴 𝘭𝘭𝘦𝘨𝘢𝘯 𝘢 𝘴𝘶 𝘭𝘭𝘢𝘮𝘢𝘥𝘰... :D 💘`,
           thumbnailUrl: icono2,
           sourceUrl: redes,
           mediaType: 1,
@@ -104,7 +104,7 @@ let handler = async (m, { conn, usedPrefix }) => {
       }
     }, { quoted: fkontak })
 
-    m.react('💮')
+    m.react('🎍')
 
   } catch {
     m.reply('💔 ᴇʀʀᴏʀ ᴀʟ ᴇɴᴠɪᴀʀ ᴇʟ ᴍᴇɴᴜ ɢᴀᴄʜᴀ.')
