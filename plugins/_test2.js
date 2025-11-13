@@ -8,9 +8,10 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   await m.react('⏳');
 
   try {
-    const parts = text.split(' ');
-    const postLink = parts[0];
-    const reacts = parts.slice(1).join(' ');
+    // Igual que el case: dividimos a mano el texto completo
+    const parts = text.trim().split(' ');
+    const postLink = parts.shift();
+    const reacts = parts.join(' ');
 
     if (!postLink || !reacts) {
       return m.reply(`⚠️ Formato incorrecto.\n\nUso: ${usedPrefix + command} <link> <emoji1,emoji2,emoji3,emoji4>`);
@@ -51,7 +52,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       await m.reply(`✅ ${result.message || 'Reacciones enviadas con éxito'}\n\n👾 ${emojiArray.join(' ')}`);
     } else {
       await m.react('❌');
-      await m.reply(`❌ Error al enviar las reacciones\n\n${result?.error || ''}`);
+      await m.reply(`❌ Error al enviar las reacciones`);
     }
 
   } catch (error) {
@@ -63,6 +64,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 handler.help = ['react', 'reaccionar', 'channelreact'];
 handler.tags = ['tools'];
-handler.command = /^(react|reaccionar|channelreact|rch)$/i;
+handler.command = /^(react|reaccionar|channelreact)$/i;
 
 export default handler;
