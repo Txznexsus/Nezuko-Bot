@@ -106,7 +106,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     const msg = typeof e === 'string'
       ? e
       : `🎄 Ocurrió un error inesperado.\n> Usa *${usedPrefix}report* para informarlo.\n\n${e?.message || JSON.stringify(e)}`;
-    return conn.reply(m.chat, msg, m, rch);
+    return conn.reply(m.chat, msg, m, fake);
   }
 };
 
