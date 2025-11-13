@@ -110,7 +110,8 @@ let handler = async (m, { conn, usedPrefix }) => {
     m.reply('💔 ᴇʀʀᴏʀ ᴀʟ ᴇɴᴠɪᴀʀ ᴇʟ ᴍᴇɴᴜ ɢᴀᴄʜᴀ.')
   }
 }
-
+handler.help = ['menugacha'];
+handler.tags = ['menusxd'];
 handler.command = ['menugacha', 'menu gacha', 'gachamenu', 'menug']
 handler.register = true
 export default handler
