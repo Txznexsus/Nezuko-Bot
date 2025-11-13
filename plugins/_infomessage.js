@@ -75,7 +75,7 @@ rcanal.contextInfo.mentionedJid = [usuario, ...groupAdmins.map(v => v.id)]
 await this.sendMessage(m.chat, { text: nombre, ...rcanal }, { quoted: shadow_xyz })
 } if (chat.detect && m.messageStubType == 22) {
 rcanal.contextInfo.mentionedJid = [usuario, ...groupAdmins.map(v => v.id)]
-await this.sendMessage(m.chat, { image: { url: pp }, caption: foto, ...rcanal }, { quoted: shadow_xyzl })
+await this.sendMessage(m.chat, { image: { url: pp }, caption: foto, ...rcanal }, { quoted: shadow_xyz })
 } if (chat.detect && m.messageStubType == 23) {
 rcanal.contextInfo.mentionedJid = [usuario, ...groupAdmins.map(v => v.id)]
 await this.sendMessage(m.chat, { text: newlink, ...rcanal }, { quoted: shadow_xyz })
