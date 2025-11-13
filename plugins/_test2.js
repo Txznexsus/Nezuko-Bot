@@ -63,6 +63,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
 handler.help = ['react', 'reaccionar', 'channelreact'];
 handler.tags = ['tools'];
-handler.command = ['eact', 'reaccionar', 'hannelreact'];
+handler.command = ['react', 'reaccionar', 'channelreact', 'rch'];
 
 export default handler;
