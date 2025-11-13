@@ -133,7 +133,7 @@ global.rcanalw = {
       previewType: "PHOTO",
       thumbnailUrl: icono,
       mediaType: 1,
-      renderLargerThumbnail: true
+      renderLargerThumbnail: false
     },
   },
 }
@@ -148,7 +148,7 @@ global.rch = {
       sourceUrl: 'https://chat.whatsapp.com/BU22fjRehH1CUSsGEYMRXN?mode=wwt',
       thumbnailUrl: icono,
       mediaType: 1,
-      renderLargerThumbnail: false
+      renderLargerThumbnail: true
     },
   },
 }
