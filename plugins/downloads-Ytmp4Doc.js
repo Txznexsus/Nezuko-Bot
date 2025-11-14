@@ -155,15 +155,16 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     let { result } = info
 
     let caption = `
-┌── 「 🎬 𝚈𝙾𝚄𝚃𝚄𝙱𝙴 𝙼𝙿4 𝙳𝙾𝙲 」──
-│ ° 🌿 *Título:* ${result.title}
-│ ° ⏱️ *Duración:* ${vid.duration}
-│ ° 👤 *Canal:* ${vid.author?.name || "Desconocido"}
-│ ° 💾 *Calidad:* ${result.quality}P
-│ ° 🔗 *Link:* ${vid.url}
-└───────────────────
+┌── 「 🌲 YOUTUBE MP4 DOC 」──┐
+│ 🌿 *Título:* ${result.title}
+│ 🍂 *Duración:* ${vid.duration}
+│ 🪶 *Canal:* ${vid.author?.name || "Desconocido"}
+│ 🌤️ *Calidad:* ${result.quality}P
+│ 🌱 *Link:* ${vid.url}
+└──────────────────────────┘
 
-> ☁️ ᴋᴀɴᴇᴋɪ ʙᴏᴛ ɪᴀ | 𝙿𝙾𝚆𝙴𝚁𝙴𝙳 𝙱𝚈 𝚂𝙷𝙰𝙳𝙾𝚆-𝚇𝚈𝚉`.trim()
+🪺💚 *Proceso completado.*
+> KanekiBot IA — shadow.xyz``.trim()
 
     let thumb = null
     try {
