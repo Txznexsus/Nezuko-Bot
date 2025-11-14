@@ -1,23 +1,26 @@
-//▪CÓDIGO BY DEVBRAYAN PRROS XD▪
-//▪ROXY BOT MD▪
-
+import fetch from 'node-fetch'
 import { writeFile, unlink, readFile } from 'fs/promises'
 import { join } from 'path'
 import { fileTypeFromBuffer } from 'file-type'
+import baileys from '@whiskeysockets/baileys'
+
+const { generateWAMessageFromContent, generateWAMessageContent, proto } = baileys
 
 let handler = async (m, { conn }) => {
-  await conn.sendMessage(m.chat, { react: { text: '☁️', key: m.key } })
-
   try {
+    await conn.sendMessage(m.chat, { text: '⛅ *Subiendo archivo... espera uwu*', quoted: m })
+    await m.react('🌫️')
+
     const q = m.quoted ? m.quoted : m
     const mime = (q.msg || q).mimetype || ''
     if (!mime) return m.reply('🌧️ *Responde a un archivo o media para subirlo.*')
 
     const media = await q.download()
-    if (!media) return m.reply('⛅ *Error al descargar el archivo.*')
+    if (!media) return m.reply('⛈️ *Error al descargar el archivo.*')
 
     const uploads = []
 
+    // Servidores.  👻
     const up1 = await uploaderCloudStack(media).catch(() => null)
     if (up1) uploads.push({ name: '☁️ CloudStack', url: up1 })
 
@@ -27,33 +30,74 @@ let handler = async (m, { conn }) => {
     const up3 = await uploaderCloudCom(media).catch(() => null)
     if (up3) uploads.push({ name: '🌐 CloudImages', url: up3 })
 
-    if (uploads.length === 0) throw '⛈️ *No se pudo subir a ningún servidor. Intenta de nuevo más tarde.*'
+    const catbox = await uploadCatbox(media).catch(() => null)
+    if (catbox) uploads.push({ name: '📦 Catbox', url: catbox })
 
-    let texto = `☁️ *Resultado de la Subida*\n*━━━━━━━━━━━━━━━━━━━━*\n\n`
-    for (const up of uploads) {
-      texto += `*${up.name}*\n🔗 ${up.url}\n\n`
-    }
+    const zeroSt = await upload0x0(media).catch(() => null)
+    if (zeroSt) uploads.push({ name: '⚡ 0x0.st', url: zeroSt })
 
-    await conn.sendMessage(m.chat, {
-      text: texto.trim(),
-      contextInfo: {
-        externalAdReply: {
-          title: 'Uploader Tools ☁️',
-          body: 'Enlaces generados desde servidores externos',
-          thumbnailUrl: uploads[0]?.url,
-          mediaType: 1,
-          renderLargerThumbnail: true
+    const fileio = await uploadFileIO(media).catch(() => null)
+    if (fileio) uploads.push({ name: '📁 File.io', url: fileio })
+
+    const tmpfiles = await uploadTmpFiles(media).catch(() => null)
+    if (tmpfiles) uploads.push({ name: '🕓 TmpFiles', url: tmpfiles })
+
+    const imgbb = await uploadImgBB(media).catch(() => null)
+    if (imgbb) uploads.push({ name: '🖼️ ImgBB', url: imgbb })
+
+    if (uploads.length === 0)
+      return m.reply('⛈️ *No se pudo subir a ningún servidor.*')
+
+    let info = `☁️ *Resultado de Subida*\n━━━━━━━━━━━━━━━━━━━\n\n`
+    uploads.forEach(s => {
+      info += `*${s.name}*\n🔗 ${s.url}\n\n`
+    })
+
+    const thumb = uploads[0].url
+
+    const { imageMessage } = await generateWAMessageContent(
+      { image: { url: thumb } },
+      { upload: conn.waUploadToServer }
+    )
+
+    const buttons = [
+      {
+        name: 'cta_copy',
+        buttonParamsJson: JSON.stringify({
+          display_text: "📋 Copiar URL Principal",
+          copy_code: uploads[0].url
+        })
+      }
+    ]
+
+    const msg = generateWAMessageFromContent(m.chat, {
+      viewOnceMessage: {
+        message: {
+          interactiveMessage: proto.Message.InteractiveMessage.fromObject({
+            header: proto.Message.InteractiveMessage.Header.fromObject({
+              hasMediaAttachment: true,
+              imageMessage
+            }),
+            body: proto.Message.InteractiveMessage.Body.fromObject({
+              text: info
+            }),
+            nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
+              buttons
+            })
+          })
         }
       }
     }, { quoted: m })
 
+    await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
+    await m.react('✅')
+
   } catch (e) {
+    console.error(e)
     await conn.sendMessage(m.chat, {
-      text: typeof e === 'string' ? e : '⛈️ *Ocurrió un error inesperado durante la subida.*',
+      text: '⛈️ *Ocurrió un error inesperado.*',
       quoted: m
     })
-  } finally {
-    await conn.sendMessage(m.chat, { react: { text: '', key: m.key } })
   }
 }
 
@@ -65,10 +109,10 @@ handler.register = true
 
 export default handler
 
-// Función genérica para subir el buffer a un servidor
+
 async function uploadTo(url, buffer) {
   const { ext, mime } = await fileTypeFromBuffer(buffer) || {}
-  if (!ext || !mime) throw new Error('Formato de archivo no reconocido.')
+  if (!ext || !mime) throw new Error('Formato no reconocido.')
 
   const tempPath = join('./tmp', `upload.${ext}`)
   await writeFile(tempPath, buffer)
@@ -82,21 +126,66 @@ async function uploadTo(url, buffer) {
     const json = await res.json()
     await unlink(tempPath).catch(() => null)
 
-    if (json?.status !== 'success' || !json?.data?.url) throw new Error('Error al subir el archivo.')
+    if (!json?.data?.url) throw new Error()
     return json.data.url
-  } catch (err) {
-    console.error(`Error subiendo a (${url}):`, err)
+
+  } catch {
     await unlink(tempPath).catch(() => null)
     return null
   }
 }
 
-// URLs de los servicios de subida
-const uploaderCloudStack = buffer =>
-  uploadTo('https://phpstack-1487948-5667813.cloudwaysapps.com/upload.php', buffer)
+const uploaderCloudStack = b => uploadTo('https://phpstack-1487948-5667813.cloudwaysapps.com/upload.php', b)
+const uploaderCloudGuru = b => uploadTo('https://cloudkuimages.guru/upload.php', b)
+const uploaderCloudCom = b => uploadTo('https://cloudkuimages.com/upload.php', b)
 
-const uploaderCloudGuru = buffer =>
-  uploadTo('https://cloudkuimages.guru/upload.php', buffer)
 
-const uploaderCloudCom = buffer =>
-  uploadTo('https://cloudkuimages.com/upload.php', buffer)
+async function uploadCatbox(buffer) {
+  const form = new FormData()
+  form.append('reqtype', 'fileupload')
+  form.append('fileToUpload', new Blob([buffer]))
+
+  const res = await fetch('https://catbox.moe/user/api.php', { method: 'POST', body: form })
+  const url = await res.text()
+  return url.startsWith('http') ? url : null
+}
+
+async function upload0x0(buffer) {
+  const form = new FormData()
+  form.append('file', new Blob([buffer]))
+  const r = await fetch('https://0x0.st', { method: 'POST', body: form })
+  const tx = await r.text()
+  return tx.includes('http') ? tx.trim() : null
+}
+
+async function uploadFileIO(buffer) {
+  const form = new FormData()
+  form.append('file', new Blob([buffer]))
+  const r = await fetch('https://file.io', { method: 'POST', body: form })
+  const j = await r.json()
+  return j?.link || null
+}
+
+async function uploadTmpFiles(buffer) {
+  const form = new FormData()
+  form.append('file', new Blob([buffer]))
+  const r = await fetch('https://tmpfiles.org/api/v1/upload', { method: 'POST', body: form })
+  const j = await r.json()
+  return j?.data?.url || null
+}
+
+/
+const imgbbKey = 'YOUR_KEY'
+async function uploadImgBB(buffer) {
+  if (!imgbbKey) return null
+
+  const base64 = buffer.toString('base64')
+  const form = new FormData()
+  form.append('key', imgbbKey)
+  form.append('image', base64)
+
+  const r = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: form })
+  const j = await r.json()
+
+  return j?.data?.url || null
+}
