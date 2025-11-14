@@ -175,7 +175,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       console.log("Error al procesar miniatura:", err)
     }
 
-    const Shadow_url = await (await fetch("https://files.catbox.moe/qm569c.jpg")).buffer()
+    const Shadow_url = await (await fetch("https://files.catbox.moe/rp83mc.jpg")).buffer()
     const fkontak = {
       key: {
         fromMe: false,
