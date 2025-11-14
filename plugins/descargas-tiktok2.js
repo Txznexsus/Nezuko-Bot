@@ -69,5 +69,6 @@ let handler = async (m, { conn }) => {
 
 handler.customPrefix = /https?:\/\/(?:www\.|vm\.|vt\.)?tiktok\.com\/[^\s]+/i
 handler.command = new RegExp
+handler.register = true
 handler.limit = true
 export default handler
