@@ -164,7 +164,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 └──────────────────────────┘
 
 🪺💚 *Proceso completado.*
-> KanekiBot IA — shadow.xyz``.trim()
+> KanekiBot IA — shadow.xyz`.trim()
 
     let thumb = null
     try {
