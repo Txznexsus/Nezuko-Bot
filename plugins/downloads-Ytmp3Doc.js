@@ -155,18 +155,15 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
     let { result } = info
 
-    let caption = `
-╭─❖『 *🎧 𝚈𝙾𝚄𝚃𝚄𝙱𝙴 𝙼𝙿𝟹 𝙳𝙾𝙲* 』
-│ ° 🌿 *Título:* ${result.title}
-│ ° ⏱️ *Duración:* ${vid.duration}
-│ ° 🍃 *Canal:* ${vid.author?.name || "Desconocido"}
-│ ° 🍧 *Calidad:* ${result.quality}p
-│ ° 🏔️ *Link:* ${vid.url}
-╰───────────────⬣
+    let caption = `╔══ ❀•°🌴 YT MP3 DOC °•❀ ══╗
+║ 🦥 *Título:* ${result.title}
+║ 🐢 *Tiempo:* ${vid.duration}
+║ 🦔 *Canal:* ${vid.author?.name || "Desconocido"}
+║ 🦎 *Calidad:* ${result.quality}p
+║ 🌿 *Link:* ${vid.url}
+╚═══════════════════════╝
 
-૮₍｡˃ ᵕ ˂ ｡₎ა 🎍 *¡Descarga Completada con exito!*
-
-> ☁️ ᴋᴀɴᴇᴋɪ ʙᴏᴛ ɪᴀ | 𝙿𝙾𝚆𝙴𝚁𝙴𝙳 𝙱𝚈 𝚂𝙷𝙰𝙳𝙾𝚆-𝚇𝚈𝚉`.trim()
+> 🪵 KanekiBot IA — Shadow.xyz`.trim()
 
     let thumb = null
     try {
