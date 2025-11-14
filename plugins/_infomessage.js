@@ -18,7 +18,7 @@ const usuario = await resolveLidToRealJid(m?.sender, conn, m?.chat)
 const groupAdmins = participants.filter(p => p.admin)
 
   const getThumbnail = async () => {
-    const res = await axios.get("https://files.catbox.moe/3labkc.jpg", { responseType: "arraybuffer" })
+    const res = await axios.get("https://files.catbox.moe/t19dtc.jpg", { responseType: "arraybuffer" })
     return Buffer.from(res.data, "binary")
   }
 
@@ -36,7 +36,7 @@ const groupAdmins = participants.filter(p => p.admin)
             mimetype: "image/jpeg",
             jpegThumbnail: thumbnail
           },
-          title: "𐔌 . ⋮ ᗩ ᐯ I Տ O .ᐟ ֹ ₊ ꒱",
+          title: "𐔌 . ⋮ 🪺 ᗩ ᐯ I Տ O 🎄 .ᐟ ֹ ₊ ꒱",
           description: dev,
           currencyCode: "USD",
           priceAmount1000: 5000,
