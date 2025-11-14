@@ -2,13 +2,13 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn }) => {
   try {
-
     let regex = /https?:\/\/(?:www\.|vm\.|vt\.)?tiktok\.com\/[^\s]+/i
     let match = m.text.match(regex)
     if (!match) return
 
     let url = match[0]
     await m.react('⏳')
+
     let api = `https://www.tikwm.com/api/?url=${encodeURIComponent(url)}?hd=1`
     let res = await fetch(api)
     let json = await res.json()
@@ -25,21 +25,29 @@ let handler = async (m, { conn }) => {
       comment_count, share_count, download_count, author, images, create_time
     } = data
 
-    const info = `🍉 *Título:* ${title || 'Sin título'}
-🎋 *ID:* ${id || '-'}
-🌎 *Región:* ${region || '-'}
-👤 *Autor:* ${author?.nickname || '-'} (@${author?.unique_id || '-'})
-🕒 *Duración:* ${duration || '0'}s
-💊 *Publicado:* ${new Date(create_time * 1000).toLocaleString()}`.trim()
-    if (images && images.length > 0) {
+    const info = `╭───🌿 「 𝚃𝗶𝗸𝗧𝗼𝗸 𝙳𝚎𝚝𝚊𝚒𝚕 」🌿───╮
+│ 🪺 *Título:* ${title || 'Sin título'}
+│ 👤 *Autor:* ${author?.nickname || '-'} (@${author?.unique_id || '-'})
+│ 🆔 *ID:* ${id || '-'}
+│ 🌎 *Región:* ${region || '-'}
+│ ⏱️ *Duración:* ${duration || 0}s
+│ 🎵 *Música:* ${music_info?.title || 'Original'}
+│ ❤️ *Likes:* ${digg_count || 0}
+│ 💬 *Comentarios:* ${comment_count || 0}
+│ 🔄 *Compartidos:* ${share_count || 0}
+│ 📥 *Descargas:* ${download_count || 0}
+│ 🗓️ *Publicado:* ${new Date(create_time * 1000).toLocaleString()}
+╰──────────────────────────╯`.trim()
 
+    // Si tiene varias imágenes (slideshow)
+    if (images && images.length > 0) {
       await m.react('🖼️')
       for (let i = 0; i < images.length; i++) {
         await conn.sendMessage(
           m.chat,
           {
             image: { url: images[i] },
-            caption: i === 0 ? info : undefined
+            caption: i === 0 ? info : `📷 Imagen ${i + 1}/${images.length} 🌿`
           },
           { quoted: m }
         )
@@ -69,6 +77,5 @@ let handler = async (m, { conn }) => {
 
 handler.customPrefix = /https?:\/\/(?:www\.|vm\.|vt\.)?tiktok\.com\/[^\s]+/i
 handler.command = new RegExp
-handler.register = true
 handler.limit = true
 export default handler
