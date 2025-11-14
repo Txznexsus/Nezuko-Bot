@@ -15,7 +15,6 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
     ? conn.user.jid
     : m.sender
 
-  const banner = 'https://i.pinimg.com/originals/90/c8/58/90c858c65f0b3b2fca9a226fa369aa2b.png'
   const user = global.db.data.users[m.sender]
   const name2 = await conn.getName(m.sender)
   const pp = await conn.profilePictureUrl(who, 'image').catch(() => banner)
@@ -80,7 +79,7 @@ Ejemplo:
     
     const productMessage = {
       product: {
-        productImage: { url: banner },
+        productImage: { url: 'https://files.catbox.moe/59ddu4.jpg' },
         productId: '9999999999999',
         title: '⛄ 𝐅𝐨𝐫𝐦𝐚𝐭𝐨 𝐈𝐧𝐜𝐨𝐫𝐫𝐞𝐜𝐭𝐨 🌠',
         description: global.textbot,
