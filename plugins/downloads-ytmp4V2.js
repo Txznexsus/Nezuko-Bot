@@ -5,7 +5,7 @@ import yts from "yt-search";
 
 let handler = async (m, { conn, text, args }) => {
   try {
-    if (!text) return conn.reply(m.chat, `🌷 *Por favor, ingresa la URL del vídeo de YouTube.*`, m);
+    if (!text) return conn.reply(m.chat, `🌷 *Por favor, ingresa la URL del vídeo de YouTube.*`, m, fake);
 
     await conn.sendMessage(m.chat, {
       text: `૮₍｡˃ ᵕ ˂ ｡₎ა 🫛 *¡Descargando tu video!*`
