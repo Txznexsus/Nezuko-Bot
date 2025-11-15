@@ -91,17 +91,19 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
     .replace(/{grupo}/g, `*${groupMetadata.subject}*`)
     .replace(/{desc}/g, `${desc}`)
 
-  const caption = `👋 ¡Hola, ${username}!
-Bienvenid@ al grupo *_${groupMetadata.subject}_*
+  const caption = `🌸✨ 𝑯𝒐𝒍𝒂, ${username} ✨🌸
+╰┈► 𝙱𝚒𝚎𝚗𝚟𝚎𝚗𝚒𝚍@ 𝚊𝚕 𝚐𝚛𝚞𝚙𝚘 *${groupMetadata.subject}* 💞
 
-🍃 *_Esperamos que disfrutes tu estadía._*
+🍃 ʟ𝚒𝚗𝚍𝚘 𝚝𝚎𝚗𝚎𝚛𝚝𝚎 𝚙𝚘𝚛 𝚊𝚚𝚞í, 𝚎𝚜𝚙𝚎𝚛𝚊𝚖𝚘𝚜 𝚚𝚞𝚎 𝚍𝚒𝚜𝚏𝚛𝚞𝚝𝚎𝚜 𝚝𝚞 𝚎𝚜𝚝𝚊𝚍í𝚊 💚  
+🍬 𝚂𝚒é𝚗𝚝𝚎𝚝𝚎 𝚌𝚘𝚖𝚘 𝚎𝚗 𝚌𝚊𝚜𝚒𝚝𝚊,? 𝚄𝚠𝚄
 
-🌿 \`𝐈𝐧𝐟𝐨 - 𝐆𝐫𝐨𝐮𝐩:\`
- • ᴍɪᴇᴍʙʀᴏs: ${groupSize}
- • ᴘᴀíꜱ: ${pais}
- • ʜᴏʀᴀ: ${hora}
- • ғᴇᴄʜᴀ: ${fechaTexto}
- • ᴅᴇsᴄʀɪᴘᴄɪᴏɴ: ${mensaje}`
+🌿 *「 𝐈𝐧𝐟𝐨 𝐝𝐞𝐥 𝐆𝐫𝐮𝐩𝐨 」*
+┆👥 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
+┆🌍 ᴘᴀíꜱ: ${pais}
+┆⏰ ʜᴏʀᴀ: ${hora}
+┆📅 ғᴇᴄʜᴀ: ${fechaTexto}
+┆📝 ᴅᴇꜱᴄʀɪᴘᴄɪᴏ́ɴ: ${mensaje}
+╰───────────────✿`
 
   return { pp, caption, username }
 }
@@ -122,15 +124,17 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
     .replace(/{grupo}/g, `*${groupMetadata.subject}*`)
     .replace(/{desc}/g, `*${desc}*`)
 
-  const caption = `💐 ${username}, ha salido del grupo *"_${groupMetadata.subject}_"*
+  const caption = `🌸💫 𝙴𝚕 𝚟𝚒𝚎𝚗𝚝𝚘 𝚌𝚊𝚖𝚋𝚒𝚊...  
+╰┈► ${username} 𝚑𝚊 𝚍𝚎𝚓𝚊𝚍𝚘 𝚎𝚕 𝚐𝚛𝚞𝚙𝚘 *${groupMetadata.subject}* 💐
 
 🌾 ${mensaje}
 
-📉 \`𝐄𝐬𝐭𝐚𝐝𝐨 𝐀𝐜𝐭𝐮𝐚𝐥:\`
- • ᴍɪᴇᴍʙʀᴏs: ${groupSize}
- • ᴘᴀíꜱ: ${pais}
- • ʜᴏʀᴀ: ${hora}
- • ғᴇᴄʜᴀ: ${fechaTexto}`
+📉 *「 𝐄𝐬𝐭𝐚𝐝𝐨 𝐀𝐜𝐭𝐮𝐚𝐥 」*
+┆👥 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}  
+┆🌍 ᴘᴀíꜱ: ${pais}  
+┆⏰ ʜᴏʀᴀ: ${hora}  
+┆📅 ғᴇᴄʜᴀ: ${fechaTexto}  
+╰───────────────✿`
 
   return { pp, caption, username }
 }
