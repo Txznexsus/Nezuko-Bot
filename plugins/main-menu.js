@@ -124,9 +124,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
 
 ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶
 
-\n\n`.trim()
-
-    const cuerpo = infoUser + `*🧃 mᥱᥒᥙ ძіs⍴᥆ᥒіᑲᥣᥱ 🍁*${menuTexto}`.trim()
+*🧃 mᥱᥒᥙ ძіs⍴᥆ᥒіᑲᥣᥱ 🍁`.trim()
 
     const imgs = [
       'https://files.catbox.moe/l4l40l.jpg',
@@ -139,7 +137,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
       /*document: fs.readFileSync('./README.md'),
       fileName: '🍂 ᥒᥱzᥙk᥆-ᑲ᥆𝗍 mძ┆mᥱᥒᥙ 🌾',
       mimetype: 'application/pdf',*/
-      caption: cuerpo,
+      caption: infoUser + menuTexto.trim(),
       fileName: '🌷 ᥒᥱzᥙk᥆-ᑲ᥆𝗍 mძ┆mᥱᥒᥙ 🍃',
       mimetype: 'image/jpeg',
       mentions: [m.sender],
