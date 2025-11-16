@@ -1,7 +1,7 @@
 <h1 align="center">🌙💗 El Peor Bot de todo WhatsApp, UwU</h1>
 
 <p align="center">
-  <img src="https://qu.ax/cnRVT.jpg" width="300">
+  <img src="https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763304536979_365241.jpeg" width="300">
 </p>
 <p align="center">
   <a href="#">
