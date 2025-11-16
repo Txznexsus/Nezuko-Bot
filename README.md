@@ -5,6 +5,22 @@
 </p>
 
 <p align="center">
+  <div style="
+    width: 330px;
+    margin: auto;
+    padding: 15px;
+    border-radius: 20px;
+    border: 3px solid #00ffff;
+    box-shadow: 0 0 20px #00ffff, inset 0 0 10px #00ffff;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    transition: 0.3s;
+  ">
+    <img src="https://i.pinimg.com/originals/8c/6a/47/8c6a475cb255ee54d5decc43634f22b6.png" width="300" style="border-radius: 15px;">
+  </div>
+</p>
+
+<p align="center">
   <a href="#">
     <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=35&duration=3000&pause=800&color=00FFFF&center=true&vCenter=true&width=800&lines=🌿+𝐁𝐢𝐞𝐧𝐯𝐞𝐧𝐢𝐝𝐨+𝐚𝐥+𝐫𝐞𝐩𝐨𝐬𝐢𝐭𝐨𝐫𝐢𝐨+𝐨𝐟𝐢𝐜𝐢𝐚𝐥;💠+𝐊𝐚𝐧𝐞𝐤𝐢+𝐁𝐨𝐭+𝐀𝐈+💀;❄️+𝐃𝐞𝐬𝐚𝐫𝐫𝐨𝐥𝐥𝐚𝐝𝐨+𝐩𝐨𝐫+𝐒𝐡𝐚𝐝𝐨𝐰.𝐱𝐲𝐳+⚡" alt="Kaneki Bot AI Banner"/>
   </a>
@@ -21,6 +37,7 @@
     <img src="https://readme-typing-svg.herokuapp.com?font=Orbitron&size=30&duration=3000&pause=900&color=FFFF00&center=true&vCenter=true&width=800&lines=⚔️+𝐄𝐥+𝐟𝐮𝐭𝐮𝐫𝐨+𝐝𝐞+𝐥𝐨𝐬+𝐛𝐨𝐭𝐬+𝐞𝐬+𝐚𝐡𝐨𝐫𝐚;💫+𝐊𝐚𝐧𝐞𝐤𝐢+𝐁𝐨𝐭+𝐀𝐈+𝐭𝐞+𝐬𝐨𝐫𝐩𝐫𝐞𝐧𝐝𝐞𝐫𝐚́" alt="Kaneki Future Lines"/>
   </a>
 </p>
+
 
 ---
 
