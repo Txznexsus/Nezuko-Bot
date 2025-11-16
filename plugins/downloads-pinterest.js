@@ -166,7 +166,7 @@ async function sendCustomPedido(m, conn, texto) {
 let handler = async (m, { conn, args, rcanal }) => {
   try {
     const text = args.join(' ')
-    if (!text) return sendCustomPedido(m, conn, '*ⓘ* `Por favor, ingresa lo que deseas buscar en Pinterest.`')
+    if (!text) return sendCustomPedido(m, conn, '*🪴* `Por favor, ingresa lo que deseas buscar en Pinterest.`')
 
     const parts = text.split(',')
     const query = parts[0].trim()
@@ -176,7 +176,7 @@ let handler = async (m, { conn, args, rcanal }) => {
     if (!res.length) return sendCustomPedido(m, conn, `⚠️ No se encontraron resultados para "${query}".`)
 
     const medias = res.map(url => ({ type: 'image', data: { url } }))
-    await sendAlbumMessage(conn, m.chat, medias, { caption: `✨ Resultados de Pinterest - "${query}"`, quoted: m })
+    await sendAlbumMessage(conn, m.chat, medias, { caption: `🌿 Resultados de Pinterest - "${query}"`, quoted: m })
 
   } catch (e) {
     return sendCustomPedido(m, conn, `⚠️ Se produjo un error:\n${e.message}`)
