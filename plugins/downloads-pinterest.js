@@ -128,7 +128,7 @@ const searchPinterestAPI = async (query, limit) => {
 
 async function sendCustomPedido(m, conn, texto) {
   try {
-    const img = 'https://raw.githubusercontent.com/El-brayan502/dat4/main/uploads/3e1dfb-1763309355015.jpg'
+    const img = 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763311856541_363781.jpeg'
     const res = await axios.get(img, { responseType: 'arraybuffer' })
     const imgBuffer = Buffer.from(res.data)
 
