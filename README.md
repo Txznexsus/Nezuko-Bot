@@ -105,3 +105,33 @@ cd && cd KanekiBot-V3 && nano settings.js
 </tr>
 </table></div>
 ```
+
+---
+
+<p align="center">
+
+  <!-- BOTÓN WHATSAPP MIX -->
+  <a href="https://whatsapp.com/channel/0029VbC34Nt42DchIWA0q11f">
+    <img src="https://i.imgur.com/8PbW8v1.gif" width="230" alt="Canal WhatsApp" />
+  </a>
+
+  <!-- BOTÓN GITHUB MIX -->
+  <a href="https://github.com/Shadow-nex">
+    <img src="https://i.imgur.com/ivjsT7C.gif" width="230" alt="GitHub Shadow-nex" />
+  </a>
+
+</p>
+
+
+--
+
+<p align="center">
+  <a href="https://whatsapp.com/channel/0029VbC34Nt42DchIWA0q11f">
+    <img src="https://i.imgur.com/pZcbOVc.gif" width="220" alt="WhatsApp Canal" />
+  </a>
+  <a href="https://github.com/Shadow-nex">
+    <img src="https://i.imgur.com/SC4et5A.gif" width="220" alt="GitHub Shadow-nex" />
+  </a>
+</p>
+
+
