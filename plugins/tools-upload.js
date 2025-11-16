@@ -1,4 +1,3 @@
-
 import fetch from 'node-fetch'
 import baileys from '@whiskeysockets/baileys'
 const { generateWAMessageFromContent, generateWAMessageContent, proto } = baileys

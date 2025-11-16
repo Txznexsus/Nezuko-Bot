@@ -18,7 +18,8 @@ const handler = async (m, { conn, text, command }) => {
     const { title, thumbnail, timestamp, views, ago, url, author } = video
     const vistas = formatViews(views)
     const canal = author?.name || 'Desconocido'
-
+    const canalLink = author?.url || 'https://youtube.com'
+    
     const infoMessage = `
 🍃 *Título:* 
 > *${title}*
@@ -36,7 +37,10 @@ const handler = async (m, { conn, text, command }) => {
 > ${ago || 'Desconocido'}
 
 🌱 *Enlace:*
-> ${url}`.trim()
+> ${url}
+
+🎍 *Canal:*
+> ${canalLink}`.trim()
 
     await conn.sendMessage(m.chat, {
       image: { url: thumbnail },

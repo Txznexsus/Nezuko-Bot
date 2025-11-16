@@ -49,16 +49,16 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       }
     };
 
-    const info = `🎄✨ *YOUTUBE - DOWNLOAD* ✨🎄
+    const info = `🎄✨ *\`YOUTUBE - DOWNLOAD\`* ✨🎄
 
-🕸️ *Título:* ${title}
-🎁 *Canal:* ${author.name || '❄️ Desconocido'}
-🔔 *Vistas:* ${vistas}
-⏳ *Duración:* ${timestamp}
-🎇 *Publicado:* ${ago}
-🎅 *Enlace:* ${url}
+🕸️ *𝐓𝐢𝐭𝐮𝐥𝐨:* ${title}
+🎁 *𝐂𝐚𝐧𝐚𝐥:* ${author.name || '❄️ Desconocido'}
+🔔 *𝐕𝐢𝐬𝐭𝐚𝐬:* ${vistas}
+⏳ *𝐃𝐮𝐫𝐚𝐜𝐢𝐨𝐧:* ${timestamp}
+🎇 *𝐏𝐮𝐛𝐥𝐢𝐜𝐚𝐝𝐨:* ${ago}
+🎅 *𝐋𝐢𝐧𝐤:* ${url}
 
-> ౼⋆·˚ ☾︎* ძᥱsᥴᥲrgᥲᥒძ᥆ 𝗍ᥙs mᥲmᥲძᥲs ☃️`;
+> ౼⋆·˚ ☾︎* *ძᥱsᥴᥲrgᥲᥒძ᥆ 𝗍ᥙs mᥲmᥲძᥲs* ☃️`;
 
     const thumb = (await conn.getFile(thumbnail)).data
     await conn.sendMessage(m.chat, { image: thumb, caption: info, ...fake }, { quoted: fkontak2 })
@@ -236,9 +236,9 @@ const savetube = {
 };
 
 function formatViews(views) {
-  if (views === undefined || views === null) return "No disponible";
-  if (views >= 1_000_000_000) return `${(views / 1_000_000_000).toFixed(1)}B`;
-  if (views >= 1_000_000) return `${(views / 1_000_000).toFixed(1)}M`;
-  if (views >= 1_000) return `${(views / 1_000).toFixed(1)}K`;
-  return views.toString();
+  if (views === undefined) return "No disponible"
+  if (views >= 1e9) return `${(views / 1e9).toFixed(1)}B (${views.toLocaleString()})`
+  if (views >= 1e6) return `${(views / 1e6).toFixed(1)}M (${views.toLocaleString()})`
+  if (views >= 1e3) return `${(views / 1e3).toFixed(1)}K (${views.toLocaleString()})`
+  return views.toString()
 }
