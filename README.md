@@ -1,6 +1,14 @@
 <h1 align="center">🌙💗 El Peor Bot de todo WhatsApp, UwU</h1>
 
 <p align="center">
+  <a href="https://whatsapp.com/channel/0029VbC34Nt42DchIWA0q11f">
+    <img src="https://img.shields.io/badge/🎄 Canal WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white&color=0fa958" />
+  </a>
+  <a href="https://github.com/Shadow-nex">
+    <img src="https://img.shields.io/badge/🎅 GitHub-ff0000?style=for-the-badge&logo=github&logoColor=white&color=d10000" />
+  </a>
+</p>
+<p align="center">
   <img src="https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763304536979_365241.jpeg" width="300">
 </p>
 <p align="center">
@@ -105,14 +113,3 @@ cd && cd KanekiBot-V3 && nano settings.js
 </tr>
 </table></div>
 ```
-
----
-
-<p align="center">
-  <a href="https://whatsapp.com/channel/0029VbC34Nt42DchIWA0q11f">
-    <img src="https://img.shields.io/badge/🎄 Canal WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white&color=0fa958" />
-  </a>
-  <a href="https://github.com/Shadow-nex">
-    <img src="https://img.shields.io/badge/🎅 GitHub-ff0000?style=for-the-badge&logo=github&logoColor=white&color=d10000" />
-  </a>
-</p>
