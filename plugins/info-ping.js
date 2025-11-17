@@ -96,29 +96,28 @@ let handler = async (m, { conn, usedPrefix }) => {
   }
 
   const msgPing = `
-🌿✨ *🍄 ESTADO DEL SISTEMA 🍄* ✨🌿
+🌿✨ *🍄 𝙴𝚂𝚃𝙰𝙳𝙾 𝙳𝙴𝙻 𝚂𝚈𝚂𝚃𝙴𝙼𝙰 🍄* ✨🌿
 
-🌱 *Ping Interno:* ${latency} ms
-🌸 *Ping Real:* ${pingReal} ms
-🌻 *Ping de red:* ${pingReal} ms
-🍃 *Uptime:* ${uptimeFormatted}
+🌱 *ᴘɪɴɢ ɪɴᴛᴇʀɴᴏ:* ${latency} ms
+🌸 *ʟᴀᴛᴇɴᴄʏ:* ${pingReal} ms
+🍃 *ᴜᴘᴛɪᴍᴇ:* ${uptimeFormatted}
 
-🌷 *CPU:* ${cpuModel} @ ${cpuSpeed}GHz (${cores} núcleos)
-🌼 *Uso CPU:* ${cpuUsage}%
-🍁 *RAM usada:* ${usedRAM} MB
-🍀 *RAM libre:* ${freeRAM} MB
-🌹 *RAM total:* ${totalRAM} MB
-🌺 *Disco Total:* ${totalDisk}
-🍂 *Disco Usado:* ${usedDisk}
-🌾 *Disco Libre:* ${freeDisk}
+🌷 *ᴄᴘᴜ:* ${cpuModel} @ ${cpuSpeed}GHz (${cores} núcleos)
+🌼 *ᴜsᴏ ᴄᴘᴜ:* ${cpuUsage}%
+🍁 *ʀᴀɴ ᴜsᴀᴅᴀ:* ${usedRAM} MB
+🍀 *ʀᴀᴍ ʟɪʙʀᴇ:* ${freeRAM} MB
+🌹 *ʀᴀɴ ᴛᴏᴛᴀʟ:* ${totalRAM} MB
+🌺 *ᴅɪsᴄᴏ ᴛᴏᴛᴀʟ:* ${totalDisk}
+🍂 *ᴅɪsᴄᴏ ᴜsᴀᴅᴏ:* ${usedDisk}
+🌾 *ᴅɪsᴄᴏ ʟɪʙʀᴇ:* ${freeDisk}
 
-🌸 *Info del Bot:*
-✨ Prefix: ${usedPrefix}
-🌷 Total chats: ${totalChats}
-🌹 Grupos: ${groupChats}
-🌼 Privados: ${privateChats}
-🌺 Registrados: ${registeredUsers}
-🍀 No registrados: ${unregisteredUsers}
+🌸 *🄸🄽🄵🄾 / 🄱🄾🅃:*
+✨ ᴘʀᴇғɪx: ${usedPrefix}
+🌷 ᴛᴏᴛᴀʟ ᴄʜᴀᴛs: ${totalChats}
+🌹 ɢʀᴜᴘᴏs: ${groupChats}
+🌼 ᴘʀɪᴠᴀᴅᴏs: ${privateChats}
+🌺 ʀᴇɢɪsᴛʀᴀᴅᴏs: ${registeredUsers}
+🍀 ɴᴏ ʀᴇɢɪsᴛʀᴀᴅᴏs: ${unregisteredUsers}
 
 \`\`\`${sysInfo.trim()}\`\`\`
 
