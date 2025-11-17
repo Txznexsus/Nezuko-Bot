@@ -112,12 +112,12 @@ let handler = async (m, { conn, usedPrefix }) => {
 🌾 *ᴅɪsᴄᴏ ʟɪʙʀᴇ:* ${freeDisk}
 
 🌸 *🄸🄽🄵🄾 / 🄱🄾🅃:*
-✨ ᴘʀᴇғɪx: ${usedPrefix}
-🌷 ᴛᴏᴛᴀʟ ᴄʜᴀᴛs: ${totalChats}
-🌹 ɢʀᴜᴘᴏs: ${groupChats}
-🌼 ᴘʀɪᴠᴀᴅᴏs: ${privateChats}
-🌺 ʀᴇɢɪsᴛʀᴀᴅᴏs: ${registeredUsers}
-🍀 ɴᴏ ʀᴇɢɪsᴛʀᴀᴅᴏs: ${unregisteredUsers}
+✨ *ᴘʀᴇғɪx:* ${usedPrefix}
+🌷 *ᴛᴏᴛᴀʟ ᴄʜᴀᴛs:* ${totalChats}
+🌹 *ɢʀᴜᴘᴏs:* ${groupChats}
+🌼 *ᴘʀɪᴠᴀᴅᴏs:* ${privateChats}
+🌺 *ʀᴇɢɪsᴛʀᴀᴅᴏs:* ${registeredUsers}
+🍀 *ɴᴏ ʀᴇɢɪsᴛʀᴀᴅᴏs:* ${unregisteredUsers}
 
 \`\`\`${sysInfo.trim()}\`\`\`
 

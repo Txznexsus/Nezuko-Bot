@@ -61,7 +61,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 > ౼⋆·˚ ☾︎* *ძᥱsᥴᥲrgᥲᥒძ᥆ 𝗍ᥙs mᥲmᥲძᥲs* ☃️`;
 
     const thumb = (await conn.getFile(thumbnail)).data
-    await conn.sendMessage(m.chat, { image: thumb, caption: info, ...fake }, { quoted: fkontak2 })
+    await conn.sendMessage(m.chat, { image: thumb, caption: info }, { quoted: fkontak2 })
 
 
     if (['play', 'mp3'].includes(command)) {
