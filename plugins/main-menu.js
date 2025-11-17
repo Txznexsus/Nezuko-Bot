@@ -130,6 +130,7 @@ ${comandos}
  await conn.sendMessage(m.chat, {
       image: { url: imageUrl },
       caption: infoUser + menuTexto.trim(),
+      ...fake
  }, { quoted: m })
  
   } catch (e) {
