@@ -3,15 +3,12 @@ import moment from 'moment-timezone'
 import fetch from 'node-fetch'
 import { generateWAMessageFromContent } from '@whiskeysockets/baileys'
 
-async function sendOrderMsg(m, conn, texto) {
+async function sendOrderMsg(m, conn, texto, imgBuffer) {
   try {
-    const img = 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg'
-    const res = await fetch(img)
-    const buffer = await res.buffer()
 
     const order = {
       orderId: 'FAKE-' + Date.now(),
-      thumbnail: buffer,
+      thumbnail: imgBuffer, 
       itemCount: 1,
       status: 1,
       surface: 1,
@@ -25,14 +22,19 @@ async function sendOrderMsg(m, conn, texto) {
         externalAdReply: {
           title: botname,
           body: '',
-          thumbnailUrl: img,
+          thumbnail: imgBuffer,
           mediaType: 1,
           renderLargerThumbnail: true
         }
       }
     }
 
-    const msg = generateWAMessageFromContent(m.chat, { orderMessage: order }, { quoted: m })
+    const msg = generateWAMessageFromContent(
+      m.chat,
+      { orderMessage: order },
+      { quoted: m }
+    )
+
     await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
 
   } catch (err) {
@@ -41,6 +43,30 @@ async function sendOrderMsg(m, conn, texto) {
   }
 }
 
+async function formatTime(ms) {
+  let s = Math.floor(ms / 1000),
+    m = Math.floor(s / 60),
+    h = Math.floor(m / 60),
+    d = Math.floor(h / 24)
+
+  let months = Math.floor(d / 30),
+    weeks = Math.floor((d % 30) / 7)
+  s %= 60; m %= 60; h %= 24; d %= 7
+
+  let t = months
+    ? [`${months} mes${months > 1 ? 'es' : ''}`]
+    : weeks
+      ? [`${weeks} semana${weeks > 1 ? 's' : ''}`]
+      : d
+        ? [`${d} día${d > 1 ? 's' : ''}`]
+        : []
+
+  if (h) t.push(`${h} hora${h > 1 ? 's' : ''}`)
+  if (m) t.push(`${m} minuto${m > 1 ? 's' : ''}`)
+  if (s) t.push(`${s} segundo${s > 1 ? 's' : ''}`)
+
+  return t.length > 1 ? t.slice(0, -1).join(' ') + ' y ' + t.slice(-1) : t[0]
+}
 
 let handler = async (m, { conn, args }) => {
   try {
@@ -111,6 +137,9 @@ let handler = async (m, { conn, args }) => {
     const pp = await conn.profilePictureUrl(userId, 'image')
       .catch(_ => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
 
+    const getPP = await fetch(pp)
+    const imgBuffer = await getPP.buffer()
+
     const text = `
 🌴 PERFIL DE ${name}
 
@@ -142,11 +171,7 @@ ${description}
 ╰──────────────⬣
 `
 
-    await conn.sendMessage(
-      m.chat,
-      { image: { url: pp }, caption: text, mentions: [userId] },
-      { quoted: fkontak }
-    )
+    await sendOrderMsg(m, conn, text, imgBuffer)
 
   } catch (e) {
     console.error(e)
@@ -159,29 +184,3 @@ handler.tags = ['rg']
 handler.command = ['profile', 'perfil', 'perfíl']
 handler.group = true
 export default handler
-
-handler.help
-async function formatTime(ms) {
-  let s = Math.floor(ms / 1000),
-    m = Math.floor(s / 60),
-    h = Math.floor(m / 60),
-    d = Math.floor(h / 24)
-
-  let months = Math.floor(d / 30),
-    weeks = Math.floor((d % 30) / 7)
-  s %= 60; m %= 60; h %= 24; d %= 7
-
-  let t = months
-    ? [`${months} mes${months > 1 ? 'es' : ''}`]
-    : weeks
-      ? [`${weeks} semana${weeks > 1 ? 's' : ''}`]
-      : d
-        ? [`${d} día${d > 1 ? 's' : ''}`]
-        : []
-
-  if (h) t.push(`${h} hora${h > 1 ? 's' : ''}`)
-  if (m) t.push(`${m} minuto${m > 1 ? 's' : ''}`)
-  if (s) t.push(`${s} segundo${s > 1 ? 's' : ''}`)
-
-  return t.length > 1 ? t.slice(0, -1).join(' ') + ' y ' + t.slice(-1) : t[0]
-}
