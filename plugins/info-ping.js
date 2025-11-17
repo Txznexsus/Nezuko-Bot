@@ -2,85 +2,104 @@ import speed from 'performance-now'
 import { execSync } from 'child_process'
 import os from 'os'
 import fetch from 'node-fetch'
+import { generateWAMessageFromContent } from '@whiskeysockets/baileys'
+
+async function sendOrderPing(m, conn, texto, thumb) {
+  const order = {
+    orderId: 'PING-' + Date.now(),
+    thumbnail: thumb,
+    itemCount: 1,
+    status: 1,
+    surface: 1,
+    message: texto,
+    orderTitle: 'Estado del Sistema',
+    token: null,
+    sellerJid: null,
+    totalAmount1000: '0',
+    totalCurrencyCode: 'PEN',
+    contextInfo: {
+      externalAdReply: {
+        title: '˚ ᕱ⑅ᕱ ♡ ‧₊˚ ✩👑 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐕3 💫',
+        body: '',
+        thumbnail: thumb,
+        mediaType: 1,
+        renderLargerThumbnail: true
+      }
+    }
+  }
+
+  const msg = generateWAMessageFromContent(
+    m.chat,
+    { orderMessage: order },
+    { quoted: m }
+  )
+
+  await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
+}
 
 let handler = async (m, { conn, usedPrefix }) => {
   await m.react('🍄').catch(() => {})
-  await conn.sendMessage(m.chat, { text: '*🌳 Calculando ping y recursos...*' }, { quoted: m })
+  const start = performance.now()
+  await fetch('https://google.com').catch(() => {})
+  const pingReal = (performance.now() - start).toFixed(2)
+
   const t0 = speed()
-  await new Promise(r => setImmediate(r))
+  await new Promise(res => setTimeout(res, 40))
   const latency = (speed() - t0).toFixed(2)
 
-  const startPing = Date.now()
-  await new Promise(r => setImmediate(r))
-  const ping = Date.now() - startPing
-
   const uptime = process.uptime()
-  const hours = Math.floor(uptime / 3600)
-  const minutes = Math.floor((uptime % 3600) / 60)
-  const seconds = Math.floor(uptime % 60)
-  const uptimeFormatted = `${hours}h ${minutes}m ${seconds}s`
+  const h = Math.floor(uptime / 3600)
+  const m2 = Math.floor((uptime % 3600) / 60)
+  const s = Math.floor(uptime % 60)
+  const uptimeFormatted = `${h}h ${m2}m ${s}s`
 
+ 
   const usedRAM = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)
   const totalRAM = (os.totalmem() / 1024 / 1024).toFixed(2)
   const freeRAM = (os.freemem() / 1024 / 1024).toFixed(2)
 
   const cores = os.cpus().length
-  const cpu = os.cpus()[0] || { model: 'unknown', speed: 0 }
+  const cpu = os.cpus()[0]
   const cpuModel = cpu.model.split('@')[0].trim()
   const cpuSpeed = (cpu.speed / 1000).toFixed(2)
   const arch = os.arch()
   const platform = os.platform().toUpperCase()
-  const nodeVer = process.version
   const hostname = os.hostname()
-  const loadAvg = os.loadavg().map(n => n.toFixed(2)).join(', ')
   const cpuUsage = (os.loadavg()[0] / Math.max(1, cores) * 100).toFixed(1)
-
-  let netPing = 'N/A'
-  try {
-    const startNet = Date.now()
-    await fetch('https://www.google.com', { method: 'HEAD', timeout: 5000 })
-    netPing = `${Date.now() - startNet} ms`
-  } catch {
-    netPing = 'falló (timeout)'
-  }
 
   let totalDisk = 'N/A', usedDisk = 'N/A', freeDisk = 'N/A'
   try {
-    const dfRaw = execSync('df -h /').toString()
-    const lines = dfRaw.split('\n').filter(Boolean)
-    if (lines.length >= 2) {
-      const parts = lines[1].trim().split(/\s+/)
-      totalDisk = parts[1]
-      usedDisk = parts[2]
-      freeDisk = parts[3]
-    }
+    const df = execSync('df -h /').toString().split('\n')[1].trim().split(/\s+/)
+    totalDisk = df[1]
+    usedDisk = df[2]
+    freeDisk = df[3]
   } catch {}
 
-  let thumb = null
+  let thumb
   try {
-    const r = await fetch('https://files.catbox.moe/ge2vz7.jpg')
-    thumb = Buffer.from(await r.arrayBuffer())
+    const img = await fetch('https://files.catbox.moe/ge2vz7.jpg')
+    thumb = Buffer.from(await img.arrayBuffer())
   } catch {}
 
   const totalChats = Object.keys(conn.chats).length
-  const groupChats = Object.values(conn.chats).filter(c => c.isGroup).length
+  const groupChats = Object.values(conn.chats).filter(v => v.isGroup).length
   const privateChats = totalChats - groupChats
-  const registeredUsers = Object.values(global.db.data.users || {}).filter(u => u.registered).length
-  const unregisteredUsers = Object.values(global.db.data.users || {}).filter(u => !u.registered).length
+  const registeredUsers = Object.values(global.db.data.users).filter(u => u.registered).length
+  const unregisteredUsers = Object.values(global.db.data.users).filter(u => !u.registered).length
 
   let sysInfo = ''
   try {
-    sysInfo = execSync('neofetch --stdout').toString('utf-8').replace(/Memory:/i, 'RAM:')
+    sysInfo = execSync('neofetch --stdout').toString().replace(/Memory:/i, 'RAM:')
   } catch {
     sysInfo = `Platform: ${platform}\nArch: ${arch}\nHost: ${hostname}`
   }
 
-  const response = `
+  const msgPing = `
 🌿✨ *🍄 ESTADO DEL SISTEMA 🍄* ✨🌿
 
-🌱 *Ping Interno:* ${ping} ms
-🌸 *Latencia medida:* ${latency} ms
-🌻 *Ping de red:* ${netPing}
+🌱 *Ping Interno:* ${latency} ms
+🌸 *Ping Real:* ${pingReal} ms
+🌻 *Ping de red:* ${pingReal} ms
 🍃 *Uptime:* ${uptimeFormatted}
 
 🌷 *CPU:* ${cpuModel} @ ${cpuSpeed}GHz (${cores} núcleos)
@@ -100,37 +119,19 @@ let handler = async (m, { conn, usedPrefix }) => {
 🌺 Registrados: ${registeredUsers}
 🍀 No registrados: ${unregisteredUsers}
 
-🌿 *Sistema:*
-🌱 Plataforma: ${platform} (${arch})
-🍄 Host: ${hostname}
-🍁 NodeJS: ${nodeVer}
-🌸 V8: ${process.versions.v8}
-🌼 OpenSSL: ${process.versions.openssl}
-
-🌷 *Info del Sistema:*
 \`\`\`${sysInfo.trim()}\`\`\`
 
 🌸✨ *Sistema estable y funcionando correctamente!* 🌿🍀
 `
-  const msgOpts = {
-    text: response,
-    mentions: [m.sender],
-    contextInfo: {
-      externalAdReply: {
-        title: '˚ ᕱ⑅ᕱ ♡ ‧₊˚ ✩👑 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐕3 💫',
-        body: '',
-        thumbnail: thumb,
-        mediaType: 1,
-        renderLargerThumbnail: true
-      }
-    }
-  }
 
-  await conn.sendMessage(m.chat, msgOpts, { quoted: fkontak })
+  await sendOrderPing(m, conn, msgPing, thumb)
+
+  await m.react('🚀')
 }
 
-handler.help = ['ping']
-handler.tags = ['info']
 handler.command = ['ping', 'p']
+handler.tags = ['info']
+handler.help = ['ping']
+handler.register = true
 
 export default handler
