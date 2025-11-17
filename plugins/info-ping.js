@@ -31,7 +31,7 @@ async function sendOrderPing(m, conn, texto, thumb) {
   const msg = generateWAMessageFromContent(
     m.chat,
     { orderMessage: order },
-    { quoted: m }
+    { quoted: fkontak }
   )
 
   await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
@@ -39,6 +39,7 @@ async function sendOrderPing(m, conn, texto, thumb) {
 
 let handler = async (m, { conn, usedPrefix }) => {
   await m.react('🍄').catch(() => {})
+  await conn.sendMessage(m.chat, { text: `*🌳 Calculando ping y recursos...*` }, { quoted: m })
   const start = performance.now()
   await fetch('https://google.com').catch(() => {})
   const pingReal = (performance.now() - start).toFixed(2)
@@ -125,7 +126,6 @@ let handler = async (m, { conn, usedPrefix }) => {
 `
 
   await sendOrderPing(m, conn, msgPing, thumb)
-
   await m.react('🚀')
 }
 
