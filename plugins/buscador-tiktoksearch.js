@@ -29,7 +29,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   };
 
   try {
-    m.react("⏳");
+    await m.react("⏳");
+    await conn.reply(m.chat, `🌿 *\`Buscando resultados de titkok*\``, m);
 
     const apiUrl = `https://api.starlights.uk/api/search/tiktok?text=${encodeURIComponent(
       text
