@@ -27,16 +27,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     const userId = m.sender.split('@')[0]
     const phone = PhoneNumber('+' + userId)
     const pais = phone.getRegionCode() || 'Desconocido 🌐'
-    /*
-    const perfil = await conn.profilePictureUrl(conn.user.jid, 'image')
-      .catch(() => 'https://i.pinimg.com/originals/b3/67/d5/b367d513d861de468305c32c6cd22756.jpg')
-
-    const channelRD = { 
-      id: '120363422142340004@newsletter', 
-      name: '𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐀𝐈 : 𝐂𝐡𝐚𝐧𝐧𝐞𝐥 𝐎𝐟𝐢𝐜𝐢𝐚𝐥 ꒰͡•*゜・。 ͡꒱ֽ ׄ< '
-    }*/
-
-
+ 
     let tags = {
       'info': ' ׅ🪹ׁ᷒ᮬ ׅ 𝐈𝐍𝐅𝐎 ❐*̥₊',
       'main': ' ׅ🍥ׁ᷒ᮬ ׅ 𝐌𝐀𝐈𝐍 ❐*̥₊',
@@ -116,12 +107,12 @@ ${comandos}
       text: infoUser + menuTexto.trim(),
        contextInfo: {
          mentionedJid: [m.sender],
-         isForwarded: true,
+         isForwarded: true,/*
          forwardedNewsletterMessageInfo: {
            newsletterJid: channelRD.id,
            serverMessageId: 100,
            newsletterName: channelRD.name
-         },
+         },*/
          externalAdReply: {
            title: '𝅄⿻ 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐀𝐈 ❐*̥₊\n🎍 ძᥱ᥎: sһᥲძ᥆ᥕ_᥊ᥡz ☕ׄ',
            body: '7w7',
