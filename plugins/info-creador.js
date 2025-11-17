@@ -10,7 +10,7 @@ const handler = async (m, { conn }) => {
   const correo = 'shadowcore.xyz@gmail.com'
   const web = 'https://shadow-xyz.vercel.app/'
   const direccion = 'Tokyo, Japón 🇯🇵'
-  const fotoPerfil = 'https://qu.ax/tAWKZ.jpg'
+  const fotoPerfil = 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763345073781_8605.jpeg'
 
   const vcard = `
 BEGIN:VCARD
