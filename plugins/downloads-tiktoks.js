@@ -2,7 +2,9 @@ import axios from 'axios'
 import Jimp from 'jimp'
 
 const handler = async (m, { conn, text, usedPrefix }) => {
-  if (!text) return conn.reply(m.chat, '🍃 Por favor, ingresa un término de búsqueda o el enlace de TikTok.', m, rcanal)
+
+  if (!text)
+    return conn.reply(m.chat, '🍃 Por favor, ingresa un término de búsqueda o el enlace de TikTok.', m, fake)
 
   const isUrl = /(?:https:?\/{2})?(?:www\.|vm\.|vt\.|t\.)?tiktok\.com\/([^\s&]+)/gi.test(text)
 
@@ -11,13 +13,14 @@ const handler = async (m, { conn, text, usedPrefix }) => {
     if (isUrl) {
 
       const res = await axios.get(`https://www.tikwm.com/api/?url=${encodeURIComponent(text)}?hd=1`)
-      const data = res.data?.data;
+      const data = res.data?.data
 
-      if (!data?.play) 
+      if (!data?.play)
         return conn.reply(m.chat, 'ꕥ Enlace inválido o sin contenido descargable.', m)
 
-      const { 
-        title, duration, author, created_at, type, images, music, play,
+      const {
+        title, duration, author, created_at, type,
+        images, music, play,
         digg_count, download_count, comment_count, share_count, collect_count
       } = data
 
@@ -30,6 +33,7 @@ const handler = async (m, { conn, text, usedPrefix }) => {
         console.log("Error al procesar miniatura:", err)
       }
 
+      // CAPTION
       const caption = `
 🍃 *Título:* \`${title || 'No disponible'}\`
 ✨ *Autor:* ${author?.nickname || author?.unique_id}
@@ -43,7 +47,6 @@ const handler = async (m, { conn, text, usedPrefix }) => {
 🔄 Compartidos: ${share_count}
 📌 Guardados: ${collect_count}
 `
-
       if (type === 'image' && Array.isArray(images)) {
 
         const medias = images.map(url => ({
@@ -59,31 +62,30 @@ const handler = async (m, { conn, text, usedPrefix }) => {
           await conn.sendMessage(m.chat, {
             document: { url: music },
             mimetype: 'audio/mp4',
-            fileName: 'tiktok_audio.mp3'
+            fileName: 'tiktok_audio.mp3',
+            ...(thumb ? { jpegThumbnail: thumb } : {})
           }, { quoted: m })
         }
 
       } else {
 
- 
         await conn.sendMessage(m.chat, {
           video: { url: play },
           caption,
+          ...(thumb ? { jpegThumbnail: thumb } : {})
         }, { quoted: m })
 
- 
         if (music) {
           await conn.sendMessage(m.chat, {
             document: { url: music },
-            ...(thumb ? { jpegThumbnail: thumb } : {})
             mimetype: 'audio/mp4',
-            fileName: 'tiktok_audio.mp3'
+            fileName: 'tiktok_audio.mp3',
+            ...(thumb ? { jpegThumbnail: thumb } : {})
           }, { quoted: m })
         }
       }
+    }
 
-    } 
-    
     else {
 
       const res = await axios({
@@ -99,7 +101,7 @@ const handler = async (m, { conn, text, usedPrefix }) => {
 
       const results = res.data?.data?.videos?.filter(v => v.play) || []
 
-      if (results.length < 2) 
+      if (results.length < 2)
         return conn.reply(m.chat, 'ꕥ Se requieren al menos 2 resultados válidos con contenido.', m)
 
       const medias = results.slice(0, 10).map(v => ({
@@ -116,8 +118,8 @@ const handler = async (m, { conn, text, usedPrefix }) => {
   } catch (e) {
     await m.react('✖️')
     return conn.reply(
-      m.chat, 
-      `⚠︎ Se ha producido un problema.\n> Usa *${usedPrefix}report* para informarlo.\n\n${e.message}`, 
+      m.chat,
+      `⚠︎ Se ha producido un problema.\n> Usa *${usedPrefix}report* para informarlo.\n\n${e.message}`,
       m
     )
   }
