@@ -108,8 +108,8 @@ ${comandos}
 𐔌𐔌 *🎅🎄 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ: 🦌🎇* ꒱꒱`.trim()
 
     const imgs = [
-      'https://i.pinimg.com/originals/b3/67/d5/b367d513d861de468305c32c6cd22756.jpg',
-      'https://i.pinimg.com/originals/90/c8/58/90c858c65f0b3b2fca9a226fa369aa2b.png'
+      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404449889_268409.jpeg',
+      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404456592_385271.jpeg'
     ]
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
 
