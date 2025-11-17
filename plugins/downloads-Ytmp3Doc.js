@@ -163,7 +163,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 ║ 🌿 *Link:* ${vid.url}
 ╚═══════════════════════╝
 
-> 🪵 KanekiBot IA — Shadow.xyz`.trim()
+> 🪵 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 - 𝐕3 • 𝐝𝐯.𝐬𝐡𝐚𝐝𝐨𝐰.𝐱𝐲𝐳`.trim()
 
     let thumb = null
     try {
@@ -175,7 +175,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
        thumb = Buffer.alloc(0)
     }
 
-    const Shadow_url = await (await fetch("https://files.catbox.moe/rp83mc.jpg")).buffer()
+    const Shadow_url = await (await fetch("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763384842220_234152.jpeg")).buffer()
     const fkontak = {
       key: {
         fromMe: false,
@@ -189,7 +189,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
               mimetype: "image/jpeg",
               jpegThumbnail: Shadow_url
             },
-            title: "💾 𝐃𝐄𝐒𝐂𝐀𝐑𝐆𝐀 𝐂𝐎𝐌𝐏𝐋𝐄𝐓𝐀 ⚡",
+            title: "🦌 𝐃𝐄𝐒𝐂𝐀𝐑𝐆𝐀 𝐂𝐎𝐌𝐏𝐋𝐄𝐓𝐀 🎅",
             description: "",
             currencyCode: "USD",
             priceAmount1000: 100000,
