@@ -34,7 +34,6 @@ END:VCARD`.trim();
     vcard
   };
   m.react('🌿');
-  conn.reply(m.chat, `*\`☕ Enviando contacto xd....\`*`, m)
   await conn.sendMessage(m.chat, {
     contacts: {
       displayName: name,
