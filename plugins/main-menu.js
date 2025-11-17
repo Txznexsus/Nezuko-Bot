@@ -102,17 +102,17 @@ ${comandos}
     ]
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
 
-
+/*
     await conn.sendMessage(m.chat, {
       text: infoUser + menuTexto.trim(),
        contextInfo: {
          mentionedJid: [m.sender],
-         isForwarded: true,/*
+         isForwarded: true,
          forwardedNewsletterMessageInfo: {
            newsletterJid: channelRD.id,
            serverMessageId: 100,
            newsletterName: channelRD.name
-         },*/
+         },
          externalAdReply: {
            title: '𝅄⿻ 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐀𝐈 ❐*̥₊\n🎍 ძᥱ᥎: sһᥲძ᥆ᥕ_᥊ᥡz ☕ׄ',
            body: '7w7',
@@ -126,7 +126,13 @@ ${comandos}
          }
        }
    }, { quoted: fkontak })
-
+*/
+ await conn.sendMessage(m.chat, {
+      image: { url: imageUrl },
+      caption: infoUser + menuTexto.trim(),
+      mentions: [who],
+ }, { quoted: fkontak })
+ 
   } catch (e) {
     console.error(e)
     await conn.sendMessage(m.chat, { 
