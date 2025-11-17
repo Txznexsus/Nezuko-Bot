@@ -1,4 +1,5 @@
-/*import fs from 'fs'
+import fs from 'fs'
+import fetch from 'node-fetch'
 
 let handler = async (m, { conn, command }) => {
 try {
@@ -20,6 +21,7 @@ await conn.sendMessage(m.chat, {
   footer: `2025 ${botname}`,
   headerType: 1,
   viewOnce: true,
+
   document: fs.readFileSync("./package.json"),
   fileName: `「 ⚡ 𝐌𝐄𝐍𝐔 𝐊𝐀𝐍𝐄𝐊𝐈 ⚡ 」`,
   mimetype: 'application/vnd.ms-excel',
@@ -29,18 +31,20 @@ await conn.sendMessage(m.chat, {
     { buttonId: '#menu', buttonText: { displayText: ' 𝚅𝙴𝚁 𝙼𝙴𝙽𝚄 🍟' }, type: 1 },
     { buttonId: '#p', buttonText: { displayText: ' 𝚅𝙴𝙻𝙾𝙲𝙸𝙳𝙰𝙳 🚀' }, type: 1 }
   ],
+
   contextInfo: { 
     isForwarded: true,
     mentionedJid: [m.sender],
     externalAdReply: { 
       title: `『 💮 𝐊𝐀𝐍𝐄𝐊𝐈 𝐌𝐄𝐍𝐔 𝟏𝟖 🚀 』`,
       body: `𝘈𝘬𝘢𝘯𝘦 𝘪𝘴 𝘸𝘢𝘵𝘤𝘩𝘪𝘯𝘨 𝘺𝘰𝘶...`,
-      thumbnailUrl: banner,
+      thumbnail: await (await fetch(banner)).buffer(),
       sourceUrl: 'https://vt.tiktok.com/ZSyMm8YQ6/',
       mediaType: 1,
       renderLargerThumbnail: true,
     }
   }
+
 }, { quoted: fkontak })
 
 m.react('🍒')
@@ -54,4 +58,4 @@ m.reply('⚠️ Error al enviar el menú Kaneki 18.')
 handler.command = ['menu18']
 handler.register = true;
 
-export default handler*/
+export default handler
