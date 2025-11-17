@@ -87,11 +87,11 @@ ${comandos}
 > *🍄⿻𝅄 \`ɢʀᴜᴘᴏs ᴀᴄᴛɪᴠᴏs:\`* *${groupsCount}*
 > *🌟⿻𝅄 \`ʀᴜɴᴛɪᴍᴇ:\`* *${uptime}*
 > *꒷꒦︶︶︶︶︶︶︶︶︶︶꒦꒷* 
-> *🥞᳕ \`ʙᴏᴛ:\`* *${(conn.user.jid == global.conn.user.jid ? 'Principal' : 'Sub-Bot')}*
-> *🎋᳕ \`ᴄᴏᴍᴀɴᴅᴏs:\`* *${totalCommands}*
-> *🥥᳕ \`ᴠs:\`* *${vs}*
-> *☕᳕ \`ʟɪʙʀᴇʀɪᴀ:\`* *${libreria}*
-> *🎍᳕ \`ғᴇᴄʜᴀ:\`* *${hora}, ${dia}, ${fechaTxt}*
+> *🥞⿻𝅄 \`ʙᴏᴛ:\`* *${(conn.user.jid == global.conn.user.jid ? 'Principal' : 'Sub-Bot')}*
+> *🎋⿻𝅄 \`ᴄᴏᴍᴀɴᴅᴏs:\`* *${totalCommands}*
+> *🥥⿻𝅄 \`ᴠs:\`* *${vs}*
+> *☕⿻𝅄 \`ʟɪʙʀᴇʀɪᴀ:\`* *${libreria}*
+> *🎍⿻𝅄 \`ғᴇᴄʜᴀ:\`* *${hora}, ${dia}, ${fechaTxt}*
 > *꒷꒦︶︶︶︶︶︶︶︶︶︶꒦꒷* 
 
 𐔌𐔌 *🎅🎄 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ: 🦌🎇* ꒱꒱`.trim()
