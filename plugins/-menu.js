@@ -1,4 +1,4 @@
-import fs from 'fs'
+/*import fs from 'fs'
 
 let handler = async (m, { conn, command }) => {
 try {
@@ -39,15 +39,6 @@ await conn.sendMessage(m.chat, {
       sourceUrl: 'https://vt.tiktok.com/ZSyMm8YQ6/',
       mediaType: 1,
       renderLargerThumbnail: true,
-      buttons: [
-        {
-          "name": "cta_url",
-          "buttonParamsJson": JSON.stringify({
-            display_text: "🌐 Visitar Página Oficial",
-            url: "https://kaneki.shadow.xyz/"
-          })
-        }
-      ]
     }
   }
 }, { quoted: fkontak })
@@ -63,4 +54,4 @@ m.reply('⚠️ Error al enviar el menú Kaneki 18.')
 handler.command = ['menu18']
 handler.register = true;
 
-export default handler
+export default handler*/
