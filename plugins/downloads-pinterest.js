@@ -2,7 +2,7 @@
 	* Create By Brayan330
 	* Follow https://github.com/El-brayan502 
 	* Whatsapp : https://whatsapp.com/channel/0029Vb6BDQc0lwgsDN1GJ31i
-*/
+
 
 import https from 'https'
 import baileys, { generateWAMessageFromContent } from '@whiskeysockets/baileys'
@@ -186,4 +186,4 @@ let handler = async (m, { conn, args, rcanal }) => {
 handler.help = ['pin']
 handler.tags = ['search']
 handler.command = ['pin', 'pinterest']
-export default handler
+export default handler*/
