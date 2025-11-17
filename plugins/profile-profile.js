@@ -37,23 +37,30 @@ const char = global.db.data.characters[id] || {}
 const value = typeof char.value === 'number' ? char.value : 0
 return acc + value }, 0)
 const pp = await conn.profilePictureUrl(userId, 'image').catch(_ => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
-const text = `*「✦」 Perfil ◢ ${name} ◤*
+
+const text = `*PERFIL — ${name}*
 ${description}
 
-❀ Cumpleaños » *${cumpleanos}*
-⚥ Género » *${genero}*
-♡ Casado con » *${casado}*
+› *Datos*
+• Cumpleaños: ${cumpleanos}
+• Género: ${genero}
+• Pareja: ${casado}
 
-☆ Experiencia » *${exp.toLocaleString()}*
-❖ Nivel » *${nivel}*
-# Puesto » *#${rank}*
-➨ Progreso » *${progreso}*
-⸙ Premium » ${premium ? `✔️ (*${isLeft}*)` : '✖️'}
+› *Progreso*
+• EXP: ${exp.toLocaleString()}
+• Nivel: ${nivel}
+• Ranking: #${rank}
+• Avance: ${progreso}
+• Premium: ${premium ? `Activo (${isLeft})` : 'No'}
 
-ꕥ Harem » *${haremCount}*
-♤ Valor total » *${haremValue.toLocaleString()}*${favLine}
-⛁ Coins totales » *${total.toLocaleString()} ${currency}*
-❒ Comandos totales » *${user.commands || 0}*`
+› *Colección*
+• Personajes: ${haremCount}
+• Valor total: ${haremValue.toLocaleString()}${favLine ? `\n• Favorito: ${global.db.data.characters[favId]?.name}` : ''}
+
+› *Economía*
+• Coins: ${total.toLocaleString()} ${currency}
+• Comandos usados: ${user.commands || 0}
+`
 await conn.sendMessage(m.chat, { image: { url: pp }, caption: text, mentions: [userId] }, { quoted: fkontak })
 } catch (error) {
 await m.reply(`⚠︎ Se ha producido un problema.\n> Usa *${usedPrefix}report* para informarlo.\n\n${error.message}`, m)
