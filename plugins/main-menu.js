@@ -38,7 +38,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
 
 
     let tags = {
-      'info': ' ׅ🪹ׁ᷒ᮬ ׅ \n\n𝐈𝐍𝐅𝐎 ❐*̥₊',
+      'info': ' ׅ🪹ׁ᷒ᮬ ׅ 𝐈𝐍𝐅𝐎 ❐*̥₊',
       'main': ' ׅ🍥ׁ᷒ᮬ ׅ 𝐌𝐀𝐈𝐍 ❐*̥₊',
       'anime': ' ׅ🧃ׁ᷒ᮬ ׅ 𝐀𝐍𝐈𝐌𝐄 ❐*̥₊',
       'search': ' ׅ🍧ׁ᷒ᮬ ׅ 𝐁𝐔𝐒𝐐𝐔𝐄𝐃𝐀𝐒 ❐*̥₊',
@@ -73,20 +73,20 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     for (let tag in tags) {
       let comandos = commands
         .filter(cmd => cmd.tags.includes(tag))
-        .map(cmd => cmd.help.map(e => `│ ➩ \`\`\`${usedPrefix}${e}\`\`\``).join('\n'))
+        .map(cmd => cmd.help.map(e => `*│ ➩* \`\`\`${usedPrefix}${e}\`\`\``).join('\n'))
         .join('\n')
       if (comandos) {
-        menuTexto += `╭──꒰ ${tags[tag]} ꒱𔖲𔖮𔖭
+        menuTexto += `*╭──꒰* ${tags[tag]} *꒱𔖲𔖮𔖭*
 ${comandos}
-╰─────────────┈┄╌\n\n`
+*╰─────────────┈┄╌*\n\n`
       }
     }
 
-    const infoUser = `· ────────꒰𖥸꒱──────── ·
+    const infoUser = `> · ────────꒰𖥸꒱──────── ·
 > ·°᮫ׂ🌿. һ᥆ᥣᥲ ᑲіᥱᥒ᥎ᥱᥒіძ@ s᥆ᥡ • kᥲᥒᥱkі ᑲ᥆𝗍 ᥲі ̥❄️
 > \`\`\`  °𓃉𐇽ܳ𓏸🍃ᮬᩬִּ〫᪲۟. ${ucapan()} ୭ୃּּּּּּּּּּ \`\`\`
 > \`\`\`   ׅ ෫ @${userId} ಒ \`\`\`
-°•°•°•°•°•°•°•°•°•°•°•°•°∞°•°•°•°•°•°•°•°•°•°•°•°
+> °•°•°•°•°•°•°•°•°•°•°•°∞°•°•°•°•°•°•°•°•°•°•°
 
     •°⪧ \`⦅ 🧃 𝐈𝐍𝐅𝐎 𝐁𝐎̼𝐓 🌠 ⦆\` 𑇛
 *ᨳꨩ🪹⿻𝅄 ᴘʀᴇᴍɪᴜᴍ:* ${premium}
