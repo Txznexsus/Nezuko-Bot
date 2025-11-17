@@ -1,4 +1,4 @@
-/*import fetch from 'node-fetch'
+import fetch from 'node-fetch'
 import Jimp from 'jimp'
 import baileys from '@whiskeysockets/baileys'
 const { proto, generateWAMessageContent, generateWAMessageFromContent } = baileys
@@ -143,4 +143,4 @@ handler.command = ['music', 'spotifydl']
 handler.group = true
 handler.register = true
 
-export default handler*/
+export default handler
