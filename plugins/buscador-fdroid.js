@@ -29,7 +29,7 @@ return `╔══════════════⁖ฺ☃️࣪·֗٬̤⃟
 
 let thumb = data[0].icon ? data[0].icon : banner
 
-await conn.sendFile(m.chat, thumb, 'fdroid.png', encabezado + listado, m, fake)
+await conn.sendFile(m.chat, thumb, 'fdroid.png', encabezado + listado, m)
 await m.react('✔️')
 
 } catch (e) {

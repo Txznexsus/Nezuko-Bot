@@ -16,7 +16,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     let txt = `╭━━━━━━━╮
 ┋ ʀᴇsᴜʟᴛᴀᴅᴏs
-┋    ᴅᴇ 🚀
+┋   🦌 ᴅᴇ 🎅
 ┋ ᴍᴇᴅɪᴀғɪʀᴇ
 ┋ ʙᴜsǫᴜᴇᴅᴀ: ${text}
 ╰━━━━━━━╯`
@@ -34,7 +34,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
   } catch (err) {
     console.error(err)
-    await conn.reply(m.chat, '*❌ Error al consultar la API de MediaFire.*', m)
+    await conn.reply(m.chat, '*Error al consultar la API de MediaFire.*', m)
   }
 }
 
