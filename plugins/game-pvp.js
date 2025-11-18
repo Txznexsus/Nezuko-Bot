@@ -15,9 +15,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     let mentioned = m.mentionedJid?.[0]
     let enemy
 
-    // ==========================
-    //      P V P   S I S T E M A
-    // ==========================
     if (mentioned) {
       if (!global.db.data.users[mentioned])
         return m.reply("❌ Ese usuario no está registrado en la base de datos.")
@@ -26,7 +23,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
       let tagUser = '@' + mentioned.split('@')[0]
 
-      // Enviar solicitud al usuario mencionado
       await conn.reply(
         m.chat,
         `⚔️ *SOLICITUD DE PVP*\n\n${m.name} quiere pelear contigo.\n\n` +
@@ -36,7 +32,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         { mentions: [mentioned, m.sender] }
       )
 
-      // Esperar respuesta del otro usuario
+
+
       let aceptado = await new Promise(resolve => {
         conn.pvpRequest = conn.pvpRequest || {}
 
@@ -45,7 +42,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
           resolve
         }
 
-        // Expira en 60s
         setTimeout(() => {
           if (conn.pvpRequest[mentioned]) {
             delete conn.pvpRequest[mentioned]
@@ -67,9 +63,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       }
 
     } else {
-      // ==========================
-      //     M O N S T R O S
-      // ==========================
       const monsters = [
         { name: "Slime", hp: 50, atk: 10 },
         { name: "Goblin", hp: 80, atk: 18 },
@@ -78,10 +71,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       ]
       enemy = monsters[Math.floor(Math.random() * monsters.length)]
     }
-
-    // ==========================
-    //     C O M B A T E
-    // ==========================
 
     let playerAtk = Math.floor(Math.random() * 30) + 10
     if (Math.random() < 0.15) playerAtk *= 2
@@ -98,7 +87,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       if (ene.health < 0) ene.health = 0
     }
 
-    // Recompensas solo si NO es PvP
     let coins = mentioned ? 0 : Math.floor(Math.random() * 70) + 30
     let exp   = mentioned ? 0 : Math.floor(Math.random() * 50) + 15
 
@@ -107,7 +95,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       user.exp  += exp
     }
 
-    // Regeneración de vida
     setTimeout(() => {
       try {
         let u = global.db.data.users[m.sender]
@@ -116,10 +103,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         if (u.health > 100) u.health = 100
       } catch {}
     }, 300000)
-
-    // ==========================
-    //     R E S U L T A D O
-    // ==========================
 
     let ganador
     if (mentioned) {
@@ -163,10 +146,6 @@ ${mentioned ? ganador : `🎁 Recompensas:\n💰 +${coins} coins\n⭐ +${exp} ex
   }
 }
 
-
-// ===========================================
-//     CAPTURA DE MENSAJES PARA PVP "si" / "no"
-// ===========================================
 handler.before = async (m, { conn }) => {
   if (!conn.pvpRequest) return
 
