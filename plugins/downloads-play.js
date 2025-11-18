@@ -96,10 +96,8 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
         },
         { quoted: fkontak }
       );
-
       await m.react('✔️');
     }
-
   } catch (e) {
     await m.react('✖️');
     console.error(e);

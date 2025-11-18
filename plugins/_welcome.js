@@ -80,8 +80,8 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   const pp = await conn.profilePictureUrl(userId, 'image').catch(() => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
 
   const fecha = new Date()
-  const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
-  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Mexico_City", hour: '2-digit', minute: '2-digit' })
+  const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Lima", day: 'numeric', month: 'long', year: 'numeric' })
+  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Lima", hour: '2-digit', minute: '2-digit' })
 
   const pais = detectarPais(userId)
   const groupSize = groupMetadata.participants.length + 1
@@ -113,8 +113,8 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
   const pp = await conn.profilePictureUrl(userId, 'image').catch(() => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
 
   const fecha = new Date()
-  const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
-  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Mexico_City", hour: '2-digit', minute: '2-digit' })
+  const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Lima", day: 'numeric', month: 'long', year: 'numeric' })
+  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Lima", hour: '2-digit', minute: '2-digit' })
 
   const pais = detectarPais(userId)
   const groupSize = groupMetadata.participants.length - 1
@@ -174,7 +174,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       product: {
         productImage: { url: pp },
         productId: '24529689176623820',
-        title: `꒰͡•*゜・。🍃 ˗ˏˋ ♡ ˎˊ˗🅆🄴🄻🄲🄾🄼🄴!˗ˏˋ ♡ ˎˊ˗🍬 ꒰͡•*゜・。 ͡꒱ֽ ׄ`,
+        title: `꒰͡•*🍃 ˗ˏˋ♡ˎˊ˗ 🅆🄴🄻🄲🄾🄼🄴! ˗ˏˋ♡ˎˊ˗🍬・ ͡꒱ֽ ׄ`,
         description: caption,
         currencyCode: 'USD',
         priceAmount1000: '100000',
@@ -185,7 +185,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       businessOwnerJid: who,
       caption: caption,
       footer: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
-      interactiveButtons: [
+/*      interactiveButtons: [
         {
           name: 'quick_reply',
           buttonParamsJson: JSON.stringify({
@@ -193,7 +193,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
             id: '#menu'
           })
         }
-      ],
+      ],*/
       mentions: [userId]
     }
 
@@ -209,7 +209,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       product: {
         productImage: { url: pp },
         productId: '24529689176623820',
-        title: `꒰͡•*゜・。🍃 ˗ˏˋ ♡ ˎˊ˗🅆🄴🄻🄲🄾🄼🄴!˗ˏˋ ♡ ˎˊ˗🍬 ꒰͡•*゜・。 ͡꒱ֽ ׄ`,
+        title: `꒰͡•🍃 ˗ˏˋ♡ˎˊ˗ 🅆🄴🄻🄲🄾🄼🄴! ˗ˏˋ♡ˎˊ˗🍬 ͡꒱ֽ ׄ`,
         description: caption,
         currencyCode: 'USD',
         priceAmount1000: '100000',
@@ -220,7 +220,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       businessOwnerJid: who,
       caption: caption,
       footer: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
-      interactiveButtons: [
+/*      interactiveButtons: [
         {
           name: 'quick_reply',
           buttonParamsJson: JSON.stringify({
@@ -228,7 +228,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
             id: '#menu'
           })
         }
-      ],
+      ],*/
       mentions: [userId]
     }
 
