@@ -1,56 +1,53 @@
-import fetch from 'node-fetch';
+import fetch from 'node-fetch'
 
-let handler = async (m, { conn, args }) => {
-  if (!args[0]) return conn.reply(m.chat, "🍎 Ingresa un enlace válido de Apple Music.", m);
-
+let handler = async (m, { conn, text, usedPrefix, command }) => {
   try {
-    let url = `https://api.siputzx.my.id/api/d/musicapple?url=${encodeURIComponent(args[0])}`;
-    let res = await fetch(url);
-    let json = await res.json();
+    if (!text) return conn.reply(m.chat, `🍎 *Ingresa un nombre de canción*\nEjemplo:\n${usedPrefix + command} Hola`, m)
 
-    if (!json.status) return conn.reply(m.chat, "No se pudo obtener la información.", m);
+    let url = `https://api.zenzxz.my.id/api/search/applemusic?keyword=${encodeURIComponent(text)}&country=sg`
 
-    let data = json.data || {};
-    let {
-      url: musicUrl = "",
-      songTitle = "",
-      artist = "",
-      artworkUrl = "",
-      mp3DownloadLink = "",
-      coverDownloadLink = ""
-    } = data;
+    let res = await fetch(url)
+    if (!res.ok) throw await res.text()
 
-    let info = `
-╭━━━〔 🍎 𝗔𝗣𝗣𝗟𝗘 𝗠𝗨𝗦𝗜𝗖 〕━━⬣
-┃🎵 *Título:* ${songTitle || "Desconocido"}
-┃🎤 *Artista:* ${artist || "Desconocido"}
-┃🌐 *URL:* ${musicUrl}
-╰━━━━━━━━━━━━━━━━⬣
-    `.trim();
+    let json = await res.json()
+    let data = json.data
 
-    await conn.sendFile(m.chat, artworkUrl || coverDownloadLink, 'cover.jpg', info, m);
- 
-    if (mp3DownloadLink) {
-      await conn.sendFile(
-        m.chat,
-        mp3DownloadLink,
-        `${songTitle || "audio"}.mp3`,
-        `🎶 Aquí tienes tu canción: *${songTitle || "Desconocido"}* - ${artist || ""}`,
-        m,
-        null,
-        { mimetype: 'audio/mpeg' }
-      );
-    } else {
-      conn.reply(m.chat, "⚠️ No se encontró un enlace de descarga para esta canción.", m);
+    if (!data || data.length < 1)
+      return conn.reply(m.chat, `⚠️ No se encontraron resultados para *${text}*`, m)
+
+    let song = data[0]
+
+    let caption = `
+╭━━━〔 🍎 𝐀𝐏𝐏𝐋𝐄 𝐌𝐔𝐒𝐈𝐂 🍎 〕━━⬣
+│🎵 *Título:* ${song.title}
+│👤 *Artista:* ${song.artist}
+│💽 *Álbum:* ${song.album}
+│🕒 *Duración:* ${(song.duration / 1000).toFixed(0)} seg
+│🔗 *Link:* ${song.url}
+╰━━━━━━━━━━━━━━━━━━━⬣`.trim()
+
+    await conn.sendMessage(m.chat, {
+      image: { url: song.artwork },
+      caption
+    }, { quoted: m })
+
+    if (song.preview) {
+      await conn.sendMessage(m.chat, {
+        audio: { url: song.preview },
+        mimetype: 'audio/mpeg',
+        fileName: `${song.title}.mp3`
+      }, { quoted: m })
     }
 
   } catch (e) {
-    console.error(e);
-    conn.reply(m.chat, "⚠️ Ocurrió un error al procesar la solicitud.", m);
+    console.log(e)
+    conn.reply(m.chat, '*Ocurrió un error al buscar la canción.*', m)
   }
-};
+}
 
-handler.command = ['applemusic']
-handler.help = ['applemusic']
-handler.tags = ['download']
-export default handler;
+handler.help = ['apple', 'applemusic']
+handler.tags = ['search']
+handler.command = ['apple', 'applemusic']
+handler.group = true
+handler.register = true
+export default handler
