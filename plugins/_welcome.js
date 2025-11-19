@@ -3,7 +3,7 @@ import fetch from 'node-fetch'
 import { WAMessageStubType } from '@whiskeysockets/baileys'
 
 const prefijosPais = {
-  '1': '🇺🇸 Estados Unidos / 🇨🇦 Canadá',
+  '1': '🇺🇸 Estados Unidos • 🇨🇦 Canadá',
   '7': '🇷🇺 Rusia / 🇰🇿 Kazajistán',
   '20': '🇪🇬 Egipto',
   '27': '🇿🇦 Sudáfrica',
