@@ -106,31 +106,7 @@ ${comandos}
     ]
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
 
-/*
-    await conn.sendMessage(m.chat, {
-      text: infoUser + menuTexto.trim(),
-       contextInfo: {
-         mentionedJid: [m.sender],
-         isForwarded: true,
-         forwardedNewsletterMessageInfo: {
-           newsletterJid: channelRD.id,
-           serverMessageId: 100,
-           newsletterName: channelRD.name
-         },
-         externalAdReply: {
-           title: '𝅄⿻ 𝐊𝐚𝐧𝐞𝐤𝐢 𝐁𝐨𝐭 𝐀𝐈 ❐*̥₊\n🎍 ძᥱ᥎: sһᥲძ᥆ᥕ_᥊ᥡz ☕ׄ',
-           body: '7w7',
-           mediaUrl: null,
-           description: null,
-           previewType: "PHOTO",
-           thumbnail: await (await fetch(imageUrl)).buffer(),
-           sourceUrl: 'https://chat.whatsapp.com/FvKyGFv5i1s8Dj2XAQ74WT?mode=wwt',
-           mediaType: 1,
-           renderLargerThumbnail: true
-         }
-       }
-   }, { quoted: fkontak })
-*/
+
  await conn.sendMessage(m.chat, {
       video: { url: imageUrl },
       gifPlayback: true,
