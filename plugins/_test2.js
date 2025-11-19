@@ -36,8 +36,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   }
 }
 
-handler.help = ["fb2 <url>"]
+handler.help = ["xd <url>"]
 handler.tags = ["downloader"]
-handler.command = ["fb2", "facebook2"]
+handler.command = ["xd"]
 
 export default handler
