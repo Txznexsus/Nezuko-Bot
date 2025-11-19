@@ -2,6 +2,9 @@ import fs from 'fs'
 import fetch from 'node-fetch'
 import { WAMessageStubType } from '@whiskeysockets/baileys'
 
+// ===============================
+//   PREFIJOS DE PAÍSES
+// ===============================
 const prefijosPais = {
   '1': '🇺🇸 Estados Unidos / 🇨🇦 Canadá',
   '7': '🇷🇺 Rusia / 🇰🇿 Kazajistán',
@@ -67,50 +70,49 @@ const prefijosPais = {
   '263': '🇿🇼 Zimbabue'
 }
 
-// ⭐ DETECTOR DE PAÍS FIX
+// ===============================
+//   DETECTOR DE PAÍS
+// ===============================
 function detectarPais(jid) {
   const num = jid.split('@')[0]
   const prefijosOrdenados = Object.keys(prefijosPais).sort((a, b) => b.length - a.length)
-
-  for (const prefijo of prefijosOrdenados) {
-    if (num.startsWith(prefijo)) return prefijosPais[prefijo]
-  }
+  for (const p of prefijosOrdenados) if (num.startsWith(p)) return prefijosPais[p]
   return '🌍 Desconocido'
 }
 
+// ===============================
+//   GENERAR BIENVENIDA
+// ===============================
 async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
+
   const username = `@${userId.split('@')[0]}`
+
   const pp = await conn.profilePictureUrl(userId, 'image').catch(() =>
     'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg'
   )
 
   const fecha = new Date()
   const fechaTexto = fecha.toLocaleDateString("es-ES", {
-    timeZone: "America/Lima",
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
+    timeZone: "America/Lima", day: 'numeric', month: 'long', year: 'numeric'
   })
   const hora = fecha.toLocaleTimeString("es-ES", {
-    timeZone: "America/Lima",
-    hour: '2-digit',
-    minute: '2-digit'
+    timeZone: "America/Lima", hour: '2-digit', minute: '2-digit'
   })
 
-  const pais = detectarPais(userId)
-  const groupSize = groupMetadata.participants.length + 1
-  const desc = groupMetadata.desc?.toString() || 'Sin descripción'
-  const mensaje = (chat.sWelcome || 'Edita con el comando "setwelcome"')
-    .replace(/{usuario}/g, `${username}`)
+  // FIX A groupMetadata.desc
+  const desc = groupMetadata?.desc?.text || 'Sin descripción'
+
+  const mensaje = (chat.sWelcome || 'Edita con "setwelcome"')
+    .replace(/{usuario}/g, username)
     .replace(/{grupo}/g, `*${groupMetadata.subject}*`)
-    .replace(/{desc}/g, `${desc}`)
+    .replace(/{desc}/g, desc)
 
-  const caption = `🌸✨ 𝑯𝒐𝒍𝒂, ${username} ✨🌸
-╰┈► 𝙱𝚒𝚎𝚗𝚟𝚎𝚗𝚒𝚍@ 𝚊𝚕 𝚐𝚛𝚞𝚙𝚘 *${groupMetadata.subject}* 💞
+  const caption = `🌸✨ 𝑯𝒐𝒍𝒂 ${username} ✨🌸
+╰┈► 𝙱𝚒𝚎𝚗𝚟𝚎𝚗𝚒𝚍@ 𝚊 *${groupMetadata.subject}*
 
-🍃 𝚂𝚒é𝚗𝚝𝚎𝚝𝚎 𝚌𝚘𝚖𝚘 𝚎𝚗 𝚌𝚊𝚜𝚒𝚝𝚊  
-🌿 𝙼𝚒𝚎𝚖𝚋𝚛𝚘𝚜: ${groupSize}
-🌍 𝙿𝚊í𝚜: ${pais}
+🍃 𝚂𝚒é𝚗𝚝𝚎𝚝𝚎 𝚌𝚘𝚖𝚘 𝚎𝚗 𝚌𝚊𝚜𝚒𝚝𝚊
+🌿 𝙼𝚒𝚎𝚖𝚋𝚛𝚘𝚜: ${groupMetadata.participants.length}
+🌍 𝙿𝚊í𝚜: ${detectarPais(userId)}
 ⏰ 𝙷𝚘𝚛𝚊: ${hora}
 📅 𝙵𝚎𝚌𝚑𝚊: ${fechaTexto}
 📝 ${mensaje}`
@@ -118,8 +120,13 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   return { pp, caption, username }
 }
 
+// ===============================
+//   GENERAR DESPEDIDA
+// ===============================
 async function generarDespedida({ conn, userId, groupMetadata, chat }) {
+
   const username = `@${userId.split('@')[0]}`
+
   const pp = await conn.profilePictureUrl(userId, 'image').catch(() =>
     'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg'
   )
@@ -127,168 +134,143 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
   const fecha = new Date()
   const fechaTexto = fecha.toLocaleDateString("es-ES", {
     timeZone: "America/Lima",
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
+    day: 'numeric', month: 'long', year: 'numeric'
   })
   const hora = fecha.toLocaleTimeString("es-ES", {
-    timeZone: "America/Lima",
-    hour: '2-digit',
-    minute: '2-digit'
+    timeZone: "America/Lima", hour: '2-digit', minute: '2-digit'
   })
 
-  const pais = detectarPais(userId)
-  const groupSize = groupMetadata.participants.length - 1
-  const desc = groupMetadata.desc?.toString() || 'Sin descripción'
-  const mensaje = (chat.sBye || 'Edita con el comando "setbye"')
-    .replace(/{usuario}/g, `${username}`)
-    .replace(/{grupo}/g, `*${groupMetadata.subject}*`)
-    .replace(/{desc}/g, `*${desc}*`)
+  const desc = groupMetadata?.desc?.text || 'Sin descripción'
 
-  const caption = `🌸💫 𝙰𝚍𝚒ó𝚜 ${username}  
+  const mensaje = (chat.sBye || 'Edita con "setbye"')
+    .replace(/{usuario}/g, username)
+    .replace(/{grupo}/g, `*${groupMetadata.subject}*`)
+    .replace(/{desc}/g, desc)
+
+  const caption = `🌸💫 𝙰𝚍𝚒ó𝚜 ${username}
 ╰┈► 𝙲𝚞𝚒𝚍𝚊𝚝𝚎 💐
 
-👥 𝙼𝚒𝚎𝚖𝚋𝚛𝚘𝚜: ${groupSize}  
-🌍 𝙿𝚊í𝚜: ${pais}  
-⏰ 𝙷𝚘𝚛𝚊: ${hora}  
-📅 𝙵𝚎𝚌𝚑𝚊: ${fechaTexto}  
+👥 Miembros: ${groupMetadata.participants.length - 1}
+🌍 País: ${detectarPais(userId)}
+⏰ Hora: ${hora}
+📅 Fecha: ${fechaTexto}
 📝 ${mensaje}`
 
   return { pp, caption, username }
 }
 
+// ===============================
+//   HANDLER
+// ===============================
 let handler = m => m
-handler.before = async function (m, { conn, participants, groupMetadata }) {
 
-  if (!m.messageStubType || !m.isGroup) return !0
+handler.before = async function (m, { conn, groupMetadata }) {
+
+  if (!m.isGroup || !m.messageStubType) return
+
   const chat = global.db.data.chats[m.chat]
-  const userId = m.messageStubParameters[0]
-  const who = userId || '0@s.whatsapp.net'
 
-  const meta = groupMetadata
-  const totalMembers = meta.participants.length
-  const groupSubject = meta.subject
+  // PROTECCIÓN: evita crash si falta el parámetro
+  const userId = m.messageStubParameters?.[0]
+  if (!userId) return
+
+  const totalMembers = groupMetadata.participants.length
 
   const date = new Date().toLocaleString('es-PE', {
     year: 'numeric', month: '2-digit', day: '2-digit',
     hour12: false, hour: '2-digit', minute: '2-digit'
   })
 
-  let thumbBuffer
+  let thumbBuffer = null
   try {
-    const res = await fetch('https://i.postimg.cc/rFfVL8Ps/image.jpg')
-    thumbBuffer = Buffer.from(await res.arrayBuffer())
-  } catch {
-    thumbBuffer = null
-  }
+    const img = await fetch('https://i.postimg.cc/rFfVL8Ps/image.jpg')
+    thumbBuffer = Buffer.from(await img.arrayBuffer())
+  } catch {}
 
   const fkontak = {
-    key: {
-      participant: '0@s.whatsapp.net',
-      remoteJid: 'status@broadcast',
-      fromMe: false,
-      id: 'Halo'
-    },
+    key: { participant: '0@s.whatsapp.net', remoteJid: 'status@broadcast' },
     message: {
       locationMessage: {
         name: '🍓 𝙒𝙚𝙡𝙘𝙤𝙢𝙚 - 𝙆𝙖𝙣𝙚𝙠𝙞 𝙈𝘿 🍟',
         jpegThumbnail: thumbBuffer
       }
-    },
-    participant: '0@s.whatsapp.net'
+    }
   }
 
-  // 🔵 BIENVENIDA
-  if (chat.welcome && m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_ADD) {
+  // ===============================
+  //   BIENVENIDA
+  // ===============================
+  if (chat.welcome && m.messageStubType === WAMessageStubType.GROUP_PARTICIPANT_ADD) {
 
     const { pp, caption, username } = await generarBienvenida({ conn, userId, groupMetadata, chat })
 
-    // Imagen API welcome
-    let welcomeImg
+    let welcomeImg = null
     try {
       const url =
         `https://api.siputzx.my.id/api/canvas/welcomev5?username=${encodeURIComponent(username.replace("@",""))}` +
-        `&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${totalMembers}` +
+        `&guildName=${encodeURIComponent(groupMetadata.subject)}` +
+        `&memberCount=${totalMembers}` +
         `&avatar=${encodeURIComponent(pp)}` +
         `&background=https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763512733399_350704.jpeg&quality=90`
 
-      const resImg = await fetch(url)
-      welcomeImg = Buffer.from(await resImg.arrayBuffer())
-    } catch {
-      welcomeImg = null
-    }
+      const res = await fetch(url)
+      welcomeImg = Buffer.from(await res.arrayBuffer())
+    } catch {}
 
-    const productMessage = {
+    await conn.sendMessage(m.chat, {
       product: {
-        productImage: {
-          mimetype: "image/jpeg",
-          jpegThumbnail: welcomeImg || null
-        },
-        productId: '24529689176623820',
+        productImage: { mimetype: "image/jpeg", jpegThumbnail: welcomeImg },
         title: `꒰͡•*🍃 𝑊𝐸𝐿𝐶𝑂𝑀𝐸 ♡ˎˊ˗🍬・`,
         description: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
         currencyCode: 'USD',
         priceAmount1000: '100000',
         retailerId: 1677,
         url: `https://wa.me/${userId.split('@')[0]}`,
-        productImageCount: 1
       },
-      businessOwnerJid: who,
       caption,
       footer: caption,
       mentions: [userId]
-    }
-
-    await conn.sendMessage(m.chat, productMessage, { quoted: fkontak })
+    }, { quoted: fkontak })
   }
 
-  // 🔴 DESPEDIDA
+  // ===============================
+  //   DESPEDIDA
+  // ===============================
   if (
     chat.welcome &&
-    (m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_REMOVE ||
-      m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_LEAVE)
+    (m.messageStubType === WAMessageStubType.GROUP_PARTICIPANT_REMOVE ||
+     m.messageStubType === WAMessageStubType.GROUP_PARTICIPANT_LEAVE)
   ) {
 
-    const { pp, caption, username } = await generarDespedida({
-      conn, userId, groupMetadata, chat
-    })
+    const { pp, caption, username } = await generarDespedida({ conn, userId, groupMetadata, chat })
 
-    let byeImg
+    let byeImg = null
     try {
       const url =
         `https://api.siputzx.my.id/api/canvas/goodbyev5?username=${encodeURIComponent(username.replace("@",""))}` +
-        `&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${totalMembers}` +
+        `&guildName=${encodeURIComponent(groupMetadata.subject)}` +
+        `&memberCount=${totalMembers}` +
         `&avatar=${encodeURIComponent(pp)}` +
         `&background=https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763512733399_350704.jpeg&quality=90`
 
-      const resImg = await fetch(url)
-      byeImg = Buffer.from(await resImg.arrayBuffer())
-    } catch {
-      byeImg = null
-    }
+      const res = await fetch(url)
+      byeImg = Buffer.from(await res.arrayBuffer())
+    } catch {}
 
-    const productMessage = {
+    await conn.sendMessage(m.chat, {
       product: {
-        productImage: {
-          mimetype: "image/jpeg",
-          jpegThumbnail: byeImg || null
-        },
-        productId: '24529689176623820',
+        productImage: { mimetype: "image/jpeg", jpegThumbnail: byeImg },
         title: `꒰͡•🍃 𝙂𝙊𝙊𝘿𝘽𝙔𝙀 ♡ˎˊ˗🍬`,
         description: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
         currencyCode: 'USD',
         priceAmount1000: '100000',
         retailerId: 1677,
         url: `https://wa.me/${userId.split('@')[0]}`,
-        productImageCount: 1
       },
-      businessOwnerJid: who,
       caption,
       footer: caption,
       mentions: [userId]
-    }
-
-    await conn.sendMessage(m.chat, productMessage, { quoted: fkontak })
+    }, { quoted: fkontak })
   }
 }
 
