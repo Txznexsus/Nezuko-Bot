@@ -117,7 +117,7 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   }&avatar=${
     encodeURIComponent(pp)
   }&background=${
-    encodeURIComponent("https://files.catbox.moe/gt7pb7.jpg")
+    encodeURIComponent("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763571546276_787585.jpeg")
   }&quality=90`
 
   return { pp: imgWelcome, caption, username }
@@ -162,7 +162,7 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
   }&avatar=${
     encodeURIComponent(pp)
   }&background=${
-    encodeURIComponent("https://files.catbox.moe/gt7pb7.jpg")
+    encodeURIComponent("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763571546276_787585.jpeg")
   }&quality=90`
 
   return { pp: imgGoodbye, caption, username }
