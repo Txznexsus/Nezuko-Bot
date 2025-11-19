@@ -3,7 +3,6 @@ import fetch from 'node-fetch'
 import { WAMessageStubType } from '@whiskeysockets/baileys'
 
 const prefijosPais = {
-  // (tus prefijos intactos)
   '1': '🇺🇸 Estados Unidos / 🇨🇦 Canadá',
   '7': '🇷🇺 Rusia / 🇰🇿 Kazajistán',
   '20': '🇪🇬 Egipto',
@@ -14,7 +13,57 @@ const prefijosPais = {
   '33': '🇫🇷 Francia',
   '34': '🇪🇸 España',
   '39': '🇮🇹 Italia',
-  // ... etc
+  '40': '🇷🇴 Rumania',
+  '41': '🇨🇭 Suiza',
+  '43': '🇦🇹 Austria',
+  '44': '🇬🇧 Reino Unido',
+  '45': '🇩🇰 Dinamarca',
+  '46': '🇸🇪 Suecia',
+  '47': '🇳🇴 Noruega',
+  '48': '🇵🇱 Polonia',
+  '49': '🇩🇪 Alemania',
+  '51': '🇵🇪 Perú',
+  '52': '🇲🇽 México',
+  '54': '🇦🇷 Argentina',
+  '55': '🇧🇷 Brasil',
+  '56': '🇨🇱 Chile',
+  '57': '🇨🇴 Colombia',
+  '58': '🇻🇪 Venezuela',
+  '60': '🇲🇾 Malasia',
+  '62': '🇮🇩 Indonesia',
+  '63': '🇵🇭 Filipinas',
+  '64': '🇳🇿 Nueva Zelanda',
+  '65': '🇸🇬 Singapur',
+  '66': '🇹🇭 Tailandia',
+  '81': '🇯🇵 Japón',
+  '82': '🇰🇷 Corea del Sur',
+  '84': '🇻🇳 Vietnam',
+  '86': '🇨🇳 China',
+  '90': '🇹🇷 Turquía',
+  '91': '🇮🇳 India',
+  '92': '🇵🇰 Pakistán',
+  '94': '🇱🇰 Sri Lanka',
+  '98': '🇮🇷 Irán',
+  '212': '🇲🇦 Marruecos',
+  '213': '🇩🇿 Argelia',
+  '216': '🇹🇳 Túnez',
+  '218': '🇱🇾 Libia',
+  '220': '🇬🇲 Gambia',
+  '221': '🇸🇳 Senegal',
+  '222': '🇲🇷 Mauritania',
+  '223': '🇲🇱 Mali',
+  '225': '🇨🇮 Costa de Marfil',
+  '226': '🇧🇫 Burkina Faso',
+  '227': '🇳🇪 Níger',
+  '228': '🇹🇬 Togo',
+  '229': '🇧🇯 Benín',
+  '230': '🇲🇺 Mauricio',
+  '231': '🇱🇷 Liberia',
+  '233': '🇬🇭 Ghana',
+  '234': '🇳🇬 Nigeria',
+  '255': '🇹🇿 Tanzania',
+  '256': '🇺🇬 Uganda',
+  '260': '🇿🇲 Zambia',
   '263': '🇿🇼 Zimbabue'
 }
 
@@ -26,169 +75,164 @@ function detectarPais(jid) {
   return '🌍 Desconocido'
 }
 
-// ⚠️ FUNCION QUE DESCARGA LA FOTO → BUFFER (necesario para productMessage)
-async function toBuffer(url) {
-  try {
-    const res = await fetch(url)
-    return Buffer.from(await res.arrayBuffer())
-  } catch {
-    return Buffer.from([])
-  }
-}
-
 async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
-
   const username = `@${userId.split('@')[0]}`
-  const profileUrl = await conn.profilePictureUrl(userId, 'image')
-    .catch(() => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
-
-  const pp = await toBuffer(profileUrl)
+  const pp = await conn.profilePictureUrl(userId, 'image').catch(() => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
 
   const fecha = new Date()
   const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
   const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Mexico_City", hour: '2-digit', minute: '2-digit' })
 
   const pais = detectarPais(userId)
-
-  // FIX descripción
-  const desc = groupMetadata.desc?.text || "Sin descripción"
-
+  const groupSize = groupMetadata.participants.length + 1
+  const desc = groupMetadata.desc?.toString() || 'Sin descripción'
   const mensaje = (chat.sWelcome || 'Edita con el comando "setwelcome"')
-    .replace(/{usuario}/g, username)
+    .replace(/{usuario}/g, `${username}`)
     .replace(/{grupo}/g, `*${groupMetadata.subject}*`)
-    .replace(/{desc}/g, desc)
+    .replace(/{desc}/g, `${desc}`)
 
   const caption = `🌸✨ 𝑯𝒐𝒍𝒂, ${username} ✨🌸
 ╰┈► 𝙱𝚒𝚎𝚗𝚟𝚎𝚗𝚒𝚍@ 𝚊𝚕 𝚐𝚛𝚞𝚙𝚘 *${groupMetadata.subject}* 💞
 
-🍃 ʟ𝚒𝚗𝚍𝚘 𝚝𝚎𝚗𝚎𝚛𝚝𝚎 𝚙𝚘𝚛 𝚊𝚚𝚞í, 𝚎𝚜𝚙𝚎𝚛𝚊𝚖𝚘𝚜 𝚚𝚞𝚎 𝚍𝚒𝚜𝚏𝚛𝚞𝚝𝚎𝚜 𝚝𝚞 𝚎𝚜𝚝𝚊𝚍í𝚊 💚
-🍬 𝚂𝚒é𝚗𝚝𝚎𝚝𝚎 𝚌𝚘𝚖𝚘 𝚎𝚗 𝚌𝚊𝚜𝚒𝚝𝚊 UwU
+🍃 ʟ𝚒𝚗𝚍𝚘 𝚝𝚎𝚗𝚎𝚛𝚝𝚎 𝚙𝚘𝚛 𝚊𝚚𝚞í, 𝚎𝚜𝚙𝚎𝚛𝚊𝚖𝚘𝚜 𝚚𝚞𝚎 𝚍𝚒𝚜𝚏𝚛𝚞𝚝𝚎𝚜 𝚝𝚞 𝚎𝚜𝚝𝚊𝚍í𝚊 💚  
+🍬 𝚂𝚒é𝚗𝚝𝚎𝚝𝚎 𝚌𝚘𝚖𝚘 𝚎𝚗 𝚌𝚊𝚜𝚒𝚝𝚊,? 𝚄𝚠𝚄
 
-🌿 *「 Info del Grupo 」*
-┆👥 Miembros: ${groupMetadata.participants.length + 1}
-┆🌍 País: ${pais}
-┆⏰ Hora: ${hora}
-┆📅 Fecha: ${fechaTexto}
-┆📝 Descripción: ${mensaje}
+🌿 *「 𝐈𝐧𝐟𝐨 𝐝𝐞𝐥 𝐆𝐫𝐮𝐩𝐨 」*
+┆👥 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
+┆🌍 ᴘᴀíꜱ: ${pais}
+┆⏰ ʜᴏʀᴀ: ${hora}
+┆📅 ғᴇᴄʜᴀ: ${fechaTexto}
+┆📝 ᴅᴇꜱᴄʀɪᴘᴄɪᴏ́ɴ: ${mensaje}
 ╰───────────────✿`
 
-  return { pp, caption }
+  return { pp, caption, username }
 }
 
 async function generarDespedida({ conn, userId, groupMetadata, chat }) {
-
   const username = `@${userId.split('@')[0]}`
-  const profileUrl = await conn.profilePictureUrl(userId, 'image')
-    .catch(() => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
-
-  const pp = await toBuffer(profileUrl)
+  const pp = await conn.profilePictureUrl(userId, 'image').catch(() => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
 
   const fecha = new Date()
   const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
   const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Mexico_City", hour: '2-digit', minute: '2-digit' })
 
   const pais = detectarPais(userId)
-
-  const desc = groupMetadata.desc?.text || "Sin descripción"
-
+  const groupSize = groupMetadata.participants.length - 1
+  const desc = groupMetadata.desc?.toString() || 'Sin descripción'
   const mensaje = (chat.sBye || 'Edita con el comando "setbye"')
-    .replace(/{usuario}/g, username)
+    .replace(/{usuario}/g, `${username}`)
     .replace(/{grupo}/g, `*${groupMetadata.subject}*`)
-    .replace(/{desc}/g, desc)
+    .replace(/{desc}/g, `*${desc}*`)
 
-  const caption = `🌸💫 El viento cambia…
-╰┈► ${username} ha dejado el grupo *${groupMetadata.subject}* 💐
+  const caption = `🌸💫 𝙴𝚕 𝚟𝚒𝚎𝚗𝚝𝚘 𝚌𝚊𝚖𝚋𝚒𝚊...  
+╰┈► ${username} 𝚑𝚊 𝚍𝚎𝚓𝚊𝚍𝚘 𝚎𝚕 𝚐𝚛𝚞𝚙𝚘 *${groupMetadata.subject}* 💐
 
 🌾 ${mensaje}
 
-📉 *「 Estado Actual 」*
-┆👥 Miembros: ${groupMetadata.participants.length - 1}
-┆🌍 País: ${pais}
-┆⏰ Hora: ${hora}
-┆📅 Fecha: ${fechaTexto}
+📉 *「 𝐄𝐬𝐭𝐚𝐝𝐨 𝐀𝐜𝐭𝐮𝐚𝐥 」*
+┆👥 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}  
+┆🌍 ᴘᴀíꜱ: ${pais}  
+┆⏰ ʜᴏʀᴀ: ${hora}  
+┆📅 ғᴇᴄʜᴀ: ${fechaTexto}  
 ╰───────────────✿`
 
-  return { pp, caption }
+  return { pp, caption, username }
 }
 
-// HANDLER
 let handler = m => m
-
-handler.before = async function (m, { conn, groupMetadata }) {
-  if (!m.isGroup) return
-  if (!m.messageStubType) return
-
+handler.before = async function (m, { conn, participants, groupMetadata }) {
+  if (!m.messageStubType || !m.isGroup) return !0
   const chat = global.db.data.chats[m.chat]
+  const userId = m.messageStubParameters[0]
+  const who = userId || '0@s.whatsapp.net'
 
-  // 🔧 fix: evitar crash cuando no hay parámetros
-  const userId = m.messageStubParameters?.[0]
-  if (!userId) return
+  const meta = groupMetadata
+  const totalMembers = meta.participants.length
+  const groupSubject = meta.subject
+  const date = new Date().toLocaleString('es-PE', { year: 'numeric', month: '2-digit', day: '2-digit', hour12: false, hour: '2-digit', minute: '2-digit' })
 
-  const who = userId
-
-  // Thumbnail del contacto
-  let thumb
+  let thumbBuffer
   try {
-    thumb = await fetch("https://i.postimg.cc/rFfVL8Ps/image.jpg")
-      .then(v => v.arrayBuffer())
-      .then(v => Buffer.from(v))
+    const res = await fetch('https://i.postimg.cc/rFfVL8Ps/image.jpg')
+    thumbBuffer = Buffer.from(await res.arrayBuffer())
   } catch {
-    thumb = Buffer.from([])
+    thumbBuffer = null
   }
 
-  const fake = {
-    key: { participant: "0@s.whatsapp.net", remoteJid: "status@broadcast" },
-    message: { locationMessage: { name: "🍓 𝙒𝙚𝙡𝙘𝙤𝙢𝙚 - 𝙆𝙖𝙣𝙚𝙠𝙞 𝙈𝘿 🍟", jpegThumbnail: thumb } }
+  const fkontak = {
+    key: { participant: '0@s.whatsapp.net', remoteJid: 'status@broadcast', fromMe: false, id: 'Halo' },
+    message: { locationMessage: { name: '🍓 𝙒𝙚𝙡𝙘𝙤𝙢𝙚 - 𝙆𝙖𝙣𝙚𝙠𝙞 𝙈𝘿 🍟', jpegThumbnail: thumbBuffer } },
+    participant: '0@s.whatsapp.net'
   }
 
-  if (chat.welcome && m.messageStubType === WAMessageStubType.GROUP_PARTICIPANT_ADD) {
+  // BIENVENIDA
+  if (chat.welcome && m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_ADD) {
+    const { pp, caption, username } = await generarBienvenida({ conn, userId, groupMetadata, chat })
+    const pais = detectarPais(userId)
 
-    const { pp, caption } = await generarBienvenida({ conn, userId, groupMetadata, chat })
-
-    await conn.sendMessage(
-      m.chat,
-      {
-        productMessage: {
-          product: {
-            productId: "24529689176623820",
-            title: "WELCOME ☆彡",
-            description: caption,
-            productImage: { jpegThumbnail: pp }, // 🔧 FIX REAL
-            currencyCode: "USD",
-            priceAmount1000: "100000"
-          },
-          businessOwnerJid: who
-        },
-        mentions: [userId]
+    const productMessage = {
+      product: {
+        productImage: { url: pp },
+        productId: '24529689176623820',
+        title: `꒰͡•*゜・。🍃 ˗ˏˋ ♡ ˎˊ˗🅆🄴🄻🄲🄾🄼🄴!˗ˏˋ ♡ ˎˊ˗🍬 ꒰͡•*゜・。 ͡꒱ֽ ׄ`,
+        description: caption,
+        currencyCode: 'USD',
+        priceAmount1000: '100000',
+        retailerId: 1677,
+        url: `https://wa.me/${userId.split('@')[0]}`,
+        productImageCount: 1
       },
-      { quoted: fake }
-    )
+      businessOwnerJid: who,
+      caption: caption,
+      footer: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
+      interactiveButtons: [
+        {
+          name: 'quick_reply',
+          buttonParamsJson: JSON.stringify({
+            display_text: '🌿 ᴍᴇɴᴜ - ᴋᴀɴᴇᴋɪ ᴀɪ 💐',
+            id: '#menu'
+          })
+        }
+      ],
+      mentions: [userId]
+    }
+
+    await conn.sendMessage(m.chat, productMessage, { quoted: fkontak })
   }
 
-  if (chat.welcome &&
-    (m.messageStubType === WAMessageStubType.GROUP_PARTICIPANT_REMOVE ||
-     m.messageStubType === WAMessageStubType.GROUP_PARTICIPANT_LEAVE)) {
+  // DESPEDIDA
+  if (chat.welcome && (m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_REMOVE || m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_LEAVE)) {
+    const { pp, caption, username } = await generarDespedida({ conn, userId, groupMetadata, chat })
+    const pais = detectarPais(userId)
 
-    const { pp, caption } = await generarDespedida({ conn, userId, groupMetadata, chat })
-
-    await conn.sendMessage(
-      m.chat,
-      {
-        productMessage: {
-          product: {
-            productId: "24529689176623820",
-            title: "BYE ☆彡",
-            description: caption,
-            productImage: { jpegThumbnail: pp },
-            currencyCode: "USD",
-            priceAmount1000: "100000"
-          },
-          businessOwnerJid: who
-        },
-        mentions: [userId]
+    const productMessage = {
+      product: {
+        productImage: { url: pp },
+        productId: '24529689176623820',
+        title: `꒰͡•*゜・。🍃 ˗ˏˋ ♡ ˎˊ˗🅆🄴🄻🄲🄾🄼🄴!˗ˏˋ ♡ ˎˊ˗🍬 ꒰͡•*゜・。 ͡꒱ֽ ׄ`,
+        description: caption,
+        currencyCode: 'USD',
+        priceAmount1000: '100000',
+        retailerId: 1677,
+        url: `https://wa.me/${userId.split('@')[0]}`,
+        productImageCount: 1
       },
-      { quoted: fake }
-    )
+      businessOwnerJid: who,
+      caption: caption,
+      footer: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
+      interactiveButtons: [
+        {
+          name: 'quick_reply',
+          buttonParamsJson: JSON.stringify({
+            display_text: '🌿 ᴍᴇɴᴜ - ᴋᴀɴᴇᴋɪ ᴀɪ 💐',
+            id: '#menu'
+          })
+        }
+      ],
+      mentions: [userId]
+    }
+
+    await conn.sendMessage(m.chat, productMessage, { quoted: fkontak })
   }
 }
 
