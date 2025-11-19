@@ -99,17 +99,15 @@ ${comandos}
 `.trim()
 
     const imgs = [
-      //'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404449889_268409.jpeg',
-      //'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404456592_385271.jpeg'
-        'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763569649527_319860.mp4',
-        'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763569625901_346347.mp4'
+      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404449889_268409.jpeg',
+      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404456592_385271.jpeg'
     ]
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
 
 
  await conn.sendMessage(m.chat, {
-      video: { url: imageUrl },
-      gifPlayback: true,
+      image: { url: imageUrl },
+      //gifPlayback: true,
       caption: infoUser + menuTexto.trim(),
       ...rcanalw
  }, { quoted: m })
