@@ -1,96 +1,141 @@
-import axios from 'axios';
-import fetch from 'node-fetch';
-const handler = async (m, { conn, usedPrefix, command, text, args }) => {
-  const [efecto, ...textoArray] = text.split(" ");
-  const texto = textoArray.join("");
+import axios from "axios"
+import fetch from "node-fetch"
 
-  if (!efecto) {
-    let voiceList = await getVoiceList();
-    let responseText = `🦌 No haz ingresado un efecto, por favor ingresa un efecto de voz.\n\n*🎍 Elige uno de los siguientes efectos:*\n`;
+const handler = async (m, { conn, usedPrefix, command, text }) => {
+  try {
+  
+    if (!text) {
+      let voiceList = await getVoiceList()
 
-    for (let i = 0, count = 0; count < 100 && i < voiceList.resultado.length; i++) {
-      const entry = voiceList.resultado[i];
-      if (entry.ID.length <= 20) {
-        responseText += `*◉ ${usedPrefix + command} ${entry.ID} tu-texto-aquí*\n`;
-        count++;
+      if (!Array.isArray(voiceList.resultado))
+        return conn.reply(m.chat, `🍃 Error al obtener la lista de voces.`, m)
+
+      let responseText = `🦌 *Debes ingresar un efecto de voz.*\n\n`
+      responseText += `🎍 *Lista de voces disponibles:*\n\n`
+
+      for (let entry of voiceList.resultado.slice(0, 80)) {
+        responseText += `◉ *${usedPrefix + command} ${entry.ID}* hola mundo\n`
       }
+
+      return conn.sendMessage(m.chat, { text: responseText }, { quoted: m })
     }
 
-    return conn.sendMessage(m.chat, { text: responseText.trim() }, { quoted: m });
+    const [efecto, ...textoArray] = text.split(" ")
+    const texto = textoArray.join(" ").trim()
+
+    let voiceList = await getVoiceList()
+    const vozExiste = voiceList.resultado.some(v => v.ID == efecto)
+
+    if (!vozExiste)
+      return conn.reply(
+        m.chat,
+        `🎍 *El efecto '${efecto}' no existe.*\nUsa: *${usedPrefix + command}* para ver la lista.`,
+        m
+      )
+
+    if (!texto)
+      return conn.reply(
+        m.chat,
+        `🦌 Ingresa el texto que quieras convertir.\n\nEjemplo:\n*${usedPrefix + command} ${efecto} Hola mundo*`,
+        m
+      )
+
+    let audio = await makeTTSRequest(texto, efecto)
+
+    if (!audio.resultado.startsWith("http"))
+      return conn.reply(m.chat, audio.resultado, m)
+
+    await conn.sendMessage(
+      m.chat,
+      {
+        audio: { url: audio.resultado },
+        fileName: "voz.mp3",
+        mimetype: "audio/mpeg",
+        ptt: true
+      },
+      { quoted: m }
+    )
+  } catch (e) {
+    console.log(e)
+    conn.reply(m.chat, "🍃 Error interno.", m)
   }
+}
 
-  let efectoValido = false;
-  let voiceList = await getVoiceList();
-  for (const entry of voiceList.resultado) {
-    if (entry.ID === efecto) {
-      efectoValido = true;
-      break;
-    }
-  }
+handler.command = ["tts2"]
+export default handler
 
-  if (!efectoValido) return conn.sendMessage(m.chat, { text: `🎍 El efecto proporcionado no existe en la lista, utiliza ${usedPrefix + command} para conocer la lista de efectos.` }, { quoted: m });
+const secretKey = "fe2ee40099494579af0ecf871b5af266"
+const userId = "SrgwcKcLzSY63IdsAxd1PzscFjL2"
 
-  if (!texto) return conn.sendMessage(m.chat, {text: `🦌 Ingresa el texto que quieras convertir a audio.\n\n> *🎍 Ejemplo: ${usedPrefix + command} ${efecto} Hola, este es un ejemplo de uso del comando.*`}, {quoted: m});
-
-  let masivo = await makeTTSRequest(texto, efecto);
-  conn.sendMessage(m.chat, {audio: {url: masivo.resultado}, fileName: 'error.mp3', mimetype: 'audio/mpeg', ptt: true}, {quoted: m});
-};
-
-handler.command = ['tts2']
-export default handler;
-
-const secretKey = 'fe2ee40099494579af0ecf871b5af266';
-const userId = 'SrgwcKcLzSY63IdsAxd1PzscFjL2';
 
 async function getVoiceList() {
-  const url = 'https://play.ht/api/v2/voices';
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      AUTHORIZATION: `Bearer ${secretKey}`,
-      'X-USER-ID': userId
-    }
-  };
   try {
-    const response = await fetch(url, options);
-    const responseData = await response.json(); 
-    const uniqueData = responseData.reduce((acc, current) => {
-      if (!acc.some(item => item.id === current.id)) {
-        acc.push(current);
+    const res = await fetch("https://play.ht/api/v2/voices", {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${secretKey}`,
+        "X-User-Id": userId
       }
-      return acc;
-    }, []);
-    const simplifiedList = uniqueData.map(entry => ({
-      ID: entry.id,
-      name: entry.name,
-      lenguaje: entry.language  
-    }));
-    return { resultado: simplifiedList ? simplifiedList : `🍃 Error, no se obtuvo respuesta de la API.` };
-  } catch (error) {
-    console.error('Error:', error);
-    return { resultado: `🍃 Error, no se obtuvo respuesta de la API.` };
-    throw error;
+    })
+
+    const data = await res.json()
+
+    let unique = []
+    let ids = new Set()
+
+    for (let v of data) {
+      if (!ids.has(v.id)) {
+        ids.add(v.id)
+        unique.push({
+          ID: v.id,
+          name: v.name,
+          lenguaje: v.language
+        })
+      }
+    }
+
+    unique.push({
+      ID: "alya",
+      name: "Alya Anime San",
+      lenguaje: "jp"
+    })
+
+    return { resultado: unique }
+  } catch (err) {
+    console.log(err)
+    return { resultado: [] }
   }
 }
 
 async function makeTTSRequest(texto, efecto) {
-  const requestData = {text: texto, voice: efecto};
-  const headers = {
-    'Authorization': `Bearer ${secretKey}`,
-    'X-User-Id': userId,
-    'accept': 'text/event-stream',
-    'content-type': 'application/json'
-  };
   try {
-    const response = await axios.post('https://play.ht/api/v2/tts', requestData, { headers });
-    const events = response.data.split('\r\n\r\n');
-    const eventData = events.find(event => event.includes('"stage":"complete"'));
-    const urlMatch = eventData.match(/"url":"([^"]+)"/);
-    const url = urlMatch ? urlMatch[1] : null;
-    return { resultado: url ? url : `🎍 URL no encontrada en la respuesta.` };
-  } catch (error) {
-    console.error('Error:', error);
-    return { resultado: `🍃 Error, no se obtuvo respuesta de la API.` };
+    const res = await axios.post(
+      "https://play.ht/api/v2/tts",
+      {
+        text: texto,
+        voice: efecto
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${secretKey}`,
+          "X-User-Id": userId,
+          accept: "text/event-stream",
+          "content-type": "application/json"
+        }
+      }
+    )
+
+    let events = res.data.split("\n\n")
+    let complete = events.find(e => e.includes('"stage":"complete"'))
+
+    if (!complete) return { resultado: "🍃 Error en la conversión TTS." }
+
+    let url = complete.match(/"url":"([^"]+)"/)
+
+    return { resultado: url ? url[1] : "🎍 No se encontró URL del audio." }
+  } catch (err) {
+    console.log(err)
+    return { resultado: "🍃 Error generando audio." }
   }
 }

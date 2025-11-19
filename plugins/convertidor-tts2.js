@@ -3,12 +3,11 @@ import fetch from "node-fetch"
 
 const handler = async (m, { conn, usedPrefix, command, text }) => {
   try {
-  
-    if (!text) {
-      let voiceList = await getVoiceList()
+    let voiceList = await getVoiceList()
 
-      if (!Array.isArray(voiceList.resultado))
-        return conn.reply(m.chat, `🍃 Error al obtener la lista de voces.`, m)
+    if (!text) {
+      if (!Array.isArray(voiceList.resultado) || voiceList.resultado.length === 0)
+        return conn.reply(m.chat, `🍃 No se pudo obtener la lista de voces.`, m)
 
       let responseText = `🦌 *Debes ingresar un efecto de voz.*\n\n`
       responseText += `🎍 *Lista de voces disponibles:*\n\n`
@@ -20,12 +19,12 @@ const handler = async (m, { conn, usedPrefix, command, text }) => {
       return conn.sendMessage(m.chat, { text: responseText }, { quoted: m })
     }
 
+    // separar efecto + texto
     const [efecto, ...textoArray] = text.split(" ")
     const texto = textoArray.join(" ").trim()
 
-    let voiceList = await getVoiceList()
-    const vozExiste = voiceList.resultado.some(v => v.ID == efecto)
-
+    // validar voz
+    const vozExiste = voiceList.resultado.some(v => v.ID === efecto)
     if (!vozExiste)
       return conn.reply(
         m.chat,
@@ -36,7 +35,7 @@ const handler = async (m, { conn, usedPrefix, command, text }) => {
     if (!texto)
       return conn.reply(
         m.chat,
-        `🦌 Ingresa el texto que quieras convertir.\n\nEjemplo:\n*${usedPrefix + command} ${efecto} Hola mundo*`,
+        `🦌 Ingresa el texto que quieras convertir.\nEjemplo:\n*${usedPrefix + command} ${efecto} Hola mundo*`,
         m
       )
 
@@ -55,6 +54,7 @@ const handler = async (m, { conn, usedPrefix, command, text }) => {
       },
       { quoted: m }
     )
+
   } catch (e) {
     console.log(e)
     conn.reply(m.chat, "🍃 Error interno.", m)
@@ -64,10 +64,15 @@ const handler = async (m, { conn, usedPrefix, command, text }) => {
 handler.command = ["tts2"]
 export default handler
 
+// ======================================================
+// 🟣 API KEYS
+// ======================================================
 const secretKey = "fe2ee40099494579af0ecf871b5af266"
 const userId = "SrgwcKcLzSY63IdsAxd1PzscFjL2"
 
-
+// ======================================================
+// ✔ Obtener lista de voces (con fallback + anime voices)
+// ======================================================
 async function getVoiceList() {
   try {
     const res = await fetch("https://play.ht/api/v2/voices", {
@@ -81,33 +86,50 @@ async function getVoiceList() {
 
     const data = await res.json()
 
+    // si data no es array → convertirlo
+    const vocesAPI = Array.isArray(data) ? data : (data.voices || [])
+
     let unique = []
     let ids = new Set()
 
-    for (let v of data) {
+    for (let v of vocesAPI) {
       if (!ids.has(v.id)) {
         ids.add(v.id)
         unique.push({
           ID: v.id,
-          name: v.name,
-          lenguaje: v.language
+          name: v.name || "Desconocido",
+          lenguaje: v.language || "N/A"
         })
       }
     }
 
-    unique.push({
-      ID: "alya",
-      name: "Alya Anime San",
-      lenguaje: "jp"
-    })
+    // 🚀 VOCES ANIME PERSONALIZADAS AÑADIDAS
+    const vocesAnime = [
+      { ID: "anime-loli", name: "Anime Loli", lenguaje: "jp" },
+      { ID: "anime-kawaii", name: "Anime Kawaii", lenguaje: "jp" },
+      { ID: "anime-soft", name: "Anime Soft Girl", lenguaje: "jp" },
+      { ID: "anime-angel", name: "Anime Angel", lenguaje: "jp" },
+      { ID: "anime-owa", name: "Anime Owa~", lenguaje: "jp" },
+      { ID: "anime-chibi", name: "Anime Chibi", lenguaje: "jp" },
+      { ID: "anime-luna", name: "Anime Luna", lenguaje: "jp" },
+      { ID: "alya-san", name: "Alya Anime San", lenguaje: "jp" }
+    ]
+
+    for (let v of vocesAnime) {
+      if (!unique.some(x => x.ID === v.ID)) unique.push(v)
+    }
 
     return { resultado: unique }
+
   } catch (err) {
     console.log(err)
     return { resultado: [] }
   }
 }
 
+// ======================================================
+// ✔ Generar audio
+// ======================================================
 async function makeTTSRequest(texto, efecto) {
   try {
     const res = await axios.post(
@@ -134,6 +156,7 @@ async function makeTTSRequest(texto, efecto) {
     let url = complete.match(/"url":"([^"]+)"/)
 
     return { resultado: url ? url[1] : "🎍 No se encontró URL del audio." }
+
   } catch (err) {
     console.log(err)
     return { resultado: "🍃 Error generando audio." }
