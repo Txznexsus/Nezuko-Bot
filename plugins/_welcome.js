@@ -83,7 +83,6 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   const fecha = new Date()
   const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
   const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Mexico_City", hour: '2-digit', minute: '2-digit' })
-  const Shadow_avatar = 'https://i.pinimg.com/originals/4c/05/44/4c05447f4342986546110f92059ee97a.jpg'
 
   const pais = detectarPais(userId)
   const groupSize = groupMetadata.participants.length + 1
@@ -111,7 +110,7 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
     userId.split('@')[0]
   )}&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${groupSize}&avatar=${encodeURIComponent(
     pp
-  )}&background=${Shadow_avatar}&quality=90`
+  )}&background=https://files.catbox.moe/gt7pb7.jpg&quality=90`
 
   return { pp: imgWelcome, caption, username }
 }
@@ -148,7 +147,7 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
     userId.split('@')[0]
   )}&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${groupSize}&avatar=${encodeURIComponent(
     pp
-  )}&background=${Shadow_avatar}&quality=90`
+  )}&background=https://files.catbox.moe/gt7pb7.jpg&quality=90`
 
   return { pp: imgGoodbye, caption, username }
 }
