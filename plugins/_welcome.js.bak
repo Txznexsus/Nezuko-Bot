@@ -67,10 +67,13 @@ const prefijosPais = {
   '263': '🇿🇼 Zimbabue'
 }
 
+// ⭐ ARREGLO DEL PAÍS (prefijos ordenados)
 function detectarPais(jid) {
   const num = jid.split('@')[0]
-  for (const [prefijo, pais] of Object.entries(prefijosPais)) {
-    if (num.startsWith(prefijo)) return pais
+  const prefijosOrdenados = Object.keys(prefijosPais).sort((a, b) => b.length - a.length)
+
+  for (const prefijo of prefijosOrdenados) {
+    if (num.startsWith(prefijo)) return prefijosPais[prefijo]
   }
   return '🌍 Desconocido'
 }
@@ -165,14 +168,25 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
     participant: '0@s.whatsapp.net'
   }
 
-  // BIENVENIDA
+  // 📌 BIENVENIDA
   if (chat.welcome && m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_ADD) {
+
     const { pp, caption, username } = await generarBienvenida({ conn, userId, groupMetadata, chat })
     const pais = detectarPais(userId)
 
+    // ⭐ API imagen welcome
+    let welcomeImg
+    try {
+      const url = `https://api.siputzx.my.id/api/canvas/welcomev5?username=${encodeURIComponent(username.replace("@",""))}&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${totalMembers}&avatar=${encodeURIComponent(pp)}&background=https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763512733399_350704.jpeg&quality=90`
+      const resImg = await fetch(url)
+      welcomeImg = Buffer.from(await resImg.arrayBuffer())
+    } catch {
+      welcomeImg = null
+    }
+
     const productMessage = {
       product: {
-        productImage: { url: pp },
+        productImage: welcomeImg ? { mimetype: "image/jpeg", jpegThumbnail: welcomeImg } : { url: pp },
         productId: '24529689176623820',
         title: `꒰͡•*🍃 ˗ˏˋ♡ˎˊ˗ 🅆🄴🄻🄲🄾🄼🄴! ˗ˏˋ♡ˎˊ˗🍬・ ͡꒱ֽ ׄ`,
         description: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
@@ -185,29 +199,31 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       businessOwnerJid: who,
       caption: caption,
       footer: caption,
-/*      interactiveButtons: [
-        {
-          name: 'quick_reply',
-          buttonParamsJson: JSON.stringify({
-            display_text: '🌿 ᴍᴇɴᴜ - ᴋᴀɴᴇᴋɪ ᴀɪ 💐',
-            id: '#menu'
-          })
-        }
-      ],*/
       mentions: [userId]
     }
 
     await conn.sendMessage(m.chat, productMessage, { quoted: fkontak })
   }
 
-  // DESPEDIDA
+  // 📌 DESPEDIDA
   if (chat.welcome && (m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_REMOVE || m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_LEAVE)) {
+
     const { pp, caption, username } = await generarDespedida({ conn, userId, groupMetadata, chat })
     const pais = detectarPais(userId)
 
+    // ⭐ API imagen goodbye
+    let byeImg
+    try {
+      const url = `https://api.siputzx.my.id/api/canvas/goodbyev5?username=${encodeURIComponent(username.replace("@",""))}&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${totalMembers}&avatar=${encodeURIComponent(pp)}&background=https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763512733399_350704.jpeg&quality=90`
+      const resImg = await fetch(url)
+      byeImg = Buffer.from(await resImg.arrayBuffer())
+    } catch {
+      byeImg = null
+    }
+
     const productMessage = {
       product: {
-        productImage: { url: pp },
+        productImage: byeImg ? { mimetype: "image/jpeg", jpegThumbnail: byeImg } : { url: pp },
         productId: '24529689176623820',
         title: `꒰͡•🍃 ˗ˏˋ♡ˎˊ˗ 🅆🄴🄻🄲🄾🄼🄴! ˗ˏˋ♡ˎˊ˗🍬 ͡꒱ֽ ׄ`,
         description: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
@@ -220,15 +236,6 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       businessOwnerJid: who,
       caption: caption,
       footer: caption,
-/*      interactiveButtons: [
-        {
-          name: 'quick_reply',
-          buttonParamsJson: JSON.stringify({
-            display_text: '🌿 ᴍᴇɴᴜ - ᴋᴀɴᴇᴋɪ ᴀɪ 💐',
-            id: '#menu'
-          })
-        }
-      ],*/
       mentions: [userId]
     }
 
@@ -238,15 +245,3 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
 
 export { generarBienvenida, generarDespedida }
 export default handler
-https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763512733399_350704.jpeg
-
-mano añde está API para la despedida 
-
-https://api.siputzx.my.id/api/canvas/goodbyev5?username=Adi%C3%B3s%20&guildName=Shadow%20&memberCount=219&avatar=https%3A%2F%2Fi.ibb.co%2F1s8T3sY%2F48f7ce63c7aa.jpg&background=https%3A%2F%2Fi.ibb.co%2F4YBNyvP%2Fmountain-sunset.jpg&quality=90
-
-pa la imagen 
-
-y está pa la bienvenida 
-
-https://api.siputzx.my.id/api/canvas/welcomev5?username=Zero%20Two&guildName=Siputzx%20Community&memberCount=219&avatar=https%3A%2F%2Fi.ibb.co%2F1s8T3sY%2F48f7ce63c7aa.jpg&background=https%3A%2F%2Fi.ibb.co%2F4YBNyvP%2Fmountain-sunset.jpg&quality=90
-
