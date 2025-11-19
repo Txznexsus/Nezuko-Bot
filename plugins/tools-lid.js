@@ -37,15 +37,9 @@ let handler = async (m, { conn, text, participants, groupMetadata }) => {
       const userName = await conn.getName(userId).catch(() => 'Sin nombre')
       const isAdmin = participant?.admin ? '✅ Sí' : '❌ No'
       const isInGroup = participant ? '✅ Sí' : '❌ No'
-
-      // intentar obtener el LID real si existe
       let lid = '—'
-      if (participant?.lid) {
-        if (typeof participant.lid === 'object') lid = JSON.stringify(participant.lid)
-        else lid = participant.lid
-      } else if (participant?.id?.includes(':')) {
-        // algunos LID se devuelven en formato "jid:lid"
-        lid = participant.id.split(':')[1] || '—'
+      if (userId.includes(':')) {
+        lid = userId.split(':')[1].split('@')[0] || '—'
       }
 
       if (lid !== '—') totalConLid++
