@@ -99,8 +99,10 @@ ${comandos}
 `.trim()
 
     const imgs = [
-      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404449889_268409.jpeg',
-      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404456592_385271.jpeg'
+      //'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404449889_268409.jpeg',
+      //'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404456592_385271.jpeg'
+        'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763569649527_319860.mp4',
+        'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763569625901_346347.mp4'
     ]
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
 
@@ -130,7 +132,7 @@ ${comandos}
    }, { quoted: fkontak })
 */
  await conn.sendMessage(m.chat, {
-      image: { url: imageUrl },
+      video: { url: imageUrl },
       caption: infoUser + menuTexto.trim(),
       ...rcanalw
  }, { quoted: m })
