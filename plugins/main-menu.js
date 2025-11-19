@@ -133,6 +133,7 @@ ${comandos}
 */
  await conn.sendMessage(m.chat, {
       video: { url: imageUrl },
+      gifPlayback: true,
       caption: infoUser + menuTexto.trim(),
       ...rcanalw
  }, { quoted: m })
