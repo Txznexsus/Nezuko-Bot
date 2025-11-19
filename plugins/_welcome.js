@@ -69,8 +69,9 @@ const prefijosPais = {
 
 function detectarPais(jid) {
   const num = jid.split('@')[0]
-  for (const [prefijo, pais] of Object.entries(prefijosPais)) {
-    if (num.startsWith(prefijo)) return pais
+  const prefijosOrdenados = Object.keys(prefijosPais).sort((a, b) => b.length - a.length)
+  for (const prefijo of prefijosOrdenados) {
+    if (num.startsWith(prefijo)) return prefijosPais[prefijo]
   }
   return '🌍 Desconocido'
 }
@@ -82,6 +83,7 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   const fecha = new Date()
   const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
   const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Mexico_City", hour: '2-digit', minute: '2-digit' })
+  const Shadow_avatar = 'https://i.pinimg.com/originals/4c/05/44/4c05447f4342986546110f92059ee97a.jpg'
 
   const pais = detectarPais(userId)
   const groupSize = groupMetadata.participants.length + 1
@@ -94,18 +96,24 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   const caption = `🌸✨ 𝑯𝒐𝒍𝒂, ${username} ✨🌸
 ╰┈► 𝙱𝚒𝚎𝚗𝚟𝚎𝚗𝚒𝚍@ 𝚊𝚕 𝚐𝚛𝚞𝚙𝚘 *${groupMetadata.subject}* 💞
 
-🍃 ʟ𝚒𝚗𝚍𝚘 𝚝𝚎𝚗𝚎𝚛𝚝𝚎 𝚙𝚘𝚛 𝚊𝚚𝚞í, 𝚎𝚜𝚙𝚎𝚛𝚊𝚖𝚘𝚜 𝚚𝚞𝚎 𝚍𝚒𝚜𝚏𝚛𝚞𝚝𝚎𝚜 𝚝𝚞 𝚎𝚜𝚝𝚊𝚍í𝚊 💚  
-🍬 𝚂𝚒é𝚗𝚝𝚎𝚝𝚎 𝚌𝚘𝚖𝚘 𝚎𝚗 𝚌𝚊𝚜𝚒𝚝𝚊,? 𝚄𝚠𝚄
+🍃 ʟ𝚒𝚗𝚍𝚘 𝚝𝚎𝚗𝚎𝚛𝚝𝚎 𝚙𝚘𝚛 𝚊𝚚𝚞í 💚
+🍬 𝚂𝚒é𝚗𝚝𝚎𝚝𝚎 𝚌𝚘𝚖𝚘 𝚎𝚗 𝚌𝚊𝚜𝚒𝚝𝚊 𝚄𝚠𝚄
 
 🌿 *「 𝐈𝐧𝐟𝐨 𝐝𝐞𝐥 𝐆𝐫𝐮𝐩𝐨 」*
 ┆👥 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
 ┆🌍 ᴘᴀíꜱ: ${pais}
 ┆⏰ ʜᴏʀᴀ: ${hora}
 ┆📅 ғᴇᴄʜᴀ: ${fechaTexto}
-┆📝 ᴅᴇꜱᴄʀɪᴘᴄɪᴏ́ɴ: ${mensaje}
+┆📝 ᴅᴇꜱᴄʀɪᴘᴄɪóɴ: ${mensaje}
 ╰───────────────✿`
 
-  return { pp, caption, username }
+  const imgWelcome = `https://api.siputzx.my.id/api/canvas/welcomev5?username=${encodeURIComponent(
+    userId.split('@')[0]
+  )}&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${groupSize}&avatar=${encodeURIComponent(
+    pp
+  )}&background=${Shadow_avatar}&quality=90`
+
+  return { pp: imgWelcome, caption, username }
 }
 
 async function generarDespedida({ conn, userId, groupMetadata, chat }) {
@@ -124,19 +132,25 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
     .replace(/{grupo}/g, `*${groupMetadata.subject}*`)
     .replace(/{desc}/g, `*${desc}*`)
 
-  const caption = `🌸💫 𝙴𝚕 𝚟𝚒𝚎𝚗𝚝𝚘 𝚌𝚊𝚖𝚋𝚒𝚊...  
+  const caption = `🌸💫 𝙴𝚕 𝚟𝚒𝚎𝚗𝚝𝚘 𝚌𝚊𝚖𝚋𝚒𝚊...
 ╰┈► ${username} 𝚑𝚊 𝚍𝚎𝚓𝚊𝚍𝚘 𝚎𝚕 𝚐𝚛𝚞𝚙𝚘 *${groupMetadata.subject}* 💐
 
 🌾 ${mensaje}
 
 📉 *「 𝐄𝐬𝐭𝐚𝐝𝐨 𝐀𝐜𝐭𝐮𝐚𝐥 」*
-┆👥 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}  
-┆🌍 ᴘᴀíꜱ: ${pais}  
-┆⏰ ʜᴏʀᴀ: ${hora}  
-┆📅 ғᴇᴄʜᴀ: ${fechaTexto}  
+┆👥 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
+┆🌍 ᴘᴀíꜱ: ${pais}
+┆⏰ ʜᴏʀᴀ: ${hora}
+┆📅 ғᴇᴄʜᴀ: ${fechaTexto}
 ╰───────────────✿`
 
-  return { pp, caption, username }
+  const imgGoodbye = `https://api.siputzx.my.id/api/canvas/goodbyev5?username=${encodeURIComponent(
+    userId.split('@')[0]
+  )}&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${groupSize}&avatar=${encodeURIComponent(
+    pp
+  )}&background=${Shadow_avatar}&quality=90`
+
+  return { pp: imgGoodbye, caption, username }
 }
 
 let handler = m => m
@@ -165,17 +179,15 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
     participant: '0@s.whatsapp.net'
   }
 
-  // BIENVENIDA
   if (chat.welcome && m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_ADD) {
     const { pp, caption, username } = await generarBienvenida({ conn, userId, groupMetadata, chat })
-    const pais = detectarPais(userId)
 
     const productMessage = {
       product: {
         productImage: { url: pp },
         productId: '24529689176623820',
-        title: `꒰͡•*゜・。🍃 ˗ˏˋ ♡ ˎˊ˗🅆🄴🄻🄲🄾🄼🄴!˗ˏˋ ♡ ˎˊ˗🍬 ꒰͡•*゜・。 ͡꒱ֽ ׄ`,
-        description: caption,
+        title: `꒰͡•*゜・。🍃 ˗ˏˋ ♡ ˎˊ˗🅆🄴🄻🄲🄾🄼🄴!˗ˏˋ ♡ ˎˊ˗🍬 ꒰͡•*゜・।`,
+        description: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
         currencyCode: 'USD',
         priceAmount1000: '100000',
         retailerId: 1677,
@@ -183,34 +195,22 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
         productImageCount: 1
       },
       businessOwnerJid: who,
-      caption: caption,
-      footer: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
-      interactiveButtons: [
-        {
-          name: 'quick_reply',
-          buttonParamsJson: JSON.stringify({
-            display_text: '🌿 ᴍᴇɴᴜ - ᴋᴀɴᴇᴋɪ ᴀɪ 💐',
-            id: '#menu'
-          })
-        }
-      ],
+      footer: caption,
       mentions: [userId]
     }
 
     await conn.sendMessage(m.chat, productMessage, { quoted: fkontak })
   }
 
-  // DESPEDIDA
   if (chat.welcome && (m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_REMOVE || m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_LEAVE)) {
     const { pp, caption, username } = await generarDespedida({ conn, userId, groupMetadata, chat })
-    const pais = detectarPais(userId)
 
     const productMessage = {
       product: {
         productImage: { url: pp },
         productId: '24529689176623820',
-        title: `꒰͡•*゜・。🍃 ˗ˏˋ ♡ ˎˊ˗🅆🄴🄻🄲🄾🄼🄴!˗ˏˋ ♡ ˎˊ˗🍬 ꒰͡•*゜・。 ͡꒱ֽ ׄ`,
-        description: caption,
+        title: `꒰͡•*゜・।🍃 ˗ˏˋ ♡ ˎˊ˗🅆🄴🄻🄲🄾🄼🄴!˗ˏˋ ♡ ˎˊ˗🍬 ꒰͡•*゜・।`,
+        description: `👥 Miembros: ${groupMetadata.participants.length} • 📅 ${date}`,
         currencyCode: 'USD',
         priceAmount1000: '100000',
         retailerId: 1677,
@@ -218,17 +218,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
         productImageCount: 1
       },
       businessOwnerJid: who,
-      caption: caption,
-      footer: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
-      interactiveButtons: [
-        {
-          name: 'quick_reply',
-          buttonParamsJson: JSON.stringify({
-            display_text: '🌿 ᴍᴇɴᴜ - ᴋᴀɴᴇᴋɪ ᴀɪ 💐',
-            id: '#menu'
-          })
-        }
-      ],
+      footer: caption,
       mentions: [userId]
     }
 
