@@ -106,7 +106,7 @@ ${comandos}
 
 
  await conn.sendMessage(m.chat, {
-      imagen: { url: imageUrl },
+      image: { url: imageUrl },
       //gifPlayback: true,
       caption: infoUser + menuTexto.trim(),
       ...rcanalw
