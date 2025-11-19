@@ -75,7 +75,7 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   }&avatar=${
     encodeURIComponent(pp)
   }&background=${
-    encodeURIComponent("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763585864348_780365.jpeg")
+    encodeURIComponent("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763585860222_517223.jpeg")
   }&quality=90`
 
   return { pp: imgWelcome, caption, username }
