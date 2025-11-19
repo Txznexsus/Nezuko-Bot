@@ -41,8 +41,8 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   )
 
   const fecha = new Date()
-  const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
-  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Mexico_City", hour: '2-digit', minute: '2-digit' })
+  const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Lima", day: 'numeric', month: 'long', year: 'numeric' })
+  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Lima", hour: '2-digit', minute: '2-digit' })
 
   const pais = detectarPais(userId)
   const groupSize = groupMetadata.participants.length + 1
@@ -88,8 +88,8 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
   )
 
   const fecha = new Date()
-  const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
-  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Mexico_City", hour: '2-digit', minute: '2-digit' })
+  const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Lima", day: 'numeric', month: 'long', year: 'numeric' })
+  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Lima", hour: '2-digit', minute: '2-digit' })
 
   const pais = detectarPais(userId)
   const groupSize = groupMetadata.participants.length - 1
@@ -140,7 +140,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
 
   let thumbBuffer
   try {
-    const res = await fetch('https://i.postimg.cc/rFfVL8Ps/image.jpg')
+    const res = await fetch('https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763586769709_495967.jpeg')
     thumbBuffer = Buffer.from(await res.arrayBuffer())
   } catch {
     thumbBuffer = null
@@ -168,7 +168,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
         productImageCount: 1
       },
       businessOwnerJid: who,
-      caption: dev,
+      caption: 'Bxdxdx xd ',
       footer: caption,
       mentions: [userId]
     }
