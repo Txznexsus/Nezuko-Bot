@@ -3,68 +3,26 @@ import fetch from 'node-fetch'
 import { WAMessageStubType } from '@whiskeysockets/baileys'
 
 const prefijosPais = {
-  '1': '🇺🇸 Estados Unidos • 🇨🇦 Canadá',
-  '7': '🇷🇺 Rusia / 🇰🇿 Kazajistán',
-  '20': '🇪🇬 Egipto',
-  '27': '🇿🇦 Sudáfrica',
-  '30': '🇬🇷 Grecia',
-  '31': '🇳🇱 Países Bajos',
-  '32': '🇧🇪 Bélgica',
-  '33': '🇫🇷 Francia',
-  '34': '🇪🇸 España',
-  '39': '🇮🇹 Italia',
-  '40': '🇷🇴 Rumania',
-  '41': '🇨🇭 Suiza',
-  '43': '🇦🇹 Austria',
-  '44': '🇬🇧 Reino Unido',
-  '45': '🇩🇰 Dinamarca',
-  '46': '🇸🇪 Suecia',
-  '47': '🇳🇴 Noruega',
-  '48': '🇵🇱 Polonia',
-  '49': '🇩🇪 Alemania',
+  '1': '🇺🇸 Estados Unidos',
   '51': '🇵🇪 Perú',
   '52': '🇲🇽 México',
+  '53': '🇨🇺 Cuba',
   '54': '🇦🇷 Argentina',
   '55': '🇧🇷 Brasil',
   '56': '🇨🇱 Chile',
   '57': '🇨🇴 Colombia',
   '58': '🇻🇪 Venezuela',
-  '60': '🇲🇾 Malasia',
-  '62': '🇮🇩 Indonesia',
-  '63': '🇵🇭 Filipinas',
-  '64': '🇳🇿 Nueva Zelanda',
-  '65': '🇸🇬 Singapur',
-  '66': '🇹🇭 Tailandia',
-  '81': '🇯🇵 Japón',
-  '82': '🇰🇷 Corea del Sur',
-  '84': '🇻🇳 Vietnam',
-  '86': '🇨🇳 China',
-  '90': '🇹🇷 Turquía',
-  '91': '🇮🇳 India',
-  '92': '🇵🇰 Pakistán',
-  '94': '🇱🇰 Sri Lanka',
-  '98': '🇮🇷 Irán',
-  '212': '🇲🇦 Marruecos',
-  '213': '🇩🇿 Argelia',
-  '216': '🇹🇳 Túnez',
-  '218': '🇱🇾 Libia',
-  '220': '🇬🇲 Gambia',
-  '221': '🇸🇳 Senegal',
-  '222': '🇲🇷 Mauritania',
-  '223': '🇲🇱 Mali',
-  '225': '🇨🇮 Costa de Marfil',
-  '226': '🇧🇫 Burkina Faso',
-  '227': '🇳🇪 Níger',
-  '228': '🇹🇬 Togo',
-  '229': '🇧🇯 Benín',
-  '230': '🇲🇺 Mauricio',
-  '231': '🇱🇷 Liberia',
-  '233': '🇬🇭 Ghana',
-  '234': '🇳🇬 Nigeria',
-  '255': '🇹🇿 Tanzania',
-  '256': '🇺🇬 Uganda',
-  '260': '🇿🇲 Zambia',
-  '263': '🇿🇼 Zimbabue'
+  '591': '🇧🇴 Bolivia',
+  '595': '🇵🇾 Paraguay',
+  '598': '🇺🇾 Uruguay',
+  '502': '🇬🇹 Guatemala',
+  '503': '🇸🇻 El Salvador',
+  '504': '🇭🇳 Honduras',
+  '505': '🇳🇮 Nicaragua',
+  '506': '🇨🇷 Costa Rica',
+  '507': '🇵🇦 Panamá',
+  '593': '🇪🇨 Ecuador',
+  '809': '🇩🇴 República Dominicana'
 }
 
 function detectarPais(jid) {
@@ -73,7 +31,7 @@ function detectarPais(jid) {
   for (const prefijo of prefijosOrdenados) {
     if (num.startsWith(prefijo)) return prefijosPais[prefijo]
   }
-  return '🌍 Desconocido'
+  return 'Desconocido ❄️'
 }
 
 async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
@@ -117,7 +75,7 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   }&avatar=${
     encodeURIComponent(pp)
   }&background=${
-    encodeURIComponent("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763571546276_787585.jpeg")
+    encodeURIComponent("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763585860222_517223.jpeg")
   }&quality=90`
 
   return { pp: imgWelcome, caption, username }
@@ -162,7 +120,7 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
   }&avatar=${
     encodeURIComponent(pp)
   }&background=${
-    encodeURIComponent("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763571546276_787585.jpeg")
+    encodeURIComponent("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763585864348_780365.jpeg")
   }&quality=90`
 
   return { pp: imgGoodbye, caption, username }
@@ -190,7 +148,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
 
   const fkontak = {
     key: { participant: '0@s.whatsapp.net', remoteJid: 'status@broadcast', fromMe: false, id: 'Halo' },
-    message: { locationMessage: { name: '🍓 𝙒𝙚𝙡𝙘𝙤𝙢𝙚 - 𝙆𝙖𝙣𝙚𝙠𝙞 𝙈𝘿 🍟', jpegThumbnail: thumbBuffer } },
+    message: { locationMessage: { name: '🌳☃️✨   𝐊𝐀𝐍𝐄𝐊𝐈 - 𝐈𝐀   🎁🦌🛷', jpegThumbnail: thumbBuffer } },
     participant: '0@s.whatsapp.net'
   }
 
@@ -201,7 +159,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       product: {
         productImage: { url: pp },
         productId: '24529689176623820',
-        title: `꒰͡•*゜・。🍃 ˗ˏˋ ♡ ˎˊ˗🅆🄴🄻🄲🄾🄼🄴!˗ˏˋ ♡ ˎˊ˗🍬 ꒰͡•*゜・।`,
+        title: ` ˗ˏˋ♡ˎˊ˗ ❏ ¡𝐖 𝐄 𝐋 𝐂 𝐎 𝐌 𝐄! ᯤ ˗ˏˋ♡ˎˊ˗`,
         description: `👥 Miembros: ${totalMembers} • 📅 ${date}`,
         currencyCode: 'USD',
         priceAmount1000: '100000',
@@ -210,6 +168,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
         productImageCount: 1
       },
       businessOwnerJid: who,
+      caption: dev,
       footer: caption,
       mentions: [userId]
     }
@@ -224,7 +183,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       product: {
         productImage: { url: pp },
         productId: '24529689176623820',
-        title: `꒰͡•*゜・।🍃 ˗ˏˋ ♡ ˎˊ˗🅆🄴🄻🄲🄾🄼🄴!˗ˏˋ ♡ ˎˊ˗🍬 ꒰͡•*゜・।`,
+        title: ` ˗ˏˋ♡ˎˊ˗ ❏ ¡𝐖 𝐄 𝐋 𝐂 𝐎 𝐌 𝐄! ᯤ ˗ˏˋ♡ˎˊ˗`,
         description: `👥 Miembros: ${groupMetadata.participants.length} • 📅 ${date}`,
         currencyCode: 'USD',
         priceAmount1000: '100000',
@@ -233,6 +192,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
         productImageCount: 1
       },
       businessOwnerJid: who,
+      caption: dev,
       footer: caption,
       mentions: [userId]
     }
