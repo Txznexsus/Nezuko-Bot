@@ -21,7 +21,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     await m.react('🕒')
     await conn.reply(m.chat, '*_🍃 Descargando tu video onichan_*', m, rcanal)
 
-    const apiUrl = `https://api.vreden.my.id/api/v1/download/youtube/video?url=${encodeURIComponent(text)}&quality=360`
+    const apiUrl = `https://api.vreden.my.id/api/v1/download/youtube/video?url=${encodeURIComponent(text)}&quality=720`
     const response = await fetch(apiUrl)
     if (!response.ok) throw `No se pudo obtener información del video.`
 
