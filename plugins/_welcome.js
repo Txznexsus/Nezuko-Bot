@@ -78,7 +78,9 @@ function detectarPais(jid) {
 
 async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   const username = `@${userId.split('@')[0]}`
-  const pp = await conn.profilePictureUrl(userId, 'image').catch(() => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
+  const pp = await conn.profilePictureUrl(userId, 'image').catch(() =>
+    'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg'
+  )
 
   const fecha = new Date()
   const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
@@ -107,23 +109,25 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
 ╰───────────────✿`
 
   const imgWelcome = `https://api.siputzx.my.id/api/canvas/welcomev5?username=${
-  encodeURIComponent(userId.split('@')[0])
-}&guildName=${
-  encodeURIComponent(groupMetadata.subject)
-}&memberCount=${
-  groupSize
-}&avatar=${
-  encodeURIComponent(pp)
-}&background=${
-  encodeURIComponent("https://files.catbox.moe/gt7pb7.jpg")
-}&quality=90`
+    encodeURIComponent(userId.split('@')[0])
+  }&guildName=${
+    encodeURIComponent(groupMetadata.subject)
+  }&memberCount=${
+    groupSize
+  }&avatar=${
+    encodeURIComponent(pp)
+  }&background=${
+    encodeURIComponent("https://files.catbox.moe/gt7pb7.jpg")
+  }&quality=90`
 
   return { pp: imgWelcome, caption, username }
 }
 
 async function generarDespedida({ conn, userId, groupMetadata, chat }) {
   const username = `@${userId.split('@')[0]}`
-  const pp = await conn.profilePictureUrl(userId, 'image').catch(() => 'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg')
+  const pp = await conn.profilePictureUrl(userId, 'image').catch(() =>
+    'https://raw.githubusercontent.com/The-King-Destroy/Adiciones/main/Contenido/1745522645448.jpeg'
+  )
 
   const fecha = new Date()
   const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Mexico_City", day: 'numeric', month: 'long', year: 'numeric' })
@@ -150,16 +154,16 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
 ╰───────────────✿`
 
   const imgGoodbye = `https://api.siputzx.my.id/api/canvas/goodbyev5?username=${
-  encodeURIComponent(userId.split('@')[0])
-}&guildName=${
-  encodeURIComponent(groupMetadata.subject)
-}&memberCount=${
-  groupSize
-}&avatar=${
-  encodeURIComponent(pp)
-}&background=${
-  encodeURIComponent("https://files.catbox.moe/gt7pb7.jpg")
-}&quality=90`
+    encodeURIComponent(userId.split('@')[0])
+  }&guildName=${
+    encodeURIComponent(groupMetadata.subject)
+  }&memberCount=${
+    groupSize
+  }&avatar=${
+    encodeURIComponent(pp)
+  }&background=${
+    encodeURIComponent("https://files.catbox.moe/gt7pb7.jpg")
+  }&quality=90`
 
   return { pp: imgGoodbye, caption, username }
 }
