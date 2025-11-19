@@ -6,16 +6,20 @@ import { generateWAMessageFromContent } from '@whiskeysockets/baileys'
 async function sendOrderMsg(m, conn, texto, imgBuffer) {
   try {
 
+    if (!imgBuffer) imgBuffer = Buffer.alloc(10)
+
     const order = {
       orderId: 'FAKE-' + Date.now(),
-      thumbnail: imgBuffer, 
+      thumbnail: imgBuffer,
       itemCount: 1,
       status: 1,
       surface: 1,
       message: texto,
-      orderTitle: 'Perfil Bot',
-      token: null,
-      sellerJid: null,
+      orderTitle: 'Perfil Bot :v',
+
+      token: '',
+      sellerJid: '',
+
       totalAmount1000: '0',
       totalCurrencyCode: 'GTQ',
       contextInfo: {
@@ -161,7 +165,7 @@ ${description}
 > ✿┆. 🍄 *ᴘʀᴇᴍɪᴜᴍ:* ${premium ? `Activo (${restante})` : 'No'}
 > ✿╰──────────────⬣
 
-> ✿╭───〔 \`🄲🄾🄻🄴🄲🄲🄸🄾🄽\` 〕
+> ✿╭───〔 \`🄲🄾🄻🄴🄲🄲🄸🄾🄽\`  〕
 > ✿┆. 🌷 *ᴘᴇʀsᴏɴᴀᴊᴇs:* ${haremCount}  
 > ✿┆. 🌾 *ᴠᴀʟᴏʀ ᴛᴏᴛᴀʟ:* ${haremValue.toLocaleString()}
 > ✿┆. ⚡ ${favLine}
