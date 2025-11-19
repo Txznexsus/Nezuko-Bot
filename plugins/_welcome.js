@@ -106,11 +106,7 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
 ┆📝 ᴅᴇꜱᴄʀɪᴘᴄɪóɴ: ${mensaje}
 ╰───────────────✿`
 
-  const imgWelcome = `https://api.siputzx.my.id/api/canvas/welcomev5?username=${encodeURIComponent(
-    userId.split('@')[0]
-  )}&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${groupSize}&avatar=${encodeURIComponent(
-    pp
-  )}&background=https://files.catbox.moe/gt7pb7.jpg&quality=90`
+  const imgWelcome = `https://api.siputzx.my.id/api/canvas/welcomev5?username=${encodeURIComponent(userId.split('@')[0])}&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${groupSize}&avatar=${encodeURIComponent(pp)}&background=https://files.catbox.moe/gt7pb7.jpg&quality=90`
 
   return { pp: imgWelcome, caption, username }
 }
@@ -143,11 +139,7 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
 ┆📅 ғᴇᴄʜᴀ: ${fechaTexto}
 ╰───────────────✿`
 
-  const imgGoodbye = `https://api.siputzx.my.id/api/canvas/goodbyev5?username=${encodeURIComponent(
-    userId.split('@')[0]
-  )}&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${groupSize}&avatar=${encodeURIComponent(
-    pp
-  )}&background=https://files.catbox.moe/gt7pb7.jpg&quality=90`
+  const imgGoodbye = `https://api.siputzx.my.id/api/canvas/goodbyev5?username=${encodeURIComponent(userId.split('@')[0])}&guildName=${encodeURIComponent(groupMetadata.subject)}&memberCount=${groupSize}&avatar=${encodeURIComponent(pp)}&background=https://files.catbox.moe/gt7pb7.jpg&quality=90`
 
   return { pp: imgGoodbye, caption, username }
 }
