@@ -9,25 +9,22 @@ let handler = async (m, { conn, args }) => {
 
     m.reply("⏳ Descargando el video, espera...");
 
-    // Obtener info de la API
+
     let res = await fetch(api);
     let json = await res.json();
 
     if (!json.status) return m.reply("❌ No se pudo descargar el video.");
 
-    // Primera URL de descarga
     let dl = json.data.urls[0];
     let title = json.data.metadata?.title || "tiktok_video";
 
-    // Descargar el buffer del video
     let vid = await fetch(dl);
     let buffer = await vid.buffer();
 
-    // Enviar el video como DOCUMENTO
     await conn.sendMessage(
       m.chat,
       {
-        document: buffer,
+        video: buffer,
         mimetype: "video/mp4",
         fileName: title.replace(/[^a-zA-Z0-9]/g, "_") + ".mp4"
       },
