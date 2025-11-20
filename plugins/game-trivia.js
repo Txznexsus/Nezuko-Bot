@@ -34,93 +34,94 @@ let userScores = new Map()
 
 const handler = async (m, { conn, command, args, usedPrefix }) => {
   try {
-    // 📌 Comando principal: enviar nueva pregunta
+    // ================================
+    //     ENVIAR NUEVA PREGUNTA
+    // ================================
     if (command === "trivia") {
-      let current = triviaSessions.get(m.chat)
+      let session = triviaSessions.get(m.chat)
       let available = [...questions]
 
-      if (current?.asked?.length)
-        available = available.filter((_, i) => !current.asked.includes(i))
+      if (session?.asked?.length)
+        available = available.filter((_, i) => !session.asked.includes(i))
 
       if (available.length === 0) {
         triviaSessions.delete(m.chat)
-        return m.reply("🎉 *Ya respondiste todas las preguntas!* Usa nuevamente *!trivia* para reiniciar.")
+        return m.reply("🎉 *Ya no hay más preguntas!* Usa !trivia para reiniciar.")
       }
 
       const random = Math.floor(Math.random() * available.length)
       const index = questions.indexOf(available[random])
       const q = questions[index]
+
       const img = triviaImages[Math.floor(Math.random() * triviaImages.length)]
 
-      triviaSessions.set(m.chat, {
-        index,
-        answered: false,
-        asked: current?.asked ? [...current.asked, index] : [index]
-      })
-
       const caption = `
-╭━━━〔 🎓 𝐓𝐑𝐈𝐕𝐈𝐀 𝐃𝐄 𝐂𝐔𝐋𝐓𝐔𝐑𝐀 〕━━⬣
+╭━━━〔 🎓 𝐓𝐑𝐈𝐕𝐈𝐀 〕━━⬣
 ┃ 🧩 *Pregunta:* ${q.question}
 ┃
-┃ 🌿 *Opciones:*
-┃   A) ${q.options[0]}
-┃   B) ${q.options[1]}
-┃   C) ${q.options[2]}
+┃ A) ${q.options[0]}
+┃ B) ${q.options[1]}
+┃ C) ${q.options[2]}
 ┃
 ┃ ✍️ *Responde con A, B o C*
+┃ (Debes responder al mensaje del bot)
 ╰━━━━━━━━━━━━━━━━━━⬣
 `.trim()
 
-      await conn.sendMessage(
-        m.chat,
-        { image: { url: img }, caption },
-        { quoted: m }
-      )
+      // Envia la pregunta y guardamos el ID para detectar respuestas
+      let sent = await conn.sendMessage(m.chat, { image: { url: img }, caption }, { quoted: m })
 
-      await m.react("🧠")
-      return
+      triviaSessions.set(m.chat, {
+        index,
+        asked: session?.asked ? [...session.asked, index] : [index],
+        answered: false,
+        msgId: sent.key.id // 🔥 Guarda el ID del mensaje del bot
+      })
+
+      return await m.react("🧠")
     }
 
-    // 📌 Comando para puntaje
+    // ================================
+    //     ENVIAR SCORE
+    // ================================
     if (command === "triviascore") {
-      if (userScores.size === 0) return m.reply("📭 Nadie ha jugado la trivia aún.")
+      if (userScores.size === 0) return m.reply("📭 Nadie jugó todavía.")
 
       const sorted = [...userScores.entries()].sort((a, b) => b[1] - a[1])
       const top = sorted.slice(0, 10)
       const mentions = top.map(([u]) => u)
 
       const ranking = top
-        .map(([user, score], i) => `*${i + 1}.* @${user.split("@")[0]} — 🏅 *${score} pts*`)
+        .map(([user, score], i) => `*${i + 1}.* @${user.split("@")[0]} — *${score} pts*`)
         .join("\n")
 
       const caption = `
-╭━━━〔 🏆 𝐑𝐀𝐍𝐊𝐈𝐍𝐆 𝐓𝐑𝐈𝐕𝐈𝐀 〕━━⬣
+🏆 *Ranking de Trivia:*
 ${ranking}
-╰━━━━━━━━━━━━━━━━━━⬣
-🎯 ¡Sigue participando para subir de puesto!
+
+🎯 ¡Sigue jugando para subir!
 `.trim()
 
       await conn.sendMessage(
         m.chat,
-        {
-          image: { url: triviaImages[Math.floor(Math.random() * triviaImages.length)] },
-          caption,
-          mentions
-        },
+        { text: caption, mentions },
         { quoted: m }
       )
 
-      await m.react("🏆")
-      return
+      return await m.react("🏆")
     }
 
-    // 📌 RESPUESTA DEL USUARIO: (A/B/C)
+    // ================================
+    //     DETECTAR RESPUESTAS (A/B/C)
+    // ================================
     const session = triviaSessions.get(m.chat)
 
     if (session && !session.answered) {
-      const text = m.text.trim().toUpperCase()
+      // 🔥 Solo responde si contestó al mensaje del bot
+      if (!m.quoted || m.quoted.id !== session.msgId) return
 
-      if (!["A", "B", "C"].includes(text)) return   // ignora lo que no sea respuesta
+      const text = m.text.trim().toUpperCase()
+      if (!["A", "B", "C"].includes(text)) return
 
       const correct = questions[session.index].answer
       const isCorrect = text === correct
@@ -129,32 +130,27 @@ ${ranking}
       if (!userScores.has(user)) userScores.set(user, 0)
       if (isCorrect) userScores.set(user, userScores.get(user) + 1)
 
-      const emoji = isCorrect ? "🎉" : "💔"
       const msg = isCorrect
-        ? "✨ ¡Respuesta correcta!"
+        ? "🎉 ¡Correcto!"
         : `❌ Incorrecto. La respuesta correcta era *${correct}*`
 
-      const caption = `
-╭━━━〔 🧠 𝐑𝐄𝐒𝐔𝐋𝐓𝐀𝐃𝐎 〕━━⬣
-┃ ✍️ *Tu respuesta:* ${text}
-┃ 🎯 *Correcta:* ${correct}
-┃
-┃ ${emoji} ${msg}
-┃
-┃ 🏅 *Puntaje actual:* ${userScores.get(user)} pts
-╰━━━━━━━━━━━━━━━━━━⬣
-`.trim()
+      await m.reply(`
+🧠 *Resultado:*
+Tu respuesta: ${text}
+Correcta: ${correct}
 
-      await m.reply(caption)
+${msg}
+
+🏅 *Puntaje:* ${userScores.get(user)} pts
+`)
+
       triviaSessions.set(m.chat, { ...session, answered: true })
       await m.react(isCorrect ? "✅" : "❌")
-
-      return
     }
 
   } catch (err) {
     console.error(err)
-    m.reply("⚠️ Error en la trivia.")
+    m.reply("⚠️ Error en trivia.")
   }
 }
 
