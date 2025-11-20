@@ -18,13 +18,13 @@ let userScores = new Map()
 
 const handler = async (m, { conn, command, args }) => {
   try {
-    
+    // NUEVA PREGUNTA
     if (command === "trivia") {
       let session = triviaSessions.get(m.chat)
       let available = [...questions]
       if (session?.asked?.length)
         available = available.filter((_, i) => !session.asked.includes(i))
-      if (available.length === 0) {
+      if (!available.length) {
         triviaSessions.delete(m.chat)
         return m.reply("🎉 Ya no hay más preguntas! Usa !trivia para reiniciar.")
       }
@@ -40,68 +40,53 @@ A) ${q.options[0]}
 B) ${q.options[1]}
 C) ${q.options[2]}
 
-✍️ Responde al mensaje del bot con A, B o C
+✍️ Responde con A, B o C
 `.trim()
 
-      const sent = await conn.sendMessage(
-        m.chat,
-        { image: { url: img }, caption },
-        { quoted: m }
-      )
-
+      await conn.sendMessage(m.chat, { image: { url: img }, caption })
       triviaSessions.set(m.chat, {
         index,
         asked: session?.asked ? [...session.asked, index] : [index],
-        answered: false,
-        key: sent.key
+        answered: false
       })
-
-      return await m.react("🧠")
+      return
     }
 
-  
+    // MOSTRAR PUNTAJE
     if (command === "triviascore") {
-      if (userScores.size === 0) return m.reply("📭 Nadie ha jugado todavía.")
+      if (!userScores.size) return m.reply("📭 Nadie ha jugado todavía.")
       const sorted = [...userScores.entries()].sort((a,b)=>b[1]-a[1])
       const top = sorted.slice(0,10)
-      const mentions = top.map(([u])=>u)
       const ranking = top.map(([user,score],i)=>`*${i+1}.* @${user.split("@")[0]} — *${score} pts*`).join("\n")
-      return await conn.sendMessage(
-        m.chat,
-        { text: `🏆 *Ranking de Trivia:*\n${ranking}`, mentions },
-        { quoted: m }
-      )
+      const mentions = top.map(([u])=>u)
+      return conn.sendMessage(m.chat, { text: `🏆 Ranking:\n${ranking}`, mentions })
     }
 
-
+    // DETECTAR RESPUESTA
     const session = triviaSessions.get(m.chat)
     if (session && !session.answered) {
-      const quotedId = m.quoted?.key?.id
-      if (!quotedId || quotedId !== session.key.id) return
-
       const text = m.text.trim().toUpperCase()
       if (!["A","B","C"].includes(text)) return
 
       const correct = questions[session.index].answer
       const isCorrect = text === correct
-      const user = m.sender
-      if (!userScores.has(user)) userScores.set(user,0)
-      if (isCorrect) userScores.set(user, userScores.get(user)+1)
+      if (!userScores.has(m.sender)) userScores.set(m.sender,0)
+      if (isCorrect) userScores.set(m.sender, userScores.get(m.sender)+1)
 
       await m.reply(`
-🧠 *Resultado*
+🧠 Resultado
 Tu respuesta: ${text}
 Correcta: ${correct}
-${isCorrect ? "🎉 ¡Correcto!" : "❌ Incorrecto."}
-🏅 *Puntaje:* ${userScores.get(user)} pts
-`.trim())
+${isCorrect ? "🎉 Correcto!" : "❌ Incorrecto!"}
+🏅 Puntaje: ${userScores.get(m.sender)} pts
+      `.trim())
 
-      triviaSessions.set(m.chat,{ ...session, answered:true })
-      return await m.react(isCorrect ? "✅" : "❌")
+      triviaSessions.set(m.chat, { ...session, answered:true })
+      return
     }
 
-  } catch(err) {
-    console.error(err)
+  } catch(e) {
+    console.error(e)
     m.reply("⚠️ Error en trivia.")
   }
 }
