@@ -19,7 +19,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     const title = data.results.title || "Audio TikTok"
     const thumb = data.results.thumbnail || data.results.cover || null
     const url = data.results.url || text
-    const duration = data.results.duration || "Desconocida"
 
     await conn.sendMessage(m.chat, {
       audio: { url: data.results.audio },
@@ -30,7 +29,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         externalAdReply: {
           showAdAttribution: true,
           title,
-          body: `❄️ Duración: ${duration}`,
+          body: ``,
           thumbnailUrl: thumb,
           mediaType: 1,
           sourceUrl: url,
