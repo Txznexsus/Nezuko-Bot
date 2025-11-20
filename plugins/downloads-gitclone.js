@@ -25,7 +25,7 @@ let handler = async (m, { args, usedPrefix, command }) => {
   let repoUrl = `https://api.github.com/repos/${user}/${sanitizedRepo}`
   let zipUrl = `https://api.github.com/repos/${user}/${sanitizedRepo}/zipball`
 
-  await m.react(rwait)
+  await m.react('⌛')
 
   try {
     conn.reply(m.chat, wait, m)
@@ -42,7 +42,7 @@ let handler = async (m, { args, usedPrefix, command }) => {
       .match(/attachment; filename=(.*)/)[1]
 
     let type = zipResponse.headers.get('content-type')
-    let img = ''
+    let img = 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763675568213_152926.jpeg'
 
     let txt = `*🌿  DESCARGA DE REPOSITORIO - GITHUB*\n\n`
     txt += `🌲 *Proyecto:* ${sanitizedRepo}\n`
@@ -55,10 +55,10 @@ let handler = async (m, { args, usedPrefix, command }) => {
     await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m)
     await conn.sendFile(m.chat, await zipResponse.buffer(), filename, null, m)
 
-    await m.react(done)
+    await m.react('✔️')
 
   } catch (e) {
-    await m.react(error)
+    await m.react('❌')
     return conn.reply(
       m.chat, 
       `🍁 *Ocurrió un problema al descargar el repositorio.*\nVuelve a intentarlo más tarde.`,
