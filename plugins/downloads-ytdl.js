@@ -74,8 +74,8 @@ let handler = async (m, { conn, args, command }) => {
     
     // Mensaje de espera
     const waitMessage = command.startsWith('yta') 
-      ? '🔊 Descargando audio, por favor espera...' 
-      : '🎬 Descargando video, por favor espera...'
+      ? '🌳 Descargando audio, por favor espera...' 
+      : '🦌 Descargando video, por favor espera...'
     const sentMsg = await conn.sendMessage(m.chat, { text: waitMessage }, { quoted: m })
 
     let formato = args[1] || (command.startsWith('yta') ? '128k' : '1080p')
