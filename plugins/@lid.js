@@ -21,42 +21,54 @@ let handler = async function (m, { conn, args, groupMetadata }) {
     const jid = p.id
     const username = '@' + jid.split('@')[0]
 
+    // obtener el lid
+    const lid = p.lid
+      ? p.lid + '@lid'
+      : p.userLid
+      ? p.userLid + '@lid'
+      : 'No disponible'
+
+    // roles con naturaleza
     const rol = p.admin === 'superadmin'
-      ? '👑 *Fundador*'
+      ? '🌳 *Fundador*'
       : p.admin === 'admin'
-      ? '🛡️ *Administrador*'
-      : '👤 *Miembro*'
+      ? '🌿 *Administrador*'
+      : '🍃 *Miembro*'
 
     return [
-      `╭───〔 *Usuario #${inicio + index + 1}* 〕`,
-      `│ 👤 *Nombre:* ${username}`,
-      `│ 🆔 *JID:* ${jid}`,
-      `│ 🏅 *Rol:* ${rol}`,
-      `╰────────────────────`
+      `╭───〔 🌱 *Usuario #${inicio + index + 1}* 〕`,
+      `│ 🍀 *Nombre:* ${username}`,
+      `│ 🌿 *JID:* ${jid}`,
+      `│ 🍂 *LID:* ${lid}`,
+      `│ 🌲 *Rol:* ${rol}`,
+      `╰──────────────────────────`
     ].join('\n')
   }).join('\n')
 
   const mencionados = paginaActual.map(p => p.id)
 
+  // Totales
   const totalAdmins = participantes.filter(p => p.admin).length
   const totalMiembros = participantes.length - totalAdmins
 
+  // Imagen personalizada tuya
   const imagenPersonal = {
     url: "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763639388011_220247.jpeg"
   }
 
+  // Panel principal
   const texto = `
-╔═══〔 📋 *PARTICIPANTES DEL GRUPO* 〕═══╗
-║ 📛 *Grupo:* ${groupMetadata.subject}
-║ 👥 *Total:* ${participantes.length}
-║ 👑 *Admins:* ${totalAdmins}
-║ 👤 *Miembros:* ${totalMiembros}
-║ 📄 *Página:* ${paginaSolicitada}/${totalPaginas}
+╔═══〔 🌿 *INFORMACIÓN DEL GRUPO* 〕═══╗
+║ 🌸 *Nombre:* ${groupMetadata.subject}
+║ 🌱 *Total:* ${participantes.length}
+║ 🌲 *Admins:* ${totalAdmins}
+║ 🍃 *Miembros:* ${totalMiembros}
+║ 🍀 *Página:* ${paginaSolicitada}/${totalPaginas}
 ╚══════════════════════════════════╝
 
 ${tarjetas}
 
-🪴 Usa: *.lids 2* para ir a la siguiente página.
+🌾 Usa: *.lids 2* para ir a otra página.
 `
 
   return await conn.sendMessage(m.chat, {
