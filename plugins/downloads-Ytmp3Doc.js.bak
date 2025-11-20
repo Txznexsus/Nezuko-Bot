@@ -154,12 +154,29 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     let { result } = info
 
     let caption = `
+ 
+ "data": [
+    {
+      "type": "video",
+      "videoId": "eHHQaoEW30Q",
+      "url": "https://youtu.be/eHHQaoEW30Q",
+      "title": "TWICE \"THIS IS FOR\" M/V",
+      "description": "TWICE",
+      "image": "https://i.ytimg.com/vi/eHHQaoEW30Q/hq720.jpg",
+      "thumbnail": "https://i.ytimg.com/vi/eHHQaoEW30Q/hq720.jpg?sqp=-oaymwEXCNAFEJQDSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLArIuPlKz6wFWQ64TJkA5QHc04xqA",
+      "publishedAt": "hace 4 meses",
+      "duration": "2:14",
+      "views": 75803999,
+      "isLive": false,
+      "author": {
+        "name": "JYP Entertainment",
+        "url": "https://www.youtube.com/@JYPEntertainment"
+      }
+    },
+ 
  ╔══ ❀•°🌴 YT MP3 DOC °•❀ ══╗
 ║ 🦥 *Título:* ${result.title}
 ║ 🐢 *Tiempo:* ${vid.duration}
- ID: ${result.videoId}
- Vistas: ${result.views}
- publicado: ${result.publishedAt}
 ║ 🦔 *Canal:* ${vid.author?.name || "Desconocido"}
 ║ 🦎 *Calidad:* ${result.quality}p
 ║ 🌿 *Link:* ${vid.url}
