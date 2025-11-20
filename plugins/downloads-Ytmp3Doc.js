@@ -7,6 +7,19 @@ import Jimp from 'jimp'
 import axios from 'axios'
 import crypto from 'crypto'
 
+const getFileSize = async (url) => {
+  try {
+    const head = await fetch(url, { method: "HEAD" });
+    const size = head.headers.get("content-length");
+    if (!size) return "Desconocido";
+
+    let mb = (Number(size) / 1024 / 1024).toFixed(2);
+    return `${mb} MB`;
+  } catch {
+    return "Desconocido";
+  }
+};
+
 const savetube = {
   api: {
     base: "https://media.savetube.me/api",
@@ -138,7 +151,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   }, { quoted: fkontak })
 
   try {
- 
     let res = await fetch(`https://api.delirius.store/search/ytsearch?q=${encodeURIComponent(q)}`)
     let json = await res.json()
     if (!json.status || !json.data || !json.data.length) {
@@ -152,15 +164,16 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     }
 
     let { result } = info
+    let size = await getFileSize(result.download)
 
-    let caption = `
- ╔══ ❀•°🌴 YT MP3 DOC °•❀ ══╗
+    let caption = `╔══ ❀•°🌴 YT MP3 DOC °•❀ ══╗
 ║ 🦥 *Título:* ${result.title}
 ║ 🐢 *Tiempo:* ${vid.duration}
- ID: ${result.videoId}
- Vistas: ${result.views}
- publicado: ${result.publishedAt}
-║ 🦔 *Canal:* ${vid.author?.name || "Desconocido"}
+║ 🦦 *ID:* ${vid.videoId}
+║ ❄️ *Vistas:* ${vid.views}
+║ 🎍 *Publicado:* ${vid.publishedAt}
+║ 🍃 *Tamaño:* ${size}
+║ ⚡ *Canal:* ${vid.author?.name || "Desconocido"}
 ║ 🦎 *Calidad:* ${result.quality}p
 ║ 🌿 *Link:* ${vid.url}
 ╚═══════════════════════╝
@@ -230,5 +243,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 handler.command = ['ytmp3doc', 'ytadoc']
 handler.help = ['ytmp3doc <texto>']
 handler.tags = ['download']
+handler.group = true
+handler.register = true
 
 export default handler
