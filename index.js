@@ -32,13 +32,13 @@ const { chain } = lodash
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 
 let { say } = cfonts
-console.log(chalk.magentaBright('\n❀ Iniciando...'))
-say('MiyukiBot-MD', {
-font: 'simple',
-align: 'left',
+console.log(chalk.magentaBright('\n🚀 Iniciando...'))
+say('-漫 KANEKI - BOT AI·舞', {
+font: 'block',
+align: 'center',
 gradient: ['green', 'white']
 })
-say('Powered By OmarGranda', {
+say('˙˚ʚ₍ ᐢ. ̫ .ᐢ ₎ɞ˚ ᴍᴀᴅᴇ ᴡɪᴛʜ ʟᴏᴠᴇ ʙʏ sʜᴀᴅᴏᴡ.xʏᴢ 🌿', {
 font: 'console',
 align: 'center',
 colors: ['cyan', 'magenta', 'yellow']
@@ -193,7 +193,7 @@ if (connection === "open") {
 const userJid = jidNormalizedUser(conn.user.id)
 const userName = conn.user.name || conn.user.verifiedName || "Desconocido"
 await joinChannels(conn)
-console.log(chalk.green.bold(`[ ✿ ]  Conectado a: ${userName}`))
+console.log(chalk.green.bold(`╭───────────────────────────◉\n│\n│🎍◌*̥₊ 𝙲𝚘𝚗𝚎𝚌𝚝𝚊𝚍𝚘 𝙲𝚘𝚛𝚛𝚎𝚌𝚝𝚊𝚖𝚎𝚗𝚝𝚎.\n│ [ ✿ ]  Conectado a: ${userName}\n│\n╰───────────────────────────◉`))
 }
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
 if (connection === "close") {
@@ -330,7 +330,7 @@ const [ffmpeg, ffprobe, ffmpegWebp, convert, magick, gm, find] = test;
 const s = global.support = {ffmpeg, ffprobe, ffmpegWebp, convert, magick, gm, find};
 Object.freeze(global.support);
 }
-// 🌿 Tmp
+// Tmp
 setInterval(async () => {
 const tmpDir = join(__dirname, 'tmp')
 try {
