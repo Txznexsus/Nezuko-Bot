@@ -26,7 +26,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   let apiURL = `https://api.github.com/repos/${user}/${repo}`
   let zipURL = `https://api.github.com/repos/${user}/${repo}/zipball`
 
-  let previewImg = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763676539448_243623.jpeg"
+  let previewImg = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763676809384_4043.jpeg"
 
   await m.react('⌛')
 
