@@ -81,10 +81,6 @@ let handler = async (m, { conn, text }) => {
         fileName: `${title}.mp3`,
         ptt: false,
         contextInfo: {
-        newsletterJid: channelRD.id,
-        serverMessageId: 100,
-        newsletterName: channelRD.name
-        },
           externalAdReply: {
             title: "✎ 𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖 𝘾𝙤𝙢𝙥𝙡𝙚𝙩𝙖.",
             body: `✿ 𝙎𝙚𝙧𝙫𝙞𝙙𝙤𝙧: ${serverUsed}`,
