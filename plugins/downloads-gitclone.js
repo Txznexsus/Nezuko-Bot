@@ -26,27 +26,25 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   let apiURL = `https://api.github.com/repos/${user}/${repo}`
   let zipURL = `https://api.github.com/repos/${user}/${repo}/zipball`
 
-  // Miniatura personalizada
-  let previewImg = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763676293102_924672.jpeg"
+  let previewImg = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763676539448_243623.jpeg"
 
   await m.react('⌛')
 
   try {
-    conn.reply(m.chat, `🌿 *Consultando API de GitHub...*`, m)
+    conn.reply(m.chat, `🌿 *Buscando en GitHub...*`, m)
 
-    // Info del repo
+    
     let repoResp = await fetch(apiURL)
     if (!repoResp.ok) throw new Error("No se encontró el repo")
     let repoData = await repoResp.json()
 
-    // Descargar ZIP
+    
     let zipResp = await fetch(zipURL)
     if (!zipResp.ok) throw new Error("Error descargando ZIP")
     let buffer = Buffer.from(await zipResp.arrayBuffer())
 
     let filename = `${repo}-main.zip`
 
-    // Descargar miniatura (debe ser JPG y pequeña)
     let thumbRes = await fetch(previewImg)
     let thumbBuffer = Buffer.from(await thumbRes.arrayBuffer())
 
@@ -54,16 +52,14 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
 🍂 *Proyecto:* ${repo}
 🌱 *Propietario:* ${user}
-🌾 *Creador real:* ${repoData?.owner?.login}
+🌾 *Creador:* ${repoData?.owner?.login}
 🍀 *Descripción:* ${repoData?.description || "Sin descripción"}
 🪴 *Repositorio:* ${args[0]}
 
 > 🌳 *Descargando archivo...*`
 
-    // Enviar mensaje informativo
-    await conn.sendFile(m.chat, previewImg, "git.jpg", text, m)
+    await conn.sendFile(m.chat, 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763675568213_152926.jpeg', "git.jpg", text, m)
 
-    // Enviar ZIP con miniatura
     await conn.sendMessage(
       m.chat,
       {
