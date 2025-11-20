@@ -47,16 +47,13 @@ let handler = async function (m, { conn, args, groupMetadata }) {
 
   const mencionados = paginaActual.map(p => p.id)
 
-  // Totales
   const totalAdmins = participantes.filter(p => p.admin).length
   const totalMiembros = participantes.length - totalAdmins
 
-  // Imagen personalizada tuya
   const imagenPersonal = {
     url: "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763639388011_220247.jpeg"
   }
 
-  // Panel principal
   const texto = `
 ╔═══〔 🌿 *INFORMACIÓN DEL GRUPO* 〕═══╗
 ║ 🌸 *Nombre:* ${groupMetadata.subject}
@@ -64,7 +61,7 @@ let handler = async function (m, { conn, args, groupMetadata }) {
 ║ 🌲 *Admins:* ${totalAdmins}
 ║ 🍃 *Miembros:* ${totalMiembros}
 ║ 🍀 *Página:* ${paginaSolicitada}/${totalPaginas}
-╚══════════════════════════════════╝
+╚════════════════════════════════╝
 
 ${tarjetas}
 
