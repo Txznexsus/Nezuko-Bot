@@ -54,13 +54,13 @@ let handler = async function (m, { conn, args, groupMetadata }) {
   }
 
   const texto = `
-╔═══〔 🌿 *INFORMACIÓN DEL GRUPO* 〕═══╗
+╔══〔 🌿 *INFORMACIÓN DEL GRUPO* 〕══╗
 ║ 🌸 *Nombre:* ${groupMetadata.subject}
 ║ 🌱 *Total:* ${participantes.length}
 ║ 🌲 *Admins:* ${totalAdmins}
 ║ 🍃 *Miembros:* ${totalMiembros}
 ║ 🍀 *Página:* ${paginaSolicitada}/${totalPaginas}
-╚════════════════════════════════╝
+╚══════════════════════════════╝
 
 ${tarjetas}
 
