@@ -1,67 +1,77 @@
 import fetch from 'node-fetch'
 
-let regex = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
-
-let handler = async (m, { args, usedPrefix, command }) => {
-
+let handler = async (m, { conn, args, usedPrefix, command }) => {
   if (!args[0]) {
     return conn.reply(
       m.chat, 
-      `🍃 *Debes enviar un enlace de un repositorio de GitHub para descargarlo.*\n\nEjemplo:\n${usedPrefix + command} https://github.com/usuario/repositorio`,
+      `🍃 *Debes enviar un enlace de un repositorio de GitHub.*\nEjemplo:\n${usedPrefix + command} https://github.com/usuario/repositorio`,
       m
     )
   }
 
-  if (!regex.test(args[0])) {
+  let regex = /https:\/\/github\.com\/([^\/]+)\/([^\/]+)(?:\/|$)/i
+  let match = args[0].match(regex)
+
+  if (!match) {
+    await m.react('⚠️')
     return conn.reply(
-      m.chat, 
-      `🌱 *El enlace no pertenece a GitHub.*\nVerifícalo antes de intentarlo otra vez.`,
+      m.chat,
+      `🌱 *El enlace no es válido o no pertenece a GitHub.*`,
       m
-    ).then(_ => m.react(error))
+    )
   }
 
-  let [_, user, repo] = args[0].match(regex) || []
-  let sanitizedRepo = repo.replace(/.git$/, '')
-  let repoUrl = `https://api.github.com/repos/${user}/${sanitizedRepo}`
-  let zipUrl = `https://api.github.com/repos/${user}/${sanitizedRepo}/zipball`
+  let user = match[1]
+  let repo = match[2].replace(/\.git$/, "")
+  let apiURL = `https://api.github.com/repos/${user}/${repo}`
+  let zipURL = `https://api.github.com/repos/${user}/${repo}/zipball`
 
   await m.react('⌛')
 
   try {
-    conn.reply(m.chat, wait, m)
+    conn.reply(m.chat, `🌿 *Consultando API de GitHub...*`, m)
 
-    let [repoResponse, zipResponse] = await Promise.all([
-      fetch(repoUrl),
-      fetch(zipUrl),
-    ])
+  
+    let repoResp = await fetch(apiURL)
+    if (!repoResp.ok) throw new Error("No se encontró el repo")
 
-    let repoData = await repoResponse.json()
+    let repoData = await repoResp.json()
 
-    let filename = zipResponse.headers
-      .get('content-disposition')
-      .match(/attachment; filename=(.*)/)[1]
 
-    let type = zipResponse.headers.get('content-type')
-    let img = 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763675568213_152926.jpeg'
+    let zipResp = await fetch(zipURL)
+    if (!zipResp.ok) throw new Error("Error descargando ZIP")
 
-    let txt = `*🌿  DESCARGA DE REPOSITORIO - GITHUB*\n\n`
-    txt += `🌲 *Proyecto:* ${sanitizedRepo}\n`
-    txt += `🍂 *Propietario:* ${user}\n`
-    txt += `🌾 *Creador real:* ${repoData?.owner?.login || "Desconocido"}\n`
-    txt += `🍀 *Descripción:* ${repoData.description || 'Sin descripción proporcionada'}\n`
-    txt += `🪴 *Url original:* ${args[0]}\n\n`
-    txt += `> 🌳 *Descargando archivo...*`
+    let buffer = await zipResp.arrayBuffer()
+    buffer = Buffer.from(buffer)
 
-    await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m)
-    await conn.sendFile(m.chat, await zipResponse.buffer(), filename, null, m)
+    let filename = `${repo}-main.zip`
+
+    let previewImg = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763675568213_152926.jpeg"
+
+    let text = `*🌿 DESCARGA DE REPOSITORIO*
+
+🍂 *Proyecto:* ${repo}
+🌱 *Propietario:* ${user}
+🌾 *Creador real:* ${repoData?.owner?.login}
+🍀 *Descripción:* ${repoData?.description || "Sin descripción"}
+🪴 *Repositorio:* ${args[0]}
+
+> 🌳 *Descargando archivo...*`
+
+    // Envío de preview
+    await conn.sendFile(m.chat, previewImg, "git.jpg", text, m)
+
+    // Envío del ZIP
+    await conn.sendFile(m.chat, buffer, filename, "", m)
 
     await m.react('✔️')
 
   } catch (e) {
+    console.log(e)
     await m.react('❌')
     return conn.reply(
-      m.chat, 
-      `🍁 *Ocurrió un problema al descargar el repositorio.*\nVuelve a intentarlo más tarde.`,
+      m.chat,
+      `🍁 *Error descargando el repositorio.*\nAsegúrate de que exista y sea público.`,
       m
     )
   }
@@ -71,6 +81,5 @@ handler.help = ['gitclone *<url>*']
 handler.tags = ['download']
 handler.command = ['gitclone']
 handler.group = true
-handler.register = true
 
 export default handler
