@@ -34,9 +34,9 @@ let userScores = new Map()
 
 const handler = async (m, { conn, command, args, usedPrefix }) => {
   try {
-    // ======================================
-    //         ENVIAR PREGUNTA
-    // ======================================
+    // ================================
+    //         ENVIAR NUEVA PREGUNTA
+    // ================================
     if (command === "trivia") {
       let session = triviaSessions.get(m.chat)
       let available = [...questions]
@@ -52,7 +52,6 @@ const handler = async (m, { conn, command, args, usedPrefix }) => {
       const random = Math.floor(Math.random() * available.length)
       const index = questions.indexOf(available[random])
       const q = questions[index]
-
       const img = triviaImages[Math.floor(Math.random() * triviaImages.length)]
 
       const caption = `
@@ -75,20 +74,20 @@ const handler = async (m, { conn, command, args, usedPrefix }) => {
         { quoted: m }
       )
 
-      // Guardar sesión
+      // Guardar sesión con msgId
       triviaSessions.set(m.chat, {
         index,
         asked: session?.asked ? [...session.asked, index] : [index],
         answered: false,
-        msgId: sent.key.id   // <<<<<< GUARDAMOS EL ID CORRECTO
+        msgId: sent.key.id
       })
 
       return await m.react("🧠")
     }
 
-    // ======================================
-    //            RANKING
-    // ======================================
+    // ================================
+    //         MOSTRAR RANKING
+    // ================================
     if (command === "triviascore") {
       if (userScores.size === 0) return m.reply("📭 Nadie jugó todavía.")
 
@@ -108,13 +107,13 @@ const handler = async (m, { conn, command, args, usedPrefix }) => {
       )
     }
 
-    // ======================================
-    //       DETECTAR RESPUESTA A / B / C
-    // ======================================
+    // ================================
+    //       DETECTAR RESPUESTA A/B/C
+    // ================================
     const session = triviaSessions.get(m.chat)
     if (session && !session.answered) {
 
-      // 🔥 VERIFICACIÓN UNIVERSAL (IGUAL QUE ANIME)
+      // 🔥 Verificación universal del mensaje citado
       const quotedId =
         m.quoted?.key?.id ||
         m.quoted?.id ||
