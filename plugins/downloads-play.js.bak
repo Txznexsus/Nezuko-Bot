@@ -75,6 +75,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
           mimetype: 'audio/mpeg',
           fileName: `${title}.mp3`
         },
+        ...fake
         { quoted: fkontak }
       );
 

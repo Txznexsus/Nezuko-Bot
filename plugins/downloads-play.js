@@ -75,7 +75,6 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
           mimetype: 'audio/mpeg',
           fileName: `${title}.mp3`
         },
-        ...fake
         { quoted: fkontak }
       );
 
@@ -93,7 +92,8 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
           video: { url: video.url },
           fileName: `${title}.mp4`,
           mimetype: 'video/mp4',
-          caption: `> 🍃 *${title}*`
+          caption: `> 🍃 *${title}*`,
+          ...fake
         },
         { quoted: fkontak }
       );
