@@ -16,23 +16,29 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!data?.results?.audio)
       return m.reply(`⚠️ No pude obtener el audio del enlace.\nIntenta con otro URL.`)
 
-    let msg = {
+    const title = data.results.title || "Audio TikTok"
+    const thumb = data.results.thumbnail || data.results.cover || null
+    const url = data.results.url || text
+    const duration = data.results.duration || "Desconocida"
+
+    await conn.sendMessage(m.chat, {
       audio: { url: data.results.audio },
       mimetype: 'audio/mp4',
       fileName: `tiktok_${Date.now()}.mp3`,
+      ptt: false,
       contextInfo: {
         externalAdReply: {
-          title: data.results.title || "Audio TikTok",
-         // mediaUrl: text,
-          sourceUrl: text,
-          mediaType: 2,
           showAdAttribution: true,
-          thumbnail: await (await conn.getFile(data.results.thumbnail)).data
+          title,
+          body: `❄️ Duración: ${duration}`,
+          thumbnailUrl: thumb,
+          mediaType: 1,
+          sourceUrl: url,
+          renderLargerThumbnail: true,
         }
       }
-    }
+    }, { quoted: m })
 
-    await conn.sendMessage(m.chat, msg, { quoted: m })
     await conn.sendMessage(m.chat, { react: { text: "✅", key: m.key } })
 
   } catch (e) {
