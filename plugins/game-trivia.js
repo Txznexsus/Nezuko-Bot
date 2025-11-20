@@ -64,18 +64,19 @@ const handler = async (m, { conn, command, args, usedPrefix }) => {
 ┃ C) ${q.options[2]}
 ┃
 ┃ ✍️ *Responde con A, B o C*
-┃ (Debes responder al mensaje del bot)
+┃ (Debes responder citando el mensaje del bot)
 ╰━━━━━━━━━━━━━━━━━━⬣
 `.trim()
 
-      // Envia la pregunta y guardamos el ID para detectar respuestas
+      // Envia la pregunta y guardamos la KEY completa para detectar respuestas
       let sent = await conn.sendMessage(m.chat, { image: { url: img }, caption }, { quoted: m })
 
       triviaSessions.set(m.chat, {
         index,
         asked: session?.asked ? [...session.asked, index] : [index],
         answered: false,
-        msgId: sent.key.id // 🔥 Guarda el ID del mensaje del bot
+        msgKey: sent.key,          // 🔥 Guardamos la KEY completa
+        msgId: sent.key?.id || null // fallback por compatibilidad
       })
 
       return await m.react("🧠")
@@ -117,11 +118,21 @@ ${ranking}
     const session = triviaSessions.get(m.chat)
 
     if (session && !session.answered) {
-      // 🔥 Solo responde si contestó al mensaje del bot
-      if (!m.quoted || m.quoted.id !== session.msgId) return
+      // 🔥 Requiere que el usuario responda citando el mensaje del bot.
+      // Comparamos con las dos formas posibles:
+      //  - m.quoted.key.id (estándar en MD)
+      //  - m.quoted.id (fallback en algunos entornos)
+      if (!m.quoted) return // no es reply, ignorar
+      const quotedId = m.quoted?.key?.id || m.quoted?.id || null
+      const sessionId = session.msgKey?.id || session.msgId || null
 
+      if (!quotedId || !sessionId) return // no podemos comparar, ignorar
+      if (quotedId !== sessionId) return // la respuesta no es al mensaje del bot
+
+      // ahora procesamos la respuesta A/B/C
+      if (!m.text) return
       const text = m.text.trim().toUpperCase()
-      if (!["A", "B", "C"].includes(text)) return
+      if (!["A", "B", "C"].includes(text)) return // no es una respuesta válida
 
       const correct = questions[session.index].answer
       const isCorrect = text === correct
