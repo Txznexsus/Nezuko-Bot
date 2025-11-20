@@ -21,14 +21,13 @@ let handler = async function (m, { conn, args, groupMetadata }) {
     const jid = p.id
     const username = '@' + jid.split('@')[0]
 
-    // obtener el lid
+ 
     const lid = p.lid
       ? p.lid + '@lid'
       : p.userLid
       ? p.userLid + '@lid'
       : 'No disponible'
 
-    // roles con naturaleza
     const rol = p.admin === 'superadmin'
       ? '🌳 *Fundador*'
       : p.admin === 'admin'
@@ -43,7 +42,7 @@ let handler = async function (m, { conn, args, groupMetadata }) {
       `│ 🌲 *Rol:* ${rol}`,
       `╰──────────────────────────`
     ].join('\n')
-  }).join('\n')
+  }).join('\n\n')
 
   const mencionados = paginaActual.map(p => p.id)
 
