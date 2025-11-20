@@ -42,7 +42,7 @@ let handler = async function (m, { conn, args, groupMetadata }) {
   const totalMiembros = participantes.length - totalAdmins
 
   const imagenPersonal = {
-    url: "https://i.imgur.com/H7WZ1j0.jpeg"
+    url: "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763639388011_220247.jpeg"
   }
 
   const texto = `
