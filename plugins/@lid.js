@@ -5,7 +5,6 @@ let handler = async function (m, { conn, args, groupMetadata }) {
 
   participantes.sort((a, b) => (a.id > b.id ? 1 : -1))
 
-  // CONFIGURACIÓN DE PAGINACIÓN
   const porPagina = 20
   const paginaSolicitada = Number(args[0]) || 1
   const totalPaginas = Math.ceil(participantes.length / porPagina)
