@@ -7,6 +7,18 @@ import Jimp from 'jimp'
 import axios from 'axios'
 import crypto from 'crypto'
 
+const getFileSize = async (url) => {
+  try {
+    const head = await fetch(url, { method: "HEAD" });
+    const size = head.headers.get("content-length");
+    if (!size) return "Desconocido";
+
+    let mb = (Number(size) / 1024 / 1024).toFixed(2);
+    return `${mb} MB`;
+  } catch {
+    return "Desconocido";
+  }
+  
 const savetube = {
   api: {
     base: "https://media.savetube.me/api",
@@ -139,7 +151,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   
   try {
     // 🔍 Buscar en YT
-    let res = await fetch(`https://delirius-apiofc.vercel.app/search/ytsearch?q=${encodeURIComponent(q)}`)
+    let res = await fetch(`https://api.delirius.store/search/ytsearch?q=${encodeURIComponent(q)}`)
     let json = await res.json()
     if (!json.status || !json.data || !json.data.length) {
       return conn.sendMessage(m.chat, { text: `No encontré resultados para *${q}*.` }, { quoted: m })
@@ -153,11 +165,15 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     }
 
     let { result } = info
-
+    let size = await getFileSize(result.download)
     let caption = `
 ┌── 「 🌲 YOUTUBE MP4 DOC 」──┐
 │ 🌿 *Título:* ${result.title}
 │ 🍂 *Duración:* ${vid.duration}
+│ 🦦 *ID:* ${vid.videoId}
+│ ❄️ *Vistas:* ${vid.views}
+│ 🎍 *Publicado:* ${vid.publishedAt}
+│ 🍃 *Tamaño:* ${size}
 │ 🪶 *Canal:* ${vid.author?.name || "Desconocido"}
 │ 🌤️ *Calidad:* ${result.quality}P
 │ 🌱 *Link:* ${vid.url}
