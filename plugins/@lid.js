@@ -59,7 +59,6 @@ ${tarjetas}
 🪴 Usa: *.lids 2* para ir a la siguiente página.
 `
 
-  // Enviar imagen + texto
   return await conn.sendMessage(m.chat, {
     image: imagenPersonal,
     caption: texto,
