@@ -21,7 +21,7 @@ let handler = async (m, { conn, text, args, setting }) => {
       let peso = await size(videoInfo.videoUrl);
 
       let cap = `
-〔 🍃 𝗛𝗲𝗻𝘁𝗮𝗶 𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱 🍃 〕
+ 🍃 𝗛𝗲𝗻𝘁𝗮𝗶 𝗗𝗼𝘄𝗻𝗹𝗼𝗮𝗱 🍃 
 
 🎬 *Título:* ${videoInfo.title}
 👀 *Vistas:* ${videoInfo.views}
