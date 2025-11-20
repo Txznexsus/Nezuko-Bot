@@ -23,7 +23,7 @@ let handler = async function (m, { conn, args, groupMetadata }) {
 
  
     const lid = p.lid
-      ? p.lid + '@lid'
+      ? p.lid + ''
       : p.userLid
       ? p.userLid + '@lid'
       : 'No disponible'
