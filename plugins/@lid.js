@@ -1,40 +1,71 @@
-let handler = async function (m, { conn, groupMetadata }) {
+let handler = async function (m, { conn, args, groupMetadata }) {
   if (!m.isGroup) return m.reply('🚫 Este comando solo funciona en *grupos*.')  
 
   const participantes = groupMetadata?.participants || []
 
-  const tarjetas = participantes.map((p, index) => {
-    const jid = p.id || 'N/A'
+  participantes.sort((a, b) => (a.id > b.id ? 1 : -1))
+
+  // CONFIGURACIÓN DE PAGINACIÓN
+  const porPagina = 20
+  const paginaSolicitada = Number(args[0]) || 1
+  const totalPaginas = Math.ceil(participantes.length / porPagina)
+
+  if (paginaSolicitada < 1 || paginaSolicitada > totalPaginas) {
+    return m.reply(`❗ Página inválida.\n\n📄 Páginas disponibles: *1 - ${totalPaginas}*`)
+  }
+
+  const inicio = (paginaSolicitada - 1) * porPagina
+  const fin = inicio + porPagina
+  const paginaActual = participantes.slice(inicio, fin)
+
+  const tarjetas = paginaActual.map((p, index) => {
+    const jid = p.id
     const username = '@' + jid.split('@')[0]
-    const estado = p.admin === 'superadmin' ? '👑 Fundador' :
-                   p.admin === 'admin' ? '🛡️ Admin' :
-                   '👤 Miembro'
+
+    const rol = p.admin === 'superadmin'
+      ? '👑 *Fundador*'
+      : p.admin === 'admin'
+      ? '🛡️ *Administrador*'
+      : '👤 *Miembro*'
 
     return [
-      `┏━〔 👥 Usuario #${index + 1} 〕┓`,
-      `┃ 🌱 *Nombre:* ${username}`,
-      `┃ ☘️ *JID:* ${jid}`,
-      `┃ 🎖️ *Rol:* ${estado}`,
-      `┗━━━━━━━━━━━━━━━━━━━┛`
+      `╭───〔 *Usuario #${inicio + index + 1}* 〕`,
+      `│ 👤 *Nombre:* ${username}`,
+      `│ 🆔 *JID:* ${jid}`,
+      `│ 🏅 *Rol:* ${rol}`,
+      `╰────────────────────`
     ].join('\n')
-  })
+  }).join('\n')
 
-  const contenido = tarjetas.join('\n\n')
-  const mencionados = participantes.map(p => p.id).filter(Boolean)
+  const mencionados = paginaActual.map(p => p.id)
 
   const totalAdmins = participantes.filter(p => p.admin).length
   const totalMiembros = participantes.length - totalAdmins
 
-  const mensajeFinal = `┏━━〔 📋 *Participantes del Grupo* 〕━━┓
-┃ 🌱 *Nombre del grupo:* ${groupMetadata.subject}
-┃ 🔢 *Total de miembros:* ${participantes.length}
-┃ 👑 *Admins:* ${totalAdmins}
-┃ 👤 *Miembros:* ${totalMiembros}
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+  const imagenPersonal = {
+    url: "https://i.imgur.com/H7WZ1j0.jpeg"
+  }
 
-${contenido}`
+  const texto = `
+╔═══〔 📋 *PARTICIPANTES DEL GRUPO* 〕═══╗
+║ 📛 *Grupo:* ${groupMetadata.subject}
+║ 👥 *Total:* ${participantes.length}
+║ 👑 *Admins:* ${totalAdmins}
+║ 👤 *Miembros:* ${totalMiembros}
+║ 📄 *Página:* ${paginaSolicitada}/${totalPaginas}
+╚══════════════════════════════════╝
 
-  return conn.reply(m.chat, mensajeFinal, m, { mentions: mencionados })
+${tarjetas}
+
+🪴 Usa: *.lids 2* para ir a la siguiente página.
+`
+
+  // Enviar imagen + texto
+  return await conn.sendMessage(m.chat, {
+    image: imagenPersonal,
+    caption: texto,
+    mentions: mencionados
+  })
 }
 
 handler.command = ['lids']
