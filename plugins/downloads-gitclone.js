@@ -26,27 +26,29 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   let apiURL = `https://api.github.com/repos/${user}/${repo}`
   let zipURL = `https://api.github.com/repos/${user}/${repo}/zipball`
 
+  // Miniatura personalizada
+  let previewImg = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763676293102_924672.jpeg"
+
   await m.react('⌛')
 
   try {
     conn.reply(m.chat, `🌿 *Consultando API de GitHub...*`, m)
 
-  
+    // Info del repo
     let repoResp = await fetch(apiURL)
     if (!repoResp.ok) throw new Error("No se encontró el repo")
-
     let repoData = await repoResp.json()
 
-
+    // Descargar ZIP
     let zipResp = await fetch(zipURL)
     if (!zipResp.ok) throw new Error("Error descargando ZIP")
-
-    let buffer = await zipResp.arrayBuffer()
-    buffer = Buffer.from(buffer)
+    let buffer = Buffer.from(await zipResp.arrayBuffer())
 
     let filename = `${repo}-main.zip`
 
-    let previewImg = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763675568213_152926.jpeg"
+    // Descargar miniatura (debe ser JPG y pequeña)
+    let thumbRes = await fetch(previewImg)
+    let thumbBuffer = Buffer.from(await thumbRes.arrayBuffer())
 
     let text = `*🌿 DESCARGA DE REPOSITORIO*
 
@@ -58,11 +60,20 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
 > 🌳 *Descargando archivo...*`
 
-    // Envío de preview
+    // Enviar mensaje informativo
     await conn.sendFile(m.chat, previewImg, "git.jpg", text, m)
 
-    // Envío del ZIP
-    await conn.sendFile(m.chat, buffer, filename, "", m)
+    // Enviar ZIP con miniatura
+    await conn.sendMessage(
+      m.chat,
+      {
+        document: buffer,
+        mimetype: 'application/zip',
+        fileName: filename,
+        jpegThumbnail: thumbBuffer
+      },
+      { quoted: m }
+    )
 
     await m.react('✔️')
 
