@@ -12,35 +12,44 @@ let handler = async (m, { conn, text, args }) => {
     }
 
     await conn.sendMessage(m.chat, { react: { text: '⌛', key: m.key } });
-    const videoData = await ytdl(args[0]);
 
-    const { title, duration, url } = videoData;
-    const size = await getSize(url);
+    let apiURL = `https://api-shadowxyz.vercel.app/download/ytmp4V2?url=${encodeURIComponent(args[0])}`;
+    let data = await tryAPI(apiURL);
+
+    if (!data?.status || !data?.result?.download_url) {
+      return conn.reply(m.chat, `❌ *La API falló.*`, m);
+    }
+
+    const { title, duration, download_url } = data.result;
+
+    const size = await getSize(download_url);
     const sizeStr = size ? await formatSize(size) : 'Desconocido';
+
     const cleanTitle = title.replace(/[^\w\s]/gi, '').trim().replace(/\s+/g, '_');
     const fileName = `${cleanTitle}.mp4`;
+
     const caption = `
-🎁 *Youtube MP4 V2* ✨
-────────────────
-☃️ *Título:* ${title}
-🦌 *Duración:* ${duration}
-🛷 *Tamaño:* ${sizeStr}
+🎁 *Youtube MP4 V2* ✨  
+────────────────  
+☃️ *Título:* ${title}  
+🦌 *Duración:* ${duration}  
+🛷 *Tamaño:* ${sizeStr}  
 ────────────────`;
 
-    let head = await fetch(url, { method: "HEAD" });
+    let head = await fetch(download_url, { method: "HEAD" });
     let fileSize = head.headers.get("content-length") || 0;
     let fileSizeMB = (fileSize / (1024 * 1024)).toFixed(2);
 
     if (fileSizeMB >= 100) {
       await conn.sendMessage(m.chat, {
-        document: { url },
+        document: { url: download_url },
         mimetype: 'video/mp4',
         fileName,
-        caption: `${caption}\n📦 *Enviado como documento (archivo grande)*`
+        caption: `${caption}\n✨ *Enviado como documento (archivo grande)*`
       }, { quoted: m });
     } else {
       await conn.sendMessage(m.chat, {
-        video: { url },
+        video: { url: download_url },
         mimetype: 'video/mp4',
         caption
       }, { quoted: m });
@@ -62,39 +71,19 @@ handler.group = true;
 export default handler;
 
 
-async function ytdl(url) {
-  const headers = {
-    "accept": "*/*",
-    "accept-language": "es-PE,es;q=0.9",
-    "sec-fetch-mode": "cors",
-    "Referer": "https://id.ytmp3.mobi/"
-  };
+async function tryAPI(url) {
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data?.status) return data;
+  } catch {}
 
-  const initRes = await fetch(`https://d.ymcdn.org/api/v1/init?p=y&_=${Math.random()}`, { headers });
-  const init = await initRes.json();
-
-  const videoId = extractVideoId(url);
-  const convertURL = init.convertURL + `&v=${videoId}&f=mp4&_=${Math.random()}`;
-
-  const convertRes = await fetch(convertURL, { headers });
-  const convert = await convertRes.json();
-
-  let info = {};
-  for (let i = 0; i < 3; i++) {
-    const progressRes = await fetch(convert.progressURL, { headers });
-    info = await progressRes.json();
-    if (info.progress === 3) break;
+  try {
+    const res = await fetch(url);
+    return await res.json();
+  } catch {
+    return null;
   }
-
-  return {
-    url: convert.downloadURL,
-    title: info.title || 'video',
-    duration: info.duration || 'Desconocido'
-  };
-}
-
-function extractVideoId(url) {
-  return url.match(/(?:youtu\.be\/|youtube\.com\/(?:.*v=|.*\/|.*embed\/))([^&?/]+)/)?.[1];
 }
 
 async function formatSize(bytes) {
