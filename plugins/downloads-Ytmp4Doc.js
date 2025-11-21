@@ -168,7 +168,7 @@ let handler = async (m, { conn, args }) => {
   if (!q)
     return conn.sendMessage(m.chat, { text: `*🧪 Ingresa el nombre del video a descargar.*` }, { quoted: m })
 
-  await conn.sendMessage(m.chat, { text: `> ☕ \`𝗜𝗡𝗜𝗖𝗜𝗔𝗡𝗗𝗢 𝗣𝗥𝗢𝗖𝗘𝗦𝗢 𝗗𝗘 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔 :𝗗\`` }, { quoted: fkontak })
+  await conn.sendMessage(m.chat, { text: `> ☕ \`𝗜𝗡𝗜𝗖𝗜𝗔𝗡𝗗𝗢 𝗣𝗥𝗢𝗖𝗘𝗦𝗢 𝗗𝗘 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔 :𝗗\`` }, { quoted: m })
 
   try {
     let res = await fetch(`https://api.delirius.store/search/ytsearch?q=${encodeURIComponent(q)}`)
