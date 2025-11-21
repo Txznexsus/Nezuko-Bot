@@ -11,17 +11,19 @@ isEnable = true
 if (!isEnable) return conn.reply(m.chat, `🪵 *${type}* ya estaba *desactivado*.`, m, rcanal)
 isEnable = false
 } else {
-return conn.reply(m.chat, `*_╭━━━⊜ ⌊• \`ᴘᴀɴᴇʟ ᴅᴇ ᴄᴏɴᴛʀᴏʟ\` •⌉_*
-*_┃🍃❏ Un administrador puede gestionar el comando:_*
-*_┃_* ╰➤ *${command}*
-*_┃_*
-*_┃_* \`🪄 Opciones disponibles: 🌾\`
-*_┃_* 𖥔 _Activar_ » *${usedPrefix}${command} enable*  
-*_┃_* 𖥔 _Desactivar_ » *${usedPrefix}${command} disable*  
-*_┃_*  
-*_┃_* \`🌿 Estado actual:\`
-*_┃_* ╰➤ *${isEnable ? '✓ Activado' : '✗ Desactivado'}*
-*_╰━━━━━━━━━━━━━━━━⊜_*`, m, rcanal)
+return conn.reply(m.chat, `╭━━━━━━━━❖⟡❖━━━━━━━━╮
+   🌿  PANEL DE CONTROL  🌿
+╰━━━━━━━━❖⟡❖━━━━━━━━╯
+
+🍃 *Comando gestionable:*  
+   ➤ ${command}
+
+🌾 *Opciones:*  
+> • Activar → ${usedPrefix}${command} on
+> • Desactivar → ${usedPrefix}${command} off 
+
+🌱 *Estado:*  
+> ➤ ${isEnable ? '✓ Activado' : '✗ Desactivado'}`, m, rcanal)
 }
 switch (type) {
 case 'welcome': case 'bienvenida': {
