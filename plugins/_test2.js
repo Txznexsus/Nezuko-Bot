@@ -1,44 +1,55 @@
-import fetch from "node-fetch";
+import fetch from "node-fetch"
 
-let handler = async (m, { conn, args }) => {
-  try {
-    if (!args[0]) return m.reply("❗ Ingresa un enlace de TikTok.\n\nEjemplo:\n*tiktok https://vm.tiktok.com/xxxx/*");
+const STICKERS = [
+  "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763740142663_922659.webp",
+  "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763740140291_693197.webp",
+  "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763740049256_596333.webp"
+]
 
-    let url = encodeURIComponent(args[0]);
-    let api = `https://api-shadowxyz.vercel.app/download/tiktok?url=${url}`;
+let stickerMode = false
+let lastSent = {}
 
-    m.reply("⏳ Descargando el video, espera...");
+let handler = async (m, { conn, command, usedPrefix }) => {
 
+  if (command === "sticker2") {
+    const opt = (m.args && m.args[0]) ? m.args[0].toLowerCase() : null
+    if (!opt) return m.reply(`Usa:\n${usedPrefix}sticker on\n${usedPrefix}sticker off`)
 
-    let res = await fetch(api);
-    let json = await res.json();
+    if (opt === "on") {
+      stickerMode = true
+      return m.reply("✨ *Modo stickers activado.*")
+    }
 
-    if (!json.status) return m.reply("❌ No se pudo descargar el video.");
+    if (opt === "off") {
+      stickerMode = false
+      return m.reply("❌ *Modo stickers desactivado.*")
+    }
 
-    let dl = json.data.urls[0];
-    let title = json.data.metadata?.title || "tiktok_video";
-
-    let vid = await fetch(dl);
-    let buffer = await vid.buffer();
-
-    await conn.sendMessage(
-      m.chat,
-      {
-        video: buffer,
-        mimetype: "video/mp4",
-        fileName: title.replace(/[^a-zA-Z0-9]/g, "_") + ".mp4"
-      },
-      { quoted: m }
-    );
-
-  } catch (err) {
-    console.error(err);
-    m.reply("❌ Error descargando el video.");
+    return m.reply("Usa on / off")
   }
-};
 
-handler.help = ["tiktok2 <url>"];
-handler.tags = ["downloader"];
-handler.command = /^(tt2)$/i;
+  if (stickerMode) {
+    const now = Date.now()
+    const last = lastSent[m.sender] || 0
 
-export default handler;
+    if (now - last >= 3600000) {
+      const url = STICKERS[Math.floor(Math.random() * STICKERS.length)]
+      const res = await fetch(url)
+      const buffer = await res.buffer()
+
+      await conn.sendMessage(
+        m.chat,
+        { sticker: buffer },
+        { quoted: m }
+      )
+
+      lastSent[m.sender] = now
+    }
+  }
+}
+
+handler.help = ["sticker2 on/off"]
+handler.tags = ["fun"]
+handler.command = ["sticker2"]
+
+export default handler
