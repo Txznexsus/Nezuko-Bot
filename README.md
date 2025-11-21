@@ -83,7 +83,7 @@ npm start
 <summary><b>🥥 Actualizar KanekiBot-V3</b></summary>
 
 ```bash
-grep -q 'bash\|wget' <(dpkg -l) || apt install -y bash wget && wget -O - https://raw.githubusercontent.com/DevAlexJs/SakuraBot-MD/master/termux.sh | bash
+grep -q 'bash\|wget' <(dpkg -l) || apt install -y bash wget && wget -O - https://raw.githubusercontent.com/Shadow-nex/KanekiBot-V3/main/update.sh | bash
 ```
 
 ```bash
