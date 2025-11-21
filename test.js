@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash 🙂‍↔️
 
 # COLORES
 R='\e[31m'
