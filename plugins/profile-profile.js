@@ -1,53 +1,6 @@
 import { xpRange } from '../lib/levelling.js'
 import moment from 'moment-timezone'
 import fetch from 'node-fetch'
-import { generateWAMessageFromContent } from '@whiskeysockets/baileys'
-
-async function sendOrderMsg(m, conn, texto, imgBuffer) {
-  try {
-
-    if (!imgBuffer || imgBuffer.length < 1000) { 
-      imgBuffer = Buffer.from(
-        'iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAQAAAAAYLlVAAA...', 
-        'base64'
-      )
-    }
-
-    const order = {
-      orderId: 'FAKE-' + Date.now(),
-      thumbnail: imgBuffer,
-      itemCount: 1,
-      status: 1,
-      surface: 1,
-      message: texto,
-      orderTitle: 'Perfil Bot :v',
-      totalAmount1000: 0,       
-      totalCurrencyCode: 'GTQ',
-      contextInfo: {
-        externalAdReply: {
-          title: botname || 'BOT',
-          body: '',
-          thumbnail: imgBuffer,
-          mediaType: 1,
-          renderLargerThumbnail: true,
-          sourceUrl: "https://whatsapp.com"
-        }
-      }
-    }
-
-    const msg = generateWAMessageFromContent(
-      m.chat,
-      { orderMessage: order },
-      { quoted: m }
-    )
-
-    await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
-
-  } catch (err) {
-    console.log(err)
-    m.reply('⚠ Error enviando el mensaje.')
-  }
-}
 
 async function formatTime(ms) {
   let s = Math.floor(ms / 1000),
@@ -81,7 +34,7 @@ let handler = async (m, { conn, args }) => {
     let userId = mentions.length > 0 ? mentions[0] : (m.quoted ? m.quoted.sender : m.sender)
 
     if (!global.db.data.users[userId]) 
-      return sendOrderMsg(m, conn, '⚠ No hay registro del usuario.')
+      return m.reply('⚠ No hay registro del usuario.')
 
     let user = global.db.data.users[userId]
 
@@ -147,43 +100,44 @@ let handler = async (m, { conn, args }) => {
     const imgBuffer = await getPP.buffer()
 
     const text = `
-. 𑈜| ͜͝⩃̫۪۪۪֟፝᷼⩃͜͝ |ᅟꉹꠥ۪۪۪፝֟͡🌿۪۪۪፝֟۫͡ꉹꠥㅤ| ͜͝⩃̫۪۪۪֟፝᷼⩃͜͝ |ᰫ\`.
-
 🌴 𝐏𝐄𝐑𝐅𝐈𝐋 𝐃𝐄 - ${name}
 
 ${description}
 
-> ✿ ╭───〔 \`🄳🄰🅃🄾🅂\` 〕
-> ✿┆. 🌳 *ᴄᴜᴍᴘʟᴇᴀɴ̃ᴏs:* ${cumpleanos}
-> ✿┆. 🌿 *ɢᴇɴᴇʀᴏ:* ${genero}
-> ✿┆. ❄️ *ᴘᴀʀᴇᴊᴀ:* ${casado}
-> ✿╰──────────────⬣
+> ✿ ╭──〔 \`DATOS\` 〕
+> ✿┆🌳 *Cumpleaños:* ${cumpleanos}
+> ✿┆🌿 *Género:* ${genero}
+> ✿┆❄️ *Pareja:* ${casado}
+> ✿╰────────────⬣
 
-> ✿╭───〔 \`🄿🅁🄾🄶🅁🄴🅂🄾\` 〕
-> ✿┆. 🎍 *ᴇxᴘ:* ${exp.toLocaleString()}
-> ✿┆. ☕ *ɴɪᴠᴇʟ:* ${nivel}
-> ✿┆. 🥥 *ʀᴀɴᴋɪɴɢ:* #${rank}
-> ✿┆. 🎇 *ᴀᴠᴀɴᴄᴇ:* ${progreso}
-> ✿┆. 🍄 *ᴘʀᴇᴍɪᴜᴍ:* ${premium ? `Activo (${restante})` : 'No'}
-> ✿╰──────────────⬣
+> ✿ ╭──〔 \`PROGRESO\` 〕
+> ✿┆🎍 *Exp:* ${exp.toLocaleString()}
+> ✿┆☕ *Nivel:* ${nivel}
+> ✿┆🥥 *Ranking:* #${rank}
+> ✿┆🎇 *Avance:* ${progreso}
+> ✿┆🍄 *Premium:* ${premium ? `Activo (${restante})` : 'No'}
+> ✿╰────────────⬣
 
-> ✿╭───〔 \`🄲🄾🄻🄴🄲🄲🄸🄾🄽\`  〕
-> ✿┆. 🌷 *ᴘᴇʀsᴏɴᴀᴊᴇs:* ${haremCount}  
-> ✿┆. 🌾 *ᴠᴀʟᴏʀ ᴛᴏᴛᴀʟ:* ${haremValue.toLocaleString()}
-> ✿┆. ⚡ ${favLine}
-> ✿╰──────────────⬣
+> ✿ ╭──〔 \`COLECCIÓN\` 〕
+> ✿┆🌷 *Personajes:* ${haremCount}
+> ✿┆🌾 *Valor total:* ${haremValue.toLocaleString()}
+> ✿┆⚡ ${favLine}
+> ✿╰────────────⬣
 
-> ✿╭───〔 \`🄴🄲🄾🄽🄾🄼🄸🄰\` 〕
-> ✿┆. ✨ *${currency}:* ${total.toLocaleString()} ${currency}
-> ✿┆. ☃️ *ᴄᴏᴍᴀɴᴅᴏs ᴜsᴀᴅᴏs:* ${user.commands || 0}
-> ✿╰──────────────⬣
+> ✿ ╭──〔 \`ECONOMÍA\` 〕
+> ✿┆✨ *${currency}:* ${total.toLocaleString()} ${currency}
+> ✿┆☃️ *Comandos usados:* ${user.commands || 0}
+> ✿╰────────────⬣
 `
 
-    await sendOrderMsg(m, conn, text, imgBuffer)
+    await conn.sendMessage(m.chat, {
+      image: imgBuffer,
+      caption: text
+    }, { quoted: m })
 
   } catch (e) {
     console.error(e)
-    return sendOrderMsg(m, conn, `⚠ Ocurrió un error:\n${e.message}`)
+    return m.reply(`⚠ Ocurrió un error:\n${e.message}`)
   }
 }
 
