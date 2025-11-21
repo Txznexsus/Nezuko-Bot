@@ -166,7 +166,7 @@ let handler = async (m, { conn, args }) => {
 
   let q = args.join(" ").trim()
   if (!q)
-    return conn.sendMessage(m.chat, { text: `*🧪 Ingresa el nombre del video a descargar.*` }, { quoted: m })
+    return conn.sendMessage(m.chat, { text: `*☃️ Ingresa el nombre del video a descargar.*` }, { quoted: m })
 
   await conn.sendMessage(m.chat, { text: `> ☕ \`𝗜𝗡𝗜𝗖𝗜𝗔𝗡𝗗𝗢 𝗣𝗥𝗢𝗖𝗘𝗦𝗢 𝗗𝗘 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔 :𝗗\`` }, { quoted: m })
 
@@ -178,14 +178,14 @@ let handler = async (m, { conn, args }) => {
 
     let vid = json.data[0]
 
-    let info = await savetube.download(vid.url, '720')
+    let info = await savetube.download(vid.url, '480')
     if (!info.status)
       return conn.sendMessage(m.chat, { text: `⚠️ No se pudo obtener el video de *${vid.title}*.` }, { quoted: m })
 
     let { result } = info
     let size = await getFileSize(result.download)
 
-    const vistas = formatViews(vid.views) // ← ARREGLADO
+    const vistas = formatViews(vid.views)
 
     let caption = `
 ┌── 「 🌲 YOUTUBE MP4 DOC 」──┐
