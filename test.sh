@@ -54,7 +54,7 @@ progreso() {
 # FUNCIÓN DE INSTALACIÓN
 instalar() {
   clear
-  echo -e "${C2}⏳ Preparando entorno premium...${RESET}"
+  echo -e "${C2}⏳ Preparando entorno...${RESET}"
   apt update -y && apt upgrade -y
   pkg install -y git nodejs yarn ffmpeg imagemagick
 
@@ -65,7 +65,7 @@ instalar() {
   echo -e "${C2}📦 Instalando dependencias...${RESET}"
   yarn install || npm install
 
-  echo -e "${C1}🚀 Iniciando KanekiBot-AI en modo Pro...${RESET}"
+  echo -e "${C1}🚀 Iniciando KanekiBot-AI...${RESET}"
   npm start
 }
 
