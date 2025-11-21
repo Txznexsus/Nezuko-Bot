@@ -18,7 +18,8 @@ const getFileSize = async (url) => {
   } catch {
     return "Desconocido";
   }
-  
+};
+
 const savetube = {
   api: {
     base: "https://media.savetube.me/api",
@@ -52,9 +53,9 @@ const savetube = {
       return JSON.parse(decrypted.toString());
     }
   },
-  isUrl: str => { 
-    try { new URL(str); return true } catch { return false } 
-  },
+
+  isUrl: str => { try { new URL(str); return true } catch { return false } },
+
   youtube: url => {
     const patterns = [
       /youtube\.com\/watch\?v=([a-zA-Z0-9_-]{11})/,
@@ -63,11 +64,10 @@ const savetube = {
       /youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/,
       /youtu\.be\/([a-zA-Z0-9_-]{11})/
     ];
-    for (let regex of patterns) {
-      if (regex.test(url)) return url.match(regex)[1];
-    }
+    for (let regex of patterns) if (regex.test(url)) return url.match(regex)[1];
     return null;
   },
+
   request: async (endpoint, data = {}, method = 'post') => {
     try {
       const { data: response } = await axios({
@@ -79,19 +79,18 @@ const savetube = {
       });
       return { status: true, code: 200, data: response };
     } catch (error) {
-      return {
-        status: false,
-        code: error.response?.status || 500,
-        error: error.message
-      };
+      return { status: false, code: error.response?.status || 500, error: error.message };
     }
   },
+
   getCDN: async () => {
     const response = await savetube.request(savetube.api.cdn, {}, 'get');
     if (!response.status) return response;
     return { status: true, code: 200, data: response.data.cdn };
   },
-  download: async (link, quality = '380') => {
+
+  download: async (link, quality = '480') => {
+
     if (!link) return { status: false, code: 400, error: "Falta el enlace de YouTube." };
     if (!savetube.isUrl(link)) return { status: false, code: 400, error: "URL inválida de YouTube." };
 
@@ -101,19 +100,21 @@ const savetube = {
     try {
       const cdnRes = await savetube.getCDN();
       if (!cdnRes.status) return cdnRes;
+
       const cdn = cdnRes.data;
 
       const infoRes = await savetube.request(`https://${cdn}${savetube.api.info}`, {
         url: `https://www.youtube.com/watch?v=${id}`
       });
+
       if (!infoRes.status) return infoRes;
 
       const decrypted = await savetube.crypto.decrypt(infoRes.data.data);
 
       const dl = await savetube.request(`https://${cdn}${savetube.api.download}`, {
-        id: id,
+        id,
         downloadType: 'video',
-        quality: quality, // 720p
+        quality,
         key: decrypted.key
       });
 
@@ -125,7 +126,7 @@ const savetube = {
           thumbnail: decrypted.thumbnail || `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
           download: dl.data.data.downloadUrl,
           duration: decrypted.duration,
-          quality: quality,
+          quality,
           id
         }
       };
@@ -136,42 +137,62 @@ const savetube = {
   }
 };
 
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-  let q = args.join(" ").trim()
-  if (!q) {
-    return conn.sendMessage(m.chat, {
-      text: `*🧪 Ingresa el nombre del video a descargar.*`,
-      ...rcanal
-    }, { quoted: m })
+let handler = async (m, { conn, args }) => {
+
+  const Shadow_url = await (await fetch("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763384842220_234152.jpeg")).buffer()
+  const fkontak = {
+    key: {
+      fromMe: false,
+      participant: "0@s.whatsapp.net",
+      remoteJid: "status@broadcast"
+    },
+    message: {
+      productMessage: {
+        product: {
+          productImage: {
+            mimetype: "image/jpeg",
+            jpegThumbnail: Shadow_url
+          },
+          title: "🌳 𝐃𝐄𝐒𝐂𝐀𝐑𝐆𝐀 𝐂𝐎𝐌𝐏𝐋𝐄𝐓𝐀 🌳",
+          description: "",
+          currencyCode: "USD",
+          priceAmount1000: 100000,
+          retailerId: "descarga-premium"
+        },
+        businessOwnerJid: "51919199620@s.whatsapp.net"
+      }
+    }
   }
 
-  await conn.sendMessage(m.chat, {
-    text: `> ☕ \`𝗜𝗡𝗜𝗖𝗜𝗔𝗡𝗗𝗢 𝗣𝗥𝗢𝗖𝗘𝗦𝗢 𝗗𝗘 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔 :𝗗\``
-  }, { quoted: fkontak })
-  
+  let q = args.join(" ").trim()
+  if (!q)
+    return conn.sendMessage(m.chat, { text: `*🧪 Ingresa el nombre del video a descargar.*` }, { quoted: m })
+
+  await conn.sendMessage(m.chat, { text: `> ☕ \`𝗜𝗡𝗜𝗖𝗜𝗔𝗡𝗗𝗢 𝗣𝗥𝗢𝗖𝗘𝗦𝗢 𝗗𝗘 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔 :𝗗\`` }, { quoted: fkontak })
+
   try {
-    // 🔍 Buscar en YT
     let res = await fetch(`https://api.delirius.store/search/ytsearch?q=${encodeURIComponent(q)}`)
     let json = await res.json()
-    if (!json.status || !json.data || !json.data.length) {
+    if (!json.status || !json.data.length)
       return conn.sendMessage(m.chat, { text: `No encontré resultados para *${q}*.` }, { quoted: m })
-    }
 
     let vid = json.data[0]
 
     let info = await savetube.download(vid.url, '720')
-    if (!info.status) {
+    if (!info.status)
       return conn.sendMessage(m.chat, { text: `⚠️ No se pudo obtener el video de *${vid.title}*.` }, { quoted: m })
-    }
 
     let { result } = info
     let size = await getFileSize(result.download)
+
+    const vistas = formatViews(vid.views) // ← ARREGLADO
+
     let caption = `
 ┌── 「 🌲 YOUTUBE MP4 DOC 」──┐
 │ 🌿 *Título:* ${result.title}
 │ 🍂 *Duración:* ${vid.duration}
 │ 🦦 *ID:* ${vid.videoId}
-│ ❄️ *Vistas:* ${vid.views}
+│ ❄️ *Vistas:* ${vistas}
 │ 🎍 *Publicado:* ${vid.publishedAt}
 │ 🍃 *Tamaño:* ${size}
 │ 🪶 *Canal:* ${vid.author?.name || "Desconocido"}
@@ -187,34 +208,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       const img = await Jimp.read(result.thumbnail)
       img.resize(500, Jimp.AUTO)
       thumb = await img.getBufferAsync(Jimp.MIME_JPEG)
-    } catch (err) {
-      console.log("Error al procesar miniatura:", err)
-    }
+    } catch { }
 
-    const Shadow_url = await (await fetch("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763384842220_234152.jpeg")).buffer()
-    const fkontak = {
-      key: {
-        fromMe: false,
-        participant: "0@s.whatsapp.net",
-        remoteJid: "status@broadcast"
-      },
-      message: {
-        productMessage: {
-          product: {
-            productImage: {
-              mimetype: "image/jpeg",
-              jpegThumbnail: Shadow_url
-            },
-            title: "🌳 𝐃𝐄𝐒𝐂𝐀𝐑𝐆𝐀 𝐂𝐎𝐌𝐏𝐋𝐄𝐓𝐀 🌳",
-            description: "",
-            currencyCode: "USD",
-            priceAmount1000: 100000,
-            retailerId: "descarga-premium"
-          },
-          businessOwnerJid: "51919199620@s.whatsapp.net"
-        }
-      }
-    }
     await conn.sendMessage(m.chat, {
       document: { url: result.download },
       mimetype: "video/mp4",
@@ -235,7 +230,6 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     }, { quoted: fkontak })
 
   } catch (err) {
-    console.error("[Error en ytmp4doc:]", err)
     conn.sendMessage(m.chat, { text: `💔 Error: ${err.message}` }, { quoted: m })
   }
 }
@@ -243,5 +237,12 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 handler.command = ['ytmp4doc', 'ytvdoc', 'ytdoc']
 handler.help = ['ytmp4doc']
 handler.tags = ['download']
-
 export default handler
+
+function formatViews(views) {
+  if (!views) return "No disponible"
+  if (views >= 1_000_000_000) return `${(views / 1_000_000_000).toFixed(1)}B (${views.toLocaleString()})`
+  if (views >= 1_000_000) return `${(views / 1_000_000).toFixed(1)}M (${views.toLocaleString()})`
+  if (views >= 1_000) return `${(views / 1_000).toFixed(1)}k (${views.toLocaleString()})`
+  return views.toString()
+}
