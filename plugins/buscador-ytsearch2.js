@@ -5,7 +5,7 @@ import baileys from '@whiskeysockets/baileys';
 const { generateWAMessageContent, generateWAMessageFromContent, proto } = baileys;
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (!text) return m.reply(`*🏔️ Por favor, ingresa un texto para buscar en YouTube.*\n> *Ejemplo:* ${usedPrefix + command} Bing Bang`);
+  if (!text) return m.reply(`*🏔️ Por favor, ingresa un texto para buscar en YouTube.*\n> *Ejemplo:* ${usedPrefix + command} Bing Bang...`);
   await m.react('🕓');
 
   try {
