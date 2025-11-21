@@ -63,9 +63,9 @@ let handler = async (m, { conn, text, args }) => {
   }
 };
 
-handler.help = ['ytmp4v3 <url>'];
+handler.help = ['ytmp42 <url>'];
 handler.tags = ['download'];
-handler.command = ['ytmp4v3','playmp4'];
+handler.command = ['ytmp42'];
 handler.group = true;
 
 export default handler;
