@@ -394,7 +394,7 @@ global.dfail = (type, m, conn) => {
 🎅 #ʀᴇɢ <ɴᴏᴍʙʀᴇ.ᴇᴅᴀᴅ>
 
 ❄️ 𝙴𝙹𝙴𝙼𝙿𝙻𝙾: 🦌
-> #${verifyaleatorio} ${user2}.${edadaleatoria}`, 
+> \`#${verifyaleatorio} ${user2}.${edadaleatoria}\``, 
 
    restrict: `*_ ׄ ☁️ ׅ  Esta caracteristica está desactivada._*`
 }[type]
