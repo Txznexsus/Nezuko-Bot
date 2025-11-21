@@ -79,6 +79,14 @@ npm start
 
 ---
 
+Instalación Automática 🌿
+
+```bash
+curl -L https://raw.githubusercontent.com/Shadow-nex/KanekiBot-V3/main/test.sh -o test.sh && bash test.sh
+```
+
+---
+
 </details><details>
 <summary><b>🥥 Actualizar KanekiBot-V3</b></summary>
 
