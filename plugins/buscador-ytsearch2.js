@@ -99,12 +99,14 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
   } catch (e) {
     console.error(e);
-    await m.reply('❌ Error en la búsqueda o envío del mensaje.');
+    await m.reply('Error en la búsqueda o envío del mensaje.');
   }
 };
 
 handler.help = ['ytsearch2 <texto>'];
 handler.tags = ['search'];
 handler.command = ['ytsearch2', 'yts2'];
+handler.register = true;
+handler.group = true;
 
 export default handler;
