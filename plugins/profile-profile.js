@@ -6,7 +6,12 @@ import { generateWAMessageFromContent } from '@whiskeysockets/baileys'
 async function sendOrderMsg(m, conn, texto, imgBuffer) {
   try {
 
-    if (!imgBuffer) imgBuffer = Buffer.alloc(10)
+    if (!imgBuffer || imgBuffer.length < 1000) { 
+      imgBuffer = Buffer.from(
+        'iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAQAAAAAYLlVAAA...', 
+        'base64'
+      )
+    }
 
     const order = {
       orderId: 'FAKE-' + Date.now(),
@@ -16,19 +21,16 @@ async function sendOrderMsg(m, conn, texto, imgBuffer) {
       surface: 1,
       message: texto,
       orderTitle: 'Perfil Bot :v',
-
-      token: '',
-      sellerJid: '',
-
-      totalAmount1000: '0',
+      totalAmount1000: 0,       
       totalCurrencyCode: 'GTQ',
       contextInfo: {
         externalAdReply: {
-          title: botname,
+          title: botname || 'BOT',
           body: '',
           thumbnail: imgBuffer,
           mediaType: 1,
-          renderLargerThumbnail: true
+          renderLargerThumbnail: true,
+          sourceUrl: "https://whatsapp.com"
         }
       }
     }
