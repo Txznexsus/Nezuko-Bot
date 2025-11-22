@@ -1,7 +1,7 @@
 > [!IMPORTANT]
 > **Este proyecto está en constante evolución. Estamos comprometidos en ofrecer a nuestra comunidad un Bot increíble. Te invitamos a instalarlo y para estar al tanto de todas las novedades. [¡Únete a nuestro nuevo canal!](https://whatsapp.com/channel/0029VbC34Nt42DchIWA0q11f)**
 
-<h1 align="center">🌙💗 El Peor Bot de todo WhatsApp, UwU</h1>
+<h1 align="center">🌙💗 El Peor Bot de todo WhatsApp, UwU 🪻</h1>
 
 <p align="center">
   <a href="https://whatsapp.com/channel/0029VbC34Nt42DchIWA0q11f">
