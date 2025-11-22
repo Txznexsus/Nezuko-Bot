@@ -54,20 +54,15 @@ let handler = async (m, { conn, text }) => {
 
     if (!downloadUrl || downloadUrl.includes('undefined')) {
       try {
-        const base = 'https://api-nv.ultraplus.click'
-        const u = new URL('/api/download/spotify', base)
-        u.search = new URLSearchParams({
-          url: spotifyUrl,
-          key: 'IUHp9S4ExrywBB35'
-        })
 
-        const res = await fetch(u)
-        const json = await res.json()
+        const apiAdo = `https://api-adonix.ultraplus.click/download/spotify?apikey=the.shadow&q=${encodeURIComponent(spotifyUrl)}`
+        const dl2 = await axios.get(apiAdo, { timeout: 20000 })
 
-        if (json?.status && json?.result?.url_download) {
-          downloadUrl = json.result.url_download
-          serverUsed = '(Neveloopp)'
+        if (dl2?.data?.status && dl2?.data?.downloadUrl) {
+          downloadUrl = dl2.data.downloadUrl
+          serverUsed = 'Adonix'
         }
+
       } catch (err) { }
     }
 
