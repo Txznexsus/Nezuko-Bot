@@ -8,20 +8,7 @@ let handler = async (m, { conn, text }) => {
 
   try {
 
-    const loadingImg = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763585483691_646065.jpeg"
-
-    await conn.sendMessage(
-      m.chat,
-      {
-        image: { url: loadingImg },
-        caption:
-`. 𑈜| ͜͝⩃̫۪۪۪֟፝᷼⩃͜͝ |ꉹꠥ🌿ꉹꠥ| ͜͝⩃̫۪۪۪֟፝᷼⩃͜͝ |ᰫ\`.
-
-🍃 *Procesando tu solicitud...*
-✨ *Consultando a la IA...*`
-      },
-      { quoted: m }
-    )
+    const loadingImg = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763849548830_727232.jpeg"
 
     const url = `https://api.nekolabs.web.id/ai/copilot?text=${encodeURIComponent(text)}`
     const { data } = await axios.get(url)
@@ -43,7 +30,14 @@ ${result}
 . 𑈜| ͜͝⩃̫۪۪۪֟፝᷼⩃͜͝ |ꉹꠥ✨ꉹꠥ| ͜͝⩃̫۪۪۪֟፝᷼⩃͜͝ |ᰫ\`.
 `.trim()
 
-    await conn.reply(m.chat, finalMsg, m)
+    await conn.sendMessage(
+      m.chat,
+      {
+        image: { url: loadingImg },
+        caption: finalMsg,
+      },
+      { quoted: m }
+    )
 
   } catch (err) {
     console.error(err)
