@@ -43,7 +43,6 @@ let handler = async (m, { conn, text }) => {
     let downloadUrl = null
     let serverUsed = 'Desconocido'
 
-    // === PRIMER INTENTO – NEKOLABS ===
     try {
       const apiNeko = `https://api.nekolabs.my.id/downloader/spotify/v1?url=${encodeURIComponent(spotifyUrl)}`
       const dl1 = await axios.get(apiNeko, { timeout: 20000 })
@@ -54,7 +53,6 @@ let handler = async (m, { conn, text }) => {
       }
     } catch (err) { }
 
-    // === SEGUNDO INTENTO – ADONIX ===
     if (!downloadUrl || downloadUrl.includes('undefined')) {
       try {
         const apiAdo = `${global.APIs.adonix.url}/download/spotify?apikey=${global.APIs.adonix.key}&q=${encodeURIComponent(spotifyUrl)}`
@@ -68,7 +66,6 @@ let handler = async (m, { conn, text }) => {
       } catch (err) { }
     }
 
-    // === TERCER INTENTO – ALYABOTPE ===
     if (!downloadUrl || downloadUrl.includes('undefined')) {
       try {
         const apiAlya = `https://rest.alyabotpe.xyz/dl/spotifyv2?url=${encodeURIComponent(spotifyUrl)}&key=stellar-3kfMRW5N`
@@ -76,13 +73,12 @@ let handler = async (m, { conn, text }) => {
 
         if (dl3?.data?.status === true && dl3?.data?.data?.dl) {
           downloadUrl = dl3.data.data.dl
-          serverUsed = 'AlyaBotPE'
+          serverUsed = 'Alya'
         }
 
       } catch (err) {}
     }
 
-    // === ENVÍO DEL AUDIO (NO SE MODIFICÓ NADA) ===
     if (downloadUrl) {
       const audio = await fetch(downloadUrl)
       const buffer = await audio.buffer()
