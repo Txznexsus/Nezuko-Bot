@@ -23,7 +23,7 @@ const menuStyle = {
 💫 \`Nivel:\` \`\`\`%level\`\`\`
 ✨ \`Exp:\` \`\`\`%exp / %maxexp\`\`\`
 🌙 \`Modo:\` \`\`\`%mode\`\`\`
-🍃 \`Usuarios:\` \`\`\`Totales: %totalreg\`\`\`
+🍃 \`Usuarios Totales::\` \`\`\`%totalreg\`\`\`
 ⏱ \`Uptime:\` \`\`\`%muptime\`\`\`
 
 ☕ \`Fecha:\` \`\`\`%hora, %fecha\`\`\`
