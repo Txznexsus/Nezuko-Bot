@@ -7,7 +7,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
   try {
 
-    let res = await fetch(`https://api.stellarwa.xyz/search/mediafire?query=${encodeURIComponent(text)}&key=stelar-3j2706f1`)
+    let res = await fetch(`https://api.stellarwa.xyz/search/mediafire?query=${encodeURIComponent(text)}&key=stellar-3j2706f1`)
     let json = await res.json()
 
     if (!json || !json.results || json.results.length === 0) {
