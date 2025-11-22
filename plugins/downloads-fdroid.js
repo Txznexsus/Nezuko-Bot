@@ -49,9 +49,9 @@ conn.reply(m.chat, `⚠︎ Error al descargar.\n> Usa *${usedPrefix}report* para
 }
 }
 
-handler.help = ['fdroidapk', 'apkfdroid', 'fdapk']
+handler.help = ['fdroid']
 handler.tags = ['download']
-handler.command = ['fdroidapk', 'apkfdroid', 'fdapk']
+handler.command = ['fdroidapk', 'apkfdroid', 'fdapk', 'fdroid']
 handler.group = true
 handler.register = true
 

@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> **Este proyecto está en constante evolución. Estamos comprometidos en ofrecer a nuestra comunidad un Bot increíble. Te invitamos a instalarlo y para estar al tanto de todas las novedades. [¡Únete a nuestro nuevo canal!](https://whatsapp.com/channel/0029VbC34Nt42DchIWA0q11f)**
+
 <h1 align="center">🌙💗 El Peor Bot de todo WhatsApp, UwU</h1>
 
 <p align="center">
@@ -79,7 +82,7 @@ npm start
 
 ---
 
-Instalación Automática 🌿
+> *Instalación Automática 🌿*
 
 ```bash
 curl -L https://raw.githubusercontent.com/Shadow-nex/KanekiBot-V3/main/test.sh -o test.sh && bash test.sh
@@ -103,7 +106,7 @@ cd && cd KanekiBot-V3 && nano settings.js
 ---
 
 <p align="center">
-🌿 ¡Deja tu ⭐, es gratis y nos ayudas mucho! 🌿
+🌿 ¡Deja tu ⭐, es gratis y nos ayudas mucho! :D 🌿
 </p><div align="center">
   <h1 align="center">🌿 EDITOR Y PROPIETARIO DEL BOT 🌿</h1><div align="center"><table>
 <tr>
@@ -115,7 +118,7 @@ cd && cd KanekiBot-V3 && nano settings.js
 </a></p>
 <p>🌿 dev.shadow xD 🦌</p><p align="center">
 <a href="https://wa.me/51919199620" target="_blank">
-<img src="https://img.shields.io/badge/📲-Contactar%20al%20Creador-blue?style=for-the-badge&logo=whatsapp">
+<img src="https://img.shields.io/badge/💛-Contactar%20al%20Creador-blue?style=for-the-badge&logo=whatsapp">
 </a>
 </p></td>
 </tr>

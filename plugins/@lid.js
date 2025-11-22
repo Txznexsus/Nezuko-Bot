@@ -64,7 +64,7 @@ let handler = async function (m, { conn, args, groupMetadata }) {
 
 ${tarjetas}
 
-🌾 Usa: *.lids 2* para ir a otra página.
+> 🌾 Usa: *.lids 2* para ir a otra página.
 `
 
   return await conn.sendMessage(m.chat, {
