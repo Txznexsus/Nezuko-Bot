@@ -111,7 +111,7 @@ chat.gacha = isEnable
 break
 }}
 chat[type] = isEnable
-conn.reply(m.chat, `*_🕸️ Has \`${isEnable ? 'activado' : 'desactivado'}\` el \`${type}\` para este grupo._*`, m, rcanal)
+conn.reply(m.chat, `*🪻 Has \`${isEnable ? 'activado' : 'desactivado'}\` el \`${type}\` para este grupo.*`, m, rcanal)
 }
 
 handler.help = [
