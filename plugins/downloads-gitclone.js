@@ -66,7 +66,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         document: buffer,
         mimetype: 'application/zip',
         fileName: filename,
-        jpegThumbnail: thumbBuffer
+        jpegThumbnail: thumbBuffer,
+        ...fake
       },
       { quoted: m }
     )
