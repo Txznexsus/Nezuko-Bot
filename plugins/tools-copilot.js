@@ -10,7 +10,9 @@ let handler = async (m, { conn, text }) => {
 
     const loadingImg = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763849548830_727232.jpeg"
 
-    const url = `https://api.nekolabs.web.id/ai/copilot?text=${encodeURIComponent(text)}`
+    const prompt = `responde en español: ${text}`
+    const url = `https://api.nekolabs.web.id/ai/copilot?text=${encodeURIComponent(prompt)}`
+
     const { data } = await axios.get(url)
 
     if (!data?.success)
@@ -24,7 +26,7 @@ let handler = async (m, { conn, text }) => {
 🌿 *Consulta:*  
 ${text}
 
-🍃 *Respuesta de copilot:*  
+🍃 *Respuesta de Copilot:*  
 ${result}
 
 . 𑈜| ͜͝⩃̫۪۪۪֟፝᷼⩃͜͝ |ꉹꠥ✨ꉹꠥ| ͜͝⩃̫۪۪۪֟፝᷼⩃͜͝ |ᰫ\`.
