@@ -44,7 +44,7 @@ let handler = async (m, { conn, text }) => {
     let serverUsed = 'Desconocido'
 
     try {
-      const apiNeko = `https://api.nekolabs.my.id/ownloader/spotify/v1?url=${encodeURIComponent(spotifyUrl)}`
+      const apiNeko = `https://api.nekolabs.my.id/downloader/spotify/v1?url=${encodeURIComponent(spotifyUrl)}`
       const dl1 = await axios.get(apiNeko, { timeout: 20000 })
       if (dl1?.data?.result?.downloadUrl) {
         downloadUrl = dl1.data.result.downloadUrl
@@ -54,7 +54,7 @@ let handler = async (m, { conn, text }) => {
 
     if (!downloadUrl || downloadUrl.includes('undefined')) {
       try {
-        const apiAdo = `${global.APIs.adonix.url}/ownload/spotify?apikey=${global.APIs.adonix.key}&q=${encodeURIComponent(spotifyUrl)}`
+        const apiAdo = `${global.APIs.adonix.url}/download/spotify?apikey=${global.APIs.adonix.key}&q=${encodeURIComponent(spotifyUrl)}`
         const dl2 = await axios.get(apiAdo, { timeout: 20000 })
 
         if (dl2?.data?.status === true && dl2?.data?.downloadUrl) {
