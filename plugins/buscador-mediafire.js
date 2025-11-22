@@ -10,12 +10,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       rcanal
     )
 
-  // MINI IMAGEN DE CARGA
-  let carga = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763676293102_924672.jpeg"
+  let carga = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763839800526_997569.jpeg"
 
   await conn.sendMessage(m.chat, {
     image: { url: carga },
-    caption: `🔍 *Buscando resultados para:* ${text}\n*⏳ Espera un momento...*`
+    caption: `🪴 *Buscando resultados para:* ${text}\n*🪻 Espera un momento...*`
   }, { quoted: m })
 
   await m.react('🕐')
