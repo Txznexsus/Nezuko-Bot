@@ -193,12 +193,13 @@ if (connection === "open") {
 const userJid = jidNormalizedUser(conn.user.id)
 const userName = conn.user.name || conn.user.verifiedName || "Desconocido"
 await joinChannels(conn)
-console.log(chalk.green.bold(`✩ ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈✦ 𝗢𝗡𝗟𝗜𝗡𝗘 ✦┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ✩
-│
-│★ CONEXIÓN EXITOSA CON WHATSAPP 🌷
-│ [ ✿ ]  Conectado a: ${userName}\
-│
-✩ ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈✦ ✅  ✦┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ✩`))
+console.log(chalk.green.bold(`✩ ┈┈┈┈┈┈┈┈┈┈┈┈┈┈✦ 𝗢𝗡𝗟𝗜𝗡𝗘 ✦┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ✩
+
+│ 🌐  𝗖𝗢𝗡𝗘𝗫𝗜Ó𝗡 𝗘𝗦𝗧𝗔𝗕𝗟𝗘𝗖𝗜𝗗𝗔 𝗖𝗢𝗡 𝗪𝗛𝗔𝗧𝗦𝗔𝗣𝗣
+│ ✦ Conectado correctamente como: ${userName}
+│ ✦ Estado: Activo y funcionando 💠
+
+✩ ┈┈┈┈┈┈┈┈┈┈✦ ✔️ 𝗦𝗜𝗦𝗧𝗘𝗠𝗔 𝗟𝗜𝗦𝗧𝗢 ✦┈┈┈┈┈┈┈┈┈┈ ✩`))
 }
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
 if (connection === "close") {
