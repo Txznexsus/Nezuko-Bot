@@ -12,8 +12,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
   let imagen = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763839800526_997569.jpeg"
 
- await conn.reply(m.chat, '
-`🪴 *Buscando resultados para:* ${text}\n*🪻 Espera un momento...*`, m)
+ await conn.reply(m.chat, `🪴 *Buscando resultados para:* ${text}\n*🪻 Espera un momento...*`, m)
 
   await m.react('🕐')
 
