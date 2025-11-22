@@ -10,12 +10,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       rcanal
     )
 
-  let carga = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763839800526_997569.jpeg"
+  let imagen = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763839800526_997569.jpeg"
 
-  await conn.sendMessage(m.chat, {
-    image: { url: carga },
-    caption: `🪴 *Buscando resultados para:* ${text}\n*🪻 Espera un momento...*`
-  }, { quoted: m })
+ await conn.reply(m.chat, '🪴 *Buscando resultados para:* ${text}\n*🪻 Espera un momento...*', m)
 
   await m.react('🕐')
 
@@ -50,7 +47,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     await m.react('✔️')
 
-    await conn.reply(m.chat, txt, m, rcanal)
+    await conn.reply(m.chat, imagen, txt, m, rcanal)
 
   } catch (e) {
     console.error(e)
