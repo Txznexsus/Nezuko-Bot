@@ -90,7 +90,7 @@ let handler = async (m, { conn, text }) => {
         ptt: false,
         contextInfo: {
           externalAdReply: {
-            title: "✎ 𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖 𝘾𝙤𝙢𝙥𝙡𝙚𝙩𝙖.",
+            title: title,
             body: `✿ 𝙎𝙚𝙧𝙫𝙞𝙙𝙤𝙧: ${serverUsed}`,
             thumbnailUrl: image,
             sourceUrl: spotifyUrl,
