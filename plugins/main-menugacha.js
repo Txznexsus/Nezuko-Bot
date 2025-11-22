@@ -111,7 +111,7 @@ let handler = async (m, { conn, usedPrefix }) => {
   }
 }
 handler.help = ['menugacha']
-handler.tags = ['menusxd']
+handler.tags = ['menu']
 handler.command = ['menugacha', 'menu gacha', 'gachamenu', 'menug']
 handler.register = true
 export default handler
