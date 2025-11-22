@@ -64,7 +64,7 @@ ${sugerencias}`
       externalAdReply: { 
         title: `『 ⿻֟🎍 𝐊𝐀𝐍𝐄𝐊𝐈 • 𝐀𝐒𝐒𝐈𝐒𝐓𝐀𝐍𝐓 🩸⿻֟ 』`,
         body: '© ᥴrᥱᥲ𝗍ᥱძ ᑲᥡ sʜᴀᴅᴏᴡ.xʏᴢ 🍃',
-        thumbnailUrl: 'https://i.pinimg.com/originals/26/ef/14/26ef144ac13cd18547830088e9d2cc3a.jpg',
+        thumbnailUrl: '',
         sourceUrl: redes,
         mediaType: 1,
         renderLargerThumbnail: true
