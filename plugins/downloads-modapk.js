@@ -60,5 +60,6 @@ handler.help = ['apkmod']
 handler.command = ['apk', 'modapk', 'aptoide']
 handler.group = true
 handler.premium = false
+handler.register = true
 
 export default handler
