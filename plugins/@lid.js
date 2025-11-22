@@ -50,7 +50,7 @@ let handler = async function (m, { conn, args, groupMetadata }) {
   const totalMiembros = participantes.length - totalAdmins
 
   const imagenPersonal = {
-    url: "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763639388011_220247.jpeg"
+    url: "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763842412584_898365.jpeg"
   }
 
   const texto = `
@@ -70,7 +70,8 @@ ${tarjetas}
   return await conn.sendMessage(m.chat, {
     image: imagenPersonal,
     caption: texto,
-    mentions: mencionados
+    mentions: mencionados,
+    ...fake
   })
 }
 
