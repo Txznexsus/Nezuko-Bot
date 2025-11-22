@@ -50,7 +50,7 @@ export async function before(m, { conn }) {
 ${sugerencias}`
 
   await conn.sendMessage(m.chat, {
-    document: fs.readFileSync('./package.json'),
+    document: fs.readFileSync('./README.md'),
     fileName: `.`,
     mimetype: 'application/pdf',
     caption: texto,
