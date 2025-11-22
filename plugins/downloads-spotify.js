@@ -54,7 +54,7 @@ let handler = async (m, { conn, text }) => {
 
     if (!downloadUrl || downloadUrl.includes('undefined')) {
       try {
-        const apiAdo = `https://api-adonix.ultraplus.click/download/spotify?apikey=the.shadow&q=${encodeURIComponent(spotifyUrl)}`
+        const apiAdo = `${global.APIs.adonix.url}/download/spotify?apikey=${global.APIs.adonix.key}&q=${encodeURIComponent(spotifyUrl)}`
         const dl2 = await axios.get(apiAdo, { timeout: 20000 })
 
         if (dl2?.data?.status === true && dl2?.data?.downloadUrl) {
