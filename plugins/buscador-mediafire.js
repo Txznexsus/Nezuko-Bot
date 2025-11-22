@@ -47,7 +47,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     await m.react('✔️')
 
-    await conn.reply(m.chat, imagen, txt, m, rcanal)
+    await conn.sendMessage(m.chat, {
+      image: { url: imagen },
+      caption: txt,
+      ...rcanal
+    }, { quoted: m })
 
   } catch (e) {
     console.error(e)
