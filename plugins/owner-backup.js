@@ -51,7 +51,7 @@ const disable = value === 'disable' || value === 'off'
 if (enable || disable) {
 if (isEnable === enable) return m.reply(`ꕥ El modo *${type}* ya estaba ${enable ? 'activado' : 'desactivado'}.`)
 bot[type] = enable
-return conn.reply(m.chat, `❀ Has *${enable ? 'activado' : 'desactivado'}* el modo *${type}* para el Socket.`, m)
+return conn.reply(m.chat, `🪴 Has *${enable ? 'activado' : 'desactivado'}* el modo *${type}* para el Socket.`, m)
 }
 conn.reply(m.chat, `「✦」Puedes activar o desactivar el modo *${type}* utilizando:\n\n● Activar » ${usedPrefix}${command} enable\n● Desactivar » ${usedPrefix}${command} disable\n\nꕥ Estado actual » *${isEnable ? '✓ Activado' : '✗ Desactivado'}*`, m)
 break
