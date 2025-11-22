@@ -52,23 +52,19 @@ let handler = async (m, { conn, text }) => {
       }
     } catch (err) { }
 
-    // -------------------------------------------------------
-    // ✅ API 2 ADONIX CORREGIDA - SIN MOVER LA ESTRUCTURA
-    // -------------------------------------------------------
     if (!downloadUrl || downloadUrl.includes('undefined')) {
       try {
+
         const apiAdo = `https://api-adonix.ultraplus.click/download/spotify?apikey=the.shadow&q=${encodeURIComponent(spotifyUrl)}`
         const dl2 = await axios.get(apiAdo, { timeout: 20000 })
 
-        // Validación correcta del JSON real
-        if (dl2?.data?.status === true && dl2?.data?.downloadUrl) {
+        if (dl2?.data?.status && dl2?.data?.downloadUrl) {
           downloadUrl = dl2.data.downloadUrl
           serverUsed = 'Adonix'
         }
 
       } catch (err) { }
     }
-    // -------------------------------------------------------
 
     if (downloadUrl) {
       const audio = await fetch(downloadUrl)
