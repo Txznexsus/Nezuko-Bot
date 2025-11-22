@@ -8,17 +8,17 @@ let handler = async (m, { conn, text }) => {
   if (!text) return conn.reply(m.chat, `🎋 *Por favor, proporciona el nombre de una canción o artista.*`, m, rcanal)
 
   try {
- 
+
     const searchUrl = `${global.APIs.delirius.url}/search/spotify?q=${encodeURIComponent(text)}&limit=1`
     const search = await axios.get(searchUrl, { timeout: 15000 })
-
     if (!search.data.status || !search.data.data || search.data.data.length === 0)
       throw new Error('No se encontró resultado.')
 
     const data = search.data.data[0]
     const { title, artist, album, duration, popularity, publish, url: spotifyUrl, image } = data
 
-    const caption = `「🌳」Descargando *<${title}>*\n\n` +
+    const caption =
+      `「🌳」Descargando *<${title}>*\n\n` +
       `> 🍄 Autor » *${artist}*\n` +
       (album ? `> 🌾 Álbum » *${album}*\n` : '') +
       (duration ? `> 🎍 Duración » *${duration}*\n` : '') +
@@ -43,15 +43,18 @@ let handler = async (m, { conn, text }) => {
     let downloadUrl = null
     let serverUsed = 'Desconocido'
 
+    // === PRIMER INTENTO – NEKOLABS ===
     try {
       const apiNeko = `https://api.nekolabs.my.id/downloader/spotify/v1?url=${encodeURIComponent(spotifyUrl)}`
       const dl1 = await axios.get(apiNeko, { timeout: 20000 })
+
       if (dl1?.data?.result?.downloadUrl) {
         downloadUrl = dl1.data.result.downloadUrl
         serverUsed = 'NekoLabs'
       }
     } catch (err) { }
 
+    // === SEGUNDO INTENTO – ADONIX ===
     if (!downloadUrl || downloadUrl.includes('undefined')) {
       try {
         const apiAdo = `${global.APIs.adonix.url}/download/spotify?apikey=${global.APIs.adonix.key}&q=${encodeURIComponent(spotifyUrl)}`
@@ -65,6 +68,21 @@ let handler = async (m, { conn, text }) => {
       } catch (err) { }
     }
 
+    // === TERCER INTENTO – ALYABOTPE ===
+    if (!downloadUrl || downloadUrl.includes('undefined')) {
+      try {
+        const apiAlya = `https://rest.alyabotpe.xyz/dl/spotifyv2?url=${encodeURIComponent(spotifyUrl)}&key=stellar-3kfMRW5N`
+        const dl3 = await axios.get(apiAlya, { timeout: 20000 })
+
+        if (dl3?.data?.status === true && dl3?.data?.data?.dl) {
+          downloadUrl = dl3.data.data.dl
+          serverUsed = 'AlyaBotPE'
+        }
+
+      } catch (err) {}
+    }
+
+    // === ENVÍO DEL AUDIO (NO SE MODIFICÓ NADA) ===
     if (downloadUrl) {
       const audio = await fetch(downloadUrl)
       const buffer = await audio.buffer()
@@ -85,6 +103,7 @@ let handler = async (m, { conn, text }) => {
           }
         }
       }, { quoted: fkontak })
+
     } else {
       conn.reply(m.chat, `☕ No se encontró un link de descarga válido para esta canción.`, m, fake)
     }
