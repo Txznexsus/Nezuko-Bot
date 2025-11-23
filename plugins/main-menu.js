@@ -3,6 +3,9 @@ import { xpRange } from '../lib/levelling.js'
 import fs from 'fs'
 import PhoneNumber from 'awesome-phonenumber'
 import moment from 'moment-timezone'
+import baileys from '@whiskeysockets/baileys'
+
+const { generateWAMessageFromContent, generateWAMessageContent, proto } = baileys
 
 let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
   try {
@@ -107,12 +110,52 @@ ${comandos}
     ]
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
 
-  await conn.sendMessage(m.chat, {
-       image: { url: imageUrl },
-       //gifPlayback: true,
-       caption: infoUser + menuTexto.trim(),
-       ...rcanalw
-  }, { quoted: m })
+    const { imageMessage } = await generateWAMessageContent(
+      { image: { url: imageUrl } },
+      { upload: conn.waUploadToServer }
+    )
+      
+    const msg = generateWAMessageFromContent(m.chat, {
+      viewOnceMessage: {
+        message: {
+          interactiveMessage: proto.Message.InteractiveMessage.fromObject({
+            body: proto.Message.InteractiveMessage.Body.fromObject({
+              text: infoUser + menuTexto
+            }),
+            footer: proto.Message.InteractiveMessage.Footer.fromObject({
+              text: dev
+            }),
+            header: proto.Message.InteractiveMessage.Header.fromObject({
+              title: '',
+              hasMediaAttachment: true,
+              imageMessage
+            }),
+            nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
+              buttons: [
+                {
+                  name: "cta_url",
+                  buttonParamsJson: JSON.stringify({
+                    display_text: "❐ 𝗖𝗔𝗡𝗔𝗟 ⼢",
+                    url: channel,
+                    merchant_url: channel
+                  })
+                },
+                {
+                  name: "cta_url",
+                  buttonParamsJson: JSON.stringify({
+                    display_text: "✿ 𝗚𝗜𝗧𝗛𝗨𝗕 ⼢",
+                    url: github,
+                    merchant_url: github
+                  })
+                }
+              ]
+            })
+          })
+        }
+      }
+    }, { quoted: m })
+
+    await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
  
   } catch (e) {
     console.error(e)
