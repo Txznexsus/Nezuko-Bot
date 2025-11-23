@@ -25,20 +25,18 @@ const isMainBot = bot === global.conn.user.jid
 const v = global.conns.find((conn) => conn.user.jid === bot)
 const uptime = isMainBot ? convertirMsADiasHorasMinutosSegundos(Date.now() - global.conn.uptime) : v?.uptime ? convertirMsADiasHorasMinutosSegundos(Date.now() - v.uptime) : "Activo desde ahora"
 const mention = bot.replace(/[^0-9]/g, '')
-return `❀ @${mention}
-> ✿ \`Bot:\` ${isMainBot ? 'Principal' : 'Sub-Bot'}
-> ❏ \`Online:\` ${uptime}`}).join("\n\n") : `✧ No hay bots activos en este grupo`
-const message = `╭─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ┈┈┈┈
-├─────❥͜🌿
-│ ୧🌸 🄿🄰🄽🄴🄻 / 🅂🄾🄲🄺🄴🅃 🍃୨
-╰━━╮•◍⃝߭۫ꯨ🌈۪〬.࠭⤿ʅ 🌺‌᰷্᳝᳸᳸᳸‌᭄ː•╭━━╯
-    ִ *╰━━╮❒︴ʟɪsᴛᴀ ᴅᴇ ʙᴏᴛꜱ ᴀᴄᴛɪᴠᴏꜱ ✦*
+return `> ╭─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ┈┈┈┈
+> │ 🎋 @${mention}
+> │ 🍃 \`Bot:\` ${isMainBot ? 'Principal' : 'Sub-Bot'}
+> │ 🧃 \`Online:\` ${uptime}
+> ╰─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ─ׅ┈┈┈┈`}).join("\n\n") : `✧ No hay bots activos en este grupo`
+const message = `╔════════❀•°❀°•❀════════╗
+       ୧🍁  *S Y S T E M  –  B O T S*  🌳୨
+╚════════❀•°❀°•❀════════╝
 
-   ˗ˏˋ 🌿 ˎˊ˗ Principal: *1*
-   ˗ˏˋ 🍄 ˎˊ˗ Subs: *${users.length - 1}*
-   ˗ˏˋ 🌺 ˎˊ˗ En este grupo: *${groupBots.length}* bots
-   . ︶⏝͜━ִ──꯭ׂ─꯭─ׅ─ׂ꩒ ⃞ ྀིׅ──꯭ׂ─꯭─ׅ─ׂ━͜⏝︶ .
-
+   ✧ ˗ˏˋ🪹ˎˊ˗ *𝐏𝐫𝐢𝐧𝐜𝐢𝐩𝐚𝐥:* 〔 1 activo 〕
+   ✧ ˗ˏˋ🌿ˎˊ˗ *𝐒𝐮𝐛𝐬 𝐨𝐧𝐥𝐢𝐧𝐞:* 〔 ${users.length - 1} 〕
+   ✧ ˗ˏˋ🧊ˎˊ˗ *𝐒𝐮𝐛𝐬 𝐞𝐧 𝐞𝐬𝐭𝐞 𝐠𝐫𝐮𝐩𝐨:* 〔 ${groupBots.length} 〕
  
 ${botsGroup}`
 const mentionList = groupBots.map(bot => bot.endsWith("@s.whatsapp.net") ? bot : `${bot}@s.whatsapp.net`)
