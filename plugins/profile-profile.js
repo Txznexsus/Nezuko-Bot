@@ -113,9 +113,9 @@ ${description}
 > ✿┆. 🪻 *Edad:*  ${user.age || '𖠿 Desconocida'}
 > ✿┆. 🌿 *ɢᴇɴᴇʀᴏ:* ${genero}
 > ✿┆. ❄️ *ᴘᴀʀᴇᴊᴀ:* ${casado}
-> ✿┆. ❄️ *nacionalidad:* ${nacionalidad}
-> ✿┆. 📞 *Número:* +${numeroLimpio}
-> ✿┆. 🔗 *wa.me:* ${waLink}
+> ✿┆. 🍁 *nacionalidad:* ${nacionalidad}
+> ✿┆. 🍄‍🟫 *Número:* +${numeroLimpio}
+> ✿┆. 🌵 *wa.me:* ${waLink}
 > ✿╰──────────────⬣
 
 > ✿╭───〔 \`🄿🅁🄾🄶🅁🄴🅂🄾\` 〕
@@ -123,8 +123,8 @@ ${description}
 > ✿┆. ☕ *ɴɪᴠᴇʟ:* ${nivel}
 > ✿┆. 🥥 *ʀᴀɴᴋɪɴɢ:* #${rank}
 > ✿┆. 🎇 *ᴀᴠᴀɴᴄᴇ:* ${progreso}
-> ✿┆. 🍄 *ᴘʀᴇᴍɪᴜᴍ:* ${premium ? 'Activo' : 'No'}
-> ✿┆. 🪴 *Registrado:* ${user.registered ? '✔ Activo' : '✘ Inactivo'}
+> ✿┆. 🍄 *ᴘʀᴇᴍɪᴜᴍ:* ${premium ? 'SI' : 'Free'}
+> ✿┆. 🪴 *Registrado:* ${user.registered ? '✔ SI' : '✘ NO'}
 > ✿╰──────────────⬣
 
 > ✿╭───〔 \`🄲🄾🄻🄴🄲🄲🄸🄾🄽\`  〕
@@ -138,7 +138,7 @@ ${description}
 > ✿┆. ☃️ *ᴄᴏᴍᴀɴᴅᴏs ᴜsᴀᴅᴏs:* ${user.commands || 0}
 > ✿╰──────────────⬣`
 
-    await conn.sendMessage(m.chat, { image: { url: pp }, caption: text, mentions: [userId] }, { quoted: m })
+    await conn.sendMessage(m.chat, { image: { url: pp }, caption: text, mentions: [userId], ...fake }, { quoted: m })
 
   } catch (error) {
     await m.reply(`⚠︎ Se ha producido un problema.\n> Usa *${usedPrefix}report* para informarlo.\n\n${error.message}`, m)
