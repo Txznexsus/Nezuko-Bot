@@ -26,6 +26,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     const hora = fecha.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })
 
     const totalCommands = Object.keys(global.plugins).length
+    let readMore = String.fromCharCode(8206).repeat(4001)
 
     const userId = m.sender.split('@')[0]
     const phone = PhoneNumber('+' + userId)
@@ -99,10 +100,8 @@ ${comandos}
 > *☕⿻𝅄 \`ʟɪʙʀᴇʀɪᴀ:\`* *${libreria}*
 > *🎍⿻𝅄 \`ғᴇᴄʜᴀ:\`* *${hora}, ${dia}, ${fechaTxt}*
 > *꒷꒦︶︶︶︶︶︶︶︶︶︶︶︶꒦꒷* 
-
-𐔌𐔌 *🎅🎄 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ: 🦌🎇* ꒱꒱
-
-`.trim()
+${readMore}
+𐔌𐔌 *🎅🎄 Mᴇɴú ᴅɪsᴘᴏɴɪʙʟᴇ: 🦌🎇* ꒱꒱`.trim()
 
     const imgs = [
       'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404449889_268409.jpeg',
@@ -117,6 +116,31 @@ ${comandos}
       { image: { url: imageUrl } },
       { upload: conn.waUploadToServer }
     )
+    
+  const Shadow_url = await (await fetch("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763384842220_234152.jpeg")).buffer()
+  const fkontak = {
+    key: {
+      fromMe: false,
+      participant: "0@s.whatsapp.net",
+      remoteJid: "status@broadcast"
+    },
+    message: {
+      productMessage: {
+        product: {
+          productImage: {
+            mimetype: "image/jpeg",
+            jpegThumbnail: Shadow_url
+          },
+          title: "💛 𝐌 𝐄 𝐍 𝐔 • 𝐊 𝐀 𝐍 𝐄 𝐊 𝐈 🎁",
+          description: "",
+          currencyCode: "USD",
+          priceAmount1000: 100000,
+          retailerId: "menu"
+        },
+        businessOwnerJid: "51919199620@s.whatsapp.net"
+      }
+    }
+  }
       
     const msg = generateWAMessageFromContent(m.chat, {
       viewOnceMessage: {
