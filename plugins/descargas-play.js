@@ -49,7 +49,7 @@ const handler = async (m, { conn, text, command }) => {
         externalAdReply: {
           title: title,
           body: canal,
-          thumbnailUrl: thumbnail,
+          thumbnailUrl: 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763869835047_557840.jpeg',
           sourceUrl: url,
           mediaType: 1,
           renderLargerThumbnail: false
