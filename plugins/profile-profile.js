@@ -41,9 +41,9 @@ let handler = async (m, { conn, args, usedPrefix }) => {
     let texto = await m.mentionedJid
     let userId = texto.length > 0 ? texto[0] : (m.quoted ? await m.quoted.sender : m.sender)
 
-    let numeroLimpio = userId.split("@")[0]
+    let numero = userId.split("@")[0]
     let nacionalidad = detectarPais(numeroLimpio)
-    let waLink = `https://wa.me/${numeroLimpio}`
+    let waLink = `wa.me/${numeroLimpio}`
 
     if (!global.db.data.users) global.db.data.users = {}
     if (!global.db.data.characters) global.db.data.characters = {}
@@ -113,9 +113,9 @@ ${description}
 > ✿┆. 🪻 *Edad:*  ${user.age || '𖠿 Desconocida'}
 > ✿┆. 🌿 *ɢᴇɴᴇʀᴏ:* ${genero}
 > ✿┆. ❄️ *ᴘᴀʀᴇᴊᴀ:* ${casado}
-> ✿┆. 🍁 *nacionalidad:* ${nacionalidad}
-> ✿┆. 🍄‍🟫 *Número:* +${numeroLimpio}
-> ✿┆. 🌵 *wa.me:* ${waLink}
+> ✿┆. 🍁 *ɴᴀᴄɪᴏɴᴀʟɪᴅᴀᴅ:* ${nacionalidad}
+> ✿┆. 🍄‍🟫 *ɴᴜᴍᴇʀᴏ:* +${numero}
+> ✿┆. 🌵 *ʟɪɴᴋ:* ${waLink}
 > ✿╰──────────────⬣
 
 > ✿╭───〔 \`🄿🅁🄾🄶🅁🄴🅂🄾\` 〕
