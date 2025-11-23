@@ -15,7 +15,7 @@ async function sendOrderPing(m, conn, texto, thumb) {
     orderTitle: 'Estado del Sistema',
     token: null,
     sellerJid: null,
-    totalAmount1000: '0',
+    totalAmount1000: '3',
     totalCurrencyCode: 'PEN',
     contextInfo: {
       externalAdReply: {
