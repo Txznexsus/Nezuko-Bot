@@ -42,6 +42,12 @@ END:VCARD`.trim();
     },
     contextInfo: {
     mentionedJid: [m.sender],
+    isForwarded: true,
+      forwardedNewsletterMessageInfo: {
+        newsletterJid: channelRD.id,
+        serverMessageId: 100,
+        newsletterName: channelRD.name
+      },
       externalAdReply: {
         title: ' ',
         body: '',
