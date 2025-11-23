@@ -156,7 +156,7 @@ ${comandos}
           })
         }
       }
-    }, { quoted: m })
+    }, { quoted: fkontak })
 
     await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
  
