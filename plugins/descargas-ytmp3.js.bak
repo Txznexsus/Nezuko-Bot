@@ -16,10 +16,10 @@ const result = videoMatch ? search.videos.find(v => v.videoId === videoMatch[1])
 
 if (!result) throw 'ꕥ No se encontraron resultados.'
 
-const { title, thumbnail, timestamp, views, ago, url, author, seconds } = result
+const { title, thumbnail, timestamp, views, ago, url, author } = result
 
 // Límite de duración
-if (seconds > 1800) throw '⚠ El contenido supera el límite de duración (10 minutos).'
+//if (seconds > 1800) throw '⚠ El contenido supera el límite de duración (10 minutos).'
 
 // Formato de vistas
 const vistas = formatViews(views)

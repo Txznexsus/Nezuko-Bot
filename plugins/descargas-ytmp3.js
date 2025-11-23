@@ -39,7 +39,7 @@ await conn.sendMessage(m.chat, { image: thumb, caption: info }, { quoted: m })
 const audio = await getAud(url)
 if (!audio?.url) throw '⚠ No se pudo obtener el audio.'
 
-m.reply(`> ❀ *Audio procesado. Servidor:* \`${audio.api}\``)
+//m.reply(`> ❀ *Audio procesado. Servidor:* \`${audio.api}\``)
 
 await conn.sendMessage(
  m.chat,
