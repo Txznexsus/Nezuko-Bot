@@ -149,6 +149,7 @@ handler.help = ['profile']
 handler.tags = ['rg']
 handler.command = ['profile', 'perfil', 'perfíl']
 handler.group = true
+handler.register = true
 
 export default handler
 
