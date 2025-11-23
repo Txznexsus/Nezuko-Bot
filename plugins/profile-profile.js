@@ -42,8 +42,8 @@ let handler = async (m, { conn, args, usedPrefix }) => {
     let userId = texto.length > 0 ? texto[0] : (m.quoted ? await m.quoted.sender : m.sender)
 
     let numero = userId.split("@")[0]
-    let nacionalidad = detectarPais(numeroLimpio)
-    let waLink = `wa.me/${numeroLimpio}`
+    let nacionalidad = detectarPais(numero)
+    let waLink = `wa.me/${numero}`
 
     if (!global.db.data.users) global.db.data.users = {}
     if (!global.db.data.characters) global.db.data.characters = {}
