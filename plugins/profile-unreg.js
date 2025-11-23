@@ -8,7 +8,6 @@ let handler = async (m, { conn }) => {
   const user = global.db.data.users[m.sender]
   const nombre = user.name || 'Sin nombre'
   const edad = user.age || 'Desconocida'
-  const sn = createHash('md5').update(m.sender).digest('hex').slice(0, 20)
 
   let pp
   try {
@@ -27,7 +26,6 @@ let handler = async (m, { conn }) => {
 🌿 *Nombre:* ${nombre}
 🍃 *Edad:* ${edad} años
 🕸️ *Estado:* Eliminado correctamente
-${sn}
 
 ✨ Puedes volver a registrarte cuando desees:
 > *#reg ${nombre}.18*
