@@ -13,7 +13,7 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
     }
 
     await conn.sendMessage(m.chat, { react: { text: "⏳", key: m.key } })
-    await conn.reply(m.chat, '*_🚀 Buscando en Youtube_*', m)
+    await conn.reply(m.chat, '*_🦌🛷 Buscando en Youtube_*', m)
 
     const search = await yts(text)
     const video = search.videos[0]
@@ -30,14 +30,24 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
     }
 
     const apis = [
+      { 
+        api: 'Adonix',
+        endpoint: `${global.APIs.adonix.url}/download/ytaudio?apikey=${global.APIs.adonix.key}&url=${encodeURIComponent(meta.url)}`,
+        extractor: res => res.data?.url
+      },
       {
         api: 'Vreden',
-        endpoint: `https://api.vreden.my.id/api/v1/download/youtube/audio?url=${encodeURIComponent(meta.url)}&quality=128`,
+        endpoint: `${global.APIs.vreden.url}/api/v1/download/youtube/audio?url=${encodeURIComponent(meta.url)}&quality=128`,
         extractor: res => res.result?.download?.url
+      },
+      { 
+        api: 'Yupra',
+        endpoint: `${global.APIs.yupra.url}/api/downloader/ytmp3?url=${encodeURIComponent(meta.url)}`,
+        extractor: res => res.result?.link
       },
       {
         api: 'ZenzzXD v2',
-        endpoint: `https://api.zenzxz.my.id/api/downloader/ytmp3v2?url=${encodeURIComponent(meta.url)}`,
+        endpoint: `${global.APIs.zenzxz.url}/api/downloader/ytmp3v2?url=${encodeURIComponent(meta.url)}`,
         extractor: res => res.data?.download_url
       }
     ]
