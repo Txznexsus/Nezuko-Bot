@@ -219,14 +219,14 @@ function clockString(ms) {
 
 function ucapan() {
   const time = moment.tz('America/Lima').format('HH')
-  let res = "Ｂ𝖚𝖊𝖓𝖆𝖘 ɴᴏᴄʜᴇ𝓢 🌙"
+  let res = "Ｂ𝖚𝖊𝖓𝖆𝖘 ɴᴏᴄʜᴇ𝓢 🌌"
   
   if (time >= 5 && time < 12)
     res = "Ｂ𝖚𝖊𝖓𝖔𝖘 𝒟í𝖆𝓢 ☀️"
   else if (time >= 12 && time < 18)
     res = "Ｂ𝖚𝖊𝖓𝖆𝖘 Ŧ𝖆𝖗𝖉𝖊𝓢 🌤️"
   else if (time >= 18)
-    res = "Ｂ𝖚𝖊𝖓𝖆𝖘 ɴᴏᴄʜᴇ𝓢 🌙"
+    res = "Ｂ𝖚𝖊𝖓𝖆𝖘 ɴᴏᴄʜᴇ𝓢 🌌"
 
   return res
 }
