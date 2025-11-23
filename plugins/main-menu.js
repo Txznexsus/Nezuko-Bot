@@ -116,8 +116,16 @@ ${readMore}
       { image: { url: imageUrl } },
       { upload: conn.waUploadToServer }
     )
+
+    const icon = [
+      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763911352440_131724.jpeg',
+      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763911305951_36243.jpeg',
+      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763911237754_990508.jpeg',
+      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763911566098_479123.jpeg'
+    ]
+    let icons = icon[Math.floor(Math.random() * icon.length)]
     
-  const Shadow_url = await (await fetch("https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763384842220_234152.jpeg")).buffer()
+  const Shadow_url = await (await fetch(icons)).buffer()
   const fkontak = {
     key: {
       fromMe: false,
