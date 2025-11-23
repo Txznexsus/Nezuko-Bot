@@ -2,7 +2,7 @@ import { xpRange } from '../lib/levelling.js'
 import moment from 'moment-timezone'
 import fetch from 'node-fetch'
 
-let handler = async (m, { conn, args }) => {
+let handler = async (m, { conn, args, usedPrefix }) => {
 try {
 let texto = await m.mentionedJid
 let userId = texto.length > 0 ? texto[0] : (m.quoted ? await m.quoted.sender : m.sender)
@@ -11,6 +11,7 @@ if (!global.db.data.users) global.db.data.users = {}
 if (!global.db.data.characters) global.db.data.characters = {}
 if (!global.db.data.users[userId]) global.db.data.users[userId] = {}
 const user = global.db.data.users[userId]
+const age = user.name || 'Desconocid@'
 const cumpleanos = user.birth || 'Sin especificar :< (#setbirth)'
 const genero = user.genre || 'Sin especificar'
 const pareja = user.marry
@@ -45,6 +46,7 @@ ${description}
 
 > ✿ ╭───〔 \`🄳🄰🅃🄾🅂\` 〕
 > ✿┆. 🌳 *ᴄᴜᴍᴘʟᴇᴀɴ̃ᴏs:* ${cumpleanos}
+> ✿┆. 🪻 *Edad:* ${age}
 > ✿┆. 🌿 *ɢᴇɴᴇʀᴏ:* ${genero}
 > ✿┆. ❄️ *ᴘᴀʀᴇᴊᴀ:* ${casado}
 > ✿╰──────────────⬣
