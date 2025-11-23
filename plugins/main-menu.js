@@ -108,6 +108,7 @@ ${comandos}
       'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404449889_268409.jpeg',
       'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404456592_385271.jpeg',
 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763896757761_373956.jpeg',
+'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763896968059_706464.jpeg,
 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763896749488_782818.jpeg'
     ]
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
