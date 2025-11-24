@@ -2,36 +2,77 @@ import fs from 'fs'
 import fetch from 'node-fetch'
 import { WAMessageStubType } from '@whiskeysockets/baileys'
 
+// 📌 NUEVA BASE DE PAÍSES — LA MISMA DEL BOTLIST PERO ADAPTADA
 const prefijosPais = {
-  '1': '🇺🇸 Estados Unidos',
-  '51': '🇵🇪 Perú',
-  '52': '🇲🇽 México',
-  '53': '🇨🇺 Cuba',
-  '54': '🇦🇷 Argentina',
-  '55': '🇧🇷 Brasil',
-  '56': '🇨🇱 Chile',
-  '57': '🇨🇴 Colombia',
-  '58': '🇻🇪 Venezuela',
-  '591': '🇧🇴 Bolivia',
-  '595': '🇵🇾 Paraguay',
-  '598': '🇺🇾 Uruguay',
-  '502': '🇬🇹 Guatemala',
-  '503': '🇸🇻 El Salvador',
-  '504': '🇭🇳 Honduras',
-  '505': '🇳🇮 Nicaragua',
-  '506': '🇨🇷 Costa Rica',
-  '507': '🇵🇦 Panamá',
-  '593': '🇪🇨 Ecuador',
-  '809': '🇩🇴 República Dominicana'
+  "1": "🇺🇸 EE.UU / 🇨🇦 Canadá",
+  "7": "🇷🇺 Rusia / 🇰🇿 Kazajistán",
+  "20": "🇪🇬 Egipto",
+  "27": "🇿🇦 Sudáfrica",
+  "30": "🇬🇷 Grecia",
+  "31": "🇳🇱 Países Bajos",
+  "32": "🇧🇪 Bélgica",
+  "33": "🇫🇷 Francia",
+  "34": "🇪🇸 España",
+  "36": "🇭🇺 Hungría",
+  "39": "🇮🇹 Italia",
+  "40": "🇷🇴 Rumania",
+  "44": "🇬🇧 Reino Unido",
+  "49": "🇩🇪 Alemania",
+  "51": "🇵🇪 Perú",
+  "52": "🇲🇽 México",
+  "53": "🇨🇺 Cuba",
+  "54": "🇦🇷 Argentina",
+  "55": "🇧🇷 Brasil",
+  "56": "🇨🇱 Chile",
+  "57": "🇨🇴 Colombia",
+  "58": "🇻🇪 Venezuela",
+  "591": "🇧🇴 Bolivia",
+  "593": "🇪🇨 Ecuador",
+  "595": "🇵🇾 Paraguay",
+  "598": "🇺🇾 Uruguay",
+  "502": "🇬🇹 Guatemala",
+  "503": "🇸🇻 El Salvador",
+  "504": "🇭🇳 Honduras",
+  "505": "🇳🇮 Nicaragua",
+  "506": "🇨🇷 Costa Rica",
+  "507": "🇵🇦 Panamá",
+  "60": "🇲🇾 Malasia",
+  "61": "🇦🇺 Australia",
+  "62": "🇮🇩 Indonesia",
+  "63": "🇵🇭 Filipinas",
+  "64": "🇳🇿 Nueva Zelanda",
+  "65": "🇸🇬 Singapur",
+  "66": "🇹🇭 Tailandia",
+  "81": "🇯🇵 Japón",
+  "82": "🇰🇷 Corea del Sur",
+  "84": "🇻🇳 Vietnam",
+  "86": "🇨🇳 China",
+  "90": "🇹🇷 Turquía",
+  "91": "🇮🇳 India",
+  "212": "🇲🇦 Marruecos",
+  "213": "🇩🇿 Argelia",
+  "216": "🇹🇳 Túnez",
+  "218": "🇱🇾 Libia",
+  "234": "🇳🇬 Nigeria",
+  "254": "🇰🇪 Kenia",
+  "255": "🇹🇿 Tanzania",
+  "256": "🇺🇬 Uganda",
+  "258": "🇲🇿 Mozambique",
+  "260": "🇿🇲 Zambia",
+  "263": "🇿🇼 Zimbabue"
 }
 
 function detectarPais(jid) {
   const num = jid.split('@')[0]
-  const prefijosOrdenados = Object.keys(prefijosPais).sort((a, b) => b.length - a.length)
+  const prefijosOrdenados = Object.keys(prefijosPais)
+    .sort((a, b) => b.length - a.length)
+
   for (const prefijo of prefijosOrdenados) {
-    if (num.startsWith(prefijo)) return prefijosPais[prefijo]
+    if (num.startsWith(prefijo)) {
+      return prefijosPais[prefijo]
+    }
   }
-  return 'Desconocido ❄️'
+  return "Desconocido 🍜"
 }
 
 async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
@@ -42,7 +83,7 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
 
   const fecha = new Date()
   const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Lima", day: 'numeric', month: 'long', year: 'numeric' })
-  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Lima", hour: '2-digit', minute: '2-digit' })
+  const hora = fecha.toLocaleTimeString("es-PE", { timeZone: "America/Lima", hour: "numeric", minute: "numeric", hour12: true })
 
   const pais = detectarPais(userId)
   const groupSize = groupMetadata.participants.length + 1
