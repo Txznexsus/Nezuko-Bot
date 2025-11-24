@@ -13,14 +13,14 @@
 },
 "repository": {
 "type": "git",
-"url": "git+https://github.com/Shadow-nex/KanekiBot-V3.git"
+"url": "git+https://github.com/shadox-xyz/KanekiBot-V3.git"
 },  
 "author": "Shadow.xyz",
 "license": "MIT-License",
 "bugs": {
-"url": "https://github.com/Shadow-nex/KanekiBot-V3/issues"
+"url": "https://github.com/shadox-xyz/KanekiBot-V3/issues"
 },
-"homepage": "https://github.com/Shadow-nex/KanekiBot-V3#readme",
+"homepage": "https://github.com/shadox-xyz/KanekiBot-V3#readme",
 "dependencies": {
 "@hapi/boom": "^10.0.1",
 "@vitalets/google-translate-api": "^8.0.0",
