@@ -33,7 +33,7 @@ global.packsticker2 = `\n°.⎯⃘̶⎯̸⎯ܴ⎯̶᳞͇ࠝ⎯⃘̶⎯̸⎯ܴ⎯
 global.fake = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: channelRD.id, newsletterName: channelRD.name, serverMessageId: -1 }
 }}, { quoted: m }
 
-// (Horario Perú 🇵🇪)
+// (🥗 Horario Perú 🇵🇪)
 var ase = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Lima" }))
 var hour = ase.getHours()
 switch (true) {
