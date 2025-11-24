@@ -125,7 +125,6 @@ cd && cd KanekiBot-V3 && nano settings.js
 </table></div>
 ```
 
-
 <p align="center">
 
 <table>
@@ -136,7 +135,10 @@ cd && cd KanekiBot-V3 && nano settings.js
   </tr>
 </table>
 
-<br>
+<!-- TARJETA DE LENGUAJES DEL REPO -->
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=shadox-xyz&layout=compact&theme=radical&langs_count=6" />
+
+<br><br>
 
 <img src="https://img.shields.io/github/stars/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ff007f&logo=github" />
 <img src="https://img.shields.io/github/forks/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00ffaa" />
