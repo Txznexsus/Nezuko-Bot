@@ -124,3 +124,17 @@ cd && cd KanekiBot-V3 && nano settings.js
 </tr>
 </table></div>
 ```
+
+<p align="center">
+  <!-- Tarjeta compacta -->
+  <img src="https://github-readme-stats.vercel.app/api/pin/?username=shadox-xyz&repo=KanekiBot-V3&theme=radical" alt="Repo stats" />
+
+  <!-- Badges individuales -->
+  <br/>
+  <img src="https://img.shields.io/github/stars/shadox-xyz/KanekiBot-V3?style=for-the-badge&logo=github" alt="stars" />
+  <img src="https://img.shields.io/github/forks/shadox-xyz/KanekiBot-V3?style=for-the-badge" alt="forks" />
+  <img src="https://img.shields.io/github/issues/shadox-xyz/KanekiBot-V3?style=for-the-badge" alt="issues" />
+  <img src="https://img.shields.io/github/watchers/shadox-xyz/KanekiBot-V3?style=for-the-badge" alt="watchers" />
+  <!-- Actividad de commits (badge de actividad semanal) -->
+  <img src="https://img.shields.io/github/commit-activity/4w/shadox-xyz/KanekiBot-V3?style=for-the-badge" alt="commit activity" />
+</p>
