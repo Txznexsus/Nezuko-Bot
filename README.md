@@ -134,11 +134,6 @@ cd && cd KanekiBot-V3 && nano settings.js
     <td>
       <img src="https://github-readme-stats.vercel.app/api/pin/?username=shadox-xyz&repo=KanekiBot-V3&theme=radical" />
     </td>
-
-    <!-- Imagen a la derecha -->
-    <td>
-      <img src="https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763304536979_365241.jpeg" width="230px" />
-    </td>
   </tr>
 </table>
 
