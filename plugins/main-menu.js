@@ -76,10 +76,10 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
       }
     }
 
-    const infoUser = `    🌳 •┆ kaneki 𝖻ᨣƚ AI ┆• 🥙
+    const infoUser = `    🌳 •┆ 𝐊𝐀𝐍𝐄𝐊𝐈 𝐁𝐎𝐓 𝐀𝐈 ┆• 🥙
           •╌╌╌╌╌╌╌╌╌╌╌•
- ִ ࣪ 𓈒 ᗣ  \`${ucapan()}:\`   ࣫ㅤׅ ✷۫ 
-    ᗞᗞ \`@${userId}\`  ⌒᷼✿ 
+ ִ ࣪ 𓈒 ᗣ  ${ucapan()}  ࣫ㅤׅ 🍜۫ 
+    ᗞᗞ @${userId}  ⌒᷼🥗 
 
 ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮  ̮   ̮   ̮   ̮   ̮   ̮ 
 ︶︶︶︶︶︶︶︶︶︶︶︶︶︶︶︶︶︶
