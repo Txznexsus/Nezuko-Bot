@@ -20,7 +20,7 @@ export async function before(m, { conn, isAdmin, isBotAdmin, isOwner, isROwner, 
       await conn.sendMessage(m.chat, { 
         text: `*「 ENLACE DETECTADO 」*
 
-${user} Rompiste las reglas del 
+🥗 ${user} Rompiste las reglas del 
 Grupo serás eliminado...`, 
         mentions: [m.sender] 
       }, { quoted: m })
@@ -29,14 +29,15 @@ Grupo serás eliminado...`,
         await conn.sendMessage(m.chat, { 
           text: `🥗 El bot no tiene permisos de administrador para eliminar al usuario.`,
           mentions: groupAdmins.map(v => v.id) 
-        }, { quoted: m })
+        }, { quoted: fkontak })
         return
       }
 
-      await delay(1500)
+      await delay(300)
       await conn.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: bang, participant: delet } })
-      await delay(2000)
+      await delay(700)
       await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+
     } catch (e) {
       if (e?.data === 429) {
         console.log('⚠️ Rate limit detectado, esperando 10s...')
@@ -58,7 +59,7 @@ Grupo serás eliminado...`,
       await conn.sendMessage(m.chat, { 
         text: ` *「 ENLACE DETECTADO 」*
 
-${user} Rompiste las reglas del 
+🐥 ${user} Rompiste las reglas del 
 Grupo serás eliminado...`,
         mentions: [m.sender] 
       }, { quoted: m })
@@ -67,14 +68,15 @@ Grupo serás eliminado...`,
         await conn.sendMessage(m.chat, { 
           text: `🥙 El antilink está activo pero no puedo eliminarte porque no soy admin.`,
           mentions: groupAdmins.map(v => v.id) 
-        }, { quoted: m })
+        }, { quoted: fkontak })
         return
       }
 
-      await delay(1500)
+      await delay(300)
       await conn.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id: bang, participant: delet } })
-      await delay(2000)
+      await delay(700)
       await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove')
+
     } catch (e) {
       if (e?.data === 429) {
         console.log('⚠️ Rate limit detectado, esperando 10s...')
