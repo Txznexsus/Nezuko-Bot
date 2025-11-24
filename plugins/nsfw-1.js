@@ -1,28 +1,51 @@
+/*codigo desarrollo por Deylin 
+https://github.com/deylin-eliac
+no quites créditos y no modifiques el código*/
+
+
 import fetch from 'node-fetch';
+import cheerio from 'cheerio';
 
-let handler = async (m, { conn, usedPrefix, command }) => {
-if (!db.data.chats[m.chat].nsfw && m.isGroup) {
-  return m.reply(`ꕥ El contenido *NSFW* está desactivado en este grupo.\n\nUn *administrador* puede activarlo con:\n» *${usedPrefix}nsfw on*`);
-}
+let handler = async (m, { conn, text, command }) => {
+  if (!text || !/^https?:\/\/\S+/.test(text)) {
+    throw `🚫 Enlace inválido. Usa el comando así:\n\n*${command} <enlace del video xxx>*`;
+  }
+
+  await m.reply('🔞 Buscando el video...');
+
   try {
-    const res = await fetch('https://www.reddit.com/r/nsfw.json?limit=50');
-    const json = await res.json();
-    const posts = json.data.children.filter(post => post.data.post_hint === 'image');
+    const url = text.trim();
+    const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+    const html = await res.text();
+    const $ = cheerio.load(html);
 
-    if (!posts.length) {
-      return conn.reply(m.chat, '⚠️ No se encontró contenido NSFW por ahora.', m);
+    let videoUrl = null;
+
+
+    videoUrl = $('video source').attr('src') || $('video').attr('src');
+
+
+    if (!videoUrl) {
+      const ldJson = $('script[type="application/ld+json"]').html();
+      if (ldJson) {
+        const json = JSON.parse(ldJson);
+        if (json.contentUrl) videoUrl = json.contentUrl;
+        if (json.embedUrl && !videoUrl) videoUrl = json.embedUrl;
+      }
     }
 
-    
-    const post = posts[Math.floor(Math.random() * posts.length)].data;
-    const image = post.url_overridden_by_dest || post.url;
-    const title = post.title;
-    const author = post.author;
 
-    await conn.sendFile(m.chat, image, 'nsfw.jpg', `🔞 *${title}*\n👤 u/${author}\n📍 r/nsfw`, m);
+    if (!videoUrl) {
+      const match = html.match(/https?:\/\/[^"' ]+\.mp4/g);
+      if (match && match.length > 0) videoUrl = match[0];
+    }
+
+    if (!videoUrl) throw '❌ No se encontró el video. El sitio puede estar protegido o haber cambiado.';
+
+    await conn.sendFile(m.chat, videoUrl, 'video.mp4', `✅ Video descargado desde:\n${url}`, m);
   } catch (e) {
     console.error(e);
-    conn.reply(m.chat, '❌ Hubo un error al obtener el contenido NSFW.', m);
+    m.reply(`⚠️ No se pudo descargar el video:\n${e.message || e}`);
   }
 };
 
@@ -30,6 +53,4 @@ handler.command = ['nsfw1'];
 handler.tags = ['nsfw'];
 handler.help = ['nsfw1'];
 handler.register = true
-
-
 export default handler;
