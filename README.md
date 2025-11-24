@@ -127,32 +127,33 @@ cd && cd KanekiBot-V3 && nano settings.js
 
 
 
+<p align="center">
 
-<div align="center">
-  <div style="max-width:700px;border-radius:12px;padding:18px;background:linear-gradient(135deg,#7b2ff7,#1fd1f9);box-shadow: 0 8px 30px rgba(0,0,0,0.25);color:#fff;font-family:Inter, Arial, sans-serif">
-    <h2 style="margin:0 0 6px;font-size:20px">📊 Estadísticas - <strong>KanekiBot-V3</strong></h2>
-    <p style="margin:0 0 12px;opacity:0.95">Resumen rápido del repo — commits · stars · forks · issues</p>
+  <!-- Contenedor estilo tarjeta -->
+  <div style="
+      display:inline-block;
+      padding:20px;
+      border-radius:14px;
+      background:#1a1a1a;
+      box-shadow:0 0 20px rgba(255,0,128,0.35);
+  ">
 
-    <!-- Badges -->
-    <p style="margin:6px 0">
-      <img src="https://img.shields.io/github/stars/shadox-xyz/KanekiBot-V3?style=flat&logo=github&label=Stars" alt="stars" />
-      <img src="https://img.shields.io/github/forks/shadox-xyz/KanekiBot-V3?style=flat&label=Forks" alt="forks" />
-      <img src="https://img.shields.io/github/issues/shadox-xyz/KanekiBot-V3?style=flat&label=Issues" alt="issues" />
-      <img src="https://img.shields.io/github/watchers/shadox-xyz/KanekiBot-V3?style=flat&label=Watchers" alt="watchers" />
-      <img src="https://img.shields.io/github/commit-activity/4w/shadox-xyz/KanekiBot-V3?style=flat&label=Commits%20(4w)" alt="commits" />
-    </p>
+    <!-- Tarjeta compacta -->
+    <img 
+      src="https://github-readme-stats.vercel.app/api/pin/?username=shadox-xyz&repo=KanekiBot-V3&theme=radical" 
+      alt="Repo stats"
+      style="border-radius:10px;"
+    />
 
-    <!-- Tarjeta de repo más grande -->
-    <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
-      <img src="https://opengraph.githubassets.com/1/shadox-xyz/KanekiBot-V3" alt="og" style="width:96px;height:96px;border-radius:8px;object-fit:cover;border:2px solid rgba(255,255,255,0.12)"/>
-      <div style="flex:1">
-        <div style="font-weight:600;font-size:16px">KanekiBot-V3</div>
-        <div style="opacity:0.95;font-size:13px;margin-top:6px">Bot para WhatsApp — funcionalidades, comandos, descarga de música y más.</div>
-        <div style="margin-top:8px">
-          <img src="https://img.shields.io/github/languages/top/shadox-xyz/KanekiBot-V3?style=plastic" alt="top language" />
-          <img src="https://img.shields.io/github/last-commit/shadox-xyz/KanekiBot-V3?style=plastic" alt="last commit" />
-        </div>
-      </div>
-    </div>
+    <br><br>
+
+    <!-- Badges dentro del cuadro con colores pro -->
+    <img src="https://img.shields.io/github/stars/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ff007f&logo=github" alt="stars" />
+    <img src="https://img.shields.io/github/forks/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00ffaa" alt="forks" />
+    <img src="https://img.shields.io/github/issues/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ffee00" alt="issues" />
+    <img src="https://img.shields.io/github/watchers/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00b7ff" alt="watchers" />
+    <img src="https://img.shields.io/github/commit-activity/4w/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=9b59ff" alt="commit activity" />
+
   </div>
-</div>
+
+</p>
