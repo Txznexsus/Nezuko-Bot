@@ -130,7 +130,6 @@ cd && cd KanekiBot-V3 && nano settings.js
 
 <table>
   <tr>
-    <!-- Tarjeta del repo -->
     <td>
       <img src="https://github-readme-stats.vercel.app/api/pin/?username=shadox-xyz&repo=KanekiBot-V3&theme=radical" />
     </td>
@@ -139,7 +138,6 @@ cd && cd KanekiBot-V3 && nano settings.js
 
 <br>
 
-<!-- Badges de colores -->
 <img src="https://img.shields.io/github/stars/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ff007f&logo=github" />
 <img src="https://img.shields.io/github/forks/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00ffaa" />
 <img src="https://img.shields.io/github/issues/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ffee00" />
