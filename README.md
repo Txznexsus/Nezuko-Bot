@@ -128,16 +128,27 @@ cd && cd KanekiBot-V3 && nano settings.js
 
 <p align="center">
 
-  <!-- Tarjeta del repo -->
-  <img src="https://github-readme-stats.vercel.app/api/pin/?username=shadox-xyz&repo=KanekiBot-V3&theme=radical" />
+<table>
+  <tr>
+    <!-- Tarjeta del repo -->
+    <td>
+      <img src="https://github-readme-stats.vercel.app/api/pin/?username=shadox-xyz&repo=KanekiBot-V3&theme=radical" />
+    </td>
 
-  <!-- Badges de colores dentro del mismo bloque -->
-  <br>
+    <!-- Imagen a la derecha -->
+    <td>
+      <img src="https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763304536979_365241.jpeg" width="230px" />
+    </td>
+  </tr>
+</table>
 
-  <img src="https://img.shields.io/github/stars/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ff007f&logo=github" />
-  <img src="https://img.shields.io/github/forks/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00ffaa" />
-  <img src="https://img.shields.io/github/issues/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ffee00" />
-  <img src="https://img.shields.io/github/watchers/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00b7ff" />
-  <img src="https://img.shields.io/github/commit-activity/4w/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=9b59ff" />
+<br>
+
+<!-- Badges de colores -->
+<img src="https://img.shields.io/github/stars/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ff007f&logo=github" />
+<img src="https://img.shields.io/github/forks/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00ffaa" />
+<img src="https://img.shields.io/github/issues/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ffee00" />
+<img src="https://img.shields.io/github/watchers/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00b7ff" />
+<img src="https://img.shields.io/github/commit-activity/4w/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=9b59ff" />
 
 </p>
