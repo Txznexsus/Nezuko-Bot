@@ -2,7 +2,7 @@
 
 #!/data/data/com.termux/files/usr/bin/bash 
 BOT_DIR="KanekiBot-V3"  
-BOT_REPO="https://github.com/Shadow-nex/$BOT_DIR"
+BOT_REPO="https://github.com/shadox-xyz/$BOT_DIR"
 DB_FILE="database.json"
 
 GREEN='\033[32m'
