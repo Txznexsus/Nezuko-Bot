@@ -45,8 +45,7 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Lima", day: 'numeric', month: 'long', year: 'numeric' })
   const hora = fecha.toLocaleTimeString("es-PE", { timeZone: "America/Lima", hour: "numeric", minute: "numeric", hour12: true })
 
-  const numero = userId.split("@")[0]
-  const nacionalidad = detectarPais(numero)
+  const pais = detectarPais(userId)
   const groupSize = groupMetadata.participants.length + 1
   const desc = groupMetadata.desc?.toString() || 'Sin descripción'
   const mensaje = (chat.sWelcome || 'Edita con el comando "setwelcome"')
@@ -62,7 +61,7 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
 
 🌿 *「 𝐈𝐧𝐟𝐨 𝐝𝐞𝐥 𝐆𝐫𝐮𝐩𝐨 」*
 ❄️ ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
-🌷 ᴘᴀíꜱ: ${nacionalidad}
+🌷 ᴘᴀíꜱ: ${pais}
 🎅 ʜᴏʀᴀ: ${hora}
 🥗 ғᴇᴄʜᴀ: ${fechaTexto}
 🌳 ᴅᴇꜱᴄʀɪᴘᴄɪóɴ: ${mensaje}`
@@ -107,7 +106,7 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
 
 📉 *「 𝐄𝐬𝐭𝐚𝐝𝐨 𝐀𝐜𝐭𝐮𝐚𝐥 」*
 💛 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
-🌳 ᴘᴀíꜱ: ${nacionalidad}
+🌳 ᴘᴀíꜱ: ${pais}
 🥙 ʜᴏʀᴀ: ${hora}
 🍃 ғᴇᴄʜᴀ: ${fechaTexto}`
 

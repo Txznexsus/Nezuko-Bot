@@ -54,9 +54,9 @@ let handler = async (m, { conn, args, usedPrefix }) => {
     const name = await (async () => {
       try {
         const n = await conn.getName(userId)
-        return (typeof n === 'string' && n.trim()) ? n : numero
+        return (typeof n === 'string' && n.trim()) ? n : numeroLimpio
       } catch {
-        return numero
+        return numeroLimpio
       }
     })()
 
