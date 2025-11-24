@@ -155,7 +155,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
   if (chat.welcome && m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_ADD) {
     const { pp, caption, username } = await generarBienvenida({ conn, userId, groupMetadata, chat })
 
-    const productMessage = {
+/*    const productMessage = {
       product: {
         productImage: { url: pp },
         productId: '24529689176623820',
@@ -173,7 +173,8 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       mentions: [userId]
     }
 
-    await conn.sendMessage(m.chat, productMessage, { quoted: fkontak })
+    await conn.sendMessage(m.chat, productMessage, { quoted: fkontak })*/
+    await conn.sendMini(m.chat, ` ˗ˏˋ♡ˎˊ˗ ❏ ¡𝐖 𝐄 𝐋 𝐂 𝐎 𝐌 𝐄! ᯤ ˗ˏˋ♡ˎˊ˗`,  dev, caption, pp, pp, redes, fkontak)
   }
 
   if (chat.welcome && (m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_REMOVE || m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_LEAVE)) {

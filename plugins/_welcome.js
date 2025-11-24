@@ -174,7 +174,23 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
     }
 
     await conn.sendMessage(m.chat, productMessage, { quoted: fkontak })*/
-    await conn.sendMini(m.chat, ` ˗ˏˋ♡ˎˊ˗ ❏ ¡𝐖 𝐄 𝐋 𝐂 𝐎 𝐌 𝐄! ᯤ ˗ˏˋ♡ˎˊ˗`,  dev, caption, pp, pp, redes, fkontak)
+    await conn.sendMessage(m.chat, { 
+  text: caption,
+  contextInfo: {
+    mentionedJid: [userId],
+    externalAdReply: {                
+      title: botname,
+      body: textbot,
+      mediaType: 1,
+      mediaUrl: redes,
+      sourceUrl: redes,
+      thumbnail: await (await fetch(pp)).buffer(),
+      showAdAttribution: false,
+      containsAutoReply: true,
+      renderLargerThumbnail: true
+    }
+  }
+}, { quoted: m })
   }
 
   if (chat.welcome && (m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_REMOVE || m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_LEAVE)) {
