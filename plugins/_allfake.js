@@ -21,8 +21,8 @@ global.tiempo = d.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', s
 
 var canal = 'https://whatsapp.com/channel/0029VbC34Nt42DchIWA0q11f'  
 var comunidad = 'https://whatsapp.com/channel/0029VbC34Nt42DchIWA0q11f'
-var git = 'https://github.com/Shadow-nex'
-var github = 'https://github.com/Shadow-nex/KanekiBot-V3' 
+var git = 'https://github.com/shadox-xyz'
+var github = 'https://github.com/shadox-xyz/KanekiBot-V3' 
 var correo = 'shadowcore.xyz@gmail.com'
 global.redes = [canal, comunidad, git, github, correo].getRandom()
 
