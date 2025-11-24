@@ -106,6 +106,30 @@ cd && cd KanekiBot-V3 && nano settings.js
 ---
 
 <p align="center">
+
+<table>
+  <tr>
+    <td>
+      <img src="https://github-readme-stats.vercel.app/api/pin/?username=shadox-xyz&repo=KanekiBot-V3&theme=radical" />
+    </td>
+  </tr>
+</table>
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=shadox-xyz&layout=compact&theme=radical&langs_count=6" />
+
+<br><br>
+
+<img src="https://img.shields.io/github/stars/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ff007f&logo=github" />
+<img src="https://img.shields.io/github/forks/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00ffaa" />
+<img src="https://img.shields.io/github/issues/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ffee00" />
+<img src="https://img.shields.io/github/watchers/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00b7ff" />
+<img src="https://img.shields.io/github/commit-activity/4w/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=9b59ff" />
+
+</p>
+
+---
+
+<p align="center">
 🌿 ¡Deja tu ⭐, es gratis y nos ayudas mucho! :D 🌿
 </p><div align="center">
   <h1 align="center">🌿 EDITOR Y PROPIETARIO DEL BOT 🌿</h1><div align="center"><table>
@@ -124,26 +148,3 @@ cd && cd KanekiBot-V3 && nano settings.js
 </tr>
 </table></div>
 ```
-
-<p align="center">
-
-<table>
-  <tr>
-    <td>
-      <img src="https://github-readme-stats.vercel.app/api/pin/?username=shadox-xyz&repo=KanekiBot-V3&theme=radical" />
-    </td>
-  </tr>
-</table>
-
-<!-- TARJETA DE LENGUAJES DEL REPO -->
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=shadox-xyz&layout=compact&theme=radical&langs_count=6" />
-
-<br><br>
-
-<img src="https://img.shields.io/github/stars/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ff007f&logo=github" />
-<img src="https://img.shields.io/github/forks/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00ffaa" />
-<img src="https://img.shields.io/github/issues/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=ffee00" />
-<img src="https://img.shields.io/github/watchers/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=00b7ff" />
-<img src="https://img.shields.io/github/commit-activity/4w/shadox-xyz/KanekiBot-V3?style=for-the-badge&color=9b59ff" />
-
-</p>
