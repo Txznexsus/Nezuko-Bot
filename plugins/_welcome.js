@@ -90,9 +90,10 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
 
   const fecha = new Date()
   const fechaTexto = fecha.toLocaleDateString("es-ES", { timeZone: "America/Lima", day: 'numeric', month: 'long', year: 'numeric' })
-  const hora = fecha.toLocaleTimeString("es-ES", { timeZone: "America/Lima", hour: '2-digit', minute: '2-digit' })
+  const hora = fecha.toLocaleTimeString("es-PE", { timeZone: "America/Lima", hour: "numeric", minute: "numeric", hour12: true })
 
-  const pais = detectarPais(userId)
+  const numero = userId.split("@")[0]
+  const nacionalidad = detectarPais(numero)
   const groupSize = groupMetadata.participants.length - 1
   const desc = groupMetadata.desc?.toString() || 'Sin descripción'
   const mensaje = (chat.sBye || 'Edita con el comando "setbye"')
