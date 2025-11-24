@@ -37,7 +37,7 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
     txt += `≡ 🍃 *Update* : ${data5.lastup}\n`
     txt += `≡ 🚀 *Peso* : ${data5.size}`
 
-    await conn.sendFile(m.chat, data5.icon, 'thumbnail.jpg', txt, m, null, fake)
+    await conn.sendFile(m.chat, data5.icon, 'thumbnail.jpg', txt, m, null, rcanalw)
 
     if (data5.size.includes('GB') || data5.size.replace(' MB', '') > 999) {
       return await conn.reply(m.chat, `El archivo es demasiado pesado para enviarlo.`, m, rch)
