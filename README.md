@@ -7,7 +7,7 @@
   <a href="https://whatsapp.com/channel/0029VbC34Nt42DchIWA0q11f">
     <img src="https://img.shields.io/badge/🎄 Canal WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white&color=0fa958" />
   </a>
-  <a href="https://github.com/Shadow-nex">
+  <a href="https://github.com/shadox-xyz">
     <img src="https://img.shields.io/badge/🎅 GitHub-ff0000?style=for-the-badge&logo=github&logoColor=white&color=d10000" />
   </a>
 </p>
@@ -66,7 +66,7 @@ termux-setup-storage
 apt update && apt upgrade && pkg install -y git nodejs ffmpeg imagemagick yarn
 ```
 ```bash
-git clone https://github.com/Shadow-nex/KanekiBot-V3 && cd KanekiBot-V3
+git clone https://github.com/shadox-xyz/KanekiBot-V3 && cd KanekiBot-V3
 ```
 ```bash
 yarn install
@@ -85,7 +85,7 @@ npm start
 > *Instalación Automática 🌿*
 
 ```bash
-curl -L https://raw.githubusercontent.com/Shadow-nex/KanekiBot-V3/main/test.sh -o test.sh && bash test.sh
+curl -L https://raw.githubusercontent.com/shadox-xyz/KanekiBot-V3/main/test.sh -o test.sh && bash test.sh
 ```
 
 ---
@@ -94,7 +94,7 @@ curl -L https://raw.githubusercontent.com/Shadow-nex/KanekiBot-V3/main/test.sh -
 <summary><b>🥥 Actualizar KanekiBot-V3</b></summary>
 
 ```bash
-grep -q 'bash\|wget' <(dpkg -l) || apt install -y bash wget && wget -O - https://raw.githubusercontent.com/Shadow-nex/KanekiBot-V3/main/update.sh | bash
+grep -q 'bash\|wget' <(dpkg -l) || apt install -y bash wget && wget -O - https://raw.githubusercontent.com/shadox-xyz/KanekiBot-V3/main/update.sh | bash
 ```
 
 ```bash
@@ -111,10 +111,10 @@ cd && cd KanekiBot-V3 && nano settings.js
   <h1 align="center">🌿 EDITOR Y PROPIETARIO DEL BOT 🌿</h1><div align="center"><table>
 <tr>
 <td align="center" width="180">
-  <img src="https://avatars.githubusercontent.com/u/196103894?v=4" width="150" style="border-radius: 20px;" alt="Shadow-nex Avatar">
+  <img src="https://avatars.githubusercontent.com/u/196103894?v=4" width="150" style="border-radius: 20px;" alt="shadox-xyz Avatar">
 </td>
-<td align="left" style="padding-left: 20px; vertical-align: middle;"><h2>ׅ  ׄ 몽 ۪  <b>Shadow.xyz</b> ꩒ᰫ</h2><p><a href="https://github.com/Shadow-nex" target="_blank">
-  🪴  <b>github.com/Shadow-nex</b>
+<td align="left" style="padding-left: 20px; vertical-align: middle;"><h2>ׅ  ׄ 몽 ۪  <b>Shadow.xyz</b> ꩒ᰫ</h2><p><a href="https://github.com/shadox-xyz" target="_blank">
+  🪴  <b>github.com/shadox-xyz</b>
 </a></p>
 <p>🌿 dev.shadow xD 🦌</p><p align="center">
 <a href="https://wa.me/51919199620" target="_blank">
