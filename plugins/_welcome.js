@@ -59,12 +59,11 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
 🍬 𝚂𝚒é𝚗𝚝𝚎𝚝𝚎 𝚌𝚘𝚖𝚘 𝚎𝚗 𝚌𝚊𝚜𝚒𝚝𝚊 𝚄𝚠𝚄
 
 🌿 *「 𝐈𝐧𝐟𝐨 𝐝𝐞𝐥 𝐆𝐫𝐮𝐩𝐨 」*
-┆👥 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
-┆🌍 ᴘᴀíꜱ: ${pais}
-┆⏰ ʜᴏʀᴀ: ${hora}
-┆📅 ғᴇᴄʜᴀ: ${fechaTexto}
-┆📝 ᴅᴇꜱᴄʀɪᴘᴄɪóɴ: ${mensaje}
-╰───────────────✿`
+❄️ ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
+🌷 ᴘᴀíꜱ: ${pais}
+🎅 ʜᴏʀᴀ: ${hora}
+🥗 ғᴇᴄʜᴀ: ${fechaTexto}
+🌳 ᴅᴇꜱᴄʀɪᴘᴄɪóɴ: ${mensaje}`
 
   const imgWelcome = `https://api.siputzx.my.id/api/canvas/welcomev5?username=${
     encodeURIComponent(userId.split('@')[0])
@@ -105,11 +104,10 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
 🌾 ${mensaje}
 
 📉 *「 𝐄𝐬𝐭𝐚𝐝𝐨 𝐀𝐜𝐭𝐮𝐚𝐥 」*
-┆👥 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
-┆🌍 ᴘᴀíꜱ: ${pais}
-┆⏰ ʜᴏʀᴀ: ${hora}
-┆📅 ғᴇᴄʜᴀ: ${fechaTexto}
-╰───────────────✿`
+💛 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
+🌳 ᴘᴀíꜱ: ${pais}
+🥙 ʜᴏʀᴀ: ${hora}
+🍃 ғᴇᴄʜᴀ: ${fechaTexto}`
 
   const imgGoodbye = `https://api.siputzx.my.id/api/canvas/goodbyev5?username=${
     encodeURIComponent(userId.split('@')[0])
