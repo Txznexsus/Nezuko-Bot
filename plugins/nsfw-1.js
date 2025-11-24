@@ -2,6 +2,8 @@
 https://github.com/deylin-eliac
 no quites créditos y no modifiques el código*/
 
+// lo modifique xq no me funcionava 😔
+
 import fetch from 'node-fetch';
 import cheerio from 'cheerio';
 
