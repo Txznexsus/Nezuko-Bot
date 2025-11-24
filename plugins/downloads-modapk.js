@@ -1,11 +1,29 @@
 import { search, download } from 'aptoide-scraper'
 import fetch from 'node-fetch'
-import Jimp from 'jimp'
+//import Jimp from 'jimp'
 
 var handler = async (m, { conn, usedPrefix, command, text }) => {
   if (!text) return conn.reply(m.chat, `🍃 Por favor, ingrese el nombre de la APK que desea descargar.`, m, rcanal)
 
   try {
+    const res = await fetch('https://files.catbox.moe/rxpw9c.png');
+    const thumb2 = Buffer.from(await res.arrayBuffer());
+
+    const fkontak = {
+        key: {
+            participants: "0@s.whatsapp.net",
+            remoteJid: "status@broadcast",
+            fromMe: false,
+            id: "Halo"
+        },
+        message: {
+            locationMessage: {
+                name: '↻ 𝗔𝗣𝗞 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗗𝗔 ↻',
+                jpegThumbnail: thumb2
+            }
+        },
+        participant: "0@s.whatsapp.net"
+    };
     await m.react('🕒')
     conn.reply(m.chat, `*☕ ᑲᥙsᥴᥲᥒძ᥆ 𝗍ᥙ ᥲ⍴ᥣіᥴᥲᥴіóᥒ ᥱs⍴ᥱrᥱ.... 🐢*`, m)
 
@@ -24,7 +42,7 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
     if (data5.size.includes('GB') || data5.size.replace(' MB', '') > 999) {
       return await conn.reply(m.chat, `El archivo es demasiado pesado para enviarlo.`, m, rch)
     }
-
+/*
     let thumb = null
     try {
       const buffer = await (await fetch(data5.icon)).buffer()
@@ -33,7 +51,7 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
       thumb = await img.getBufferAsync(Jimp.MIME_JPEG)
     } catch (err) {
       console.log('⚠️ Error al procesar miniatura:', err)
-    }
+    }*/
 
     await conn.sendMessage(
       m.chat,
@@ -42,8 +60,8 @@ var handler = async (m, { conn, usedPrefix, command, text }) => {
         mimetype: 'application/vnd.android.package-archive',
         fileName: `${data5.name}.apk`,
         caption: dev,
-        jpegThumbnail: thumb,
-        ...rcanalw
+        //jpegThumbnail: thumb,
+        ...fake
       },
       { quoted: fkontak }
     )
