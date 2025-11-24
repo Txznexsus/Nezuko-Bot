@@ -58,7 +58,7 @@ instalar() {
   echo -e "\n${C1}📥 Descargando KanekiBot-AI...${RESET}"
   progreso
 
-  git clone https://github.com/Shadow-nex/KanekiBot-V3 && cd KanekiBot-V3 || exit
+  git clone https://github.com/shadox-xyz/KanekiBot-V3 && cd KanekiBot-V3 || exit
   echo -e "${C2}📦 Instalando dependencias...${RESET}"
   yarn install || npm install
 
