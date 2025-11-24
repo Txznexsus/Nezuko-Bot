@@ -167,7 +167,7 @@ console.log(chalk.bold.white(chalk.bgMagenta(`[ ✿ ]  Código:`)), chalk.bold.w
 }}}}
 conn.isInit = false;
 conn.well = false;
-conn.logger.info(`[ ✿ ]  H E C H O\n`)
+conn.logger.info(`[ ✿ ]  I N I C I A N D O\n`)
 if (!opts['test']) {
 if (global.db) setInterval(async () => {
 if (global.db.data) await global.db.write()
@@ -193,13 +193,11 @@ if (connection === "open") {
 const userJid = jidNormalizedUser(conn.user.id)
 const userName = conn.user.name || conn.user.verifiedName || "Desconocido"
 await joinChannels(conn)
-console.log(chalk.green.bold(`✩ ┈┈┈┈┈┈┈┈┈┈┈┈┈┈✦ 𝗢𝗡𝗟𝗜𝗡𝗘 ✦┈┈┈┈┈┈┈┈┈┈┈┈┈┈ ✩
-
-│ 🌐  𝗖𝗢𝗡𝗘𝗫𝗜Ó𝗡 𝗘𝗦𝗧𝗔𝗕𝗟𝗘𝗖𝗜𝗗𝗔 𝗖𝗢𝗡 𝗪𝗛𝗔𝗧𝗦𝗔𝗣𝗣
-│ ✦ Conectado correctamente como: ${userName}
-│ ✦ Estado: Activo y funcionando 💠
-
-✩ ┈┈┈┈┈┈┈┈┈┈✦ ✔️ 𝗦𝗜𝗦𝗧𝗘𝗠𝗔 𝗟𝗜𝗦𝗧𝗢 ✦┈┈┈┈┈┈┈┈┈┈ ✩`))
+console.log(chalk.green.bold(`╔══ ⧉ ONLINE ⧉ ═══════════════════════╗
+║ 🌿 WhatsApp conectado correctamente 🥙
+║ ✦ Usuario: ${userName}
+║ ✦ Estado: Activo y funcionando
+╚═════════════════════════════════════╝`))
 }
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
 if (connection === "close") {
