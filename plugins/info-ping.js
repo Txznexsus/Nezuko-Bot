@@ -78,7 +78,7 @@ let handler = async (m, { conn, usedPrefix }) => {
 
   let thumb
   try {
-    const img = await fetch('https://files.catbox.moe/ge2vz7.jpg')
+    const img = await fetch('https://files.catbox.moe/xp9d85.jpg')
     thumb = Buffer.from(await img.arrayBuffer())
   } catch {}
 
