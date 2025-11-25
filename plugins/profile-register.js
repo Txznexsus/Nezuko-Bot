@@ -52,7 +52,7 @@ Si deseas borrar tu registro:
       product: {
         productImage: { url: pp },
         productId: '8888888888888',
-        title: '🎄 𝐑𝐞𝐠𝐢𝐬𝐭𝐫𝐨 𝐄𝐱𝐢𝐬𝐭𝐞𝐧𝐭𝐞 🍇',
+        title: '🪵 ʀᴇɢɪsᴛʀᴏ ᴇxɪsᴛᴇɴᴛᴇ 🌳',
         description: global.textbot,
         currencyCode: 'USD',
         priceAmount1000: '100000',
@@ -68,20 +68,20 @@ Si deseas borrar tu registro:
   }
 
   if (!Reg.test(text)) {
-    const caption = `🍄 *Uso correcto del registro* 🍄
+    const caption = `🍂 *ᴜsᴏ ᴄᴏʀʀᴇᴄᴛᴏ ᴅᴇʟ ʀᴇɢɪsᴛʀᴏ* 🌱
 
-🌱 *${usedPrefix + command} nombre.edad*
+🪸 *${usedPrefix + command} nombre.edad*
 
 Ejemplo:
 > *${usedPrefix + command} ${name2}.18*
 
-🌼 Escribe tu nombre, luego un punto, y tu edad.`
+🌾 ᴇsᴄʀɪʙᴇ ᴛᴜ ɴᴏᴍʙʀᴇ, ʟᴜᴇɢᴏ ᴜɴ ᴘᴜɴᴛᴏ, ʏ ᴛᴜ ᴇᴅᴀᴅ.`
     
     const productMessage = {
       product: {
         productImage: { url: 'https://files.catbox.moe/xp9d85.jpg' },
         productId: '9999999999999',
-        title: '⛄ 𝐅𝐨𝐫𝐦𝐚𝐭𝐨 𝐈𝐧𝐜𝐨𝐫𝐫𝐞𝐜𝐭𝐨 🌠',
+        title: '🌿 ғᴏʀᴍᴀᴛᴏ ɪɴᴄᴏʀʀᴇᴄᴛᴏ 🪴',
         description: global.textbot,
         currencyCode: 'USD',
         priceAmount1000: '100000',
@@ -96,9 +96,9 @@ Ejemplo:
   }
   
   let [_, name, splitter, age] = text.match(Reg)
-  if (!name) return m.reply("🌿 El nombre no puede estar vacío.")
+  if (!name) return m.reply("🌿 ᴇʟ ɴᴏᴍʙʀᴇ ɴᴏ ᴘᴜᴇᴅᴇ ᴇsᴛᴀʀ ᴠᴀᴄɪᴏ.")
   if (!age) return m.reply("🍃 La edad es necesaria.")
-  if (name.length >= 100) return m.reply("🦋 El nombre es demasiado largo.")
+  if (name.length >= 100) return m.reply("🦋 ᴇʟ ɴᴏᴍʙʀᴇ ᴇs ᴅᴇᴍᴀsɪᴀᴅᴏ ʟᴀʀɢᴏ.")
   age = parseInt(age)
   if (age > 100) return m.reply("🎅 Ajá papá Noel inmortal? 😭")
   if (age < 15) return m.reply("🍼 Muy pequeñ@ para registrarte.")
@@ -115,23 +115,23 @@ Ejemplo:
   const sn = createHash('md5').update(m.sender).digest('hex').slice(0, 20)
 
   const texto1 = `
- ╔═•═•|•═•═••═•
- ャ 🍃🎄 *REGISTRO COMPLETADO* 🎄🍃
- ╚═•═•|•═•═••═•═•═•═•═•═•═•|
+ ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
+ ❀ 🍃*ʀᴇɢɪsᴛʀᴏ ᴄᴏᴍᴘʟᴇᴛᴀᴅᴏ*🍃
+ ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 
-▭ ▬▬▬▬▬▟ 🎅 ▙▬▬▬▬▬ ▭
- ◉ 🪷 ᴜsᴇʀ: ${name2}
- ◉ 🧃 ɴᴜᴍᴇʀᴏ: ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}
- ◉   ────────────────
- ◉ 🪹 𝐍𝐨𝐦𝐛𝐫𝐞 ➪ \`\`\`${name}\`\`\`
- ◉ 🪵 𝐄𝐝𝐚𝐝 ➪ \`\`\`${age} años\`\`\`
- ◉ 🪀 𝐁𝐢𝐨 ➪ \`\`\`${bio}\`\`\`
- ◉ 🪾 𝐍𝐒 ➪ \`\`\`${sn}\`\`\`
- ◉ 🍄 𝐅𝐞𝐜𝐡𝐚 ➪ \`\`\`${hora}, ${dia}, ${fecha}
-◥▬▭▭▭▭▭◺✿◿◰▭▭▭▭▭▬◤
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
+ ◉꙰ 🎋 ᴜsᴇʀ: ${name2}
+ ◉꙰ 🍁 ɴᴜᴍᴇʀᴏ: ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}
+ ◉꙰   ────────────────
+ ◉꙰ 🌹 ɴᴏᴍʙʀᴇ ➪ \`\`\`${name}\`\`\`
+ ◉꙰ 🌳 ᴇᴅᴀᴅ ➪ \`\`\`${age} años\`\`\`
+ ◉꙰ 🪻 ʙɪᴏ ➪ \`\`\`${bio}\`\`\`
+ ◉꙰ 💐 ɴs ➪ \`\`\`${sn}\`\`\`
+ ◉꙰ 🧃 ғᴇᴄʜᴀ ➪ \`\`\`${hora}, ${dia}, ${fecha}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 
 
-> ャ 🎁 *Bienvenido(a) tu registro a sido completo con éxito 💫*
+> ✧ 🪸 *ʙɪᴇɴᴠᴇɴɪᴅᴏ(a) ᴛᴜ ʀᴇɢɪsᴛʀᴏ ᴀ sɪᴅᴏ ᴄᴏᴍᴘʟᴇᴛᴀᴅᴏ*
 `
 
   await m.react?.('🍃')
@@ -140,7 +140,7 @@ Ejemplo:
     product: {
       productImage: { url: pp },
       productId: '51919199620',
-      title: `🌿 Registro Completado 🎄`,
+      title: `🍂 ʀᴇɢɪsᴛʀᴏ ᴄᴏᴍᴘʟᴇᴛᴀᴅᴏ 🪴`,
       description: global.textbot,
       currencyCode: 'USD',
       priceAmount1000: '100000',
