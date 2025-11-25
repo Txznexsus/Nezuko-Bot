@@ -49,14 +49,19 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       }
     };
 
-    const info = `🎄✨ *\`YOUTUBE - DOWNLOAD\`* ✨🎄
+    const info = `🪴 *\`YOUTUBE - DOWNLOAD\`* 🪵
 
-🕸️ *𝐓𝐢𝐭𝐮𝐥𝐨:* ${title}
-🎁 *𝐂𝐚𝐧𝐚𝐥:* ${author.name || '❄️ Desconocido'}
-🔔 *𝐕𝐢𝐬𝐭𝐚𝐬:* ${vistas}
-⏳ *𝐃𝐮𝐫𝐚𝐜𝐢𝐨𝐧:* ${timestamp}
-🎇 *𝐏𝐮𝐛𝐥𝐢𝐜𝐚𝐝𝐨:* ${ago}
-🎅 *𝐋𝐢𝐧𝐤:* ${url}
+💐 *𝐓𝐢𝐭𝐮𝐥𝐨:* ${title}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
+🌴 *𝐂𝐚𝐧𝐚𝐥:* ${author.name || '🌱 Desconocido'}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
+🍂 *𝐕𝐢𝐬𝐭𝐚𝐬:* ${vistas}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
+🧃 *𝐃𝐮𝐫𝐚𝐜𝐢𝐨𝐧:* ${timestamp}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
+🪻 *𝐏𝐮𝐛𝐥𝐢𝐜𝐚𝐝𝐨:* ${ago}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
+🪸 *𝐋𝐢𝐧𝐤:* ${url}
 
 > ౼⋆·˚ ☾︎* *ძᥱsᥴᥲrgᥲᥒძ᥆ 𝗍ᥙs mᥲmᥲძᥲs* ☃️`;
 
