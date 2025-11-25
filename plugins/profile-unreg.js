@@ -19,24 +19,24 @@ let handler = async (m, { conn }) => {
   user.registered = false
   await m.react('🎄')
 
-  const caption = `╭─━━━━━━━━━━━━━━━━━─⊷
-🎄 *𝗥𝗘𝗚𝗜𝗦𝗧𝗥𝗢 𝗘𝗟𝗜𝗠𝗜𝗡𝗔𝗗𝗢* 🎄
-╰─━━━━━━━━━━━━━━━━━─⊷
+  const caption = `✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
+🍁 *ʀᴇɢɪsᴛʀᴏ ᴇʟɪᴍɪɴᴀᴅᴏ* 🦋
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 
-🌿 *Nombre:* ${nombre}
-🍃 *Edad:* ${edad} años
-🕸️ *Estado:* Eliminado correctamente
+🎍 *ɴᴏᴍʙʀᴇ:* ${nombre}
+🌴 *ᴇᴅᴀᴅ:* ${edad} años
+☘️ *ᴇsᴛᴀᴅᴏ:* Eliminado correctamente
 
-✨ Puedes volver a registrarte cuando desees:
+🪾 ᴘᴜᴇᴅᴇs ᴠᴏʟᴠᴇʀ ᴀ ʀᴇɢɪsᴛʀᴀʀᴛᴇ ᴄᴜᴀɴᴅᴏ ᴅᴇsᴇᴇs:
 > *#reg ${nombre}.18*
 
-🌟 *Kaneki Bot* siempre estará contigo.`
+🪵 *ɴᴇᴢᴜᴋᴏ-ʙᴏᴛ* ᴜ.ᴜ.`
 
   const productMessage = {
     product: {
       productImage: { url: pp },
       productId: '7777777777',
-      title: '🎄 Registro Eliminado Correctamente 🎄',
+      title: '🍁 ʀᴇɢɪsᴛʀᴏ ᴇʟɪᴍɪɴᴀᴅᴏ ᴄᴏʀʀᴇᴄᴛᴀᴍᴇɴᴛᴇ 🌱',
       description: `🌿 Nombre: ${nombre} | 🍃 Edad: ${edad} años`,
       currencyCode: 'USD',
       priceAmount1000: '100000',
@@ -53,7 +53,7 @@ let handler = async (m, { conn }) => {
       isForwarded: true,
       mentionedJid: [m.sender],
       externalAdReply: {
-        title: '🎄 Registro eliminado 💮',
+        title: '🍂 ʀᴇɢɪsᴛʀᴏ ᴇʟɪᴍɪɴᴀᴅᴏ 🌿',
         thumbnailUrl: pp,
         sourceUrl: 'https://github.com/Shadow-nex',
         mediaType: 1,
