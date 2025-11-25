@@ -34,6 +34,7 @@ for (const code in codigos) {
     }
     return "Desconocido"
 
+
 async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
   const username = `@${userId.split('@')[0]}`
   const pp = await conn.profilePictureUrl(userId, 'image').catch(() =>
