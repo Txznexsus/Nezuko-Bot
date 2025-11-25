@@ -86,15 +86,13 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
 ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 
 ✧─･ ｡ﾟ★: *.𝑰𝒏𝒇𝒐-𝑩𝒐𝒕 .* :★.─✧
-
             
-
  ꙰🍃 🄿remium: *${premium}*
- ꙰🍁 ׄ ⬭ 🄿ais: *${pais}*
- ⌗ֶㅤ֯𝅄⿻ 🧃 ׄ ⬭ 🄻imite: *${limit}*
- ⌗ֶㅤ֯𝅄⿻ 🌴 ׄ ⬭ 🅄sers registrados: *${totalreg}*
- ⌗ֶㅤ֯𝅄⿻ 🍂 ׄ ⬭ 🄶rupos activos: *${groupsCount}*
- ⌗ֶㅤ֯𝅄⿻ 🌳 ׄ ⬭ 🅁untime: *${uptime}*
+ ꙰🍁 🄿ais: *${pais}*
+ ꙰🧃 🄻imite: *${limit}*
+ ꙰🌴 🅄sers registrados: *${totalreg}*
+ ꙰🍂 🄶rupos activos: *${groupsCount}*
+ ꙰🌳 🅁untime: *${uptime}*
 ${readMore}
 ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   
 ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
