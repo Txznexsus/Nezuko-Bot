@@ -46,7 +46,7 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
 Si deseas borrar tu registro:
 > *${usedPrefix}unreg*
 
-Que la buena energía continúe contigo 🦋🍃`
+ᴜ.ᴜ ɴᴇᴢᴜᴋᴏ - ʙᴏᴛ 🍃`
     
     const productMessage = {
       product: {
