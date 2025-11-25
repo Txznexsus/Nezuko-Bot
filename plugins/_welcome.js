@@ -149,7 +149,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
 
   const fkontak = {
     key: { participant: '0@s.whatsapp.net', remoteJid: 'status@broadcast', fromMe: false, id: 'Halo' },
-    message: { locationMessage: { name: '🌳☃️✨   𝐊𝐀𝐍𝐄𝐊𝐈 - 𝐈𝐀   🎁🦌🛷', jpegThumbnail: thumbBuffer } },
+    message: { locationMessage: { name: 'ɴᴇᴢᴜᴋᴏ-ʙᴏᴛ 🍃', jpegThumbnail: thumbBuffer } },
     participant: '0@s.whatsapp.net'
   }
 
