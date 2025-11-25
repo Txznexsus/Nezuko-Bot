@@ -9,8 +9,8 @@ export async function before(m, { conn }) {
   if (!command || command === 'bot') return
 
   const channelRD = { 
-    id: '120363422142340004@newsletter', 
-    name: '🌸 𝗞𝗮𝗻𝗲𝗸𝗶 𝗕𝗼𝘁 | 𝗢𝗳𝗶𝗰𝗶𝗮𝗹 🚀'
+    id: '120363401983007420@newsletter', 
+    name: '=͟͟͞𝗡𝗲𝘇𝘂𝗸𝗼 - 𝗢𝗳𝗶𝗰𝗶𝗮𝗹 𝗖𝗵𝗮𝗻𝗻𝗲𝗹⏤͟͟͞͞★'
   }
 
   const similarity = (a, b) => {
@@ -42,11 +42,11 @@ export async function before(m, { conn }) {
     ? similares.map(s => `> 🪹🌠 • .\`${s.cmd}\` (${s.score}%)`).join('\n')
     : '• No se encontraron coincidencias.'
 
-  const texto = ` 🌿🦌 ɴᴏ sᴇ ʜᴀ ᴇɴᴄᴏɴᴛʀᴀᴅᴏ ᴇʟ ᴄᴏᴍᴀɴᴅᴏ: *"${command}"*
+  const texto = ` 🍁 ɴᴏ sᴇ ʜᴀ ᴇɴᴄᴏɴᴛʀᴀᴅᴏ ᴇʟ ᴄᴏᴍᴀɴᴅᴏ: *"${command}"*
 
-🎄 ᴜsᴀ *${usedPrefix}ᴍᴇɴᴜ* ᴘᴀʀᴀ ᴠᴇʀ ʟᴀ ʟɪsᴛᴀ ᴄᴏᴍᴘʟᴇᴛᴀ. 🎅🎇
+🌳 ᴜsᴀ *${usedPrefix}ᴍᴇɴᴜ* ᴘᴀʀᴀ ᴠᴇʀ ʟᴀ ʟɪsᴛᴀ ᴄᴏᴍᴘʟᴇᴛᴀ. 🌾
 
-🍂 ᴘᴏsɪʙʟᴇs ᴄᴏɪɴᴄɪᴅᴇɴᴄɪᴀs: 🧊
+🍂 ᴘᴏsɪʙʟᴇs ᴄᴏɪɴᴄɪᴅᴇɴᴄɪᴀs: 🌱
 ${sugerencias}`
 
   await conn.sendMessage(m.chat, {
@@ -62,7 +62,7 @@ ${sugerencias}`
         newsletterName: channelRD.name
       },
       externalAdReply: { 
-        title: `『 ⿻֟🎍 𝐊𝐀𝐍𝐄𝐊𝐈 • 𝐀𝐒𝐒𝐈𝐒𝐓𝐀𝐍𝐓 🩸⿻֟ 』`,
+        title: `🪵 𝑵𝒆𝒛𝒖𝒌𝒐-𝑨𝒔𝒊𝒔𝒕𝒆𝒏𝒕𝒆┆𝑰𝒕𝒛.𝑵𝒆𝒙𝒑𝒖𝒔𝒐 🍁`,
         body: '© ᥴrᥱᥲ𝗍ᥱძ ᑲᥡ sʜᴀᴅᴏᴡ.xʏᴢ 🍃',
         thumbnailUrl: 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763819289535_182226.jpeg',
         sourceUrl: redes,
