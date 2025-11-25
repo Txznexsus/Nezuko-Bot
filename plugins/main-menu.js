@@ -105,7 +105,7 @@ ${readMore}
  ʚ🍁ɞ Ꮮibreria: *${libreria}*
  ʚ🪵ɞ Ғecha: *${hora}, ${dia}, ${fechaTxt}*
 
-\`ׄ🎅 ׅ り cᨣmanꛆᨣs ꛆisponiblєs: っっ ฺฺ✿ᰰ᷒\`
+\`🪴 ᥴᨣmᥲᥒძ᥆s ძіs⍴᥆ᥒіᑲᥣᥱ┆ᥒᥱzᥙk᥆ 🍃`
  ${readMore}`.trim()
 
     const imgs = [
