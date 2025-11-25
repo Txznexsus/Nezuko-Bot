@@ -63,13 +63,13 @@ global.nombre = m.pushName || 'Anónimo'
 global.fkontak = { key: { participants:"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }
 
 global.icono = [
-'https://i.pinimg.com/originals/b3/67/d5/b367d513d861de468305c32c6cd22756.jpg', 
+'https://files.catbox.moe/2xj18e.jpg', 
 'https://files.catbox.moe/9gz5zp.jpg', 
 'https://files.catbox.moe/l4l40l.jpg',
 'https://files.catbox.moe/ty305q.jpg',
 'https://files.catbox.moe/ripli4.jpg',
 'https://files.catbox.moe/n31l4z.jpg',
-'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763311856541_363781.jpeg'
+'https://files.catbox.moe/2xj18e.jpg'
 ].getRandom()
 /*
 global.rcanal = { contextInfo: { isForwarded: true, forwardedNewsletterMessageInfo: { newsletterJid: channelRD.id, serverMessageId: '', newsletterName: channelRD.name }, externalAdReply: { title: botname, body: dev, mediaUrl: null, description: null, previewType: "PHOTO", thumbnail: await (await fetch(icono)).buffer(), sourceUrl: redes, mediaType: 1, renderLargerThumbnail: false }, mentionedJid: null }}
