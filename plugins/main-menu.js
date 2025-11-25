@@ -77,7 +77,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     }
 
     const infoUser = `    🍃┆һ᥆ᥣᥲ s᥆ᥡ ᥒᥱzᥙk᥆-ᑲ᥆𝗍┆🪵
-          •╌╌╌╌╌╌╌╌╌╌╌╌•
+          ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
  ִ ࣪ 𓈒 ᗣ  ${ucapan()}  ࣫ㅤׅ 🎄۫ 
     ᗞᗞ @${userId}  ⌒᷼🥗 
 ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   
