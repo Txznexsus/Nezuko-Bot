@@ -3,12 +3,12 @@
 import PhoneNumber from 'awesome-phonenumber';
 
 const handler = async (m, { conn }) => {
-  const name = 'sһᥲძ᥆ᥕ-᥊ᥡz | ᥆𝖿𝖿іᥴіᥲᥩ'
-  const numCreador = '51919199620'
-  const empresa = 'ᴋᴀɴᴇᴋɪ ʙᴏᴛ ɪɴɪᴄ.'
-  const about = '🍃 𝑫𝒆𝒔𝒂𝒓𝒓𝒐𝒍𝒍𝒂𝒅𝒐𝒓 𝒅𝒆 𝑲𝒂𝒏𝒆𝒌𝒊-𝑩𝒐𝒕 𝑽3 :D'
-  const correo = 'shadowcore.xyz@gmail.com'
-  const web = 'https://shadow-xyz.vercel.app/'
+  const name = 'і𝗍z.ᥒᥱ᥊zᥙs'
+  const numCreador = '51939260696'
+  const empresa = 'ᥒᥱzᥙk᥆-ᑲ᥆𝗍 ɪɴɪᴄ.'
+  const about = '🍃 ʜᴏʟᴀ ᴘᴇɴᴅᴇᴊᴏ ǫᴜᴇ ᴅᴇsᴇᴀs,ᴄᴜᴀʟǫᴜɪᴇʀ ᴄᴏɴsᴜʟᴛᴀ ɴᴏ ᴇsᴛᴏʏ.'
+  const correo = 'ᥒ᥆𝗍ᥱᥒg᥆@gmail.com'
+  const web = 'https://itz.nexzus.vercel.app/'
   const direccion = 'Tokyo, Japón 🇯🇵'
   const fotoPerfil = 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763345073781_8605.jpeg'
 
