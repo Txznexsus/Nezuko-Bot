@@ -64,7 +64,7 @@ ${sugerencias}`
       externalAdReply: { 
         title: `🪵 𝑵𝒆𝒛𝒖𝒌𝒐-𝑨𝒔𝒊𝒔𝒕𝒆𝒏𝒕𝒆┆𝑰𝒕𝒛.𝑵𝒆𝒙𝒑𝒖𝒔𝒐 🍁`,
         body: '© ᥴrᥱᥲ𝗍ᥱძ ᑲᥡ ɪᴛᴢ.ɴᴇxᴢᴜs 🌴',
-        thumbnailUrl: 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763819289535_182226.jpeg',
+        thumbnailUrl: 'https://files.catbox.moe/2xj18e.jpg',
         sourceUrl: redes,
         mediaType: 1,
         renderLargerThumbnail: true
