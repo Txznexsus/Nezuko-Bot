@@ -34,7 +34,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
  
     let tags = {
       'info': '`𝐈𝐍𝐅𝐎` 🪵꙰*',
-      'main': '𝐌𝐀𝐈𝐍` 🦋*',
+      'main': '`𝐌𝐀𝐈𝐍` 🦋*',
       'anime': '`𝐀𝐍𝐈𝐌𝐄` 🍃*',
       'menu': '`𝐌𝐄𝐍𝐔𝐒` 🍁*',
       'search': '`𝐁𝐔𝐒𝐐𝐔𝐄𝐃𝐀𝐒` 🎍*',
