@@ -105,7 +105,7 @@ global.rcanalx = {
       newsletterName: channelRD.name,
     },
     externalAdReply: {
-      title: `🌱 ᥒᥱzᥙk᥆-ᑲ᥆𝗍 🪵`,
+      title: `🌱 ɴᴇᴢᴜᴋᴏ-ʙᴏᴛ 🪵`,
       body: `🍁 ᴀᴄᴄᴇsᴏ ᴅᴇɴᴇɢᴀᴅᴏ┆ʀᴇɢɪsᴛʀᴀᴛᴇ`,
       mediaUrl: null,
       description: null,
