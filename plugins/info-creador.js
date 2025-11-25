@@ -10,7 +10,7 @@ const handler = async (m, { conn }) => {
   const correo = 'ᥒ᥆𝗍ᥱᥒg᥆@gmail.com'
   const web = 'https://itz.nexzus.vercel.app/'
   const direccion = 'Tokyo, Japón 🇯🇵'
-  const fotoPerfil = 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763345073781_8605.jpeg'
+  const fotoPerfil = 'https://files.catbox.moe/s9lvnz.jpg'
 
   const vcard = `
 BEGIN:VCARD
@@ -33,8 +33,8 @@ END:VCARD`.trim();
     displayName: name,
     vcard
   };
-  m.react('🌿');
-  conn.reply(m.chat, `*\`☕ Enviando contacto xd....\`*`, m)
+  m.react('🪵');
+  conn.reply(m.chat, `*\`✧ ᴀᴄᴀ ᴛɪᴇɴᴇs....\`*`, m)
   await conn.sendMessage(m.chat, {
     contacts: {
       displayName: name,
