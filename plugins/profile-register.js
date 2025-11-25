@@ -34,14 +34,14 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
 
   const fkontak = {
     key: { participant: '0@s.whatsapp.net', remoteJid: 'status@broadcast', fromMe: false, id: '🧣' },
-    message: { locationMessage: { name: '🎄 Registro Kaneki', jpegThumbnail: thumbBuffer } },
+    message: { locationMessage: { name: '🍁 ʀᴇɢɪsᴛʀᴏ ɴᴇᴢᴜᴋᴏ', jpegThumbnail: thumbBuffer } },
     participant: '0@s.whatsapp.net'
   }
 
   if (user.registered) {
-    const caption = `🌿✨ *Ya estás registrado* ✨🌿
+    const caption = `🌴 *Ya estás registrado* 🧃
 
-No necesitas volver a hacerlo 🎁
+ɴᴏ ɴᴇᴄᴇsɪᴛᴀs ʜᴀᴄᴇʀʟᴏ 🎋
 
 Si deseas borrar tu registro:
 > *${usedPrefix}unreg*
