@@ -9,7 +9,7 @@ const { generateWAMessageFromContent, generateWAMessageContent, proto } = bailey
 
 let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
   try {
-    await m.react('🚀')
+    await m.react('🍓')
 
     const user = global.db.data.users[m.sender] || {}
     const name = await conn.getName(m.sender)
@@ -33,27 +33,27 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     const pais = phone.getRegionCode() || 'Desconocido 🌐'
 
     let tags = {
-      'info': ' ׅ🪹ׁ᷒ᮬ ׅ 𝐈𝐍𝐅𝐎 ❐*̥₊',
-      'main': ' ׅ🍥ׁ᷒ᮬ ׅ 𝐌𝐀𝐈𝐍 ❐*̥₊',
-      'anime': ' ׅ🧃ׁ᷒ᮬ ׅ 𝐀𝐍𝐈𝐌𝐄 ❐*̥₊',
-      'menu': ' ׅ🦋ׁ᷒ᮬ ׅ 𝐌𝐄𝐍𝐔𝐒 ❐*̥₊',
-      'search': ' ׅ🍧ׁ᷒ᮬ ׅ 𝐁𝐔𝐒𝐐𝐔𝐄𝐃𝐀𝐒 ❐*̥₊',
-      'download': ' ׅ 🍃ׁ᷒ᮬ ׅ 𝐃𝐄𝐒𝐂𝐀𝐑𝐆𝐀𝐒 ❐*̥₊',
-      'socket': ' ׅ 🧊ׁ᷒ᮬ ׅ 𝐉𝐀𝐃𝐈-𝐁𝐎𝐓𝐒 ❐*̥₊',
-      'rg': ' ׅ 🪵ׁ᷒ᮬ ׅ 𝐏𝐄𝐑𝐅𝐈𝐋 ❐*̥₊',
-      'fun': ' ׅ 🪴ׁ᷒ᮬ ׅ  𝐅𝐔𝐍 ❐*̥₊',
-      'rpg': ' ׅ 🪸ׁ᷒ᮬ ׅ 𝐄𝐂𝐎𝐍𝐎𝐌𝐈𝐀 ❐*̥₊',
-      'gacha': ' ׅ 🪷ׁ᷒ᮬ ׅ 𝐆𝐀𝐂𝐇𝐀 ❐*̥₊',
-      'game': ' ׅ 🪺ׁ᷒ᮬ ׅ 𝐆𝐀𝐌𝐄 ❐*̥₊',
-      'group': ' ׅ 🕸️ׁ᷒ᮬ ׅ 𝐆𝐑𝐔𝐏𝐎 ❐*̥₊',
-      'nable': ' ׅ 💫ׁ᷒ᮬ ׅ 𝐎𝐍 / 𝐎𝐅𝐅 ❐*̥₊',
-      'ia': ' ׅ 🌿ׁ᷒ᮬ ׅ  𝐈𝐍𝐓𝐄𝐋𝐈𝐆𝐄𝐍𝐂𝐈𝐀 ❐*̥₊',
-      'stalk': ' ׅ 💐ׁ᷒ᮬ ׅ 𝐒𝐓𝐀𝐋𝐊  ❐*̥₊',
-      'maker': ' ׅ🎋ׁ᷒ᮬ ׅ 𝐋𝐎𝐆𝐎𝐓𝐈𝐏𝐎𝐒 ❐*̥₊',
-      'tools': ' ׅ🍬ׁ᷒ᮬ ׅ 𝐓𝐎𝐎𝐋𝐒 ❐*̥₊',
-      'sticker': ' ׅ👾🪼ׁ᷒ᮬ ׅ 𝐒𝐓𝐈𝐂𝐊𝐄𝐒 ❐*̥₊',
-      'owner': ' ׅ🐦‍🔥ׁ᷒ᮬ ׅ 𝐎𝐖𝐍𝐄𝐑 ❐*̥₊',
-      'nsfw': ' ׅ👾ׁ᷒ᮬ ׅ 𝐍𝐒𝐅𝐖 ❐*̥₊',
+      'info': '`𝐈𝐍𝐅𝐎` 🪵꙰*',
+      'main': '`𝐌𝐀𝐈𝐍` 🦋꙰*',
+      'anime': '`𝐀𝐍𝐈𝐌𝐄` 🍃꙰*',
+      'menu': '`𝐌𝐄𝐍𝐔𝐒` 🍁꙰*',
+      'search': '`𝐁𝐔𝐒𝐐𝐔𝐄𝐃𝐀𝐒` 🎍꙰*',
+      'download': '`𝐃𝐄𝐒𝐂𝐀𝐑𝐆𝐀𝐒` 🌹꙰*',
+      'socket': '`𝐉𝐀𝐃𝐈-𝐁𝐎𝐓𝐒` 🧃꙰*',
+      'rg': '`𝐏𝐄𝐑𝐅𝐈𝐋` 🪻꙰*',
+      'fun': '`𝐅𝐔𝐍` 🪾꙰*',
+      'rpg': '`𝐄𝐂𝐎𝐍𝐎𝐌𝐈𝐀` 🌾꙰*',
+      'gacha': '`𝐆𝐀𝐂𝐇𝐀` ☘️꙰*',
+      'game': '`𝐆𝐀𝐌𝐄` 🍄꙰*',
+      'group': '`𝐆𝐑𝐔𝐏𝐎` 🌿꙰*',
+      'nable': '`𝐎𝐍 / 𝐎𝐅𝐅` 🪴꙰*',
+      'ia': '`𝐈𝐍𝐓𝐄𝐋𝐈𝐆𝐄𝐍𝐂𝐈𝐀` 🎋꙰*',
+      'stalk': '`𝐒𝐓𝐀𝐋𝐊`  🌱꙰*',
+      'maker': '`𝐋𝐎𝐆𝐎𝐓𝐈𝐏𝐎𝐒` 🍂꙰*',
+      'tools': '`𝐓𝐎𝐎𝐋𝐒` 💐꙰*',
+      'sticker': '`𝐒𝐓𝐈𝐂𝐊𝐄𝐒` 🌳꙰*',
+      'owner': '`𝐎𝐖𝐍𝐄𝐑` 🪵꙰*',
+      'nsfw': '`𝐍𝐒𝐅𝐖` 🌴꙰*',
     }
 
     let commands = Object.values(global.plugins)
@@ -69,48 +69,51 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     for (let tag in tags) {
       let comandos = commands
         .filter(cmd => cmd.tags.includes(tag))
-        .map(cmd => cmd.help.map(e => `*│ ➩ ${usedPrefix}${e}*`).join('\n'))
+        .map(cmd => cmd.help.map(e => `*║➣  ${usedPrefix}${e}*`).join('\n'))
         .join('\n')
       if (comandos) {
         menuTexto += `\n\n*╭──꒰* ${tags[tag]} *꒱𔖲𔖮𔖭*\n${comandos}\n*╰─────────────┈┄╌*\n`
       }
     }
 
-    const infoUser = `    🌳 •┆ 𝐊𝐀𝐍𝐄𝐊𝐈 𝐁𝐎𝐓 𝐀𝐈 ┆• 🥙
-          •╌╌╌╌╌╌╌╌╌╌╌╌•
- ִ ࣪ 𓈒 ᗣ  ${ucapan()}  ࣫ㅤׅ 🎄۫ 
-    ᗞᗞ @${userId}  ⌒᷼🥗 
+    const infoUser = `    🍃┆һ᥆ᥣᥲ s᥆ᥡ ᥒᥱzᥙk᥆-ᑲ᥆𝗍┆🪵
+       *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･
+ ִ ࣪ 𓈒 ꙰✧  ${ucapan()}  ࣫ㅤׅ 🎄۫ 
+    ꙰❀ @${userId}  ⌒᷼🥗 
+·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
+︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶  ︶ 
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 
-̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮  ̮   ̮   ̮   ̮   ̮   ̮ 
-︶︶︶︶︶︶︶︶︶︶︶︶︶︶︶︶
-
-﹙💛 ﹚🐥  ੭੭ ─ 𝐈𝐍𝐅𝐎 𝐁𝐎𝐓'𝐬  ﾟ･:𑇛
-
- ⌗ֶㅤ֯𝅄⿻ 🪹 ׄ ⬭ 🄿remium: *${premium}*
- ⌗ֶㅤ֯𝅄⿻ 🪴 ׄ ⬭ 🄿ais: *${pais}*
- ⌗ֶㅤ֯𝅄⿻ 🪵 ׄ ⬭ 🄻imite: *${limit}*
- ⌗ֶㅤ֯𝅄⿻ 🌿 ׄ ⬭ 🅄sers registrados: *${totalreg}*
- ⌗ֶㅤ֯𝅄⿻ 🍄 ׄ ⬭ 🄶rupos activos: *${groupsCount}*
- ⌗ֶㅤ֯𝅄⿻ 🌟 ׄ ⬭ 🅁untime: *${uptime}*
+✧─･ ｡ﾟ★: *.𝑰𝒏𝒇𝒐-𝑩𝒐𝒕 .* :★.─✧
+            
+ ꙰🍃 Ꮲremium: *${premium}*
+ ꙰🍁 Ꮲais: *${pais}*
+ ꙰🧃 Ꮮimite: *${limit}*
+ ꙰🌴 Ⴎsers registrados: *${totalreg}*
+ ꙰🍂 Ꮐrupos activos: *${groupsCount}*
+ ꙰🌳 Ꭱuntime: *${uptime}*
 ${readMore}
-̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮   ̮  ̮   ̮   ̮   ̮   ̮   ̮ 
-︶︶︶︶︶︶︶︶︶︶︶︶︶︶︶︶
+·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   ·   
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
+︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶  ︶ 
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 
- ᦷᩘᦷ  ⃪֪݊🥢໑ٜ࣪ ㅤ🄱ot: *${(conn.user.jid == global.conn.user.jid ? 'Principal' : 'Sub-Bot')}*
- ᦷᩘᦷ  ⃪֪݊🎋໑ٜ࣪ ㅤ🄲omandos: *${totalCommands}*
- ᦷᩘᦷ  ⃪֪݊☃️໑ٜ࣪ ㅤ🅅ersion: *${vs}*
- ᦷᩘᦷ  ⃪֪݊🥙໑ٜ࣪ ㅤ🄻ibreria: *${libreria}*
- ᦷᩘᦷ  ⃪֪݊🎍໑ٜ࣪ ㅤ🄵echa: *${hora}, ${dia}, ${fechaTxt}*
+ ʚ🌴ɞ Ᏼot: *${(conn.user.jid == global.conn.user.jid ? 'Principal' : 'Sub-Bot')}*
+ ʚ🌱ɞ Ꮯomandos: *${totalCommands}*
+ ʚ🍂ɞ Ꮩersion: *${vs}*
+ ʚ🍁ɞ Ꮮibreria: *${libreria}*
+ ʚ🪵ɞ Ғecha: *${hora}, ${dia}, ${fechaTxt}*
 
-\`ׄ🎅 ׅ り cᨣmanꛆᨣs ꛆisponiblєs: っっ ฺฺ✿ᰰ᷒\`
+\`🪴 ᥴᨣmᥲᥒძ᥆s ძіs⍴᥆ᥒіᑲᥣᥱ┆ᥒᥱzᥙk᥆ 🍃\`
  ${readMore}`.trim()
 
     const imgs = [
-      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404449889_268409.jpeg',
-      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763404456592_385271.jpeg',
-      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763896757761_373956.jpeg',
-      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763896968059_706464.jpeg',
-      'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763896749488_782818.jpeg'
+      'https://files.catbox.moe/tn26yu.jpg',
+      'https://files.catbox.moe/c7xxwl.jpg',
+      'https://files.catbox.moe/5y3nba.jpg',
+      'https://files.catbox.moe/tn26yu.jpg',
+      'https://files.catbox.moe/c7xxwl.jpg'
     ]
     let imageUrl = imgs[Math.floor(Math.random() * imgs.length)]
 
