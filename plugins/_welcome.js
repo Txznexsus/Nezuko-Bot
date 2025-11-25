@@ -109,11 +109,11 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
 
 🌾 ${mensaje}
 
-📉 *「 𝐄𝐬𝐭𝐚𝐝𝐨 𝐀𝐜𝐭𝐮𝐚𝐥 」*
-💛 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
-🌳 ᴘᴀíꜱ: ${nacionalidad}
-🥙 ʜᴏʀᴀ: ${hora}
-🍃 ғᴇᴄʜᴀ: ${fechaTexto}`
+🧃 *「 ᴇsᴛᴀᴅᴏ ᴀᴄᴛᴜᴀʟ ᴅᴇʟ ɢʀᴜᴘᴏ 」*
+🌴 ᴍɪᴇᴍʙʀᴏꜱ: ${groupSize}
+🌱 ᴘᴀíꜱ: ${nacionalidad}
+☘️ ʜᴏʀᴀ: ${hora}
+🪴 ғᴇᴄʜᴀ: ${fechaTexto}`
 
   const imgGoodbye = `https://api.siputzx.my.id/api/canvas/goodbyev5?username=${
     encodeURIComponent(userId.split('@')[0])
