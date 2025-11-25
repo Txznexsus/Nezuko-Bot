@@ -79,7 +79,7 @@ Ejemplo:
     
     const productMessage = {
       product: {
-        productImage: { url: 'https://files.catbox.moe/59ddu4.jpg' },
+        productImage: { url: 'https://files.catbox.moe/xp9d85.jpg' },
         productId: '9999999999999',
         title: '⛄ 𝐅𝐨𝐫𝐦𝐚𝐭𝐨 𝐈𝐧𝐜𝐨𝐫𝐫𝐞𝐜𝐭𝐨 🌠',
         description: global.textbot,
