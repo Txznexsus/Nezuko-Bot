@@ -6,7 +6,7 @@ const handler = async (m, { conn }) => {
   const name = 'і𝗍z.ᥒᥱ᥊zᥙs'
   const numCreador = '51939260696'
   const empresa = 'ᥒᥱzᥙk᥆-ᑲ᥆𝗍 ɪɴɪᴄ.'
-  const about = '🍃 ʜᴏʟᴀ ᴘᴇɴᴅᴇᴊᴏ ǫᴜᴇ ᴅᴇsᴇᴀs,ᴄᴜᴀʟǫᴜɪᴇʀ ᴄᴏɴsᴜʟᴛᴀ ɴᴏ ᴇsᴛᴏʏ.'
+  const about = '🍃 ʜᴏʟᴀ ᴘᴇɴᴅᴇᴊᴏ ǫᴜᴇ ᴅᴇsᴇᴀs.'
   const correo = 'ᥒ᥆𝗍ᥱᥒg᥆@gmail.com'
   const web = 'https://itz.nexzus.vercel.app/'
   const direccion = 'Tokyo, Japón 🇯🇵'
