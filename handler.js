@@ -386,17 +386,16 @@ global.dfail = (type, m, conn) => {
 
    botAdmin: ` ׄ 🚀 ׅ  𝙋𝙖𝙧𝙖 𝙚𝙟𝙚𝙘𝙪𝙩𝙖𝙧 𝙚𝙡 𝙘𝙤𝙢𝙖𝙣𝙙𝙤 *${comando}* 𝙙𝙚𝙗𝙤 𝙨𝙚𝙧 𝙖𝙙𝙢𝙞𝙣𝙞𝙨𝙩𝙧𝙖𝙙𝙤𝙧 𝙙𝙚𝙡 𝙜𝙧𝙪𝙥𝙤.`,
    
-   unreg: ` ❰ 𝙽𝙾 𝚃𝙴 𝙷𝙰𝚂 𝚁𝙴𝙶𝙸𝚂𝚃𝚁𝙰𝙳𝙾(𝙰) ❱
-🎄 𝙿𝙰𝚁𝙰 𝚄𝚂𝙰𝚁 𝙴𝚂𝚃𝙰 𝙵𝚄𝙽𝙲𝙸𝙾́𝙽,  
-𝙽𝙴𝙲𝙴𝚂𝙸𝚃𝙰𝚂 𝚁𝙴𝙶𝙸𝚂𝚃𝚁𝙰𝚁𝚃𝙴 𝙿𝚁𝙸𝙼𝙴𝚁𝙾 🍃
+   unreg: ` 🌹 ɴᴏ ᴛᴇ ʜᴀs ʀᴇɢɪsᴛʀᴀᴅᴏ(ᴀ) 🪴
+🍁 ᴘᴀʀᴀ ᴜsᴀʀ ᴇsᴛᴀ ғᴜɴᴄɪᴏ́ɴ,  ɴᴇᴄᴇsɪᴛᴀs ʀᴇɢɪsᴛʀᴀʀᴛᴇ 𝙿𝚁𝙸𝙼𝙴𝚁𝙾 🍃
 
-𝚄𝚂𝙰 𝙴𝙻 𝚂𝙸𝙶𝚄𝙸𝙴𝙽𝚃𝙴 𝙲𝙾𝙼𝙰𝙽𝙳𝙾:
+ᴜsᴀ ᴇʟ sɪɢᴜɪᴇɴᴛᴇ ᴄᴏᴍᴀɴᴅᴏ:
 🎅 #ʀᴇɢ <ɴᴏᴍʙʀᴇ.ᴇᴅᴀᴅ>
 
-❄️ 𝙴𝙹𝙴𝙼𝙿𝙻𝙾: 🦌
+🎋 ᴇᴊᴇᴍᴘʟᴏ: 🍂
 > \`#${verifyaleatorio} ${user2}.${edadaleatoria}\``, 
 
-   restrict: `*_ ׄ ☁️ ׅ  Esta caracteristica está desactivada._*`
+   restrict: `*_ ׄ 🌴 ׅ  Esta caracteristica está desactivada._*`
 }[type]
 if (msg) return conn.reply(m.chat, msg, m, rcanalx).then(_ => m.react('✖️'))
 }
