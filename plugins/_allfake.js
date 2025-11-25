@@ -105,8 +105,8 @@ global.rcanalx = {
       newsletterName: channelRD.name,
     },
     externalAdReply: {
-      title: `🍃 кαиєкι вσт αι 🌳`,
-      body: `🎍 !𝐀𝐂𝐂𝐄𝐒𝐎 𝐃𝐄𝐍𝐄𝐆𝐀𝐃𝐎¡ ⿻𝅄`,
+      title: `🌱 ᥒᥱzᥙk᥆-ᑲ᥆𝗍 🪵`,
+      body: `🍁 ᴀᴄᴄᴇsᴏ ᴅᴇɴᴇɢᴀᴅᴏ┆ʀᴇɢɪsᴛʀᴀᴛᴇ`,
       mediaUrl: null,
       description: null,
       previewType: "PHOTO",
@@ -144,7 +144,7 @@ global.rch = {
     forwardingScore: 2025,
     isForwarded: true,
     externalAdReply: { 
-      title: ' ⊹🌿꙰  kᥲᥒᥱkі ᑲ᥆𝗍 ᥲі ✧🎄🦌',
+      title: '🌱 ᥒᥱzᥙk᥆-ᑲ᥆𝗍 🪵',
       body: '',
       sourceUrl: 'https://chat.whatsapp.com/BU22fjRehH1CUSsGEYMRXN?mode=wwt',
       thumbnailUrl: icono,
