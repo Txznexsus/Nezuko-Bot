@@ -139,7 +139,7 @@ handler.before = async function (m, { conn, groupMetadata }) {
   }
 
   try {
-
+  
     if (chat.welcome && m.messageStubType == WAMessageStubType.GROUP_PARTICIPANT_ADD) {
 
       const { pp, caption } = await generarBienvenida({ conn, userId, groupMetadata, chat })
