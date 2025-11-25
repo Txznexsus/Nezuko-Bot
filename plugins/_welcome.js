@@ -105,8 +105,7 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
     .replace(/{grupo}/g, `*${groupMetadata.subject}*`)
     .replace(/{desc}/g, `*${desc}*`)
 
-  const caption = `🌸💫 𝙴𝚕 𝚟𝚒𝚎𝚗𝚝𝚘 𝚌𝚊𝚖𝚋𝚒𝚊...
-╰┈► ${username} 𝚑𝚊 𝚍𝚎𝚓𝚊𝚍𝚘 𝚎𝚕 𝚐𝚛𝚞𝚙𝚘 *${groupMetadata.subject}* 💐
+  const caption = `🍁 ʟᴏs ʀᴇᴄᴜᴇʀᴅᴏs ᴏ̨ᴜᴇᴅᴀɴ ${username} ᴀʙᴀɴᴅᴏɴᴏ́ ᴇʟ ɢʀᴜᴘᴏ *${groupMetadata.subject}* 🍂
 
 🌾 ${mensaje}
 
