@@ -224,7 +224,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
       contextInfo: {
         mentionedJid: [userId],
         externalAdReply: {                
-          title: ' ˗ˏˋ♡ˎˊ˗ ❏ ¡𝐖 𝐄 𝐋 𝐂 𝐎 𝐌 𝐄! ᯤ ˗ˏˋ♡ˎˊ˗',
+          title: '✧ 𝐸𝑠𝑝𝑒𝑟𝑒𝑚𝑜𝑠 𝑉𝑢𝑒𝑙𝑣𝑎𝑠┆𝑁𝑒𝑧𝑢𝑘𝑜 ✧',
           body: textbot,
           mediaType: 1,
           mediaUrl: redes,
