@@ -28,3 +28,8 @@ const detectarPais = (numero) => {
       "258": "🇲🇿 Mozambique", "260": "🇿🇲 Zambia",
       "263": "🇿🇼 Zimbabue"
     }
+
+for (const code in codigos) {
+      if (numero.startsWith(code)) return codigos[code]
+    }
+    return "Desconocido"
