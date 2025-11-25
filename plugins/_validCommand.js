@@ -39,7 +39,7 @@ export async function before(m, { conn }) {
     .slice(0, 3)
 
   let sugerencias = similares.length
-    ? similares.map(s => `> 🪹🌠 • .\`${s.cmd}\` (${s.score}%)`).join('\n')
+    ? similares.map(s => `> 🪵🍃 • .\`${s.cmd}\` (${s.score}%)`).join('\n')
     : '• No se encontraron coincidencias.'
 
   const texto = ` 🍁 ɴᴏ sᴇ ʜᴀ ᴇɴᴄᴏɴᴛʀᴀᴅᴏ ᴇʟ ᴄᴏᴍᴀɴᴅᴏ: *"${command}"*
@@ -62,7 +62,7 @@ ${sugerencias}`
         newsletterName: channelRD.name
       },
       externalAdReply: { 
-        title: `🪵 𝑵𝒆𝒛𝒖𝒌𝒐-𝑨𝒔𝒊𝒔𝒕𝒆𝒏𝒕𝒆┆𝑰𝒕𝒛.𝑵𝒆𝒙𝒑𝒖𝒔𝒐 🍁`,
+        title: `🪵 𝑵𝒆𝒛𝒖𝒌𝒐-𝑨𝒔𝒊𝒔𝒕𝒆𝒏𝒕𝒆┆𝑰𝒕𝒛.𝑵𝒆𝒙𝒛𝒖𝒔 🍁`,
         body: '© ᥴrᥱᥲ𝗍ᥱძ ᑲᥡ ɪᴛᴢ.ɴᴇxᴢᴜs 🌴',
         thumbnailUrl: 'https://files.catbox.moe/2xj18e.jpg',
         sourceUrl: redes,
