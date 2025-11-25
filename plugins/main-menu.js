@@ -33,7 +33,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
     const pais = phone.getRegionCode() || 'Desconocido 🌐'
  
     let tags = {
-      'info': ' ׅ🪹ׁ᷒ᮬ ׅ 𝐈𝐍𝐅𝐎 ❐*̥₊',
+      'info': ' ׅ🪹ׁ᷒ᮬ ׅ 𝐈𝐍𝐅𝐎`*',
       'main': ' ׅ🍥ׁ᷒ᮬ ׅ 𝐌𝐀𝐈𝐍 ❐*̥₊',
       'anime': ' ׅ🧃ׁ᷒ᮬ ׅ 𝐀𝐍𝐈𝐌𝐄 ❐*̥₊',
       'menu': ' ׅ🦋ׁ᷒ᮬ ׅ 𝐌𝐄𝐍𝐔𝐒 ❐*̥₊',
