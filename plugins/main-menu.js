@@ -99,11 +99,11 @@ ${readMore}
 ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶ ︶  ︶ 
 ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 
- ᦷᩘᦷ  ⃪֪݊🥢໑ٜ࣪ ㅤ🄱ot: *${(conn.user.jid == global.conn.user.jid ? 'Principal' : 'Sub-Bot')}*
- ᦷᩘᦷ  ⃪֪݊🎋໑ٜ࣪ ㅤ🄲omandos: *${totalCommands}*
- ᦷᩘᦷ  ⃪֪݊☃️໑ٜ࣪ ㅤ🅅ersion: *${vs}*
- ᦷᩘᦷ  ⃪֪݊🥙໑ٜ࣪ ㅤ🄻ibreria: *${libreria}*
- ᦷᩘᦷ  ⃪֪݊🎍໑ٜ࣪ ㅤ🄵echa: *${hora}, ${dia}, ${fechaTxt}*
+ ʚ🌴ɞ Ᏼot: *${(conn.user.jid == global.conn.user.jid ? 'Principal' : 'Sub-Bot')}*
+ ʚ🌱ɞ Ꮯomandos: *${totalCommands}*
+ ʚ🍂ɞ Ꮩersion: *${vs}*
+ ʚ🍁ɞ Ꮮibreria: *${libreria}*
+ ʚ🪵ɞ Ғecha: *${hora}, ${dia}, ${fechaTxt}*
 
 \`ׄ🎅 ׅ り cᨣmanꛆᨣs ꛆisponiblєs: っっ ฺฺ✿ᰰ᷒\`
  ${readMore}`.trim()
