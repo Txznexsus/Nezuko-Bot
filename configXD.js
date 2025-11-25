@@ -37,7 +37,7 @@ global.author = "© mᥲძᥱ ᥕі𝗍һ ᑲᥡ і𝗍z.ᥒᥱ᥊zᥙs"
 global.etiqueta = "⊹ і𝗍z.ᥒᥱ᥊zᥙs"
 
 global.currency = "¥enes"
-global.banner = "https://i.pinimg.com/originals/90/c8/58/90c858c65f0b3b2fca9a226fa369aa2b.png"
+global.banner = "https://files.catbox.moe/l4l40l.jpg"
 global.icono2 = "https://files.catbox.moe/mpkduo.jpg"
 global.logo = "https://files.catbox.moe/9yxzua.jpg"
 
