@@ -76,7 +76,7 @@ let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
       }
     }
 
-    const infoUser = `    🌳 •┆ 𝐊𝐀𝐍𝐄𝐊𝐈 𝐁𝐎𝐓 𝐀𝐈 ┆• 🥙
+    const infoUser = `    🍃┆һ᥆ᥣᥲ s᥆ᥡ nezuko-bot┆🪵
           •╌╌╌╌╌╌╌╌╌╌╌╌•
  ִ ࣪ 𓈒 ᗣ  ${ucapan()}  ࣫ㅤׅ 🎄۫ 
     ᗞᗞ @${userId}  ⌒᷼🥗 
