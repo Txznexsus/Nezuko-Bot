@@ -64,11 +64,11 @@ global.fkontak = { key: { participants:"0@s.whatsapp.net", "remoteJid": "status@
 
 global.icono = [
 'https://i.pinimg.com/originals/b3/67/d5/b367d513d861de468305c32c6cd22756.jpg', 
-'https://cdn.yupra.my.id/yp/mmuj995h.jpg', 
-'https://cdn.yupra.my.id/yp/ey5l5cct.jpg',
-'https://cdn.yupra.my.id/yp/o720p39m.jpg',
-'https://cdn.yupra.my.id/yp/a81y4vy5.jpg',
-'https://cdn.yupra.my.id/yp/uwx1azzu.jpg',
+'https://files.catbox.moe/9gz5zp.jpg', 
+'https://files.catbox.moe/l4l40l.jpg',
+'https://files.catbox.moe/ty305q.jpg',
+'https://files.catbox.moe/ripli4.jpg',
+'https://files.catbox.moe/n31l4z.jpg',
 'https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763311856541_363781.jpeg'
 ].getRandom()
 /*
