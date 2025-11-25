@@ -70,11 +70,11 @@ const status = `> 🌴 El grupo ha sido ${m.messageStubParameters[0] == 'on' ? '
 > 🍃 Ahora ${m.messageStubParameters[0] == 'on' ? '*solo admins*' : '*todos*'} pueden enviar mensaje.`
 
 const admingp = `> 🍃 @${users.split('@')[0]} Ahora es admin del grupo.
-> 🎄 Acción hecha por:
+> 🎋 Acción hecha por:
 > » @${usuario.split('@')[0]}`
 
-const noadmingp = `> 🚀 @${users.split('@')[0]} Deja de ser admin del grupo.
-> 🌾 Acción hecha por:
+const noadmingp = `> 🌷 @${users.split('@')[0]} Deja de ser admin del grupo.
+> 💐 Acción hecha por:
 > » @${usuario.split('@')[0]}`
 
 if (chat.detect && m.messageStubType == 2) {
