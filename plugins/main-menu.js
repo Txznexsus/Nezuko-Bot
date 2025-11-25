@@ -9,7 +9,7 @@ const { generateWAMessageFromContent, generateWAMessageContent, proto } = bailey
 
 let handler = async (m, { conn, usedPrefix, __dirname, participants }) => {
   try {
-    await m.react('🚀')
+    await m.react('🍓')
 
     const user = global.db.data.users[m.sender] || {}
     const name = await conn.getName(m.sender)
@@ -141,7 +141,7 @@ ${readMore}
             mimetype: "image/jpeg",
             jpegThumbnail: Shadow_url
           },
-          title: "ㅤׁ෨ 💛 𝐌 𝐄 𝐍 𝐔 • 𝐊 𝐀 𝐍 𝐄 𝐊 𝐈 - 𝖻ᨣƚ 🎁 ラ",
+          title: "ᴍᴇɴᴜ-ɴᴇᴢᴜᴋᴏ 🍃",
           description: "",
           currencyCode: "USD",
           priceAmount1000: 10000,
