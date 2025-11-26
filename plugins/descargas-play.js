@@ -5,7 +5,7 @@ const youtubeRegexID = /(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-z
 
 const handler = async (m, { conn, text, command }) => {
   try {
-    if (!text?.trim()) return conn.reply(m.chat, `⚽ *Por favor, ingresa el nombre o enlace del video.*`, m)
+    if (!text?.trim()) return conn.reply(m.chat, `🍂 *Por favor, ingresa el nombre o enlace del video.*`, m)
 
     let videoIdMatch = text.match(youtubeRegexID)
     let search = await yts(videoIdMatch ? 'https://youtu.be/' + videoIdMatch[1] : text)
@@ -19,27 +19,27 @@ const handler = async (m, { conn, text, command }) => {
     const vistas = formatViews(views)
     const canal = author?.name || 'Desconocido'
     const canalLink = author?.url || 'https://youtube.com'
-    
+
     const infoMessage = `
-🍃 *Título:* 
+🌹 *Título:* 
 > *${title}*
 
-🚀 *Canal:* 
+🌴 *Canal:* 
 > ${canal}
 
-💐 *Vistas:*
+🪴 *Vistas:*
 > ${vistas}
 
-⌛ *Duración:* 
+🪾 *Duración:* 
 > ${timestamp || 'Desconocido'}
 
-📆 *Publicado:* 
+🦋 *Publicado:* 
 > ${ago || 'Desconocido'}
 
-🌱 *Enlace:*
+🌾 *Enlace:*
 > ${url}
 
-🎍 *Canal:*
+🌿 *Canal:*
 > ${canalLink}`.trim()
 
     await conn.sendMessage(m.chat, {
@@ -58,16 +58,16 @@ const handler = async (m, { conn, text, command }) => {
     }, { quoted: m })
 
     if (command === 'playaudio') {
-      const apiUrl = `https://api.vreden.my.id/api/v1/download/youtube/audio?url=${encodeURIComponent(url)}&quality=128`
+      const apiUrl = `https://api-shadowxyz.vercel.app/download/ytmp3V2?url=${encodeURIComponent(url)}`
       const res = await fetch(apiUrl)
       const json = await res.json()
 
-      if (!json.status || !json.result?.download?.url)
+      if (!json.status || !json.result?.download_url)
         throw '*⚠ No se obtuvo un enlace de audio válido.*'
 
       const data = json.result
-      const audioUrl = data.download.url
-      const titulo = data.metadata.title
+      const audioUrl = data.download_url
+      const titulo = data.title
 
       await conn.sendMessage(m.chat, {
         audio: { url: audioUrl },
@@ -77,10 +77,10 @@ const handler = async (m, { conn, text, command }) => {
         contextInfo: {
           externalAdReply: {
             title: titulo,
-            body: data.metadata.author?.name || canal,
+            body: canal,
             mediaType: 1,
-            thumbnailUrl: data.metadata.thumbnail,
-            sourceUrl: data.metadata.url,
+            thumbnailUrl: data.thumbnail,
+            sourceUrl: data.youtube_url,
             renderLargerThumbnail: false
           }
         }
@@ -103,7 +103,7 @@ const handler = async (m, { conn, text, command }) => {
 
       await conn.sendMessage(m.chat, {
         video: { url: videoUrl },
-        caption: `❄️ *${titulo}*`,
+        caption: `🪵 *${titulo}*`,
         mimetype: 'video/mp4',
         fileName: `${titulo}.mp4`,
         contextInfo: {
