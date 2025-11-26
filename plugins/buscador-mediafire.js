@@ -5,7 +5,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!text) 
     return conn.reply(
       m.chat, 
-      `*⚡ Usa el comando así:*\n\n> ${usedPrefix + command} Dragon Ball`, 
+      `*🌱 Usa el comando así:*\n\n> ${usedPrefix + command} Dragon Ball`, 
       m, 
       rcanal
     )
@@ -18,7 +18,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
   try {
 
-    let res = await fetch(`https://api.stellarwa.xyz/search/mediafire?query=${encodeURIComponent(text)}&key=stellar-3j2706f1`)
+    let res = await fetch(`https://api.stellarwa.xyz/search/mediafire?query=${encodeURIComponent(text)}&key=Shadow-xyz`)
     let json = await res.json()
 
     if (!json?.results?.length) {
