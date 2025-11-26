@@ -174,11 +174,15 @@ async function generarDespedida({ conn, userId, groupMetadata, chat }) {
 𝅄 ⏤͟͟͞͞✧ ${username} ⏤͟͟͞͞✧
 
 > ʚ🧃ɞ *ɢʀᴜᴘᴏ:* ${groupMetadata.subject}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 > ʚ🌴ɞ *ᴍɪᴇᴍʙʀᴏs:* ${groupSize}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 > ʚ💐ɞ *ᴘᴀɪs:* ${pais}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 > ʚ🦋ɞ *ʜᴏʀᴀ:* ${hora}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 > ʚ🎋ɞ *ғᴇᴄʜᴀ:* ${fecha}
-
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 🪵꙰ *${mensaje}* 𖥻`
 
   const byeImg = await generarImagenBye({
@@ -225,7 +229,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
                     {
                       name: "cta_url",
                       buttonParamsJson: JSON.stringify({
-                        display_text: "⿻ 𝗖 𝗔 𝗡 𝗔 𝗟 ⿻",
+                        display_text: "✧ ᴄᴀɴᴀʟ ✧",
                         url: channel,
                         merchant_url: channel
                       })
@@ -273,7 +277,7 @@ handler.before = async function (m, { conn, participants, groupMetadata }) {
                     {
                       name: "cta_url",
                       buttonParamsJson: JSON.stringify({
-                        display_text: "⿻ 𝗖 𝗔 𝗡 𝗔 𝗟 ⿻",
+                        display_text: "✧ ᴄᴀɴᴀʟ ✧",
                         url: channel,
                         merchant_url: channel
                       })
