@@ -89,25 +89,25 @@ let handler = async (m, { conn, usedPrefix, command }) => {
           message: {
             interactiveMessage: proto.Message.InteractiveMessage.fromObject({
               body: proto.Message.InteractiveMessage.Body.fromObject({
-                text: `✦ ɴᴇᴢᴜᴋᴏʙᴏᴛ — ɪɴғᴏʀᴍᴀᴄɪᴏ́ɴ ᴅᴇ ʟᴀ ᴄᴀɴᴄɪᴏ́ɴ ✦
+                text: `🪵 ɴᴇᴢᴜᴋᴏ - ʙᴏᴛ 🍁
 
-🍁 𝗗𝗮𝘁𝗼𝘀 𝗱𝗲 𝗹𝗮 𝗽𝗶𝗲𝘇𝗮
-• 🌳 Título: ${title}
-• 🪸 Artista: ${artist}
-• 🪴 Álbum: ${album}
-• 🧃 Lanzamiento: ${release}
-• 🌿 Género: ${genresText}
-• 🪻 Tamaño del clip: ${clipSize}
+⏤͟͟͞͞🪵┆ 𝑾𝒉𝒂𝒕𝒎𝒖𝒔𝒊𝒄┆⏤͟͟͞͞🍂 
+⬤🌴 𝐓𝐢𝐭𝐮𝐥𝐨: ${title}
+⬤🪴 𝐀𝐫𝐭𝐢𝐬𝐭𝐚: ${artist}
+⬤🍀 𝐀𝐥𝐛𝐮𝐦: ${album}
+⬤💐 𝐋𝐚𝐧𝐳𝐚𝐦𝐢𝐞𝐧𝐭𝐨: ${release}
+⬤🎋 𝐆𝐞𝐧𝐞𝐫𝐨: ${genresText}
+⬤🍄 𝐓𝐚𝐦𝐚𝐧𝐨 (𝐜𝐥𝐢𝐩): ${clipSize}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 
-──────────────────────
-
-🧃 𝗜𝗻𝗳𝗼𝗿𝗺𝗮𝗰𝗶𝗼𝗻 𝗱𝗲𝗹 𝘃𝗶𝗱𝗲𝗼 (YouTube)
-• 🦋 Título: ${video.title}
-• 🍁 Duración: ${video.timestamp}
-• 🌴 Vistas: ${video.views.toLocaleString()}
-• 🪾 Publicado: ${published}
-• 🌱 Canal: ${video.author.name}
-• 🍂 Enlace: ${video.url}`
+⏤͟͟͞͞🍁┆ 𝒀𝒐𝒖𝑻𝒖𝒃𝒆 - 𝑰𝒏𝑭𝒐┆⏤͟͟͞͞🌳 
+●🌱 𝐓𝐢𝐭𝐮𝐥𝐨: ${video.title}
+●🪴 𝐃𝐮𝐫𝐚𝐜𝐢𝐨𝐧: ${video.timestamp}
+●🌴 𝐕𝐢𝐬𝐭𝐚𝐬: ${video.views.toLocaleString()}
+●💐 𝐏𝐮𝐛𝐥𝐢𝐜𝐚𝐝𝐨: ${published}
+●🍀 𝐂𝐚𝐧𝐚𝐥: ${video.author.name}
+●🌹 𝐄𝐧𝐥𝐚𝐜𝐞: ${video.url}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ`
               }),
               footer: proto.Message.InteractiveMessage.Footer.fromObject({
                 text: dev
@@ -122,7 +122,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
                   {
                     name: "cta_copy",
                     buttonParamsJson: JSON.stringify({
-                      display_text: "ᴄᴏᴘɪᴀʀ - ᴜʀʟ",
+                      display_text: "🍂 ᴄᴏᴘɪᴀʀ - ᴜʀʟ",
                       id: video.url,
                       copy_code: video.url
                     })
@@ -130,7 +130,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
                   {
                     name: "cta_url",
                     buttonParamsJson: JSON.stringify({
-                      display_text: "🌐 Ver en YouTube",
+                      display_text: "🍃 Ver en YouTube",
                       url: video.url,
                       merchant_url: video.url
                     })
