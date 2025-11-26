@@ -27,19 +27,19 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 
     let txt = `
-╭━━━━━━ ⪻🦌⪼ ━━━━━━╮
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
    *RESULTADOS MEDiAFiRE*
-   📌 *Búsqueda:* ${text}
-╰━━━━━━ ⪻🎅⪼ ━━━━━━╯
+   🦋 *Búsqueda:* ${text}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
     `.trim() + "\n\n"
 
     json.results.forEach((f, i) => {
       txt += `
 *${i + 1}. ${f.filename || 'Archivo desconocido'}*
-📦 *Tamaño:* ${f.filesize || 'Desconocido'}
-🔗 *Link:* ${f.url || 'No disponible'}
-🌐 *Fuente:* ${f.source_url || 'No disponible'}
-📘 *Título:* ${f.source_title || 'Sin Título'}
+🧃 *Tamaño:* ${f.filesize || 'Desconocido'}
+🪸 *Link:* ${f.url || 'No disponible'}
+💐 *Fuente:* ${f.source_url || 'No disponible'}
+🍃 *Título:* ${f.source_title || 'Sin Título'}
 
 ──────────────────────
 `
