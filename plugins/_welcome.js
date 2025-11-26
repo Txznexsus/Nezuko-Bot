@@ -120,9 +120,9 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
     .replace(/{desc}/g, `${desc}`)
 
   const caption =
-`🪵┆𝑾𝒆𝒍𝒄𝒐𝒎𝒆 𝑨𝒍 𝑮𝒓𝒐𝒖𝒑┆𝑵𝒆𝒛𝒖𝒌𝒐 🍁
-𝅄 ── ׁ ୭୧ ۪ ઈ ׄ  *🄱🄸🄴🄽🅅🄴🄽🄸🄳🄾* : ᡣ𐭩
-𝅄 ︵୭୧┈꒰ ${username}  ꒱︵
+`🪵┆𝑾𝒆𝒍𝒄𝒐𝒎𝒆 𝑨𝒍 𝑮𝒓𝒐𝒖𝒑┆𝑵𝒆𝒛𝒖𝒌𝒐 
+𝅄 ᥫ᭡ ┆ *𝑩𝒊𝒆𝒏𝒗𝒆𝒏𝒊𝒅@* ┆ᥫ᭡
+𝅄  ⏤͟͟͞͞✧ ${username}   ⏤͟͟͞͞✧
 
 > ⋅˚₊‧🪽‧₊˚ ⋅ *🄶rupo:* ${groupMetadata.subject}
 > ⋅˚₊‧🌱‧₊˚ ⋅ *🄼iembros:* ${groupSize}
