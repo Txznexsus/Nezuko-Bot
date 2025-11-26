@@ -41,7 +41,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 💐 *Fuente:* ${f.source_url || 'No disponible'}
 🍃 *Título:* ${f.source_title || 'Sin Título'}
 
-──────────────────────
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
 `
     })
 
