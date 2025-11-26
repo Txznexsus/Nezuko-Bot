@@ -10,7 +10,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       rcanal
     )
 
-  let imagen = "https://raw.githubusercontent.com/AkiraDevX/uploads/main/uploads/1763839800526_997569.jpeg"
+  let imagen = "https://files.catbox.moe/axptm8.jpg"
 
  await conn.reply(m.chat, `🪴 *Buscando resultados para:* ${text}\n*🪻 Espera un momento...*`, m)
 
