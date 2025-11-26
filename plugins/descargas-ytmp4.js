@@ -35,12 +35,12 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     const sizeMB = size / 1024 / 1024
 
     let caption = `🍃 *Título:* ${meta.title}
-🧃 *Canal:* ${meta.author?.name}
-🍁 *Duración:* ${meta.duration?.timestamp || "Desconocida"}
-🪴 *Vistas:* ${meta.views?.toLocaleString() || "?"}
-🪵 *Publicado:* ${meta.ago}
+🍟 *Canal:* ${meta.author?.name}
+🕒 *Duración:* ${meta.duration?.timestamp || "Desconocida"}
+👁 *Vistas:* ${meta.views?.toLocaleString() || "?"}
+📅 *Publicado:* ${meta.ago}
 🌾 *Calidad:* ${down.quality}
-🌴 *Tamaño:* ${formatSize(size)}
+💾 *Tamaño:* ${formatSize(size)}
 ────────────────────
 ✨ *Descarga Completa...*`
 
@@ -77,14 +77,14 @@ export default handler*/
     const sizeMB = size / 1024 / 1024
 
     let caption = `🍃 *Título:* ${meta.title}
-🌴 *Canal:* ${meta.author?.name}
-🪴 *Duración:* ${meta.duration?.timestamp || "Desconocida"}
-🪵 *Vistas:* ${meta.views?.toLocaleString() || "?"}
-🦋 *Publicado:* ${meta.ago}
+🍟 *Canal:* ${meta.author?.name}
+🕒 *Duración:* ${meta.duration?.timestamp || "Desconocida"}
+👁 *Vistas:* ${meta.views?.toLocaleString() || "?"}
+📅 *Publicado:* ${meta.ago}
 🌾 *Calidad:* ${down.quality}
-🌳 *Tamaño:* ${formatSize(size)}
+💾 *Tamaño:* ${formatSize(size)}
 ────────────────────
-🌱 *Descarga Completa...*`
+✨ *Descarga Completa...*`
 
     let sendType = sizeMB > 100 ? "document" : "video"
 
@@ -149,11 +149,11 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     const sizeMB = size / 1024 / 1024
 
     let caption = `🍃 *Título:* ${meta.title}
-🪵 *Duración:* ${meta.duration}
-🍁 *Calidad:* 480p
-🍂 *Tamaño:* ${formatSize(size)}
+🕒 *Duración:* ${meta.duration}
+🌾 *Calidad:* 480p
+💾 *Tamaño:* ${formatSize(size)}
 ────────────────────
-🎋 *Descarga Completa...*`
+✨ *Descarga Completa...*`
 
     let sendType = sizeMB > 100 ? "document" : "video"
 
