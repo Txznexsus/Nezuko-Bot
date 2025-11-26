@@ -39,7 +39,7 @@ let thumb = await fetch('https://raw.githubusercontent.com/AkiraDevX/uploads/mai
 
 const fkontak = {
   key: { participant: '0@s.whatsapp.net', remoteJid: 'status@broadcast', id: 'Halo' },
-  message: { locationMessage: { name: '🌲✨  𝐊𝐀𝐍𝐄𝐊𝐈 - 𝐈𝐀 ✨🌲', jpegThumbnail: Buffer.from(thumb || []) } }
+  message: { locationMessage: { name: 'ɴᴇᴢᴜᴋᴏ-ʙᴏᴛ 🍃', jpegThumbnail: Buffer.from(thumb || []) } }
 }
 
 function fechaHoraPeru() {
@@ -120,9 +120,7 @@ async function generarBienvenida({ conn, userId, groupMetadata, chat }) {
     .replace(/{desc}/g, `${desc}`)
 
   const caption =
-`✿┆. 🥗 ۪۪۪۪۪۪  ⃦፝֟     !𝐖 𝐄 𝐋 𝐂 𝐎 𝐌 𝐄¡ㅤ⃦፝֟  ۪۪۪۪۪۪ 🥙 .┆✿
-౨ৎ  ︵ֺ︵ֺ︵︵ֺ︵︵୭୭୭︵ֺ︵︵ֺ︵︵ֺ︵ֺ︵ ౨ৎ
-
+`🪵┆𝑾𝒆𝒍𝒄𝒐𝒎𝒆 𝑨𝒍 𝑮𝒓𝒐𝒖𝒑┆𝑵𝒆𝒛𝒖𝒌𝒐 🍁
 𝅄 ── ׁ ୭୧ ۪ ઈ ׄ  *🄱🄸🄴🄽🅅🄴🄽🄸🄳🄾* : ᡣ𐭩
 𝅄 ︵୭୧┈꒰ ${username}  ꒱︵
 
