@@ -6,7 +6,7 @@ import axios from "axios"
 const handler = async (m, { conn, text, usedPrefix, command }) => {
   try {
     if (!text?.trim())
-      return conn.reply(m.chat, `*🍃 Por favor, ingresa el nombre o enlace del video.*`, m, rcanal)
+      return conn.reply(m.chat, `*🪵 Por favor, ingresa el nombre o enlace del video.*`, m, rcanal)
 
     await m.react('🔎')
 
@@ -32,7 +32,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       message: {
         documentMessage: {
           title: "𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗡𝗗𝗢.... ..",
-          fileName: "🎄☃️ 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗡𝗗𝗢.... .. 🍃",
+          fileName: "🦋 𝗗𝗘𝗦𝗖𝗔𝗥𝗚𝗔𝗡𝗗𝗢.... .. 🌷",
           jpegThumbnail: thumb3
         }
       }
@@ -43,31 +43,30 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       message: {
         documentMessage: {
           title: `「 ${title} 」`,
-          fileName: `☕ 𝗗𝗲𝘀𝗰𝗮𝗿𝗴𝗮 𝗰𝗼𝗺𝗽𝗹𝗲𝘁𝗮 𝗰𝗼𝗻 𝗲𝘅𝗶𝘁𝗼.\n\n\n⚡ ${textbot}` ,
+          fileName: `🍂 𝗗𝗲𝘀𝗰𝗮𝗿𝗴𝗮 𝗰𝗼𝗺𝗽𝗹𝗲𝘁𝗮 𝗰𝗼𝗻 𝗲𝘅𝗶𝘁𝗼.\n\n\n⚡ ${textbot}` ,
           jpegThumbnail: thumb3
         }
       }
     };
 
-    const info = `🪴 *\`YOUTUBE - DOWNLOAD\`* 🪵
+    const info = `🍁 *\`𝗬𝗼𝘂𝘁𝘂𝗯𝗲 – 𝗗𝗢𝗪𝗡𝗟𝗢𝗔𝗗\`* 🌹
 
-💐 *ᴛɪᴛᴜʟᴏ:* ${title}
+🍀 *Título:* ${title}
 ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
-🌴 *ᴄᴀɴᴀʟ:* ${author.name || '🌱 Desconocido'}
+🌱 *Canal:* ${author.name || '🌨️ Unknown'}
 ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
-🍂 *ᴠɪsᴛᴀs:* ${vistas}
+🌾 *Vistas:* ${vistas}
 ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
-🧃 *ᴅᴜʀᴀᴄɪᴏ́ɴ:* ${timestamp}
+🌿 *Duración:* ${timestamp}
 ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
-🪻 *ᴘᴜʙʟɪᴄᴀᴅᴏ:* ${ago}
+🍓 *Publicado:* ${ago}
 ✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
-🪸 *ʟɪɴᴋ:* ${url}
-
-> ౼⋆·˚ ✧* *ᴇsᴘᴇʀᴇ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ* ✧`;
+🌳 *Link:* ${url}
+✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ:*✧･ﾟ: *✧･ﾟ
+> 🪵⌗ ᥫ᭡ ${dev}. 🪸`;
 
     const thumb = (await conn.getFile(thumbnail)).data
     await conn.sendMessage(m.chat, { image: thumb, caption: info }, { quoted: fkontak2 })
-
 
     if (['play', 'mp3'].includes(command)) {
       const audio = await savetube.download(url, "audio");
@@ -85,6 +84,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 
       await m.react('✔️');
     }
+
 
     else if (['play2', 'mp4'].includes(command)) {
 
@@ -120,17 +120,26 @@ handler.command = handler.help = ['play', 'play2', 'mp3', 'mp4'];
 handler.tags = ['download'];
 export default handler;
 
-//=================
 
 async function getVid(url) {
   const apis = [
     {
-      api: 'Yupra',
-      endpoint: `https://api.yupra.my.id/api/downloader/ytmp4?url=${encodeURIComponent(url)}`,
-      extractor: res => res?.result?.formats?.[0]?.url || res?.result?.url
+      api: 'Zenzxz',
+      endpoint: `https://api.zenzxz.my.id/api/downloader/ytmp4?url=${encodeURIComponent(url)}&resolution=144p`,
+      extractor: res => res?.data?.download_url
     }
   ];
-  return await fetchFromApis(apis);
+
+  const primary = await fetchFromApis(apis);
+  if (primary?.url) return primary;
+
+  
+  try {
+    const vid = await savetubeVid(url);
+    if (vid?.status) return { url: vid.result.download, api: "Savetube" };
+  } catch (e) {}
+
+  return null;
 }
 
 async function fetchFromApis(apis) {
@@ -151,7 +160,40 @@ async function fetchFromApis(apis) {
   return null;
 }
 
-//=================
+async function savetubeVid(link) {
+  try {
+    const id = savetube.youtube(link);
+    if (!id) return { status: false };
+
+    const cdnRes = await savetube.getCDN();
+    if (!cdnRes.status) return cdnRes;
+
+    const cdn = cdnRes.data;
+
+    const info = await savetube.request(`https://${cdn}${savetube.api.info}`, { url: `https://www.youtube.com/watch?v=${id}` });
+    if (!info.status) return info;
+
+    const decrypted = await savetube.crypto.decrypt(info.data.data);
+
+    const dl = await savetube.request(`https://${cdn}${savetube.api.download}`, {
+      id,
+      downloadType: "video",
+      quality: "144p",
+      key: decrypted.key
+    });
+
+    if (!dl.data?.data?.downloadUrl)
+      return { status: false };
+
+    return {
+      status: true,
+      result: { download: dl.data.data.downloadUrl }
+    };
+  } catch (err) {
+    return { status: false };
+  }
+}
+
 
 const savetube = {
   api: {
